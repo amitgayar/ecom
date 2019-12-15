@@ -1,0 +1,60 @@
+{
+  "products": [{
+      "id": 2,
+      "name": " 1",
+      "category_id": 1,
+      "parent_id": 1,
+      "mrp": 100,
+      "sp": 90,
+      "cess": 5,
+      "cgst": 6,
+      "sgst": 0,
+      "brand": "Brand 1",
+      "inventory": 20,
+      "barcode": "0213912031",
+      "hsn": "19246918417849",
+      "uom": "kg",
+      "size": "",
+      "color": ""
+    }
+  ],
+  "categories": [{
+      "id": 2,
+      "name": "Category 1",
+      "parent_id": 1
+    }
+  ],
+  "requestStocks": [{
+      "id": 1,
+      "created_at": "2019-12-13T12:50:11.843Z",
+      "updated_at": "2019-12-13T12:50:11.843Z",
+      "status": "requested",
+      "total_amount": 500,
+      "delivered_at": "",
+      "accepted_at": ""
+    }
+  ],
+  "requestStockItems": [{
+      "id": 1,
+      "product_id": 1,
+      "requested_qty": 5,
+      "barcode": "12894140",
+      "is_custom_product": false,
+      "custom_product_id": 1,
+      "stock_request_id": 1,
+      "delivered_qty": 0,
+      "accepted_qty": 0,
+      "created_at": "2019-12-13T12:50:11.843Z",
+      "updated_at": "2019-12-13T12:50:11.843Z",
+      "note": "",
+      "product_price": 123
+    }
+  ],
+  "barcode": [{
+      "id": 1,
+      "barcode": "0149018401",
+      "product_id": 1,
+      "product_name": "Product 1"
+    }
+  ]
+}
