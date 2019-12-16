@@ -1,15 +1,20 @@
 
 
 import 'package:scoped_model/scoped_model.dart';
+import '../Databases/Database.dart';
+import '../model/Database_Models.dart';
 
 import 'product.dart';
 import 'products_repository.dart';
 
-
+_print(var text, {String msg = 'custom print'}) {
+  print('.............................................' + msg);
+  print(text.toString());
+}
 
 
 class AppStateModel extends Model {
-//  double _gst = 0;
+  double _gst = 0.0;
   bool _toggle = true;
   double _salesTaxRate = 0.02;
   double _shippingCostPerItem = 1.0;
@@ -41,10 +46,10 @@ class AppStateModel extends Model {
       _productsInCart.values.fold(0.0, (sum, e) => sum + e);
 
   // Sales tax for the items in the cart
-//  double get gst => _gst ;
+  double get gst => _gst ;
     double get salesTax => _salesTaxRate;
-//  double get tax => subtotalCost * gst;
-  double get tax => subtotalCost * salesTax;
+  double get tax => subtotalCost * gst;
+//  double get tax => subtotalCost * salesTax;
 
   // Total cost to order everything in the cart.
   double get totalCost => subtotalCost + shippingCost + tax;
@@ -112,26 +117,23 @@ class AppStateModel extends Model {
   bool get toggle => _toggle;
    void setToggle() {
     _toggle = !_toggle;
+    _print(_toggle, msg:'toggle changed!');
     notifyListeners();
    }
 
-//  double setGST(bool value){
-//    if (value) {
-//      var _gst = 5.0;
-//      notifyListeners();
-//      print('gst 1');
-//      return _gst;
-//
-//    }
-//    else{
-//      var _gst = 0.0;
-//      notifyListeners();
-//      print('gst 0');
-//      return _gst;
-//
-//    }
-//
-//  }
+   void setGST(bool value){
+    if (value) {
+      _gst = 0.05;
+      notifyListeners();
+      print('gst 1');
+
+    }
+    else{
+      _gst = 0.00;
+      notifyListeners();
+      print('gst 0');
+    }
+  }
 
 //  Future parseProductsFromResponse(int categoryId, int pageIndex) async {
 //    _isLoading = true;

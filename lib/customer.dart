@@ -10,7 +10,7 @@ import 'package:scoped_model/scoped_model.dart';
 //import 'model/app_state_model.dart';
 import 'model/product.dart';
 //import 'supplemental/product_grid_view.dart';
-import 'homeshrine.dart';
+//import 'homeshrine.dart';
 
 List<String> customerList = [
   'Ivan',
@@ -120,14 +120,33 @@ class _AddCustomer extends State<AddCustomer> {
           title: Text("Add Customer"),
 
           ),
-        body: NewsListPage(),
+        body:
+//        OnlyExpan(),
+          Expan(),
+//        NewsListPage(),
 //        MyCustomForm(),
         );
   }
 }
 
-
-
+//class OnlyExpan extends StatefulWidget {
+//  @override
+//  _OnlyExpan createState() => _OnlyExpan();
+//}
+//class _OnlyExpan extends State<OnlyExpan> {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Card(
+//      child: ExpandablePanel(
+//        header: Text('sdfsd'),
+//        collapsed: Text('sdfsd', softWrap: true, maxLines: 2, overflow: TextOverflow.ellipsis,),
+//        expanded: Text('sdfsd', softWrap: true, ),
+//        tapHeaderToExpand: true,
+//        hasIcon: true,
+//        ),
+//    );
+//  }
+//}
 // Define a Custom Form Widget
 class MyCustomForm extends StatefulWidget {
   @override
@@ -155,7 +174,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         body:
         Con(_test, myController)
         );
@@ -209,7 +227,8 @@ class Con extends StatelessWidget {
               color: Colors.brown, height: 20, thickness: 5
               ),
           SizedBox(
-            height: 400,child:  MyApp(),
+            height: 400,
+            child:  MyApp(),
             ),
 
         ],
@@ -223,7 +242,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = 'Floating App Bar';
+    final title = '';
 
     return Scaffold(
       // No appbar provided to the Scaffold, only a body with a
@@ -238,9 +257,11 @@ class MyApp extends StatelessWidget {
               // back up the list of items.
               floating: true,
               // Display a placeholder widget to visualize the shrinking size.
-              flexibleSpace: Placeholder(),
+              flexibleSpace: Placeholder(
+                color: Colors.brown,
+              ),
               // Make the initial height of the SliverAppBar larger than normal.
-              expandedHeight: 200,
+              expandedHeight: 250,
             ),
           // Next, create a SliverList
           SliverList(
@@ -256,40 +277,6 @@ class MyApp extends StatelessWidget {
         ],
         ),
       );
-//      MaterialApp(
-//      title: title,
-//      home: Scaffold(
-//        // No appbar provided to the Scaffold, only a body with a
-//        // CustomScrollView.
-//        body: CustomScrollView(
-//          slivers: <Widget>[
-//            // Add the app bar to the CustomScrollView.
-//            SliverAppBar(
-//              // Provide a standard title.
-//              title: Text(title),
-//                // Allows the user to reveal the app bar if they begin scrolling
-//                // back up the list of items.
-//                floating: true,
-//                // Display a placeholder widget to visualize the shrinking size.
-//                flexibleSpace: Placeholder(),
-//                // Make the initial height of the SliverAppBar larger than normal.
-//                expandedHeight: 200,
-//              ),
-//            // Next, create a SliverList
-//            SliverList(
-//              // Use a delegate to build items as they're scrolled on screen.
-//              delegate: SliverChildBuilderDelegate(
-//                // The builder function returns a ListTile with a title that
-//                // displays the index of the current item.
-//                (context, index) => ListTile(title: Text('Item #$index')),
-//                  // Builds 1000 ListTiles
-//                  childCount: 1000,
-//                ),
-//              ),
-//          ],
-//          ),
-//        ),
-//      );
   }
 }
 
@@ -374,4 +361,97 @@ class CategoryMenuPage extends StatelessWidget {
     return _buildGrid(context);
 
   }
+}
+
+
+class Item {
+  Item({
+//    this.expandedValue,
+//    this.headerValue,
+    this.isExpanded = false,
+  });
+
+//  String expandedValue;
+//  String headerValue;
+  bool isExpanded;
+}
+
+List<Item> generateItems(int numberOfItems) {
+  return List.generate(numberOfItems, (int index) {
+    return Item(
+//      headerValue: 'Panel 1',
+//      expandedValue: 'sdsd',
+      );
+  });
+}
+
+// ...
+
+List<Item> _data = generateItems(1);
+
+class Expan extends StatefulWidget {
+  Expan({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<Expan> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        child: _buildPanel(),
+        ),
+      );
+  }
+
+  Widget _buildPanel() {
+
+    return ExpansionPanelList(
+      expansionCallback: (int index,bool isExpanded) {
+        setState(() {
+          _data[index].isExpanded = !isExpanded;
+        });
+      },
+      children: _data.map<ExpansionPanel>((Item item) {
+        return ExpansionPanel(
+                        headerBuilder: (BuildContext context, bool isExpanded) {
+                                        return
+                                          ListTile(title: Text('jd'),)
+                                                   ;},
+                        body: new Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: SizedBox(
+                                height: 300.0,
+                                child: new GridView.count(
+                                  scrollDirection: Axis.horizontal,
+                                  primary: false,
+                                  padding: const EdgeInsets.all(20),
+                                  crossAxisSpacing: 30,
+                                  mainAxisSpacing: 30,
+                                  crossAxisCount: 3,
+                                  children: <Widget>[
+
+                                    Container(
+                                      padding: const EdgeInsets.all(8),
+                                      child: const Text('Revolution, they...'),
+                                      color: Colors.teal[600],
+                                      ),
+                                  ],
+                                  ),
+                                ),
+                              ),
+
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          ),
+                        isExpanded: item.isExpanded,
+          );
+      }).toList(),
+      );
+  }
+
+
 }

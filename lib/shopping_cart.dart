@@ -135,31 +135,30 @@ class _ShoppingCartSummary extends State<ShoppingCartSummary> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
 
-//                      new Checkbox(
-//                      value: isGST,
-//                      onChanged: (bool value) {
-//                        setState(() {
-//                          isGST = value;
-//                          isGST? print('gst'): print('nogst!!');
-//
-//                          var gst = model.setGST(value);
-//                          print(gst.toString());
-//                        });
-//                      },
-//                        activeColor: Colors.black,
-//                      ),
+                      new Checkbox(
+                      value: isGST,
+                      onChanged: (bool value) {
+                        setState(() {
+                          isGST = value;
+                          isGST? print('gst'): print('nogst!!');
+
+                          model.setGST(value);
+
+                        });
+                      },
+                        activeColor: Colors.black,
+                      ),
                         const Expanded(
                           child: Text('GST')
 //                          SizedBox(height: 1,),
                           ),
                         Text(
-//                          model.setGST(value).toString(),
-                            '6767',
+                            model.gst.toString(),
                           style: smallAmountStyle,
                           ),
                       ],
                       ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 2.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -172,7 +171,7 @@ class _ShoppingCartSummary extends State<ShoppingCartSummary> {
                           ),
                       ],
                       ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 6.0),
                     Row(
                       children: [
                         const Expanded(
