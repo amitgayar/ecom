@@ -16,6 +16,7 @@ import 'Databases/Database.dart';
 import 'services/addDataToTable.dart';
 import 'dart:convert';
 import 'services/syncData.dart';
+import 'cart2.dart';
 
 //import 'customer.dart';
 
@@ -70,46 +71,9 @@ class _HomeSection extends State<HomeSection> {
     return model.totalCost.toString();
   }
 
-//  _HomeSection(this.clickCallback, this.tc);
-//  final TextEditingController tc;
-//  final VoidCallback clickCallback;
-//  final TextEditingController _searchController = TextEditingController();
 
 
-
-
-
-  Widget carts = Padding(
-    padding: EdgeInsets.symmetric(vertical: 20),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Card(
-          color: Colors.green,
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text('Cart!'),
-            ),
-          ),
-        const SizedBox(width: 45,),
-        const Card(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text('No Item!'),
-            ),
-          ),
-        const SizedBox(width: 45,),
-        const Card(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text('No Item'),
-            ),
-          )
-      ],
-      ),
-  );
   Widget quickLinkSection = Text('  Quick Links     ');
-//  Widget productSection = ProductSection();
   Widget productDetailHeadingSection = SizedBox(
     height: 30,
     child: Text(
@@ -315,7 +279,7 @@ class HomePage extends StatelessWidget {
           ),
         body: TabBarView(
           // These are the contents of the tab views, below the tabs.
-          children: [HomeSection(),HomeSection(),HomeSection()],
+          children: [HomeSection(),Cart2(),HomeSection()],
           ),
         ),
 

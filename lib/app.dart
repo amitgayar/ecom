@@ -31,9 +31,9 @@ class _ExpAppState extends State<ExpressStoreApp> {
         '/customer' : (context) => Customer(),
         '/addCustomer': (context) => AddCustomer(),
       },
-      theme: new ThemeData(
-              brightness: Brightness.dark,                        // new
-      ),
+//      theme: new ThemeData(
+//              brightness: Brightness.dark,                        // new
+//      ),
     );
   }
 }

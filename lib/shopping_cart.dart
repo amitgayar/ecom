@@ -118,7 +118,7 @@ class _ShoppingCartSummary extends State<ShoppingCartSummary> {
     final smallAmountStyle =
         Theme.of(context).textTheme.body1.copyWith(color: Colors.black);
     final largeAmountStyle = Theme.of(context).textTheme.display1;
-    final formatter = NumberFormat.simpleCurrency(
+    final formatter = NumberFormat.simpleCurrency(name: 'INR',
         decimalDigits: 2, locale: Localizations.localeOf(context).toString());
 
     return ScopedModelDescendant<AppStateModel>(

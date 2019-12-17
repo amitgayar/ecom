@@ -8,7 +8,11 @@ import 'package:scoped_model/scoped_model.dart';
 //import 'backdrop.dart';
 ////import 'expanding_bottom_sheet.dart';
 //import 'model/app_state_model.dart';
-import 'model/product.dart';
+import 'supplemental/product_grid_view.dart';
+import 'dart:io';
+import 'services/syncData.dart';
+
+import 'model/queryForUI.dart';
 //import 'supplemental/product_grid_view.dart';
 //import 'homeshrine.dart';
 
@@ -113,41 +117,68 @@ class AddCustomer extends StatefulWidget {
 
 class _AddCustomer extends State<AddCustomer> {
 
+
+
+
+  NewAppStateModel newModel = NewAppStateModel();
+
+
+
+
+  Widget quickLinkSection = Text('  Quick Links     ');
+  Widget _buildPanel() {
+
+    return ExpansionPanelList(
+      expansionCallback: (int index,bool isExpanded) {
+        setState(() {
+          //          getSyncAPI();
+//          print('database synced!!!!!');
+//          queryForUI('products', 'id', '=', '21');
+//          print('is printed!!!!');
+          _data[index].isExpanded = !isExpanded;
+        });
+      },
+      children: _data.map<ExpansionPanel>((Item item) {
+        return ExpansionPanel(
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return
+              quickLinkSection
+            ;},
+          body: Column(
+            children: <Widget>[
+              MyCustomForm(),
+              ProductPage(),
+            ],
+            ),
+//          ProductPage(),
+          isExpanded: item.isExpanded,
+          );
+      }).toList(),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Add Customer"),
+          title: Text("Testing Arena"),
 
           ),
-        body:
-//        OnlyExpan(),
-          Expan(),
-//        NewsListPage(),
-//        MyCustomForm(),
+        body:   ScopedModel<NewAppStateModel>(
+          model: newModel,
+          child: ListView(
+              children: <Widget>[
+                _buildPanel(),
+              ]
+              ),
+          ),
+
+
+
         );
   }
 }
 
-//class OnlyExpan extends StatefulWidget {
-//  @override
-//  _OnlyExpan createState() => _OnlyExpan();
-//}
-//class _OnlyExpan extends State<OnlyExpan> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Card(
-//      child: ExpandablePanel(
-//        header: Text('sdfsd'),
-//        collapsed: Text('sdfsd', softWrap: true, maxLines: 2, overflow: TextOverflow.ellipsis,),
-//        expanded: Text('sdfsd', softWrap: true, ),
-//        tapHeaderToExpand: true,
-//        hasIcon: true,
-//        ),
-//    );
-//  }
-//}
-// Define a Custom Form Widget
 class MyCustomForm extends StatefulWidget {
   @override
   _MyCustomFormState createState() => _MyCustomFormState();
@@ -173,12 +204,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body:
-        Con(_test, myController)
-        );
+    return Con(_test, myController);
   }
 }
+
 
 class Con extends StatelessWidget {
   Con(this.clickCallback, this.tc);
@@ -189,56 +218,70 @@ class Con extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          TextField(
-            onChanged: (text) {
-              print("First text field: $text");
-            },
-            decoration: InputDecoration(
-                hintText: 'search',
-                filled: true,
+    return ScopedModelDescendant<NewAppStateModel>(
+        builder: (context, child, model)
+    {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          width: 300,
+          child: Column(
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () async{
+                  clickCallback();
+                  var allProducts = await model.queryForUI('products', '', '', '');
+//                  model.loadProducts(allProducts);
+                  print(model.getProducts());
+//                  print(allProducts);
+//                  List<Map<String, dynamic>>  allProducts = model.dbProducts;
+//                Future<List<Map<String, dynamic>>> allCategories =  queryForUI('productCategories', '', '', '');
+//                Future<List<Map<String, dynamic>>> allCustomProducts =  queryForUI('customProducts', '', '', '');
+
+
+                  print('success');
+//                print(allCategories);
+//                print(allCustomProducts);
+                },
+                child: Text("Load All Data"),
+                ),
+              TextField(
+                controller: tc,
+//                onChanged: (text) async{
+//                  //          getSyncAPI();
+//                  if (text.length < 30) {
+//                    queryForUI('productCategories', 'id', '<', text);
+//                    print("First text field: ${text.length}");
+//                    var allProducts = await model.queryForUI('products', '', '', '');
+//
+//                    print(allProducts);
+//                  }
+//                },
+                decoration: InputDecoration(
+                    hintText: 'search',
+                    filled: true,
 //                prefixIcon: Icon(
 //                  Icons.account_box,
 //                  size: 18.0,
 //                  ),
-                suffixIcon: IconButton(
-                    icon: Icon(Icons.remove),
-                    onPressed: () {
-//                      tc.clear();
-                      print('${tc.text}');
-                    })),
-            ),
-          TextField(
-            controller: tc,
-            ),
-          FlatButton(
-            onPressed: () => clickCallback(),
-            child: Text("click me"),
-            ),
+                    suffixIcon: IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () {
+                          tc.clear();
+                        })),
+                ),
 
-          const Divider(
-              color: Colors.brown, height: 10, thickness: 5
-              ),
-          CategoryMenuPage(),
-          const Divider(
-              color: Colors.brown, height: 20, thickness: 5
-              ),
-          SizedBox(
-            height: 400,
-            child:  MyApp(),
-            ),
 
-        ],
-        ),
-      );
+            ],
+            ),
+          ),
+        );
+    });
   }
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key key}) : super(key: key);
+class _SliverAppBar extends StatelessWidget {
+  _SliverAppBar({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -280,88 +323,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class CategoryMenuPage extends StatelessWidget {
-  final List<Category> _categories = Category.values;
-  final VoidCallback onCategoryTap;
 
-  const CategoryMenuPage({Key key, this.onCategoryTap,}) : super(key: key);
-
-  Widget _buildCategory(Category category, BuildContext context) {
-    final categoryString =
-    category.toString().replaceAll('Category.', '').toUpperCase();
-
-    return ScopedModelDescendant<AppStateModel>(
-      builder: (context, child, model) => GestureDetector(
-        onTap: () {
-          model.setCategory(category);
-          if (onCategoryTap != null)
-          {
-            onCategoryTap();
-            print('category clicked');
-          }
-        },
-        child: model.selectedCategory == category
-            ? Column(
-          children: <Widget>[
-            SizedBox(height: 16.0),
-            Text(
-              categoryString,
-              style: TextStyle(color: Colors.black, fontSize: 20),
-              textAlign: TextAlign.center,
-              ),
-            SizedBox(height: 14.0),
-            Container(
-              width: 70.0,
-              height: 2.0,
-              color: Colors.brown,
-              ),
-          ],
-          )
-            : Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.0),
-          child: Text(
-            categoryString,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-      );
-  }
-
-  Widget _buildGrid(BuildContext context) {
-
-
-    return ScopedModelDescendant<AppStateModel>(
-      builder: (context, child, model) => GestureDetector(
-        onTap: () {
-
-          if (model.selectedCategory == _categories[0])
-          {
-            model.setCategory(_categories[1]);
-            onCategoryTap();
-            print('category clicked');
-          }
-        },
-        child:
-             SizedBox(
-                 height: model.selectedCategory == _categories[0]?30:300,
-                 child: ListView(
-                          children: _categories.map((c) => _buildCategory(c, context)).toList(),
-            ),
-          ),
-
-          ),
-        );
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildGrid(context);
-
-  }
-}
 
 
 class Item {
@@ -389,69 +351,5 @@ List<Item> generateItems(int numberOfItems) {
 
 List<Item> _data = generateItems(1);
 
-class Expan extends StatefulWidget {
-  Expan({Key key}) : super(key: key);
-
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<Expan> {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: _buildPanel(),
-        ),
-      );
-  }
-
-  Widget _buildPanel() {
-
-    return ExpansionPanelList(
-      expansionCallback: (int index,bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-                        headerBuilder: (BuildContext context, bool isExpanded) {
-                                        return
-                                          ListTile(title: Text('jd'),)
-                                                   ;},
-                        body: new Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: SizedBox(
-                                height: 300.0,
-                                child: new GridView.count(
-                                  scrollDirection: Axis.horizontal,
-                                  primary: false,
-                                  padding: const EdgeInsets.all(20),
-                                  crossAxisSpacing: 30,
-                                  mainAxisSpacing: 30,
-                                  crossAxisCount: 3,
-                                  children: <Widget>[
-
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      child: const Text('Revolution, they...'),
-                                      color: Colors.teal[600],
-                                      ),
-                                  ],
-                                  ),
-                                ),
-                              ),
-
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          ),
-                        isExpanded: item.isExpanded,
-          );
-      }).toList(),
-      );
-  }
 
 
-}

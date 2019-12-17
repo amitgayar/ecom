@@ -38,27 +38,32 @@ void insertRow(String id, Map<String, dynamic> row, String dbTable, String opera
 Future<Map<String, dynamic>> insert_productCategories(List<categories> data) async {
 
   data.forEach((obj) async {
-    String name = '${obj.name}';
-    String parent_id = '${obj.parent_id}';
-    String id = '${obj.id}';
 
 
+      String name =
+          '${obj.name}';
+      String parent_id =
+          '${obj.parent_id}';
+      String id =
+          '${obj.id}';
 
-    //print("data to be inserted: ${obj}");
 
-    Map<String, dynamic> row = {
-      DatabaseHelper.name : name,
-      DatabaseHelper.parent_id : parent_id,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch,
+      //print("data to be inserted: ${obj}");
+
+      Map<String, dynamic> row = {
+        DatabaseHelper.name: name,
+        DatabaseHelper.parent_id: parent_id,
+        DatabaseHelper.updated_at: new DateTime.now().millisecondsSinceEpoch,
 
 
-    };
+      };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.productCategoriesTable, id, DatabaseHelper.id,"=");
-    List<Map<String, dynamic>> listOfAllItems = await dbHelper.queryAllRows(DatabaseHelper.productCategoriesTable);
-    //print(listOfAllItems);
-    insertRow(id, row, DatabaseHelper.productCategoriesTable,"=");
-
+      List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(
+          DatabaseHelper.productCategoriesTable, id, DatabaseHelper.id, "=");
+      List<Map<String, dynamic>> listOfAllItems = await dbHelper.queryAllRows(
+          DatabaseHelper.productCategoriesTable);
+      //print(listOfAllItems);
+      insertRow(id, row, DatabaseHelper.productCategoriesTable, "=");
 
   });
 
@@ -163,50 +168,48 @@ Future<Map<String, dynamic>> insert_products(List<products> data) async {
 
   data.forEach((obj) async {
 
-    String id = '${obj.id}';
-    //print(id);
-    String name = '${obj.name}';
-    String mrp = '${obj.mrp}';
-    String sp = '${obj.sp}';
-    String cgst = '${obj.cgst}';
-    String sgst = '${obj.sgst}';
-    String cess = '${obj.cess}';
-    String brand = '${obj.brand}';
-    String category_id = '${obj.category_id}';
-    String inventory = '${obj.inventory}';
-    String barcode = '${obj.barcode}';
-    String parent_id = '${obj.parent_id}';
-    String hsn = '${obj.hsn}';
-    String uom = '${obj.uom}';
-    String size = '${obj.size}';
-    String color = '${obj.color}';
-    String dbTable = DatabaseHelper.productsTable;
+
+      String id = '${obj.id}' ;
+      //print(id);
+      String name = '${obj.name}' ;
+      String mrp = '${obj.mrp}';
+      String sp = '${obj.sp}';
+      String cgst = '${obj.cgst}' ;
+      String sgst = '${obj.sgst}' ;
+      String cess = '${obj.cess}';
+      String brand = '${obj.brand}' ;
+      String category_id = '${obj.category_id}' ;
+      String inventory = '${obj.inventory}' ;
+      String barcode = '${obj.barcode}';
+      String parent_id = '${obj.parent_id}' ;
+      String hsn = '${obj.hsn}' ;
+      String uom = '${obj.uom}' ;
+      String size = '${obj.size}' ;
+      String color = '${obj.color}' ;
+      String dbTable = DatabaseHelper.productsTable;
 
 
-    ////print("data to be inserted: ${obj}");
-    Map<String, dynamic> row = {
-      DatabaseHelper.name : name,
-      DatabaseHelper.mrp : mrp,
-      DatabaseHelper.sp : sp,
-      DatabaseHelper.cgst : cgst,
-      DatabaseHelper.sgst : sgst,
-      DatabaseHelper.cess : cess,
-      DatabaseHelper.brand : brand,
-      DatabaseHelper.category_id : category_id,
-      DatabaseHelper.inventory : inventory,
-      DatabaseHelper.barcode : barcode,
-      DatabaseHelper.parent_id : parent_id,
-      DatabaseHelper.hsn : hsn,
-      DatabaseHelper.uom : uom,
-      DatabaseHelper.size : size,
-      DatabaseHelper.color : color,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      ////print("data to be inserted: ${obj}");
+      Map<String, dynamic> row = {
+        DatabaseHelper.name: name,
+        DatabaseHelper.mrp: mrp,
+        DatabaseHelper.sp: sp,
+        DatabaseHelper.cgst: cgst,
+        DatabaseHelper.sgst: sgst,
+        DatabaseHelper.cess: cess,
+        DatabaseHelper.brand: brand,
+        DatabaseHelper.category_id: category_id,
+        DatabaseHelper.inventory: inventory,
+        DatabaseHelper.barcode: barcode,
+        DatabaseHelper.parent_id: parent_id,
+        DatabaseHelper.hsn: hsn,
+        DatabaseHelper.uom: uom,
+        DatabaseHelper.size: size,
+        DatabaseHelper.color: color,
+        DatabaseHelper.updated_at: new DateTime.now().millisecondsSinceEpoch
+      };
 
-    };
-
-    insertRow(id, row, dbTable,"=");
-
-
+      insertRow(id, row, dbTable, "=");
 
 
 
@@ -218,7 +221,10 @@ Future<Map<String, dynamic>> insert_products(List<products> data) async {
 // Insert into customProductsTable of Database
 Future<Map<String, dynamic>> insert_customProducts(List<customProducts> data) async {
 
+
+
   data.forEach((obj) async {
+
     String id = '${obj.id}';
     String name = '${obj.name}';
     String mrp = '${obj.mrp}';

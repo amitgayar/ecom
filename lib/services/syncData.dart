@@ -6,8 +6,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import '../model/ProcessJsonToUpdateDB.dart';
 import 'addDataToTable.dart';
-import '../model/Database_Models.dart';
 import '../Utilities/DBsync.dart';
+import '../model/Database_Models.dart';
 
 /*
 Product _parseJsonForCrossword(String jsonString) {
@@ -37,7 +37,7 @@ Future getSyncAPI() async {
   //Replace next line by syncGetResponse.body when API is ready
   String body =  await rootBundle.loadString('assets/getRequestFormat.json');
   //print("print response $body");
-  /*final jsonResponse = json.decode(body);
+  final jsonResponse = json.decode(body);
 
 
   ProcessDataReceivedFromFromBackend updateDatabase = new ProcessDataReceivedFromFromBackend.fromJson(jsonResponse);
@@ -54,7 +54,7 @@ Future getSyncAPI() async {
   await insert_stockRequests(updateDatabase.stockRequestsList);
 
   // insert data to stockRequestsProducts table
-  await insert_stockRequestsProducts(updateDatabase.stockRequestsProductsList);*/
+  await insert_stockRequestsProducts(updateDatabase.stockRequestsProductsList);
 
 
   //Data for post request
@@ -66,17 +66,11 @@ Future getSyncAPI() async {
 
   ProcessDataSentToFromBackend updateDatabase1 = new ProcessDataSentToFromBackend.fromJson(jsonResponse1);
 
-  List<Map<String, dynamic>> syncGetAPIRequestList = await dbHelper.querySyncRow(DatabaseHelper.dataSyncTable, "GET", DatabaseHelper.syncType, "=");
-  //Last sync of GET API
-  var getLastSync = syncGetAPIRequestList[syncGetAPIRequestList.length-1]["updated_at"].toString();
 
-  getLastSync = "157632486344";
-  List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsTable, getLastSync, DatabaseHelper.updated_at,">");
   //List<Map<String, dynamic>> listOfItems = await dbHelper.queryAllRows(DatabaseHelper.stockRequestsTable);
-  print(listOfItems);
 
 
-  /*// insert data to barcode table
+  // insert data to barcode table
   await insert_stockRequests(updateDatabase1.requestStocksList);
 
   // insert data to products table
@@ -98,7 +92,7 @@ Future getSyncAPI() async {
   await insert_OrderRefund(updateDatabase1.refundsList);
 
   // insert data to stockRequestsProducts table
-  await insert_customProducts(updateDatabase1.customProductsList);*/
+  await insert_customProducts(updateDatabase1.customProductsList);
 
 
 }

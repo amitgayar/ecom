@@ -17,7 +17,7 @@ class ProductPage extends StatelessWidget {
   const ProductPage({this.category = Category.all});
   @override
   Widget build(BuildContext context) {
-    _print(category, msg:'category in product_grid_view.dart');
+//    _print(category, msg:'category in product_grid_view.dart');
     return ScopedModelDescendant<AppStateModel>(
         builder: (context, child, model) {
           return ProductGridView(
@@ -70,7 +70,7 @@ class ProductGridView extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               crossAxisSpacing: 30,
               mainAxisSpacing: 30,
-              crossAxisCount: 3,
+              crossAxisCount: 2,
               children: _buildRows(context),
               ),
             ),
