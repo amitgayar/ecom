@@ -19,7 +19,7 @@ import 'package:flutter/foundation.dart';
 import 'Databases/Database.dart';
 import 'package:flutter/services.dart';
 import 'Utilities/authentication.dart';
-import 'homeshrine.dart';
+import 'home.dart';
 import 'Constants/const.dart';
 
 

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:mpos/customer.dart';
-//import 'homeshrine.dart';
+//import 'home.dart';
 import 'category_menu_page.dart';
 
 import 'login.dart';

@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'homeshrine.dart';
+import 'home.dart';
 import 'login.dart';
 import 'customer.dart';
 

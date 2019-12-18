@@ -13,7 +13,7 @@ import 'services/syncData.dart';
 
 import 'model/queryForUI.dart';
 //import 'supplemental/product_grid_view.dart';
-//import 'homeshrine.dart';
+//import 'home.dart';
 
 List<String> customerList = [
   'Ivan',
