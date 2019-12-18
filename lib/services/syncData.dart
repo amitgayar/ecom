@@ -60,7 +60,7 @@ Future getSyncAPI() async {
   //Data for post request
 
   String body1 =  await rootBundle.loadString('assets/PostRequestFormat.json');
-  //print("print response $body1");
+  print("print response $body1");
   final jsonResponse1 = json.decode(body1);
 
 

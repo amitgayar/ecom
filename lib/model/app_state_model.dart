@@ -222,8 +222,9 @@ class NewAppStateModel extends Model {
   double _salesTaxRate = 0.02;
   double _shippingCostPerItem = 1.0;
   // All the available products.
-  List<Map<String, dynamic>> _availableProducts;
-  List<Map<String, dynamic>> get availableProducts => _availableProducts;
+  List<Map<String, dynamic>> _availableProductsDB = [];
+  List<Map<String, dynamic>> _availableProducts = makeModifiableResults(_availableProductsDB);
+  List<Map<String, dynamic>> get availableProducts => List<Map>.from(availableProducts);
 
   // The currently selected category of products.
   int _selectedCategory = 1;
@@ -241,7 +242,7 @@ class NewAppStateModel extends Model {
 
   // Totaled prices of the items in the cart.
   double get subtotalCost => _productsInCart.keys
-      .map((id) => availableProducts[id]['sp'] * _productsInCart[id])
+      .map((id) => _availableProducts[id]['sp'] * _productsInCart[id])
       .fold(0.0, (sum, e) => sum + e);
 
   // Total shipping cost for the items in the cart.
@@ -275,7 +276,12 @@ class NewAppStateModel extends Model {
 
 
   void changeSP(double changedPrice, int id){
-    _availableProducts[id]['sp'] = changedPrice;
+    var c = _availableProducts.firstWhere((p) => p['id'] == id);
+    //print(_availableProducts0]["name"]);
+    _availableProducts.firstWhere((p) => p['id'] == id)["sp"] = _availableProducts.firstWhere((p) => p['id'] == id)["sp"] + changedPrice;
+    print("abc = ${_availableProducts.firstWhere((p) => p['id'] == id)["sp"]}");
+    print(changedPrice);
+
     print('changed selling price');
     notifyListeners();
   }
@@ -303,12 +309,7 @@ class NewAppStateModel extends Model {
     notifyListeners();
   }
 
-  void addItemToCart(int productId) {
-    if (_productsInCart.containsKey(productId)) {
-      _productsInCart[productId]++;
-    }
-    notifyListeners();
-  }
+
 
   // Returns the Product instance matching the provided id.
   Map<String, dynamic> getProductById(int id) {
@@ -322,12 +323,21 @@ class NewAppStateModel extends Model {
   }
 
   // Loads the list of available products from the repo.
-  void loadProducts(List<Map<String, dynamic>> allProducts) {
-    _availableProducts = allProducts;
+  void loadProducts(List<Map<String, dynamic>> allProducts) async {
+    _availableProductsDB = List<Map<String, dynamic>>.from(allProducts);
+
 
     print('products loaded for the new model!!!!' + _availableProducts.length.toString());
     print(_availableProducts);
     notifyListeners();
+  }
+
+  List<Map<String, dynamic>> makeModifiableResults(
+      List<Map<String, dynamic>> results) {
+    // Generate modifiable
+    return List<Map<String, dynamic>>.generate(
+        results.length, (index) => Map<String, dynamic>.from(results[index]),
+        growable: true);
   }
 
   void setCategory(int newCategory) {

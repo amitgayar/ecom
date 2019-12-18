@@ -131,7 +131,7 @@ class _AddCustomer extends State<AddCustomer> {
     return ExpansionPanelList(
       expansionCallback: (int index,bool isExpanded) {
         setState(() {
-          //          getSyncAPI();
+                    getSyncAPI();
 //          print('database synced!!!!!');
 //          queryForUI('products', 'id', '=', '21');
 //          print('is printed!!!!');

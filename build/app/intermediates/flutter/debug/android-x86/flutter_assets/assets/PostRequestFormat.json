@@ -1,0 +1,109 @@
+{
+  "requestStocks": [{
+      "id": 1,
+      "created_at": "2019-12-13T12:50:11.843Z",
+      "updated_at": "2019-12-13T12:50:11.843Z",
+      "status": "requested",
+      "total_amount": 500,
+      "delivered_at": "",
+      "accepted_at": ""
+    }
+  ],
+  "requestStockItems": [{
+      "id": 4,
+      "product_id": 1,
+      "requested_qty": 5,
+      "barcode": "12894140",
+      "is_custom_product": false,
+      "custom_product_id": 12,
+      "stock_request_id": 1,
+      "delivered_qty": 0,
+      "accepted_qty": 0,
+      "created_at": "2019-12-13T12:50:11.843Z",
+      "updated_at": "2019-12-13T12:50:11.843Z",
+      "note": "",
+      "product_price": 123
+    }
+  ],
+  "orders": [
+    {
+      "id": 0,
+      "created_at": "2019-12-13T14:40:53.348Z",
+      "updated_at": "2019-12-13T14:40:53.348Z",
+      "customer_id": 0,
+      "invoice": "string",
+      "mrp_total": 0,
+      "cart_discount_total": 0,
+      "paid_amount_total": 0,
+      "credit_amount": 0,
+      "payment_method": "cash",
+      "cgst": 0,
+      "sgst": 0,
+      "cess": 0,
+      "is_receipt_printed": true,
+      "status": "refunded"
+    }
+  ],
+  "orderItems": [
+    {
+      "id": 0,
+      "order_id": 0,
+      "mrp": 0,
+      "sp": 0,
+      "cgst": 0,
+      "sgst": 0,
+      "cess": 0,
+      "quantity": 0,
+      "product_id": 0,
+      "barcode": "string",
+      "custom_product_id": 0
+    }
+  ],
+  "customProducts": [
+    {
+      "id": 0,
+      "name": "string",
+      "barcode": "string",
+      "mrp": 0,
+      "sp": 0,
+      "category_id": 0,
+      "uom": "kg",
+      "to_be_saved": true
+    }
+  ],
+  "refunds": [
+    {
+      "id": 0,
+      "orderItems_id": 0,
+      "refund_qty": 0,
+      "refund_mode": "string",
+      "created_date": "2019-12-13T14:40:53.348Z",
+      "updated_date": "2019-12-13T14:40:53.348Z",
+      "refund_amt": 0
+    }
+  ],
+  "creditLogs": [
+    {
+      "id": 0,
+      "order_id": 0,
+      "customer_id": 0,
+      "amount": 0,
+      "created_date": "2019-12-13T14:40:53.348Z",
+      "updated_date": "2019-12-13T14:40:53.348Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": 0,
+      "name": "string",
+      "gender": "M",
+      "phone_number": "string",
+      "credit_balance": 0,
+      "total_orders": 0,
+      "total_spent": 0,
+      "average_spent": 0,
+      "total_discount": 0,
+      "avg_discount_per_order": 0
+    }
+  ]
+}

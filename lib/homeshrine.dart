@@ -17,6 +17,7 @@ import 'services/addDataToTable.dart';
 import 'dart:convert';
 import 'services/syncData.dart';
 import 'cart2.dart';
+import 'cart3.dart';
 
 //import 'customer.dart';
 
@@ -270,7 +271,7 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('home section'),
-          //        backgroundColor: Colors.brown,
+                  backgroundColor: Colors.blueGrey,
 
           bottom: TabBar(
             // These are the widgets to put in each tab in the tab bar.
@@ -279,7 +280,7 @@ class HomePage extends StatelessWidget {
           ),
         body: TabBarView(
           // These are the contents of the tab views, below the tabs.
-          children: [HomeSection(),Cart2(),HomeSection()],
+          children: [HomeSection(),Cart2(),Cart3()],
           ),
         ),
 
