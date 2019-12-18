@@ -38,9 +38,8 @@ void main() {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   NewAppStateModel newModel = NewAppStateModel();
-//  AppStateModel model = AppStateModel();
-//  model.loadProducts();
-
+  WidgetsFlutterBinding.ensureInitialized();
+//  TestWidgetsFlutterBinding.ensureInitialized();
   runApp(
     ScopedModel<NewAppStateModel>(
       model: newModel,

@@ -1,6 +1,7 @@
 import 'dart:async' show Future;
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import '../Constants/const.dart';
@@ -34,7 +35,7 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 
   else if (table == '') {
     final queryList = await dbHelper.queryRow(table,  id,  colName,  operator);
-    print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : s' +queryList.length.toString());
+    print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : ' +queryList.length.toString());
 //    print('First one is : ' + queryList.first.toString());
 //    print(queryList);
     return queryList;
@@ -42,7 +43,7 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
   }
   else {
   final queryList = await dbHelper.raw_query(raw);
-  print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : s' +queryList.length.toString());
+  print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : ' +queryList.length.toString());
 //    print('First one is : ' + queryList.first.toString());
 //  print(queryList);
   return queryList;
@@ -52,14 +53,64 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 
 }
 
-Future<dynamic> q(String text) async{
-  if (text == 'firstSearch'){
-    var allProducts = await queryForUI('products', 'name', 'Like', text);
-//          print(allProducts);
-    return allProducts;
+Future<dynamic> q(String type, String category_id, String text) async{
+  if (type == 'initStack'){
+    var allProducts = await queryForUI('products', '', '', '');
+//    var allCategories = await queryForUI('productCatogories','', '', '');
+    var allCustomProducts = await queryForUI('customProducts', '', '', '');
+//    var data =  allCategories + allCustomProducts + allProducts ;
+    var data =  allCustomProducts + allProducts ;
+//          print(initSearch);
+    return data;
+  }
+  else if (type == 'secondStack'){
+    var allProducts = await queryForUI('products', 'category_id', '=', category_id);
+    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
+    var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
+    var data = allCategories + allCustomProducts + allProducts ;
+//          print(initSearch);
+    return data;
+  }
+  else if (type == 'thirdStack'){
+    var allProducts = await queryForUI('products', 'category_id', '=', category_id);
+    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
+    var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
+  var data = allCategories + allCustomProducts + allProducts ;
+//          print(initSearch);
+    return data;
+  }
+  else if (type == 'initSearch'){
+    var allProducts = await queryForUI('products', 'name', 'LIKE', text);
+//    var allCategories = await queryForUI('productCatogories', 'name', 'LIKE', text);
+    var allCustomProducts = await queryForUI('customProducts', 'name', 'LIKE', text);
+//    var data = allCategories + allCustomProducts + allProducts ;
+    var data =  allCustomProducts + allProducts ;
+//          print(initSearch);
+    return data;
+  }
+  else if (type == 'secondSearch'){
+    var allProducts = await queryForUI('products', 'category_id', '=', category_id);
+    allProducts = allProducts.where((p) => p['name'] == text);
+//    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
+    var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
+    allCustomProducts = allCustomProducts.where((p) => p['name'] == text);
+//  var data = allCategories + allCustomProducts + allProducts ;
+    var data =  allCustomProducts + allProducts ;
+//          print(initSearch);
+    return data;
+  }
+  else if (type == 'thirdSearch'){
+    var allProducts = await queryForUI('products', 'category_id', '=', category_id);
+    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
+    var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
+    var data = allCategories + allCustomProducts + allProducts ;
+//          print(initSearch);
+    return data;
   }
 
 }
+
+
 
 dynamic addProductToCart(NewAppStateModel cartModel, Map<String, dynamic> product){
 //  cartModel.loadProducts([product]); ...................                  ...............     .................................

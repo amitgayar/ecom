@@ -127,7 +127,7 @@
   },
   {
     "id": 8,
-    "name": "Cold Drink",
+    "name": "red bull",
     "category_id": 6,
     "parent_id": 1,
     "mrp": 100,
@@ -135,7 +135,7 @@
     "cess": 5,
     "cgst": 6,
     "sgst": 0,
-    "brand": "Coca Cola",
+    "brand": "red bull",
     "inventory": 200,
     "barcode": "0213912031",
     "hsn": "19246918417849",
@@ -145,7 +145,7 @@
   },
   {
     "id": 9,
-    "name": "Cold Drink",
+    "name": "ThumsUp",
     "category_id": 6,
     "parent_id": 1,
     "mrp": 100,
@@ -163,7 +163,7 @@
   },
   {
     "id": 10,
-    "name": "Cold Drink",
+    "name": "Dew",
     "category_id": 6,
     "parent_id": 1,
     "mrp": 100,
@@ -181,7 +181,7 @@
   },
   {
     "id": 11,
-    "name": "Cold Drink",
+    "name": "Sprite",
     "category_id": 6,
     "parent_id": 1,
     "mrp": 100,
@@ -189,7 +189,7 @@
     "cess": 5,
     "cgst": 6,
     "sgst": 0,
-    "brand": "Coca Cola",
+    "brand": "sprite",
     "inventory": 200,
     "barcode": "0213912031",
     "hsn": "19246918417849",
@@ -199,7 +199,7 @@
   },
   {
     "id": 12,
-    "name": "Cold Drink",
+    "name": "Pepsi",
     "category_id": 6,
     "parent_id": 1,
     "mrp": 100,

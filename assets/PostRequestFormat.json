@@ -61,11 +61,71 @@
   ],
   "customProducts": [
     {
-      "id": 0,
-      "name": "string",
+      "id": 201,
+      "name": "custom dal",
       "barcode": "string",
-      "mrp": 0,
-      "sp": 0,
+      "mrp": 10,
+      "sp": 10,
+      "category_id": 5,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 202,
+      "name": "custom drink",
+      "barcode": "string",
+      "mrp": 10,
+      "sp": 10,
+      "category_id": 6,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 203,
+      "name": "custom cloth",
+      "barcode": "string",
+      "mrp": 10,
+      "sp": 10,
+      "category_id": 0,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 204,
+      "name": "custom electronics",
+      "barcode": "string",
+      "mrp": 10,
+      "sp": 10,
+      "category_id": 4,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 205,
+      "name": "custom rice",
+      "barcode": "string",
+      "mrp": 10,
+      "sp": 10,
+      "category_id": 5,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 206,
+      "name": "custom wheat",
+      "barcode": "string",
+      "mrp": 10,
+      "sp": 10,
+      "category_id": 0,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 207,
+      "name": "custom electronics",
+      "barcode": "string",
+      "mrp": 10,
+      "sp": 10,
       "category_id": 0,
       "uom": "kg",
       "to_be_saved": true

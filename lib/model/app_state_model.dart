@@ -6,8 +6,6 @@ import 'package:scoped_model/scoped_model.dart';
 import '../Databases/Database.dart';
 import '../model/Database_Models.dart';
 import 'package:async/async.dart';
-import 'product.dart';
-import 'products_repository.dart';
 
 _print(var text, {String msg = 'custom print'}) {
   print('.............................................' + msg);

@@ -14,6 +14,7 @@ import 'dart:convert';
 import 'services/syncData.dart';
 import 'cart2.dart';
 import 'cart3.dart';
+import 'cart1.dart';
 
 
 
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
           ),
         body: TabBarView(
           // These are the contents of the tab views, below the tabs.
-          children: [Cart2(),Cart2(),Cart3()],
+          children: [Cart1(),Cart2(),Cart3()],
           ),
         ),
 
@@ -54,68 +55,3 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
-
-//..............................................from Manav home file
-class NewsListPage extends StatefulWidget {
-
-  @override
-  _NewsListPageState createState() => _NewsListPageState();
-}
-
-
-
-class _NewsListPageState extends State<NewsListPage> {
-  final dbHelper = DatabaseHelper.instance;
-
-  Future<List<categories>> getData() async {
-    List<categories> list;
-    String json_test = await rootBundle.loadString('assets/PostRequestFormat.json');
-    print("loaded json: ${json_test}");
-
-    var data = json.decode(json_test);
-    var rest = data as List;
-    print("print data list: $rest");
-    list = rest.map<categories>((json) => categories.fromJson(json)).toList();
-    print("List Size: ${list.length}");
-    print("List : ${list[0]}");
-    return list;
-  }
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text("test"),
-        ),
-      body: RaisedButton(
-          child: const Text('Login'),
-          elevation: 8.0,
-          shape: const BeveledRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(7.0)),
-            ),
-          onPressed: () async {
-
-            List<categories> data = await getSyncAPI();
-            //InsertDataToTable new_inset = new InsertDataToTable();
-            //insert_productCategories(data);
-
-
-            //List<Map<String, dynamic>> queryResult = await dbHelper.queryRowCount("productCategories", "16");
-            //print('queryResult: $queryResult');
-
-          }
-          ),
-      );
-  }
-}
-//...................................................from Manav home file

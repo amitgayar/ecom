@@ -32,40 +32,6 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-
-  // Function to insert data in DB
-/*//  void _insert() async {
-//    // row to insert
-//    String userName = _usernameController.text;
-//    String password = "123456";
-//    Map<String, dynamic> row = {
-//      DatabaseHelper.columnName : userName,
-//      DatabaseHelper.columnPassword  : password
-//    };
-//    final id = await dbHelper.insert(row);
-//    print('inserted row id: $id');
-//    print('inserted row id: $password');
-//    print('inserted row id: $userName');
-//  }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,8 +154,6 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       }
                     }
-
-
 
                     print(_usernameController.text);
                     //print(validateUsername);

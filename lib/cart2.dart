@@ -58,14 +58,11 @@ class _Cart2 extends State<Cart2> {
     return TextField(
       controller: tc,
       onChanged: (text) async{
-        if (text.length > 1) {
-//          var allProducts = await queryForUI('productCategories', 'name', '>', text);
-//          print("First text field: ${text.length}");
-//          var allProducts = await model.queryForUI('products', '', '', '');
-//          var allProducts = await queryForUI('products', 'name', 'Like', text);
-////          print(allProducts);
-//          model.loadProducts(allProducts);
-            q('firstSearch');
+        if (text.length > 3) {
+//          var allProducts = await q('initSearch', '', text);
+          var allProducts = await q('secondSearch', '5', 'cold drink');
+          print(allProducts);
+          model.loadProducts(allProducts);
 
         }
       },
@@ -81,7 +78,7 @@ class _Cart2 extends State<Cart2> {
           onPressed: () async{
 //                    getSyncAPI();
 //          clickCallback();
-            var allProducts = await queryForUI('products', '', '', '');
+            var allProducts = await q('initStack', '', '');
             print(allProducts);
             model.loadProducts(allProducts);
           },

@@ -169,8 +169,7 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                         // If status is 200 navigate to OTP screen
                         var route = new MaterialPageRoute(
                           builder: (BuildContext context) =>
-                          new NewsListPage(
-                          ),
+                          new HomePage()
                         );
 
                         Navigator.of(context).push(route);
