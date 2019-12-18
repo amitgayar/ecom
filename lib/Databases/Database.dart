@@ -386,6 +386,7 @@ class DatabaseHelper {
 
 
 
+
   // We are assuming here that the id column in the map is set. The other
   // column values will be used to update the row.
   Future<int> update(String table, Map<String, dynamic> row, String colName, int id) async {
@@ -399,5 +400,10 @@ class DatabaseHelper {
   Future<int> delete(String table, int id) async {
     Database db = await instance.database;
     return await db.delete(table, where: '$id = ?', whereArgs: [id]);
+  }
+
+  Future<List<Map<String, dynamic>>> raw_query(String query) async {
+    final db = await database;
+    return await db.rawQuery(query, null);
   }
 }

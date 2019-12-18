@@ -56,231 +56,235 @@ class _Cart3 extends State<Cart3> {
   _printLatestValue() {
     print("entered text in sp: ${myController.text}");
   }
-
-  List<Widget> _createShoppingCartRows(NewAppStateModel model) {
-    return model.productsInCart.keys
-        .map(
-            (id) => NewShoppingCartRow(id: id)
-            ).toList();
-  }
+//
+//  List<Widget> _createShoppingCartRows(NewAppStateModel model) {
+//    return model.productsInCart.keys
+//        .map(
+//            (id) => NewShoppingCartRow(id: id)
+//            ).toList();
+//  }
 
   TextEditingController tc;
-  Widget _queryBox(NewAppStateModel model) {
-    return Column(
-      children: <Widget>[
+//  Widget _queryBox(NewAppStateModel model) {
+//    return Column(
+//      children: <Widget>[
+//
+//        TextField(
+//          controller: tc,
+//          onChanged: (text) async{
+//            if (text.length < 30) {
+//              queryForUI('productCategories', 'id', '<', text);
+//              print("First text field: ${text.length}");
+//              var allProducts = await model.queryForUI('products', '', '', '');
+//
+//              print(allProducts);
+//            }
+//          },
+//          decoration: InputDecoration(
+//            hintText: 'search',
+//            filled: true,
+////                prefixIcon: Icon(
+////                  Icons.account_box,
+////                  size: 18.0,
+////                  ),
+//            suffixIcon: IconButton(
+//              icon: Icon(Icons.add),
+//              onPressed: () async{
+////                    getSyncAPI();
+////          clickCallback();
+//                var allProducts = await model.queryForUI('products', '', '', '');
+//                model.loadProducts(allProducts);
+//                print(model.getProducts());
+////                      print(allProducts);
+////                  List<Map<String, dynamic>>  allProducts = model.dbProducts;
+////                Future<List<Map<String, dynamic>>> allCategories =  queryForUI('productCategories', '', '', '');
+////                Future<List<Map<String, dynamic>>> allCustomProducts =  queryForUI('customProducts', '', '', '');
+//
+//
+//                print('success');
+////                print(allCategories);
+////                print(allCustomProducts);
+//              },
+//              ),
+//            ),
+//          ),
+//
+//
+//      ],
+//      );
+//  }
 
-        TextField(
-          controller: tc,
-          onChanged: (text) async{
-            if (text.length < 30) {
-              queryForUI('productCategories', 'id', '<', text);
-              print("First text field: ${text.length}");
-              var allProducts = await model.queryForUI('products', '', '', '');
 
-              print(allProducts);
-            }
-          },
-          decoration: InputDecoration(
-            hintText: 'search',
-            filled: true,
-//                prefixIcon: Icon(
-//                  Icons.account_box,
-//                  size: 18.0,
-//                  ),
-            suffixIcon: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () async{
-//                    getSyncAPI();
-//          clickCallback();
-                var allProducts = await model.queryForUI('products', '', '', '');
-                model.loadProducts(allProducts);
-                print(model.getProducts());
-//                      print(allProducts);
-//                  List<Map<String, dynamic>>  allProducts = model.dbProducts;
-//                Future<List<Map<String, dynamic>>> allCategories =  queryForUI('productCategories', '', '', '');
-//                Future<List<Map<String, dynamic>>> allCustomProducts =  queryForUI('customProducts', '', '', '');
-
-
-                print('success');
-//                print(allCategories);
-//                print(allCustomProducts);
-              },
-              ),
-            ),
-          ),
-
-
-      ],
-      );
-  }
-
-
-
-  Widget quickLinkSection = Text('  Quick Links     ');
-  Widget productDetailHeadingSection = SizedBox(
-    height: 30,
-    child: Text(
-      'Product :      MRP             SP             QTY             Total',
-      textAlign: TextAlign.left,
-      style: TextStyle(fontWeight: FontWeight.w500),
-      ),
-    );
-
-  Widget _buildPanel(NewAppStateModel model) {
-    return ExpansionPanelList(
-      expansionCallback: (int index,bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return
-              quickLinkSection
-            ;},
-          body: Column(
-            children: <Widget>[
-              _queryBox(newModel),
-              NewProductPage(),
-            ],
-            ),
-          isExpanded: item.isExpanded,
-          );
-      }).toList(),
-      );
-  }
-
+//
+//  Widget quickLinkSection = Text('  Quick Links     ');
+//  Widget productDetailHeadingSection = SizedBox(
+//    height: 30,
+//    child: Text(
+//      'Product :      MRP             SP             QTY             Total',
+//      textAlign: TextAlign.left,
+//      style: TextStyle(fontWeight: FontWeight.w500),
+//      ),
+//    );
+//
+//  Widget _buildPanel(NewAppStateModel model) {
+//    return ExpansionPanelList(
+//      expansionCallback: (int index,bool isExpanded) {
+//        setState(() {
+//          _data[index].isExpanded = !isExpanded;
+//        });
+//      },
+//      children: _data.map<ExpansionPanel>((Item item) {
+//        return ExpansionPanel(
+//          headerBuilder: (BuildContext context, bool isExpanded) {
+//            return
+//              quickLinkSection
+//            ;},
+//          body: Column(
+//            children: <Widget>[
+//              _queryBox(newModel),
+//              NewProductPage(),
+//            ],
+//            ),
+//          isExpanded: item.isExpanded,
+//          );
+//      }).toList(),
+//      );
+//  }
+//
 
 
 
   @override
   Widget build(BuildContext context) {
-    final formatter = NumberFormat.simpleCurrency(name: 'INR', decimalDigits: 2,
-                                                      locale: Localizations.localeOf(context).toString());
-    var lastBarSection = Container(
-        height: 70,
-        width: 400,
-        child: ScopedModelDescendant<NewAppStateModel>(
-            builder: (context, child, model) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+
+
+
+    return new Container();
+//    final formatter = NumberFormat.simpleCurrency(name: 'INR', decimalDigits: 2,
+//                                                      locale: Localizations.localeOf(context).toString());
+//    var lastBarSection = Container(
+//        height: 70,
+//        width: 400,
+//        child: ScopedModelDescendant<NewAppStateModel>(
+//            builder: (context, child, model) {
+//              return Row(
+//                mainAxisAlignment: MainAxisAlignment.center,
+//                children: <Widget>[
+////
+//                  IconButton(
+//                    icon: Icon(Icons.delete),
+//                    onPressed: () {
+//                      model.clearCart();
 //
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      model.clearCart();
-
-
-                    },
-                    ),
-                  SizedBox(width: 40,),
-                  RaisedButton(
-                    shape: const BeveledRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(1.0)),
-                      ),
-                    color: Colors.deepOrange,
-                    child: Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Text(formatter.format(model.totalCost),
-                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),),
-                      ),
-                    onPressed: () {
-//                      Navigator.pushNamed(context, '/cart');
-                    },
-                    ),
-
-
-                  SizedBox(width: 40,),
-                  IconButton(
-                    icon: Icon(Icons.person_add),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/customer');
-
-                    },
-                    ),
-                ],
-                );
-            })
-
-        );
-
-
-    var shoppingCartRowSection = Container(
-      child: ScopedModelDescendant<NewAppStateModel>(
-        builder: (context, child, model) {
-          return Column (
-            children: _createShoppingCartRows(model),
-            );
-        },
-        ),
-      );
-
-
-
-
-    return Scaffold(
-
-      drawer: Drawer(
-        child: CategoryMenuPage(),
-
-        ),
-      body: SafeArea(
-
-        child: ScopedModel<NewAppStateModel>(
-          model: newModel,
-          child: ScopedModelDescendant<NewAppStateModel>(
-              builder: (context, child, model) {
-                return  Stack(
-                  children: <Widget>[
-                    ListView(
-//                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-children: <Widget>[
 //
-  const Divider(
-      color: Colors.deepOrangeAccent, height: 5
-      ),
-
-//              quickLinkSection,
-  _buildPanel(model),
-
-  const Divider(
-      color: Colors.deepOrangeAccent, height: 5
-      ),
-
-  productDetailHeadingSection,
-  const Divider(
-      color: Colors.deepOrangeAccent, height: 5
-      ),
-
-//              .....................................................Shopping Cart Rows!!!!
-  shoppingCartRowSection,
-  NewShoppingCartSummary(model: model),
-
-
+//                    },
+//                    ),
+//                  SizedBox(width: 40,),
+//                  RaisedButton(
+//                    shape: const BeveledRectangleBorder(
+//                      borderRadius: BorderRadius.all(Radius.circular(1.0)),
+//                      ),
+//                    color: Colors.deepOrange,
+//                    child: Padding(
+//                      padding: EdgeInsets.all(6.0),
+//                      child: Text(formatter.format(model.totalCost),
+//                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),),
+//                      ),
+//                    onPressed: () {
+////                      Navigator.pushNamed(context, '/cart');
+//                    },
+//                    ),
 //
-
-
-],
-),
-                    Align(child: SizedBox(
-                      height: 70,
-                      width: 400,
-                      child: Card(
-                        child: lastBarSection,
-                        ),
-                      ),
-                            alignment: Alignment.bottomCenter,),
-                  ],
-                  );
-              }),
-          ),
-
-
-
-        ),
-      );
+//
+//                  SizedBox(width: 40,),
+//                  IconButton(
+//                    icon: Icon(Icons.person_add),
+//                    onPressed: () {
+//                      Navigator.pushNamed(context, '/customer');
+//
+//                    },
+//                    ),
+//                ],
+//                );
+//            })
+//
+//        );
+//
+//
+//    var shoppingCartRowSection = Container(
+//      child: ScopedModelDescendant<NewAppStateModel>(
+//        builder: (context, child, model) {
+//          return Column (
+//            children: _createShoppingCartRows(model),
+//            );
+//        },
+//        ),
+//      );
+//
+//
+//
+//
+//    return Scaffold(
+//
+//      drawer: Drawer(
+//        child: CategoryMenuPage(),
+//
+//        ),
+//      body: SafeArea(
+//
+//        child: ScopedModel<NewAppStateModel>(
+//          model: newModel,
+//          child: ScopedModelDescendant<NewAppStateModel>(
+//              builder: (context, child, model) {
+//                return  Stack(
+//                  children: <Widget>[
+//                    ListView(
+////                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+//children: <Widget>[
+////
+//  const Divider(
+//      color: Colors.deepOrangeAccent, height: 5
+//      ),
+//
+////              quickLinkSection,
+//  _buildPanel(model),
+//
+//  const Divider(
+//      color: Colors.deepOrangeAccent, height: 5
+//      ),
+//
+//  productDetailHeadingSection,
+//  const Divider(
+//      color: Colors.deepOrangeAccent, height: 5
+//      ),
+//
+////              .....................................................Shopping Cart Rows!!!!
+//  shoppingCartRowSection,
+//  NewShoppingCartSummary(model: model),
+//
+//
+////
+//
+//
+//],
+//),
+//                    Align(child: SizedBox(
+//                      height: 70,
+//                      width: 400,
+//                      child: Card(
+//                        child: lastBarSection,
+//                        ),
+//                      ),
+//                            alignment: Alignment.bottomCenter,),
+//                  ],
+//                  );
+//              }),
+//          ),
+//
+//
+//
+//        ),
+//      );
   }
 }
 
@@ -360,7 +364,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                                             WhitelistingTextInputFormatter.digitsOnly
                                           ],
                                           onChanged: (text){
-                                            newModel.changeSP(23.3, 1);
+//                                            newModel.changeSP(23.3, 1);
                                           },
                                           decoration: InputDecoration(
                                               border: InputBorder.none,

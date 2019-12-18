@@ -37,13 +37,13 @@ void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-//  NewAppStateModel newModel = NewAppStateModel();
-  AppStateModel model = AppStateModel();
-  model.loadProducts();
+  NewAppStateModel newModel = NewAppStateModel();
+//  AppStateModel model = AppStateModel();
+//  model.loadProducts();
 
   runApp(
-    ScopedModel<AppStateModel>(
-      model: model,
+    ScopedModel<NewAppStateModel>(
+      model: newModel,
       child: ExpressStoreApp(),
     ),
   );

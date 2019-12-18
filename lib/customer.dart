@@ -8,7 +8,6 @@ import 'package:scoped_model/scoped_model.dart';
 //import 'backdrop.dart';
 ////import 'expanding_bottom_sheet.dart';
 //import 'model/app_state_model.dart';
-import 'supplemental/product_grid_view.dart';
 import 'dart:io';
 import 'services/syncData.dart';
 
@@ -147,7 +146,6 @@ class _AddCustomer extends State<AddCustomer> {
           body: Column(
             children: <Widget>[
               MyCustomForm(),
-              ProductPage(),
             ],
             ),
 //          ProductPage(),
@@ -230,7 +228,7 @@ class Con extends StatelessWidget {
               RaisedButton(
                 onPressed: () async{
                   clickCallback();
-                  var allProducts = await model.queryForUI('products', '', '', '');
+                  var allProducts = await queryForUI('products', '', '', '');
 //                  model.loadProducts(allProducts);
                   print(model.getProducts());
 //                  print(allProducts);

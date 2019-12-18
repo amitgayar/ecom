@@ -3,7 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'model/app_state_model.dart';
-import 'model/product.dart';
+
+enum Category {
+  all,
+  accessories,
+  clothing,
+  home,
+  Reports,
+  Customer,
+  Stock_Requests,
+  Orders,
+  Inventory,
+  Custom_Item,
+
+}
 
 class CategoryMenuPage extends StatelessWidget {
   final List<Category> _categories = Category.values;
@@ -15,10 +28,10 @@ class CategoryMenuPage extends StatelessWidget {
     final categoryString =
         category.toString().replaceAll('Category.', '').toUpperCase();
 
-    return ScopedModelDescendant<AppStateModel>(
+    return ScopedModelDescendant<NewAppStateModel>(
       builder: (context, child, model) => GestureDetector(
         onTap: () {
-          model.setCategory(category);
+          model.setCategory(categoryString);
           if (onCategoryTap != null)
             {
               onCategoryTap();

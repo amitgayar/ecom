@@ -55,51 +55,38 @@ class _Cart2 extends State<Cart2> {
 
   TextEditingController tc;
   Widget _queryBox(NewAppStateModel model) {
-    return Column(
-      children: <Widget>[
+    return TextField(
+      controller: tc,
+      onChanged: (text) async{
+        if (text.length > 1) {
+//          var allProducts = await queryForUI('productCategories', 'name', '>', text);
+//          print("First text field: ${text.length}");
+//          var allProducts = await model.queryForUI('products', '', '', '');
+//          var allProducts = await queryForUI('products', 'name', 'Like', text);
+////          print(allProducts);
+//          model.loadProducts(allProducts);
+            q('firstSearch');
 
-        TextField(
-          controller: tc,
-          onChanged: (text) async{
-            if (text.length < 30) {
-              queryForUI('productCategories', 'id', '<', text);
-              print("First text field: ${text.length}");
-              var allProducts = await model.queryForUI('products', '', '', '');
-
-              print(allProducts);
-            }
-          },
-          decoration: InputDecoration(
-              hintText: 'search',
-              filled: true,
+        }
+      },
+      decoration: InputDecoration(
+        hintText: 'search',
+        filled: true,
 //                prefixIcon: Icon(
 //                  Icons.account_box,
 //                  size: 18.0,
 //                  ),
-              suffixIcon: IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () async{
+        suffixIcon: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () async{
 //                    getSyncAPI();
 //          clickCallback();
-                      var allProducts = await model.queryForUI('products', '', '', '');
-                      model.loadProducts(allProducts);
-                      print(model.getProducts());
-//                      print(allProducts);
-//                  List<Map<String, dynamic>>  allProducts = model.dbProducts;
-//                Future<List<Map<String, dynamic>>> allCategories =  queryForUI('productCategories', '', '', '');
-//                Future<List<Map<String, dynamic>>> allCustomProducts =  queryForUI('customProducts', '', '', '');
-
-
-                 print('success');
-//                print(allCategories);
-//                print(allCustomProducts);
-              },
-                  ),
-              ),
+            var allProducts = await queryForUI('products', '', '', '');
+            print(allProducts);
+            model.loadProducts(allProducts);
+          },
           ),
-
-
-      ],
+        ),
       );
   }
 
@@ -132,6 +119,7 @@ class _Cart2 extends State<Cart2> {
             children: <Widget>[
               _queryBox(newModel),
               NewProductPage(),
+
             ],
             ),
           isExpanded: item.isExpanded,
@@ -292,7 +280,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
   void initState() {
     super.initState();
 
-    myController.addListener(_spChangeAction);
+    myController.addListener(_printTest);
   }
   @override
   void dispose() {
@@ -300,9 +288,8 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
     super.dispose();
   }
 
-  _spChangeAction() {
-    print("Second text field: ${myController.text}");
-    newModel.changeSP(23.3, 1);
+  _printTest() {
+    print("textField of products SP : ${myController.text}");
   }
 
 
@@ -370,7 +357,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                                             WhitelistingTextInputFormatter.digitsOnly
                                           ],
                                           onChanged: (text){
-                                            model.changeSP(23.3, 1);
+//                                            model.changeSP(23.3, 1);
                                           },
                                           decoration: InputDecoration(
                                               border: InputBorder.none,
@@ -411,14 +398,14 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                         iconSize: 15,
                         icon: const Icon(Icons.remove_circle_outline),
                         onPressed: ()
-                      {model.removeItemFromCart(product['id']);}
+                      {removeItemFromCart(model, product);}
 //                        widget.onPressedDelete,
                         ),
                       IconButton(
                         iconSize: 15,
                         icon: const Icon(Icons.add_circle_outline),
                         onPressed: ()
-                        {model.addProductToCart(product['id']);}
+                        {addProductToCart(model, product);}
                         ),
                     ],
                     ),
@@ -441,7 +428,7 @@ class NewProductPage extends StatelessWidget {
         builder: (context, child, model) {
 
           return ProductGridView(
-              products: model.getProducts()
+              products: getProducts(model)
 
               );
         });
@@ -506,15 +493,15 @@ class ProductCard extends StatelessWidget {
     final NumberFormat formatter = NumberFormat.simpleCurrency(name: 'INR',
         decimalDigits: 2, locale: Localizations.localeOf(context).toString());
     final ThemeData theme = Theme.of(context);
-
     return ScopedModelDescendant<NewAppStateModel>(
       builder: (context, child, model) => GestureDetector(
         onTap: () {
-          model.addProductToCart(product['id']);
+          addProductToCart(model, product);
         },
         child: child,
         ),
-      child: Card(
+      child:
+      Card(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -536,7 +523,7 @@ class ProductCard extends StatelessWidget {
                       ),
 //                Spacer(),
                     Text(
-                      product == null ? '' : product['sp'].toString(),
+                      product == null ? '' : formatter.format(product['sp']),
                       style: theme.textTheme.caption,
                       ),
                   ],
@@ -545,8 +532,63 @@ class ProductCard extends StatelessWidget {
           ],
           ),
           color: Colors.blueGrey,
-      ),
+      )
+
       );
+  }
+}
+
+class CategoryCard extends StatelessWidget {
+  CategoryCard({this.imageAspectRatio = 33 / 49, this.category})
+      : assert(imageAspectRatio == null || imageAspectRatio > 0);
+
+  final double imageAspectRatio;
+  final Map<String, dynamic> category;
+
+  static final kTextBoxHeight = 65.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final NumberFormat formatter = NumberFormat.simpleCurrency(name: 'INR',
+                                                                   decimalDigits: 2, locale: Localizations.localeOf(context).toString());
+    final ThemeData theme = Theme.of(context);
+
+    return ScopedModelDescendant<NewAppStateModel>(
+        builder: (context, child, model) => GestureDetector(
+          onTap: () {
+
+          },
+          child: child,
+          ),
+        child: Card(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: SizedBox(
+                  height: 50.0,
+                  width: 221.0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        category == null ? '' : category['name'].toString(),
+                        style: theme.textTheme.button,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        ),
+
+                    ],
+                    ),
+                  ),),
+            ],
+            ),
+          color: Colors.blueGrey,
+          )
+        );
   }
 }
 
@@ -617,7 +659,7 @@ class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
                           ),
                         Text(
                           formatter.format(model.totalCost),
-                          style: largeAmountStyle,
+                          style: smallAmountStyle,
                           ),
                       ],
                       ),

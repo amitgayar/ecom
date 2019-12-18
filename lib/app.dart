@@ -1,10 +1,7 @@
 
 import 'package:flutter/material.dart';
-//import 'package:mpos/customer.dart';
-//import 'package:mpos/shopping_cart.dart';
 import 'homeshrine.dart';
 import 'login.dart';
-import 'shopping_cart.dart';
 import 'customer.dart';
 
 
@@ -27,7 +24,7 @@ class _ExpAppState extends State<ExpressStoreApp> {
       routes: {
         '/login': (context) => LoginPage(),
         '/': (context) => HomePage(),
-        '/cart': (context) => ShoppingCartPage(),
+        '/cart': (context) => new Container(),
         '/customer' : (context) => Customer(),
         '/addCustomer': (context) => AddCustomer(),
       },
