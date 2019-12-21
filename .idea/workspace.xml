@@ -9,10 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac270fba-943d-45ed-9e07-6f31ffdae8e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/mpos.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shrine.iml" beforeDir="false" />
-    </list>
+    <list default="true" id="ac270fba-943d-45ed-9e07-6f31ffdae8e9" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
