@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/services.dart';
 
-import 'category_menu_page.dart';
 import 'model/app_state_model.dart';
 //import 'model/product.dart';
 import 'model/queryForUI.dart';
@@ -13,11 +12,7 @@ import 'services/syncData.dart';
 
 
 
-NewAppStateModel newModel1 = NewAppStateModel();
-class Cart1 extends StatefulWidget {
-  @override
-  _Cart1 createState() => _Cart1();
-}
+NewAppStateModel newModel = NewAppStateModel();
 
 class Item {
   Item({
@@ -30,7 +25,6 @@ class Item {
 //  String headerValue;
   bool isExpanded;
 }
-
 List<Item> generateItems(int numberOfItems) {
   return List.generate(numberOfItems, (int index) {
     return Item(
@@ -39,95 +33,21 @@ List<Item> generateItems(int numberOfItems) {
 );
   });
 }
-
 List<Item> _data = generateItems(1);
+
+class Cart1 extends StatefulWidget {
+  @override
+  _Cart1 createState() => _Cart1();
+}
 
 class _Cart1 extends State<Cart1> {
 
-
-
-  List<Widget> _createShoppingCartRows(NewAppStateModel model) {
-    return model.productsInCart.keys
-        .map(
-            (id) => NewShoppingCartRow(id: id)
-            ).toList();
+  bool bottomBarHide = false;
+  void setBottomBarHide(){
+    setState(() {
+      bottomBarHide = !bottomBarHide;
+    });
   }
-
-  TextEditingController tc;
-  Widget _queryBox(NewAppStateModel model) {
-    return TextField(
-      controller: tc,
-      onChanged: (text) async{
-        if (text.length > 3) {
-//          var allProducts = await q('initSearch', '', text);
-          var allProducts = await q('secondSearch', '5', 'cold drink');
-          print(allProducts);
-          model.loadProducts(allProducts);
-
-        }
-      },
-      decoration: InputDecoration(
-        hintText: 'search',
-        filled: true,
-//                prefixIcon: Icon(
-//                  Icons.account_box,
-//                  size: 18.0,
-//                  ),
-        suffixIcon: IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () async{
-//                    getSyncAPI();
-//          clickCallback();
-            var allProducts = await q('initStack', '', '');
-            print(allProducts);
-            model.loadProducts(allProducts);
-          },
-          ),
-        ),
-      );
-  }
-
-
-
-  Widget quickLinkSection = Text('  Quick Links     ');
-  Widget productDetailHeadingSection = SizedBox(
-    height: 30,
-    child: Text(
-      'Product :      MRP             SP             QTY             Total',
-      textAlign: TextAlign.left,
-      style: TextStyle(fontWeight: FontWeight.w500),
-      ),
-    );
-
-  Widget _buildPanel(NewAppStateModel model) {
-    return ExpansionPanelList(
-      expansionCallback: (int index,bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return
-              quickLinkSection
-            ;},
-          body: Column(
-            children: <Widget>[
-              _queryBox(newModel1),
-              NewProductPage(),
-
-            ],
-            ),
-          isExpanded: item.isExpanded,
-          );
-      }).toList(),
-      );
-  }
-
-
-
-
   @override
   Widget build(BuildContext context) {
     final formatter = NumberFormat.simpleCurrency(name: 'INR', decimalDigits: 2,
@@ -140,35 +60,37 @@ class _Cart1 extends State<Cart1> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-//
                   IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
                       model.clearCart();
-
-
                     },
                     ),
-                  SizedBox(width: 40,),
-                  RaisedButton(
-                    shape: const BeveledRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(1.0)),
+                  Spacer(),
+                  Card(
+//                    width: 189,
+                    child: Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(22.0)),
+                      elevation: 18.0,
+                      color: Colors.orangeAccent,
+                      clipBehavior: Clip.antiAlias, // Add This
+                      child: MaterialButton(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        height: 30.0,
+                        child: new Text(formatter.format(model.totalCost),
+                                          style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),),
+                        onPressed: () {
+                          setBottomBarHide();
+                        },
+                        ),
                       ),
-                    color: Colors.deepOrange,
-                    child: Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Text(formatter.format(model.totalCost),
-                                    style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold),),
-                      ),
-                    onPressed: () {
-//                      Navigator.pushNamed(context, '/cart');
-                    },
                     ),
 
-
-                  SizedBox(width: 40,),
+                  Spacer(),
                   IconButton(
-                    icon: Icon(Icons.person_add),
+                    icon: Icon(Icons.person_add
+                               ),
                     onPressed: () {
                       Navigator.pushNamed(context, '/customer');
 
@@ -180,7 +102,6 @@ class _Cart1 extends State<Cart1> {
 
         );
 
-
     var shoppingCartRowSection = Container(
       child: ScopedModelDescendant<NewAppStateModel>(
         builder: (context, child, model) {
@@ -191,80 +112,383 @@ class _Cart1 extends State<Cart1> {
         ),
       );
 
-
-
-
     return Scaffold(
-
-      drawer: Drawer(
-        child: CategoryMenuPage(),
-
-        ),
       body: SafeArea(
 
         child: ScopedModel<NewAppStateModel>(
-          model: newModel1,
+          model: newModel,
           child: ScopedModelDescendant<NewAppStateModel>(
               builder: (context, child, model) {
                 return  Stack(
                   children: <Widget>[
                     ListView(
-//                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-children: <Widget>[
-//
-  const Divider(
-      color: Colors.deepOrangeAccent, height: 5
-      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                      children: <Widget>[
+                        //
+                        const Divider(
+                            color: Colors.deepOrangeAccent, height: 5
+                            ),
 
-//              quickLinkSection,
-  _buildPanel(model),
+                        //              quickLinkSection,
+                        _buildPanel(model),
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              _productDetailHeadingSection,
 
-  const Divider(
-      color: Colors.deepOrangeAccent, height: 5
-      ),
+//                        const Divider(
+//                            color: Colors.deepOrangeAccent, height: 5
+//                            ),
 
-  productDetailHeadingSection,
-  const Divider(
-      color: Colors.deepOrangeAccent, height: 5
-      ),
+                              //              .....................................................Shopping Cart Rows!!!!
+                              shoppingCartRowSection,
 
-//              .....................................................Shopping Cart Rows!!!!
-  shoppingCartRowSection,
-  NewShoppingCartSummary(model: model),
+                              NewShoppingCartSummary(model: model),
+
+                              bottomBarHide != true
+                                  ?SizedBox(
+                                height: 90,
+                                )
+                                  :
+                              SizedBox(
+                                height: 300,
+                                child: Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Divider(color: Colors.grey, height: 10,thickness: 1,),
+                                      Container(
+                                        color: Colors.deepOrangeAccent,
+                                        child: Row(
+                                          children: <Widget>[
+                                            IconButton(
+                                              icon: Icon(Icons.person_add,color: Colors.black,),
+                                              onPressed: (){
+                                                setBottomBarHide();
+                                              },
+                                              ),
+                                            Text('Select User' ),
+                                            Spacer(),
+                                            IconButton(
+                                              icon: Icon(Icons.error,color: Colors.black,),
+                                              onPressed: (){
+                                                setBottomBarHide();
+                                              },
+                                              ),
+
+                                          ],
+                                          ),
+                                      ),
+                                      Divider(color: Colors.grey, height: 1,thickness: 1,),
 
 
-//
 
 
-],
-),
-                    Align(child: SizedBox(
-                      height: 70,
-                      width: 400,
-                      child: Card(
+
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 20),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+
+                                                Text('Payment Mode'),
+                                                Spacer(),
+                                                IconButton(
+                                                  icon: Icon(Icons.clear),
+                                                  onPressed: (){
+                                                    setBottomBarHide();
+                                                  },
+                                                  )
+                                              ],
+                                              ),
+                                            Row(
+                                              children: <Widget>[
+                                                RaisedButton(
+                                                  child: Text('CASH'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+                                                Spacer(),
+                                                RaisedButton(
+                                                  child: Text('CREDIT'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+                                                Spacer(),
+                                                RaisedButton(
+                                                  child: Text('DEBIT/CREDIT'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+
+                                              ],
+                                              ),
+                                            Row(
+                                              children: <Widget>[
+                                                RaisedButton(
+                                                  child: Text('PAYTM'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+                                                Spacer(),
+                                                RaisedButton(
+                                                  child: Text('BHIM UPI'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+                                                Spacer(),
+                                                RaisedButton(
+                                                  child: Text('OTHER'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+
+                                              ],
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+
+
+
+
+
+
+
+
+
+                                    ],
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                        )
+                      ],
+                      ),
+
+                    bottomBarHide != true
+                        ?
+                    Align(
+                      child: Container(
+                        color: Colors.white,
                         child: lastBarSection,
                         ),
-                      ),
-                            alignment: Alignment.bottomCenter,),
+                      alignment: Alignment.bottomCenter,)
+                        :
+                    new Container(),
                   ],
                   );
               }),
           ),
-
-
-
         ),
       );
   }
+
+  List<Widget> _createShoppingCartRows(NewAppStateModel model) {
+    return model.productsInCart.keys
+        .map(
+            (id) => NewShoppingCartRow(id: id)
+            ).toList();
+  }
+  TextEditingController tc;
+  bool _searchBox = true;
+  void stoggle(context){
+    setState(() {
+      _searchBox = !_searchBox;
+    });
+  }
+
+  Widget _queryBox(NewAppStateModel model) {
+
+
+
+    return Container(
+      alignment: Alignment.centerLeft,
+        child: Row(
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                model.selectedCategory != ''
+                    ? Row(
+                  children: <Widget>[
+                    IconButton(
+
+                        icon: Icon(Icons.navigate_before,
+                                     size: 15,
+                                   ),
+                        onPressed: () {
+                          goToParentCategory(model);
+                        }
+                        ),
+                    Text(model.selectedCategory+'   ',
+                           style: TextStyle(fontSize: 15),
+                         ),
+
+
+                  ],
+                  )
+                    : new Container(),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      child: SizedBox(
+                        height: 40,
+                        width: 280,
+                        child: TextField(
+                          controller: tc,
+                          onChanged: (text) async{
+                            searchCatalogue(model, text);
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'search',
+                            filled: false,
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 18.0,
+                              ),
+                            ),
+
+                          ),
+                        ),
+                      ),
+                    FlatButton(
+                      onPressed: (){
+                        print('add custom product');
+                      },
+                      child: new Text('+ Custom Item'),
+                      ),
+                  ],
+                  )
+              ],
+              ),
+
+      ],
+        )
+        );
+  }
+
+  Widget _productDetailHeadingSection = Container(
+    height: 50,
+    color: Color(0xff429585),
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+
+        children: <Widget>[
+          Text(
+            'Product :',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+          Spacer(),
+          Text(
+            'MRP',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+          Spacer(),
+          Text(
+            'SP',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+          Spacer(),
+          Text(
+            'QTY',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+          Spacer(),
+          Text(
+            'Total',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+        ],
+        ),
+    )
+
+    );
+
+  Widget _buildPanel(NewAppStateModel model) {
+    return ExpansionPanelList(
+      expansionCallback: (int index,bool isExpanded) async{
+        model.emptyStack();
+        await queryForAll(model, 'initStack', '', '');
+        setState(() {
+          _data[index].isExpanded = !isExpanded;
+        });
+      },
+      children: _data.map<ExpansionPanel>((Item item) {
+        return ExpansionPanel(
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return Row(
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.cloud_download),
+                    tooltip: 'getSync',
+                    onPressed: () async{
+                      getSyncAPI();
+                    }
+                    ),
+                Text(' Quick Links'),
+              ],
+              );
+            },
+          body: Column(
+            children:  <Widget>[
+
+              _queryBox(newModel),
+
+              NewProductPage(),
+
+            ],
+            ),
+          isExpanded: item.isExpanded,
+          );
+      }).toList(),
+      );
+  }
+
+
 }
 
 
 class NewShoppingCartRow extends StatefulWidget {
   NewShoppingCartRow({@required this.id}
       );
-
   final int id;
-
   @override
   _NewShoppingCartRow createState() => _NewShoppingCartRow();
 }
@@ -305,108 +529,115 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
           final int quantity =  model.productsInCart[widget.id];
 //          myController.text = '${product['sp'].toString()}';
           return Padding(
-            padding: const EdgeInsets.only(bottom: 6.0),
+            padding: const EdgeInsets.all(10),
             child: Row(
               key: ValueKey(product['id'].toString()),
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
+                    padding: const EdgeInsets.only(right: 1.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              product['name'].toString(),
+                              style: localTheme.textTheme.subhead
+                                  .copyWith(fontWeight: FontWeight.w600),
+                              ),
+                            Spacer(),
+                            Text('${formatter.format(product['sp']*quantity)}'.toString()),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            const SizedBox(width: 90.0),
 
-                            const SizedBox(width: 16.0),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    product['name'].toString(),
-                                    style: localTheme.textTheme.subhead
-                                        .copyWith(fontWeight: FontWeight.w600),
+                            Container(
+                              width: 40,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: '${product['mrp'].toString()}'
                                     ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(width: 40.0),
-
-                                      Container(
-                                        width: 60,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: '${product['mrp'].toString()}'
-                                              ),
-                                          ),
-                                        ),
-//                                const SizedBox(width: 30.0),
-                                      Spacer(),
-                                      Container(
-                                        width: 50,
-                                        child: new TextField(
-                                          controller: myController,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: <TextInputFormatter>[
-                                            WhitelistingTextInputFormatter.digitsOnly
-                                          ],
-                                          onChanged: (text){
-//                                            model.changeSP(23.3, 1);
-                                          },
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: '${product['sp'].toString()}'
-                                              ),
-                                          ),
-                                        ),
-                                      Spacer(),
-                                      Container(
-                                        width: 35,
-                                        child: Text('$quantity'.toString()),
-                                        ),
-                                      Spacer(),
-                                      Text('${formatter.format(product['sp']*quantity)}'.toString()),
-                                    ],
-                                    ),
-
-                                ],
                                 ),
                               ),
+//                                const SizedBox(width: 30.0),
+                            Spacer(),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Container(
+                              width: 40,
+                              child: new TextField(
+                                controller: myController,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly
+                                ],
+                                onChanged: (text){
+//                                            model.changeSP(23.3, 1);
+                                },
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: '${product['sp'].toString()}'
+                                    ),
+                                ),
+                              ),
+//                            Spacer(),
+
+
+//
+
+                            Container(
+
+                              child: Row(
+                                children: <Widget>[
+
+                                    IconButton(
+                                        iconSize: 15,
+                                        icon: const Icon(Icons.remove),
+                                        onPressed: ()
+                                        {removeItemFromCart(model, product);}
+                                        //                        widget.onPressedDelete,
+                                        ),
+                                  Container(
+                                    width: 30,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: '$quantity'.toString(),
+
+                                          ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                        iconSize: 15,
+                                        icon: const Icon(Icons.add),
+                                        onPressed: ()
+                                        {model.addProductToCart(product['id']);}
+                                        ),
+                                  ],
+
+                              )
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+
+
                           ],
                           ),
-                        const SizedBox(height: 16.0),
-                        const Divider(
-                            color: Colors.deepOrangeAccent, height: 5
-                            ),
+                        Divider(color: Color(0xff429585),thickness: 1,height: 4,)
+
                       ],
                       ),
                     ),
                   ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 1),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
 
-                    children: <Widget>[
-                      IconButton(
-                          iconSize: 15,
-                          icon: const Icon(Icons.remove_circle_outline),
-                          onPressed: ()
-                          {removeItemFromCart(model, product);}
-                          //                        widget.onPressedDelete,
-                          ),
-                      IconButton(
-                          iconSize: 15,
-                          icon: const Icon(Icons.add_circle_outline),
-                          onPressed: ()
-                          {addProductToCart(model, product);}
-                          ),
-                    ],
-                    ),
-                  ),
 
               ],
               ),
@@ -425,7 +656,10 @@ class NewProductPage extends StatelessWidget {
         builder: (context, child, model) {
 
           return ProductGridView(
-              products: getProducts(model)
+              products: model.getProducts(),
+              categories: model.getCategories(),
+              customProducts: model.getCustomProducts(),
+
 
               );
         });
@@ -434,10 +668,12 @@ class NewProductPage extends StatelessWidget {
 
 class ProductGridView extends StatelessWidget {
   final List<Map<String, dynamic>> products;
+  final List<Map<String, dynamic>> categories;
+  final List<Map<String, dynamic>> customProducts;
 
-  const ProductGridView({Key key, this.products});
+  const ProductGridView({Key key, this.products, this.categories, this.customProducts});
 
-  List<Container> _buildRows(BuildContext context) {
+  List<Container> _buildProductCards(BuildContext context) {
     if (products == null || products.isEmpty) {
       return const <Container>[];
     }
@@ -445,7 +681,30 @@ class ProductGridView extends StatelessWidget {
       return Container(
         child: ProductCard(product: products[index]),
         );
-    }).toList();
+    }).toList() ;
+  }
+
+  List<Container> _buildCategoryCards(BuildContext context) {
+    if (categories == null || categories.isEmpty) {
+      return const <Container>[];
+    }
+    return List.generate(categories.length, (index) {
+      return Container(
+        child: CategoryCard(category: categories[index]),
+        );
+    }).toList() ;
+  }
+
+  List<Container> _buildCustomProductsCards(BuildContext context) {
+    if (customProducts == null || customProducts.isEmpty) {
+      print(customProducts);
+      return const <Container>[];
+    }
+    return List.generate(customProducts.length, (index) {
+      return Container(
+        child: ProductCard(product: customProducts[index]),
+        );
+    }).toList() ;
   }
 
 
@@ -455,20 +714,26 @@ class ProductGridView extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: SizedBox(
-            height: 150.0,
+            height: 160.0,
             child: new GridView.count(
               scrollDirection: Axis.horizontal,
               primary: false,
-//              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               crossAxisCount: 2,
-              children: _buildRows(context),
+              children:
+                  _buildCustomProductsCards(context)
+                +
+                   _buildCategoryCards(context)
+                +
+                 _buildProductCards(context) ,
+
               ),
             ),
           ),
       ],
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       );
 
 
@@ -483,7 +748,6 @@ class ProductCard extends StatelessWidget {
   final double imageAspectRatio;
   final Map<String, dynamic> product;
 
-  static final kTextBoxHeight = 65.0;
 
   @override
   Widget build(BuildContext context) {
@@ -513,22 +777,30 @@ class ProductCard extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         product == null ? '' : product['name'].toString(),
-                        style: theme.textTheme.button,
+                        style: TextStyle(fontSize: 13),
+//                        theme.textTheme.button,
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
+//                        style: TextStyle(
+//                          fontWeight: FontWeight.w800,
+//                          fontSize: 15
+//
+//                        ),
                         ),
 //                Spacer(),
                       Text(
                         product == null ? '' : formatter.format(product['sp']),
-                        style: theme.textTheme.caption,
+                        style:
+                        theme.textTheme.caption,
+
                         ),
                     ],
                     ),
                   ),),
             ],
             ),
-          color: Colors.blueGrey,
+          color: Color(0xff429585),
           )
 
         );
@@ -542,7 +814,6 @@ class CategoryCard extends StatelessWidget {
   final double imageAspectRatio;
   final Map<String, dynamic> category;
 
-  static final kTextBoxHeight = 65.0;
 
   @override
   Widget build(BuildContext context) {
@@ -553,7 +824,8 @@ class CategoryCard extends StatelessWidget {
     return ScopedModelDescendant<NewAppStateModel>(
         builder: (context, child, model) => GestureDetector(
           onTap: () {
-
+             onTapCategoryEntry(model, category);
+             model.setCategory(category['name']);
           },
           child: child,
           ),
@@ -575,7 +847,7 @@ class CategoryCard extends StatelessWidget {
                         style: theme.textTheme.button,
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                        maxLines: 3,
                         ),
 
                     ],
@@ -583,7 +855,7 @@ class CategoryCard extends StatelessWidget {
                   ),),
             ],
             ),
-          color: Colors.blueGrey,
+          color: Color(0xff429582),
           )
         );
   }
@@ -615,28 +887,29 @@ class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
       builder: (context, child, model) {
         return Row(
           children: [
-            SizedBox(width: 30),
+//            SizedBox(width: 30),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(right: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-
-                        new Checkbox(
+                        Switch(
                           value: isGST,
                           onChanged: (bool value) {
                             setState(() {
                               isGST = value;
-
                               model.setGST(value);
-
                             });
                           },
-                          activeColor: Colors.black,
-                          ),
+                           activeColor: Colors.white,
+                          activeTrackColor: Colors.green,
+
+                        ),
+
+//
                         const Expanded(
                             child: Text('GST')
                             //                          SizedBox(height: 1,),
@@ -648,19 +921,7 @@ class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
                       ],
                       ),
                     const SizedBox(height: 2.0),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Expanded(
-                          child: Text('TOTAL'),
-                          ),
-                        Text(
-                          formatter.format(model.totalCost),
-                          style: smallAmountStyle,
-                          ),
-                      ],
-                      ),
-                    const SizedBox(height: 6.0),
+
                     Row(
                       children: [
                         const Expanded(
@@ -672,19 +933,8 @@ class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
                           ),
                       ],
                       ),
-                    const SizedBox(height: 4.0),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: Text('Shipping:'),
-                          ),
-                        Text(
-                          formatter.format(model.shippingCost),
-                          style: smallAmountStyle,
-                          ),
-                      ],
-                      ),
-                    const SizedBox(height: 4.0),
+//                    const SizedBox(height: 4.0),
+
                     Row(
                       children: [
                         const Expanded(
@@ -692,6 +942,20 @@ class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
                           ),
                         Text(
                           formatter.format(model.tax),
+                          style: smallAmountStyle,
+                          ),
+
+                      ],
+
+                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Expanded(
+                          child: Text('TOTAL'),
+                          ),
+                        Text(
+                          formatter.format(model.totalCost),
                           style: smallAmountStyle,
                           ),
                       ],

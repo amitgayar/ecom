@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'login.dart';
 import 'customer.dart';
+import 'orders.dart';
 
 
 
@@ -19,17 +20,22 @@ class _ExpAppState extends State<ExpressStoreApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ExpStore',
+
 //      initialRoute: '/login',
 //      onGenerateRoute: _getRoute,
       routes: {
         '/login': (context) => LoginPage(),
         '/': (context) => HomePage(),
         '/cart': (context) => new Container(),
-        '/customer' : (context) => Customer(),
+        '/customers' : (context) => Customer(),
         '/addCustomer': (context) => AddCustomer(),
+        '/orders' : (context) => Orders(),
+        '/requestStocks' : (context) => Orders(),
+        '/logout' : (context) => Orders(),
+
       },
       theme: new ThemeData(
-              brightness: Brightness.dark,                        // new
+              brightness: Brightness.light,                        // new
       ),
     );
   }

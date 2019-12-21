@@ -31,19 +31,22 @@ import 'package:flutter/services.dart';
 import 'package:scoped_model/scoped_model.dart';
 //import 'model/products_repository.dart';
 import 'app.dart';
-import 'model/app_state_model.dart';
+//import 'model/app_state_model.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  NewAppStateModel newModel = NewAppStateModel();
-  WidgetsFlutterBinding.ensureInitialized();
+//  NewAppStateModel newModel = NewAppStateModel();
+
 //  TestWidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    ScopedModel<NewAppStateModel>(
-      model: newModel,
-      child: ExpressStoreApp(),
-    ),
+//  runApp(
+//    ScopedModel<NewAppStateModel>(
+//      model: newModel,
+//      child: ExpressStoreApp(),
+//    ),
+      runApp(
+        ExpressStoreApp(),
   );
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/services.dart';
 
-import 'category_menu_page.dart';
 import 'model/app_state_model.dart';
 //import 'model/product.dart';
 import 'model/queryForUI.dart';

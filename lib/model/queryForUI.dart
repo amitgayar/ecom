@@ -18,11 +18,20 @@ final dbHelper = DatabaseHelper.instance;
 
 
 
-NewAppStateModel cartModel = new NewAppStateModel();
+//NewAppStateModel cartModel = new NewAppStateModel();
 
-Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  String operator, String id) async {
+Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  String operator, String id, {String colName2:'', String category_id:''}) async {
+ String raw;
+  if (colName == 'name' && category_id == ''){
+    raw = "SELECT * FROM $table WHERE $colName $operator LOWER('%$id%')";
+ }
+  else if (category_id != ''){
 
-  String raw = "SELECT * FROM $table WHERE UPPER($colName) $operator UPPER('%$id%')";
+    raw = "SELECT * FROM $table WHERE LOWER('%$colName%') $operator LOWER('%$id%') AND $colName2 = $category_id";
+  }
+ else {
+    raw = "SELECT * FROM $table WHERE $colName $operator $id";
+  }
 
   if (id == '' && colName == '' && operator == '' ){
     final _dbProducts = await dbHelper.queryAllRows(table);
@@ -33,15 +42,16 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 
   }
 
-  else if (table == '') {
-    final queryList = await dbHelper.queryRow(table,  id,  colName,  operator);
-    print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : ' +queryList.length.toString());
-//    print('First one is : ' + queryList.first.toString());
-//    print(queryList);
-    return queryList;
+//  else if (table == '') {
+//    final queryList = await dbHelper.queryRow(table,  id,  colName,  operator);
+//    print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : ' +queryList.length.toString());
+////    print('First one is : ' + queryList.first.toString());
+////    print(queryList);
+//    return queryList;
 
-  }
+//  }
   else {
+    print(raw);
   final queryList = await dbHelper.raw_query(raw);
   print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : ' +queryList.length.toString());
 //    print('First one is : ' + queryList.first.toString());
@@ -53,69 +63,89 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 
 }
 
-Future<dynamic> q(String type, String category_id, String text) async{
+
+
+
+
+
+Future<void> queryForAll(NewAppStateModel cartModel, String type, String category_id, String text ) async{
   if (type == 'initStack'){
-    var allProducts = await queryForUI('products', '', '', '');
-//    var allCategories = await queryForUI('productCatogories','', '', '');
+//    var allProducts = await queryForUI('products', '', '', '');
+    var allCategories = await queryForUI('productCategories','parent_id', '=', '1');
     var allCustomProducts = await queryForUI('customProducts', '', '', '');
-//    var data =  allCategories + allCustomProducts + allProducts ;
-    var data =  allCustomProducts + allProducts ;
-//          print(initSearch);
-    return data;
+
+    cartModel.setData(null,  allCategories, allCustomProducts);
+
+
   }
   else if (type == 'secondStack'){
     var allProducts = await queryForUI('products', 'category_id', '=', category_id);
-    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
+    var allCategories = await queryForUI('productCategories', 'parent_id', '=', category_id);
     var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
-    var data = allCategories + allCustomProducts + allProducts ;
-//          print(initSearch);
-    return data;
+
+    cartModel.setData(allProducts, allCategories, allCustomProducts);
+
+
   }
-  else if (type == 'thirdStack'){
-    var allProducts = await queryForUI('products', 'category_id', '=', category_id);
-    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
-    var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
-  var data = allCategories + allCustomProducts + allProducts ;
-//          print(initSearch);
-    return data;
-  }
+
   else if (type == 'initSearch'){
     var allProducts = await queryForUI('products', 'name', 'LIKE', text);
-//    var allCategories = await queryForUI('productCatogories', 'name', 'LIKE', text);
+    var allCategories = await queryForUI('productCategories', 'name', 'LIKE', text);
     var allCustomProducts = await queryForUI('customProducts', 'name', 'LIKE', text);
-//    var data = allCategories + allCustomProducts + allProducts ;
-    var data =  allCustomProducts + allProducts ;
-//          print(initSearch);
-    return data;
+
+
+    cartModel.setData(allProducts, allCategories, allCustomProducts);
+
   }
-  else if (type == 'secondSearch'){
-    var allProducts = await queryForUI('products', 'category_id', '=', category_id);
-    allProducts = allProducts.where((p) => p['name'] == text);
-//    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
-    var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
-    allCustomProducts = allCustomProducts.where((p) => p['name'] == text);
-//  var data = allCategories + allCustomProducts + allProducts ;
-    var data =  allCustomProducts + allProducts ;
-//          print(initSearch);
-    return data;
+
+
+
+}
+
+void searchCatalogue(NewAppStateModel cartModel, String text) async{
+  if(text.length>3){
+    await queryForAll(cartModel, 'initSearch', '', text);
   }
-  else if (type == 'thirdSearch'){
-    var allProducts = await queryForUI('products', 'category_id', '=', category_id);
-    var allCategories = await queryForUI('productCatogories', 'parent_id', '=', category_id);
-    var allCustomProducts = await queryForUI('customProducts', 'category_id', '=', category_id);
-    var data = allCategories + allCustomProducts + allProducts ;
-//          print(initSearch);
-    return data;
+  else if(text.length<2) {
+    Map<String, dynamic> category = cartModel.stack.last;
+    if (category == null){
+      await queryForAll(cartModel, 'initStack', '', '');
+    }
+    else{
+      await queryForAll(cartModel, 'secondStack', category['id'].toString(), '');
+    }
+
   }
 
 }
 
+void onTapCategoryEntry(NewAppStateModel cartModel, Map<String, dynamic> category) async {
+  cartModel.setStack(category);
+  await queryForAll(cartModel, 'secondStack', category['id'].toString(), '');
+  cartModel.setCategory(category['name']);
+}
 
+void goToParentCategory(NewAppStateModel cartModel) async{
+    cartModel.setStack(null);
+    Map<String, dynamic> category = cartModel.stack.last;
+    if (category == null){
+      await queryForAll(cartModel, 'initStack', '', '');
+      cartModel.setCategory('');
+    }
+    else{
+      await queryForAll(cartModel, 'secondStack', category['id'].toString(), '');
+      cartModel.setCategory(category['name']);
+    }
+}
 
 dynamic addProductToCart(NewAppStateModel cartModel, Map<String, dynamic> product){
 //  cartModel.loadProducts([product]); ...................                  ...............     .................................
+
+  cartModel.addItemToCart(product);
   cartModel.addProductToCart(product['id']);
+
 }
+
 dynamic getProducts(NewAppStateModel cartModel){
   return cartModel.getProducts();
 }
@@ -123,4 +153,13 @@ dynamic getProducts(NewAppStateModel cartModel){
 
 dynamic removeItemFromCart(NewAppStateModel cartModel, Map<String, dynamic> product){
   cartModel.removeItemFromCart(product['id']);
+}
+
+List<Map<String, dynamic>> mapQuery(List<Map<String, dynamic>> query) {
+  List<Map<String, dynamic>> mapList = [];
+  for (var row in query) {
+    Map<String, dynamic> map = row.map((key, value) => MapEntry(key, value));
+    mapList.add(map);
+  }
+  return mapList;
 }
