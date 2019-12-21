@@ -11,7 +11,7 @@ class Orders extends StatelessWidget {
 
       appBar: AppBar(
         title: Text('ORDERS'),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Color(0xff429585),
         //          bottom: TabBar(
         //            // These are the widgets to put in each tab in the tab bar.
         //            tabs: _tabs.map((String name) => Tab(text: name)).toList(),

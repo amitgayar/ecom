@@ -1,3 +1,16 @@
+// Copyright 2018-present the Flutter authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import 'package:flutter/material.dart';
 import 'dart:io' show Directory;
@@ -7,7 +20,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'login_OTP.dart';
-import 'Constants/const.dart';
+import 'Constants/const.dart' as constants;
 
 
 class LoginPage extends StatefulWidget {
@@ -31,6 +44,40 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.dispose();
     super.dispose();
   }
+
+
+  // Function to insert data in DB
+/*//  void _insert() async {
+//    // row to insert
+//    String userName = _usernameController.text;
+//    String password = "123456";
+//    Map<String, dynamic> row = {
+//      DatabaseHelper.columnName : userName,
+//      DatabaseHelper.columnPassword  : password
+//    };
+//    final id = await dbHelper.insert(row);
+//    print('inserted row id: $id');
+//    print('inserted row id: $password');
+//    print('inserted row id: $userName');
+//  }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,20 +165,20 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-                    var p;
+                    http.Response p;
                     if (validateUsername == 0){
                       // Call API to send OTP to the input number
-                      Post newPost = new Post(
+                      processPhoneNumber newPost = new processPhoneNumber(
                           phoneNumber: _usernameController.text);
-                      p = await createPost(
-                          getOTP,
+                      p = await submitAuthenticationDetails(
+                          constants.getOTP,
                           body: newPost.toMap());
                       print(p);
 
 
 
                       //Check API Status
-                      if(p == 200)
+                      if(p.statusCode == 200)
                       {
                         // If status is 200 navigate to OTP screen
                         var route = new MaterialPageRoute(
@@ -154,6 +201,8 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       }
                     }
+
+
 
                     print(_usernameController.text);
                     //print(validateUsername);

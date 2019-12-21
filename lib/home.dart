@@ -11,9 +11,18 @@ import 'model/Database_Models.dart';
 import 'Databases/Database.dart';
 import 'dart:convert';
 import 'services/syncData.dart';
-import 'cart2.dart';
+//import 'cart2.dart';
 import 'cart3.dart';
 import 'cart1.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'model/Database_Models.dart';
+import 'Databases/Database.dart';
+import 'dart:convert';
+import 'services/syncData.dart';
+//import 'AppScreens/cart1.dart';
+import 'AppScreens/cart2.dart';
+//import 'AppScreens/cart3.dart';
+
 
 
 
@@ -87,7 +96,7 @@ class HomePage extends StatelessWidget {
                 ),
               ListTile(
                 title : Text('REQUEST STOCKS'),
-                leading: Icon(Icons.send),
+                leading: Icon(Icons.near_me),
                 onTap: (){
                   Navigator.pushNamed(context, '/requestStocks');
                 },
@@ -105,14 +114,14 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('HOME'),
                   backgroundColor: Color(0xff429585),
-//          bottom: TabBar(
-//            // These are the widgets to put in each tab in the tab bar.
-//            tabs: _tabs.map((String name) => Tab(text: name)).toList(),
-//            ),
+          bottom: TabBar(
+            // These are the widgets to put in each tab in the tab bar.
+            tabs: _tabs.map((String name) => Tab(text: name)).toList(),
+            ),
           ),
         body: TabBarView(
           // These are the contents of the tab views, below the tabs.
-          children: [Cart1(),Cart2(),Cart3()],
+          children: [Cart1(),Cart2(),Cart2()],
           ),
         ),
 
@@ -123,3 +132,44 @@ class HomePage extends StatelessWidget {
   }
 }
 
+
+class NewsListPage extends StatefulWidget {
+
+  @override
+  _NewsListPageState createState() => _NewsListPageState();
+}
+
+
+
+class _NewsListPageState extends State<NewsListPage> {
+  final dbHelper = DatabaseHelper.instance;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text("test"),
+        ),
+      body: RaisedButton(
+          child: const Text('Login'),
+          elevation: 8.0,
+          shape: const BeveledRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(7.0)),
+            ),
+          onPressed: () async {
+
+//            await PostSyncAPI();
+            //InsertDataToTable new_inset = new InsertDataToTable();
+            //insert_productCategories(data);
+
+
+            //List<Map<String, dynamic>> queryResult = await dbHelper.queryRowCount("productCategories", "16");
+            //print('queryResult: $queryResult');
+
+          }
+          ),
+      );
+  }
+}

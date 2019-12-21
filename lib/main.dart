@@ -28,9 +28,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scoped_model/scoped_model.dart';
-//import 'model/products_repository.dart';
+//import 'package:scoped_model/scoped_model.dart';
 import 'app.dart';
+import 'package:cron/cron.dart';
+import 'login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'model/app_state_model.dart';
 
 void main() {
@@ -38,15 +40,48 @@ void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-//  NewAppStateModel newModel = NewAppStateModel();
-
-//  TestWidgetsFlutterBinding.ensureInitialized();
-//  runApp(
-//    ScopedModel<NewAppStateModel>(
-//      model: newModel,
-//      child: ExpressStoreApp(),
-//    ),
       runApp(
         ExpressStoreApp(),
   );
 }
+
+
+
+//
+//
+//
+//void main() async {
+//
+//  WidgetsFlutterBinding.ensureInitialized();
+//  SystemChrome.setPreferredOrientations(
+//      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+//
+//
+//  SharedPreferences cronFrequency = await SharedPreferences.getInstance();
+//
+//  final getFrequencyCron = new Cron();
+//  getFrequencyCron.schedule(new Schedule.parse('0 0 * * *'), () async {
+//    print('every three minutes');
+//    if (cronFrequency.getString("authentication_token") != null){
+//      await getFrequencyAPI();
+//    }
+//    else {
+//      cronFrequency.setBool("is_login_true", false);
+//      navigatorKey.currentState.pushNamed('/login');
+//    }
+//
+//
+//
+//  });
+//
+//
+//
+//
+//
+//  Widget _defaultHome;
+//  if (cronFrequency.getString("authentication_token") != null){
+//    _defaultHome = new NewsListPage();
+//  }
+//  else {
+//    _defaultHome = new LoginPage();;
+//  }

@@ -1,6 +1,6 @@
-//import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart' show rootBundle;
-//import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 
 // class for ProductCategories
@@ -154,8 +154,7 @@ class products {
   String brand;
   int category_id;
   int inventory;
-  String barcode;
-  int parent_id;
+  bool is_barcode_available;
   String hsn;
   String uom;
   String size;
@@ -163,7 +162,7 @@ class products {
   var created_at;
   var updated_at;
 
-  products(this.id, this.name, this.mrp, this.sp, this.cgst, this.sgst, this.cess, this.brand, this.category_id, this.inventory, this.barcode, this.parent_id, this.hsn, this.uom, this.size, this.color, this.created_at, this.updated_at);
+  products(this.id, this.name, this.mrp, this.sp, this.cgst, this.sgst, this.cess, this.brand, this.category_id, this.inventory, this.is_barcode_available, this.hsn, this.uom, this.size, this.color, this.created_at, this.updated_at);
 
   products.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -176,8 +175,7 @@ class products {
         brand = json['brand'],
         category_id = json['category_id'],
         inventory = json['inventory'],
-        barcode = json['barcode'],
-        parent_id = json['parent_id'],
+        is_barcode_available = json['is_barcode_available'],
         hsn = json['hsn'],
         uom = json['uom'],
         size = json['size'],
@@ -197,8 +195,7 @@ class products {
         'brand' : brand,
         'category_id' : category_id,
         'inventory' : inventory,
-        'barcode' : barcode,
-        'parent_id' : parent_id,
+        'is_barcode_available' : is_barcode_available,
         'hsn' : hsn,
         'uom' : uom,
         'size' : size,
@@ -216,6 +213,9 @@ class customProducts {
   String name;
   double mrp;
   double sp;
+  double cgst;
+  double sgst;
+  double cess;
   bool to_be_saved;
   String barcode;
   int category_id;
@@ -231,6 +231,9 @@ class customProducts {
         name = json['name'],
         mrp = json['mrp'].toDouble(),
         sp = json['sp'].toDouble(),
+        cgst = json['cgst'].toDouble(),
+        sgst = json['sgst'].toDouble(),
+        cess = json['cess'].toDouble(),
         to_be_saved = json['to_be_saved'],
         barcode = json['barcode'],
         category_id = json['category_id'],
@@ -244,6 +247,9 @@ class customProducts {
         'name' : name,
         'mrp' : mrp,
         'sp' : sp,
+        'cgst' : cgst,
+        'sgst' : sgst,
+        'cess' : cess,
         'to_be_saved' : to_be_saved,
         'barcode' : barcode,
         'category_id' : category_id,
@@ -496,18 +502,24 @@ class dataSync {
   int id;
   String syncType;
   var updated_at;
+  bool sync_status;
+  String sync_comment;
 
-  dataSync(this.syncType, this.updated_at, this.id);
+  dataSync(this.syncType, this.updated_at, this.id, this.sync_status, this.sync_comment);
 
   dataSync.fromJson(Map<String, dynamic> json)
       : syncType = json['syncType'],
         updated_at = json['updated_at'],
+        sync_comment = json['sync_comment'],
+        sync_status = json['sync_comment'],
         id = json['id'];
 
   Map<String, dynamic> toJson() =>
       {
         'syncType' : syncType,
         'updated_at' : updated_at,
+        'sync_comment' : sync_comment,
+        'sync_status' : sync_status,
         'id' : id,
       };
 }

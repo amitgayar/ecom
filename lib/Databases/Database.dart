@@ -52,13 +52,12 @@ class DatabaseHelper {
   static final brand = 'brand';
   static final category_id = 'category_id';
   static final inventory = 'inventory';
-  //static final barcode = 'barcode';
+  static final is_barcode_available = 'is_barcode_available';
   static final hsn = 'hsn';
   static final uom = 'uom';
   static final size = 'size';
   static final color = 'color';
   //static final name = 'name';
-  //static final parent_id = 'parent_id';
 
   // variables for creating customProductsTable
   static final customProductsTable = 'customProducts';
@@ -66,6 +65,9 @@ class DatabaseHelper {
   //static final name = 'name';
   //static final mrp = 'MRP';
   //static final sp = 'sp';
+  //static final cgst = 'cgst';
+  //static final sgst = 'sgst';
+  //static final cess = 'cess';
   //static final category_id = 'category_id';
   //static final uom = 'uom';
 
@@ -125,6 +127,8 @@ class DatabaseHelper {
   // variables for creating DataSynctable
   static final dataSyncTable = 'data_sync';
   static final syncType = 'sync_type';
+  static final sync_status = 'sync_status';
+  static final sync_comment = 'sync_comment';
   //static final updated_at = 'updated_at';
 
 
@@ -215,7 +219,6 @@ class DatabaseHelper {
           CREATE TABLE $productsTable (
             $id INTEGER PRIMARY KEY AUTOINCREMENT,
             $name INTEGER,
-            $parent_id INTEGER,
             $mrp DECIMAL,
             $sp DECIMAL,
             $cgst DECIMAL,
@@ -224,7 +227,7 @@ class DatabaseHelper {
             $brand TEXT,
             $category_id INTEGER,
             $inventory INTEGER,
-            $barcode TEXT,
+            $is_barcode_available BOOLEAN,
             $hsn TEXT,
             $uom TEXT,
             $size TEXT,
@@ -241,6 +244,9 @@ class DatabaseHelper {
             $name TEXT NOT NULL,
             $mrp DECIMAL,
             $sp DECIMAL,
+            $cgst DECIMAL,
+            $sgst DECIMAL,
+            $cess DECIMAL,
             $category_id BOOLEAN,
             $uom TEXT,
             $to_be_saved BOOLEAN,
@@ -342,6 +348,8 @@ class DatabaseHelper {
           CREATE TABLE $dataSyncTable (
             $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $syncType TEXT,
+            $sync_status BOOLEAN,
+            $sync_comment TEXT,
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             $updated_at DATETIME
           )
@@ -406,4 +414,5 @@ class DatabaseHelper {
     final db = await database;
     return await db.rawQuery(query, null);
   }
+
 }

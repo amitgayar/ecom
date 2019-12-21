@@ -5,5 +5,13 @@ String submitOTP = 'https://virtserver.swaggerhub.com/NTW5/PhoneNumberAuth/1.0.0
 
 // DB Sync APIs
 
-String syncGetAPI = "https://virtserver.swaggerhub.com/NTW5/DataSync/1.0.0/syncData";
-String syncPostAPI = "https://virtserver.swaggerhub.com/NTW5/DataSync/1.0.0/postData";
+String syncGetAPIUrl = "https://virtserver.swaggerhub.com/NTW5/DataSync/1.0.0/syncData";
+String syncPostAPIUrl = "https://virtserver.swaggerhub.com/NTW5/DataSync/1.0.0/postData";
+
+
+//Frequency API URL
+String syncGetFrequencyAPIUrl = "https://virtserver.swaggerhub.com/NTW5/DataSync/1.0.0/syncData";
+
+
+//Frequency API URL
+String syncGetStoreDetailsAPIUrl = "https://virtserver.swaggerhub.com/NTW5/DataSync/1.0.0/syncData";

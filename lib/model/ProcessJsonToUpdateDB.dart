@@ -8,10 +8,10 @@ class ProcessDataReceivedFromFromBackend {
   final List<Barcode> BarcodeList;
 
   ProcessDataReceivedFromFromBackend({this.productsList,
-                this.ProductCategoriesList,
-                this.stockRequestsList,
-                this.stockRequestsProductsList,
-                this.BarcodeList});
+    this.ProductCategoriesList,
+    this.stockRequestsList,
+    this.stockRequestsProductsList,
+    this.BarcodeList});
 
   factory ProcessDataReceivedFromFromBackend.fromJson(Map<String, dynamic> parsedJson){
 
@@ -37,13 +37,50 @@ class ProcessDataReceivedFromFromBackend {
         stockRequestsProductsList : stockRequestsProductsListParsedFromJson,
         BarcodeList : BarcodeListParsedFromJson
 
-    );
+        );
   }
 }
 
 
 
+// class for send Data to Backend
+class sendDataToBackend {
+  var StockRequestList;
+  var StockRequestsProductsList;
+  var OrdersList;
+  var OrderProductsList;
+  var CustomerList;
+  var CustomerCreditList;
+  var OrderRefundList;
+  var CustomProductsList;
+  var sync_data_list;
 
+  sendDataToBackend(this.StockRequestList, this.StockRequestsProductsList, this.OrdersList, this.OrderProductsList, this.CustomerList, this.CustomerCreditList, this.OrderRefundList, this.CustomProductsList, this.sync_data_list);
+
+  sendDataToBackend.fromJson(Map<String, dynamic> json)
+      : StockRequestList = json['requestStocks'],
+        StockRequestsProductsList = json['requestStockItems'],
+        OrdersList = json['orders'],
+        OrderProductsList = json['orderItems'],
+        CustomerList = json['customers'],
+        CustomerCreditList = json['creditLogs'],
+        OrderRefundList = json['refunds'],
+        CustomProductsList = json['customProducts'],
+        sync_data_list = json['sync_data_list'];
+
+  Map<String, dynamic> toJson() =>
+      {
+        'requestStocks' : StockRequestList,
+        'requestStockItems': StockRequestsProductsList,
+        'orders': OrdersList,
+        'orderItems': OrderProductsList,
+        'customers': CustomerList,
+        'creditLogs': CustomerCreditList,
+        'refunds': OrderRefundList,
+        'customProducts': CustomProductsList,
+        'sync_data_list' : sync_data_list,
+      };
+}
 
 
 
@@ -82,6 +119,8 @@ class ProcessDataSentToFromBackend {
 
 
 
+    //print(parsedJson);
+    //print(list3);
     List<requestStockItems> requestStockItemsListParsedFromJson = list1.map((i) => requestStockItems.fromJson(i)).toList();
     List<Orders> ordersListParsedFromJson = list2.map((i) => Orders.fromJson(i)).toList();
     List<orderItems> orderItemsListParsedFromJson = list3.map((i) => orderItems.fromJson(i)).toList();
@@ -102,6 +141,6 @@ class ProcessDataSentToFromBackend {
         customerList:customerListParsedFromJson,
         ordersList:ordersListParsedFromJson
 
-    );
+        );
   }
 }

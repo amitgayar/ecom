@@ -1,7 +1,8 @@
+import '../home.dart';
 import '../Databases/Database.dart';
 import '../model/Database_Models.dart';
-//import 'package:sqflite/sqflite.dart';
-//import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 
@@ -37,32 +38,27 @@ void insertRow(String id, Map<String, dynamic> row, String dbTable, String opera
 Future<Map<String, dynamic>> insert_productCategories(List<categories> data) async {
 
   data.forEach((obj) async {
+    String name = '${obj.name}';
+    String parent_id = '${obj.parent_id}';
+    String id = '${obj.id}';
 
 
-      String name =
-          '${obj.name}';
-      String parent_id =
-          '${obj.parent_id}';
-      String id =
-          '${obj.id}';
+
+    //print("data to be inserted: ${obj}");
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.name : name,
+      DatabaseHelper.parent_id : parent_id,
+      DatabaseHelper.updated_at : new DateTime.now().toString(),
 
 
-      //print("data to be inserted: ${obj}");
+    };
 
-      Map<String, dynamic> row = {
-        DatabaseHelper.name: name,
-        DatabaseHelper.parent_id: parent_id,
-        DatabaseHelper.updated_at: new DateTime.now().millisecondsSinceEpoch,
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.productCategoriesTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfAllItems = await dbHelper.queryAllRows(DatabaseHelper.productCategoriesTable);
+    //print(listOfAllItems);
+    insertRow(id, row, DatabaseHelper.productCategoriesTable,"=");
 
-
-      };
-
-      List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(
-          DatabaseHelper.productCategoriesTable, id, DatabaseHelper.id, "=");
-      List<Map<String, dynamic>> listOfAllItems = await dbHelper.queryAllRows(
-          DatabaseHelper.productCategoriesTable);
-      //print(listOfAllItems);
-      insertRow(id, row, DatabaseHelper.productCategoriesTable, "=");
 
   });
 
@@ -71,6 +67,8 @@ Future<Map<String, dynamic>> insert_productCategories(List<categories> data) asy
 
 // Insert into Order_Products of Database
 Future<Map<String, dynamic>> insert_Order_Products(List<orderItems> data) async {
+
+  print("Entered into insert_Order_Products\n\n\n");
 
   data.forEach((obj) async {
 
@@ -88,7 +86,7 @@ Future<Map<String, dynamic>> insert_Order_Products(List<orderItems> data) async 
 
 
 
-    //print("data to be inserted: ${obj}");
+    print("data to be inserted: ${obj}\n\n\n");
 
     Map<String, dynamic> row = {
       DatabaseHelper.order_id : order_id,
@@ -101,11 +99,12 @@ Future<Map<String, dynamic>> insert_Order_Products(List<orderItems> data) async 
       DatabaseHelper.product_id : product_id,
       DatabaseHelper.barcode : barcode,
       DatabaseHelper.custom_product_id : custom_product_id,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.orderProductsTable, id, DatabaseHelper.id,"=");
+    print("print ID to be inserted in insert_Order_Products: ${id} :::: row = $row\n\n\n");
+
     insertRow(id, row, DatabaseHelper.orderProductsTable,"=");
 
 
@@ -148,11 +147,10 @@ Future<Map<String, dynamic>> insert_Orders(List<Orders> data) async {
       DatabaseHelper.paid_amount_total : paid_amount_total,
       DatabaseHelper.status : status,
       DatabaseHelper.invoice : invoice,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.ordersTable, id, DatabaseHelper.id, "=");
     insertRow(id, row, DatabaseHelper.ordersTable,"=");
 
 
@@ -167,48 +165,48 @@ Future<Map<String, dynamic>> insert_products(List<products> data) async {
 
   data.forEach((obj) async {
 
-
-      String id = '${obj.id}' ;
-      //print(id);
-      String name = '${obj.name}' ;
-      String mrp = '${obj.mrp}';
-      String sp = '${obj.sp}';
-      String cgst = '${obj.cgst}' ;
-      String sgst = '${obj.sgst}' ;
-      String cess = '${obj.cess}';
-      String brand = '${obj.brand}' ;
-      String category_id = '${obj.category_id}' ;
-      String inventory = '${obj.inventory}' ;
-      String barcode = '${obj.barcode}';
-      String parent_id = '${obj.parent_id}' ;
-      String hsn = '${obj.hsn}' ;
-      String uom = '${obj.uom}' ;
-      String size = '${obj.size}' ;
-      String color = '${obj.color}' ;
-      String dbTable = DatabaseHelper.productsTable;
+    String id = '${obj.id}';
+    //print(id);
+    String name = '${obj.name}';
+    String mrp = '${obj.mrp}';
+    String sp = '${obj.sp}';
+    String cgst = '${obj.cgst}';
+    String sgst = '${obj.sgst}';
+    String cess = '${obj.cess}';
+    String brand = '${obj.brand}';
+    String category_id = '${obj.category_id}';
+    String inventory = '${obj.inventory}';
+    String is_barcode_available = '${obj.is_barcode_available}';
+    String hsn = '${obj.hsn}';
+    String uom = '${obj.uom}';
+    String size = '${obj.size}';
+    String color = '${obj.color}';
+    String dbTable = DatabaseHelper.productsTable;
 
 
-      ////print("data to be inserted: ${obj}");
-      Map<String, dynamic> row = {
-        DatabaseHelper.name: name,
-        DatabaseHelper.mrp: mrp,
-        DatabaseHelper.sp: sp,
-        DatabaseHelper.cgst: cgst,
-        DatabaseHelper.sgst: sgst,
-        DatabaseHelper.cess: cess,
-        DatabaseHelper.brand: brand,
-        DatabaseHelper.category_id: category_id,
-        DatabaseHelper.inventory: inventory,
-        DatabaseHelper.barcode: barcode,
-        DatabaseHelper.parent_id: parent_id,
-        DatabaseHelper.hsn: hsn,
-        DatabaseHelper.uom: uom,
-        DatabaseHelper.size: size,
-        DatabaseHelper.color: color,
-        DatabaseHelper.updated_at: new DateTime.now().millisecondsSinceEpoch
-      };
+    ////print("data to be inserted: ${obj}");
+    Map<String, dynamic> row = {
+      DatabaseHelper.name : name,
+      DatabaseHelper.mrp : mrp,
+      DatabaseHelper.sp : sp,
+      DatabaseHelper.cgst : cgst,
+      DatabaseHelper.sgst : sgst,
+      DatabaseHelper.cess : cess,
+      DatabaseHelper.brand : brand,
+      DatabaseHelper.category_id : category_id,
+      DatabaseHelper.inventory : inventory,
+      DatabaseHelper.is_barcode_available : is_barcode_available,
+      DatabaseHelper.hsn : hsn,
+      DatabaseHelper.uom : uom,
+      DatabaseHelper.size : size,
+      DatabaseHelper.color : color,
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
-      insertRow(id, row, dbTable, "=");
+    };
+
+    insertRow(id, row, dbTable,"=");
+
+
 
 
 
@@ -220,14 +218,14 @@ Future<Map<String, dynamic>> insert_products(List<products> data) async {
 // Insert into customProductsTable of Database
 Future<Map<String, dynamic>> insert_customProducts(List<customProducts> data) async {
 
-
-
   data.forEach((obj) async {
-
     String id = '${obj.id}';
     String name = '${obj.name}';
     String mrp = '${obj.mrp}';
     String sp = '${obj.sp}';
+    String cgst = '${obj.cgst}';
+    String sgst = '${obj.sgst}';
+    String cess = '${obj.cess}';
     String to_be_saved = '${obj.to_be_saved}';
     String barcode = '${obj.barcode}';
     String category_id = '${obj.category_id}';
@@ -240,15 +238,18 @@ Future<Map<String, dynamic>> insert_customProducts(List<customProducts> data) as
       DatabaseHelper.name : name,
       DatabaseHelper.mrp : mrp,
       DatabaseHelper.sp : sp,
+      DatabaseHelper.cgst : cgst,
+      DatabaseHelper.sgst : sgst,
+      DatabaseHelper.cess : cess,
       DatabaseHelper.to_be_saved : to_be_saved,
       DatabaseHelper.barcode : barcode,
       DatabaseHelper.category_id : category_id,
       DatabaseHelper.uom : uom,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customProductsTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customProductsTable, id, DatabaseHelper.id,"=");
     insertRow(id, row, DatabaseHelper.customProductsTable,"=");
 
 
@@ -288,11 +289,11 @@ Future<Map<String, dynamic>> insert_Customer(List<customer> data) async {
       DatabaseHelper.total_discount : total_discount,
       DatabaseHelper.avg_discount_per_order : avg_discount_per_order,
       DatabaseHelper.credit_balance : credit_balance,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customerTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customerTable, id, DatabaseHelper.id,"=");
     insertRow(id, row, DatabaseHelper.customerTable,"=");
 
 
@@ -320,11 +321,11 @@ Future<Map<String, dynamic>> insert_stockRequests(List<requestStocks> data) asyn
       DatabaseHelper.delivered_at : delivered_at,
       DatabaseHelper.accepted_at : accepted_at,
       DatabaseHelper.total_amount : total_amount,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsTable, id, DatabaseHelper.id,"=");
     insertRow(id, row, DatabaseHelper.stockRequestsTable,"=");
 
 
@@ -363,11 +364,11 @@ Future<Map<String, dynamic>> insert_stockRequestsProducts(List<requestStockItems
       DatabaseHelper.delivered_qty : delivered_qty,
       DatabaseHelper.product_price : product_price,
       DatabaseHelper.barcode : barcode,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsProductsTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsProductsTable, id, DatabaseHelper.id,"=");
     //print(listOfItems);
     insertRow(id, row, DatabaseHelper.stockRequestsProductsTable,"=");
 
@@ -397,13 +398,13 @@ Future<Map<String, dynamic>> insert_Barcode(List<Barcode> data) async {
         DatabaseHelper.product_name : product_name.toString(),
         DatabaseHelper.barcode : barcode.toString(),
         DatabaseHelper.product_id : product_id,
-        DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+        DatabaseHelper.updated_at : new DateTime.now().toString()
 
       };
 
 
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.barcodeTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.barcodeTable, id, DatabaseHelper.id,"=");
 
     insertRow(id, row, DatabaseHelper.barcodeTable,"=");
 
@@ -431,13 +432,13 @@ Future<Map<String, dynamic>> insert_customerCredit(List<customerCredit> data) as
       DatabaseHelper.customer_id : customer_id,
       DatabaseHelper.amount : amount,
       DatabaseHelper.order_id : order_id,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
 
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customerCreditTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customerCreditTable, id, DatabaseHelper.id,"=");
     insertRow(id, row, DatabaseHelper.customerCreditTable,"=");
 
 
@@ -466,11 +467,11 @@ Future<Map<String, dynamic>> insert_OrderRefund(List<refunds> data) async {
       DatabaseHelper.refund_qty : refund_qty,
       DatabaseHelper.refund_amt : refund_amt,
       DatabaseHelper.refund_mode : refund_mode,
-      DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.OrderRefundTable, id, DatabaseHelper.id,"=");
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.OrderRefundTable, id, DatabaseHelper.id,"=");
     insertRow(id, row, DatabaseHelper.OrderRefundTable,"=");
 
 
@@ -481,20 +482,30 @@ Future<Map<String, dynamic>> insert_OrderRefund(List<refunds> data) async {
 
 
 // Insert into syncData table of Database
-Future<Map<String, dynamic>> insert_syncData(String data) async {
+Future<Map<String, dynamic>> insert_syncData(String apiTpye, bool status, String comment) async {
+
+    String syncType = apiTpye;
+    String sync_status = status.toString();
+    String sync_comment = comment;
 
 
-  String syncType = data;
+    //print("data to be inserted: ${obj}");
 
-  //print("dataSyncTable data to be inserted: ${obj}");
+    Map<String, dynamic> row = {
+      DatabaseHelper.syncType : syncType,
+      DatabaseHelper.sync_status : sync_status,
+      DatabaseHelper.sync_comment : sync_comment,
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
-  Map<String, dynamic> row = {
-    DatabaseHelper.syncType : syncType,
-    DatabaseHelper.updated_at : new DateTime.now().millisecondsSinceEpoch
+    };
 
-  };
+    insertRow("null", row, DatabaseHelper.dataSyncTable,"=");
 
-  insertRow("null", row, DatabaseHelper.dataSyncTable,">");
+
+
+
+
+
 
 
 }

@@ -1,19 +1,20 @@
-//import 'package:flutter/material.dart';
-//import 'dart:io' show Directory;
-//import '../Databases/Database.dart';
-//import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'dart:io' show Directory;
+import '../Databases/Database.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
 
 
 
-class Post {
+class processPhoneNumber {
   final String phoneNumber;
 
-  Post({this.phoneNumber});
+  processPhoneNumber({this.phoneNumber});
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
+  factory processPhoneNumber.fromJson(Map<String, dynamic> json) {
+    return processPhoneNumber(
       phoneNumber: json['phoneNumber'],
     );
   }
@@ -27,26 +28,35 @@ class Post {
   }
 }
 
-createPost(String url, {Map body}) async {
-  return http.post(url, body: body).then((http.Response response) {
-    final int statusCode = response.statusCode;
+submitAuthenticationDetails(String url, {Map body}) async {
 
-    if (statusCode < 200 || statusCode > 400 || json == null) {
-      throw new Exception("Error while fetching data");
+  print("POST REQUEST Received to submit authentication details");
+  Map<String, String> headers = {"Content-type": "application/json"};
+  try {
+    print("check Internet");
+    final result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      print('connected');
+      return http.post(url, body: body);
     }
-    return statusCode;
-  });
+  } on SocketException catch (_) {
+    print('not connected');
+    return (null);
+  }
+
+
+
 }
 
 
-class SubmitOTP {
+class processOTP {
   final String OTP;
   final String phoneNumber;
 
-  SubmitOTP({this.OTP, this.phoneNumber});
+  processOTP({this.OTP, this.phoneNumber});
 
-  factory SubmitOTP.fromJson(Map<String, dynamic> json) {
-    return SubmitOTP(
+  factory processOTP.fromJson(Map<String, dynamic> json) {
+    return processOTP(
       OTP: json['OTP'],
       phoneNumber: json['phoneNumber'],
     );
@@ -56,7 +66,7 @@ class SubmitOTP {
     var map = new Map<String, dynamic>();
     map["OTP"] = OTP;
     map["phoneNumber"] = phoneNumber;
-    print(map);
+    print("SubmitOTP done $map");
 
     return map;
   }

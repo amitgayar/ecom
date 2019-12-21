@@ -48,6 +48,17 @@ class _Cart1 extends State<Cart1> {
       bottomBarHide = !bottomBarHide;
     });
   }
+
+  bool cashPaymentFlag = false;
+  bool creditPaymentFlag = false;
+  void cartState(String state){
+    setState(() {
+      if (state == 'cash'){cashPaymentFlag = !cashPaymentFlag;}
+      if (state == 'credit'){creditPaymentFlag = !creditPaymentFlag;}
+      print('cartState changed');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final formatter = NumberFormat.simpleCurrency(name: 'INR', decimalDigits: 2,
@@ -112,6 +123,50 @@ class _Cart1 extends State<Cart1> {
         ),
       );
 
+    Widget _productDetailHeadingSection = Container(
+        height: 50,
+        color: Color(0xff429585),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+
+            children: <Widget>[
+              Text(
+                'Product :',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+              Spacer(),
+              Text(
+                'MRP',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+              Spacer(),
+              Text(
+                'SP',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+              Spacer(),
+              Text(
+                'QTY',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+              Spacer(),
+              Text(
+                'Total',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+            ],
+            ),
+          )
+
+        );
+
+
     return Scaffold(
       body: SafeArea(
 
@@ -151,7 +206,11 @@ class _Cart1 extends State<Cart1> {
                                 )
                                   :
                               SizedBox(
-                                height: 300,
+                                height: cashPaymentFlag
+                                ?
+                                200
+                                :
+                                280,
                                 child: Container(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -164,17 +223,12 @@ class _Cart1 extends State<Cart1> {
                                             IconButton(
                                               icon: Icon(Icons.person_add,color: Colors.black,),
                                               onPressed: (){
-                                                setBottomBarHide();
+                                                Navigator.pushNamed(context, '/customers');
                                               },
                                               ),
                                             Text('Select User' ),
                                             Spacer(),
-                                            IconButton(
-                                              icon: Icon(Icons.error,color: Colors.black,),
-                                              onPressed: (){
-                                                setBottomBarHide();
-                                              },
-                                              ),
+                                            Icon(Icons.report_problem,color: Colors.black,),
 
                                           ],
                                           ),
@@ -184,7 +238,8 @@ class _Cart1 extends State<Cart1> {
 
 
 
-
+                                      !cashPaymentFlag && !creditPaymentFlag
+                                      ?
                                       Container(
                                         padding: EdgeInsets.symmetric(horizontal: 20),
                                         child: Column(
@@ -207,10 +262,7 @@ class _Cart1 extends State<Cart1> {
                                                 RaisedButton(
                                                   child: Text('CASH'),
                                                   onPressed: () {
-                                                    setState(() {
-//                                                cartState('cash');
-                                                      //        Navigator.pushNamed(context, '/cart');
-                                                    });
+                                                    cartState('cash');
                                                   },
                                                   ),
                                                 Spacer(),
@@ -218,8 +270,7 @@ class _Cart1 extends State<Cart1> {
                                                   child: Text('CREDIT'),
                                                   onPressed: () {
                                                     setState(() {
-//                                                cartState('cash');
-                                                      //        Navigator.pushNamed(context, '/cart');
+                                                cartState('credit');
                                                     });
                                                   },
                                                   ),
@@ -272,7 +323,151 @@ class _Cart1 extends State<Cart1> {
                                               ),
                                           ],
                                         ),
-                                      ),
+                                      )
+                                      :
+                                      cashPaymentFlag
+                                      ?
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 20),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+
+                                                Text('Cash Mode'),
+                                                Spacer(),
+                                                IconButton(
+                                                  icon: Icon(Icons.clear),
+                                                  onPressed: (){
+                                                    cartState('cash');
+                                                  },
+                                                  )
+                                              ],
+                                              ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: 10),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                                children: <Widget>[
+                                                  Text('Cash      =     '+formatter.format(model.totalCost),
+
+                                                       style:TextStyle(fontSize: 20)
+                                                       ),
+
+                                                ],
+                                                ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                RaisedButton(
+                                                  child: Text('PRINT RECEIPT'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+                                                SizedBox(width: 40,),
+                                                RaisedButton(
+                                                  child: Text('DONE'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+
+
+                                              ],
+                                              ),
+                                          ],
+                                          ),
+                                        )
+                                      :creditPaymentFlag
+                                      ?
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 20),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+
+                                                Text('Credit Mode'),
+                                                Spacer(),
+                                                IconButton(
+                                                  icon: Icon(Icons.clear),
+                                                  onPressed: (){
+                                                   cartState('credit');
+                                                    },
+                                                  )
+                                              ],
+                                              ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text('Amount Paid    ', style:TextStyle(fontSize: 18)),
+                                                Spacer(),
+                                                Container(
+                                                  padding: EdgeInsets.all(10),
+                                                  height: 33,
+                                                  width: 100,
+                                                  child: TextField(),
+                                                )
+                                              ],
+
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text('Credit     ', style:TextStyle(fontSize: 18)),
+                                                Spacer(),
+                                                Container(
+                                                  padding: EdgeInsets.all(10),
+                                                  height: 33,
+                                                  width: 100,
+                                                  child: TextField(),
+                                                  )
+                                              ],
+
+                                              ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                RaisedButton(
+                                                  child: Text('PRINT RECEIPT'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+                                                SizedBox(width: 40,),
+                                                RaisedButton(
+                                                  child: Text('DONE'),
+                                                  onPressed: () {
+                                                    setState(() {
+//                                                cartState('cash');
+                                                      //        Navigator.pushNamed(context, '/cart');
+                                                    });
+                                                  },
+                                                  ),
+
+
+                                              ],
+                                              ),
+                                          ],
+                                          ),
+                                        )
+                                      :
+                                      new Container(),
+
 
 
 
@@ -285,7 +480,8 @@ class _Cart1 extends State<Cart1> {
                                     ],
                                     ),
                                   ),
-                                )
+                                ),
+
                             ],
                           ),
                         )
@@ -311,10 +507,24 @@ class _Cart1 extends State<Cart1> {
   }
 
   List<Widget> _createShoppingCartRows(NewAppStateModel model) {
-    return model.productsInCart.keys
-        .map(
-            (id) => NewShoppingCartRow(id: id)
-            ).toList();
+//    return model.productsInCart.keys
+//        .map(
+//            (id) => NewShoppingCartRow(id: id)
+//            ).toList();
+
+
+    List<NewShoppingCartRow> newCartListtype2 = [];
+    if (model.editableListOfProductsInCart.length > 0) {
+      for (var i = 0; i < model.editableListOfProductsInCart.length; i++) {
+        newCartListtype2.add(NewShoppingCartRow(id: model.editableListOfProductsInCart[i]['id']));
+      }
+    }
+
+
+    //print("Checking what is returned from _createShoppingCartRows : ${newCartListtype2[0].id}");
+    return newCartListtype2;
+
+
   }
   TextEditingController tc;
   bool _searchBox = true;
@@ -382,12 +592,19 @@ class _Cart1 extends State<Cart1> {
                           ),
                         ),
                       ),
-                    FlatButton(
-                      onPressed: (){
-                        print('add custom product');
+                    InkWell(
+                      // When the user taps the button, show a snackbar.
+                      onTap: () {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text('add custom item'),
+                          ));
+                        print('add custom item');
                       },
-                      child: new Text('+ Custom Item'),
-                      ),
+                        child: Container(
+                          padding: EdgeInsets.all(12.0),
+                          child: Text('+Custom Item'),
+                          ),
+                      )
                   ],
                   )
               ],
@@ -398,48 +615,7 @@ class _Cart1 extends State<Cart1> {
         );
   }
 
-  Widget _productDetailHeadingSection = Container(
-    height: 50,
-    color: Color(0xff429585),
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
 
-        children: <Widget>[
-          Text(
-            'Product :',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-          Spacer(),
-          Text(
-            'MRP',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-          Spacer(),
-          Text(
-            'SP',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-          Spacer(),
-          Text(
-            'QTY',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-          Spacer(),
-          Text(
-            'Total',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-        ],
-        ),
-    )
-
-    );
 
   Widget _buildPanel(NewAppStateModel model) {
     return ExpansionPanelList(
@@ -488,7 +664,7 @@ class _Cart1 extends State<Cart1> {
 class NewShoppingCartRow extends StatefulWidget {
   NewShoppingCartRow({@required this.id}
       );
-  final int id;
+  final String id;
   @override
   _NewShoppingCartRow createState() => _NewShoppingCartRow();
 }
