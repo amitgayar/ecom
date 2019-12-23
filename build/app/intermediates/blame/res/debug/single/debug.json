@@ -1,19 +1,19 @@
 [
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout_notification_action.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout/notification_action.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout/notification_action.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
@@ -21,19 +21,23 @@
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-hdpi-v4/notification_bg_normal.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-hdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable_toast_bg.xml.flat",
+        "source": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/fluttertoast/intermediates/packaged_res/debug/drawable/toast_bg.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout-v21/notification_template_custom_big.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout-v21/notification_template_custom_big.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
@@ -41,27 +45,31 @@
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout-v16_notification_template_custom_big.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout-v16/notification_template_custom_big.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout-v16/notification_template_custom_big.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-v21_notification_action_background.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-v21/notification_action_background.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-v21/notification_action_background.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable_notification_bg_low.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable/notification_bg_low.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable/notification_bg_low.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout_toast_custom.xml.flat",
+        "source": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/fluttertoast/intermediates/packaged_res/debug/layout/toast_custom.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
@@ -73,23 +81,23 @@
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout-v21_notification_template_icon_group.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout-v21/notification_template_icon_group.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout-v21/notification_template_icon_group.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable_notification_bg.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable/notification_bg.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable/notification_bg.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
@@ -97,11 +105,11 @@
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout-v21_notification_action_tombstone.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout-v21/notification_action_tombstone.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout-v21/notification_action_tombstone.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable_notification_icon_background.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable/notification_icon_background.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable/notification_icon_background.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable_launch_background.xml.flat",
@@ -109,38 +117,38 @@
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout-v21/notification_action.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout-v21/notification_action.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout_notification_template_part_chronometer.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout/notification_template_part_chronometer.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout/notification_template_part_chronometer.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout_notification_template_icon_group.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout/notification_template_icon_group.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout/notification_template_icon_group.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout_notification_template_part_time.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout/notification_template_part_time.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout/notification_template_part_time.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable_notification_tile_bg.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable/notification_tile_bg.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable/notification_tile_bg.xml"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/drawable-mdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/res/merged/debug/layout_notification_action_tombstone.xml.flat",
-        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f21608d4a654082bd3b3214c5ad34b0e/res/layout/notification_action_tombstone.xml"
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/res/layout/notification_action_tombstone.xml"
     }
 ]

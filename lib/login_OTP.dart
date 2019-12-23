@@ -1,3 +1,17 @@
+// Copyright 2018-present the Flutter authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:flutter/material.dart';
 import 'dart:io' show Directory;
 import 'package:flutter/foundation.dart';
@@ -58,9 +72,9 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                 Text(
                   'Express Stores',
                   style: Theme.of(context).textTheme.headline,
-                  ),
+                ),
               ],
-              ),
+            ),
 
 
 
@@ -72,8 +86,8 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                 'Enter OTP',
                 style: new TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
-                ),
               ),
+            ),
             PrimaryColorOverride(
               child: TextField(
                 controller: _passwordController,
@@ -84,11 +98,11 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                 decoration: InputDecoration(
                   labelText: 'Enter OTP',
                   errorText: (validatePassword == 1) ? "OTP can not be empty" : ((validatePassword == 2) ? "You have entered incorrect OTP" : null),
-                  ),
-
-
                 ),
+
+
               ),
+            ),
             ButtonBar(
               children: <Widget>[
 
@@ -97,7 +111,7 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                   child: const Text('Resend OTP'),
                   shape: const BeveledRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                    ),
+                  ),
                   onPressed: () async {
 
                     String resendRequesNumber = widget.phone_for_OTP.phone_number_OTP;
@@ -116,13 +130,13 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                     });
 
                   },
-                  ),
+                ),
                 RaisedButton(
                   child: const Text('Login'),
                   elevation: 8.0,
                   shape: const BeveledRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                    ),
+                  ),
                   onPressed: () async {
                     setState(() {
 
@@ -146,7 +160,7 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                       processOTP newPost = new processOTP(
                           OTP: _passwordController.text,
                           phoneNumber: phone_fetched
-                          );
+                      );
 
                       otpSubmissionResponse = await getStoreDetailsAPI(
                           newPost);
@@ -166,7 +180,7 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
                         var route = new MaterialPageRoute(
                           builder: (BuildContext context) =>
                           new HomePage(),
-                          );
+                        );
 
                         Navigator.of(context).push(route);
                       }
@@ -183,15 +197,15 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
 
                     print(_passwordController.text);
                   },
-                  ),
+                ),
 
               ],
-              ),
+            ),
             resendPressed ? Text("OTP sent successfully", style: TextStyle(color: Colors.blue)) : SizedBox(),
           ],
-          ),
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -208,6 +222,6 @@ class PrimaryColorOverride extends StatelessWidget {
       child: child,
       data: Theme.of(context).copyWith(primaryColor: color),
 
-      );
+    );
   }
 }

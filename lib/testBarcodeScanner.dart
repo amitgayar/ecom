@@ -30,11 +30,20 @@ class _RawKeyboardListenerState extends State<KeyboardListener> {
     });
   }
 
-  handleKey(RawKeyEventDataAndroid key) {
-    String _keyCode;
-    _keyCode = key.keyCode.toString(); //keycode of key event (66 is return)
+  String barcode = "";
+  handleKey(RawKeyEvent key) {
+    //print("Event runtimeType is ${key.runtimeType}");
+    if(key.runtimeType.toString() == 'RawKeyDownEvent'){
+      RawKeyEventDataAndroid data = key.data as RawKeyEventDataAndroid;
+      String _keyCode;
+      _keyCode = data.keyCode.toString(); //keycode of key event (66 is return)
 
-    print("why does this run twice ${key.keyLabel}");
+      barcode = barcode + key.data.keyLabel;
+
+      //print("\n\nwhy does this run twice ${barcode}");
+    }
+
+    print("\n\n${key.data.keyLabel}");
   }
 
   _buildTextComposer() {
@@ -47,7 +56,7 @@ class _RawKeyboardListenerState extends State<KeyboardListener> {
 
     return new RawKeyboardListener(
         focusNode: _textNode,
-        onKey: (key) => handleKey(key.data),
+        onKey: (key) => handleKey(key),
         child: _textField
     );
   }

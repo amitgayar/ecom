@@ -30,7 +30,7 @@ packages:
     source: hosted
     version: "2.4.0"
   barcode_keyboard_listener:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: barcode_keyboard_listener
       url: "https://pub.dartlang.org"
@@ -79,7 +79,7 @@ packages:
     source: hosted
     version: "1.14.11"
   connectivity:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: connectivity
       url: "https://pub.dartlang.org"
@@ -93,7 +93,7 @@ packages:
     source: hosted
     version: "2.1.1"
   cron:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: cron
       url: "https://pub.dartlang.org"
@@ -119,7 +119,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   dart_style:
     dependency: transitive
     description:
@@ -127,13 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.9"
-  english_words:
-    dependency: "direct main"
-    description:
-      name: english_words
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.5"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -149,6 +142,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.3"
   front_end:
     dependency: transitive
     description:
@@ -283,7 +283,7 @@ packages:
     source: hosted
     version: "0.4.1"
   pedantic:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: pedantic
       url: "https://pub.dartlang.org"
@@ -323,9 +323,9 @@ packages:
       name: scoped_model
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "0.3.0"
   shared_preferences:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"

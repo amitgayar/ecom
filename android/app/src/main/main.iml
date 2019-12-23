@@ -15,10 +15,22 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="classes" level="project" />
     <orderEntry type="library" name="debug" level="project" />
-    <orderEntry type="module" module-name="buildConfig1" />
+    <orderEntry type="library" name="debug3" level="project" />
+    <orderEntry type="library" name="classes4" level="project" />
+    <orderEntry type="library" name="debug6" level="project" />
+    <orderEntry type="library" name="classes3" level="project" />
+    <orderEntry type="library" name="classes2" level="project" />
+    <orderEntry type="library" name="debug2" level="project" />
+    <orderEntry type="library" name="classes1" level="project" />
+    <orderEntry type="module" module-name="generateDebugRFile5" />
     <orderEntry type="module" module-name="processDebugResources" />
-    <orderEntry type="module" module-name="generateDebugRFile" />
+    <orderEntry type="module" module-name="buildConfig1" />
+    <orderEntry type="module" module-name="generateDebugRFile3" />
+    <orderEntry type="module" module-name="generateDebugRFile4" />
+    <orderEntry type="module" module-name="generateDebugRFile2" />
+    <orderEntry type="module" module-name="buildConfig2" />
+    <orderEntry type="module" module-name="buildConfig6" />
+    <orderEntry type="module" module-name="buildConfig5" />
   </component>
 </module>

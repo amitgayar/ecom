@@ -1,14 +1,8 @@
 <component name="libraryTable">
   <library name="debug1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/4.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/5.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/6.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/10.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/11.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/7.jar!/" />
-      <root url="jar://$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/shared_preferences_web/intermediates/intermediate-jars/debug/res.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/shared_preferences_web/intermediates/intermediate-jars/debug/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

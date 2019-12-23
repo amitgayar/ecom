@@ -8,10 +8,10 @@ class ProcessDataReceivedFromFromBackend {
   final List<Barcode> BarcodeList;
 
   ProcessDataReceivedFromFromBackend({this.productsList,
-    this.ProductCategoriesList,
-    this.stockRequestsList,
-    this.stockRequestsProductsList,
-    this.BarcodeList});
+                this.ProductCategoriesList,
+                this.stockRequestsList,
+                this.stockRequestsProductsList,
+                this.BarcodeList});
 
   factory ProcessDataReceivedFromFromBackend.fromJson(Map<String, dynamic> parsedJson){
 
@@ -37,7 +37,7 @@ class ProcessDataReceivedFromFromBackend {
         stockRequestsProductsList : stockRequestsProductsListParsedFromJson,
         BarcodeList : BarcodeListParsedFromJson
 
-        );
+    );
   }
 }
 
@@ -141,6 +141,6 @@ class ProcessDataSentToFromBackend {
         customerList:customerListParsedFromJson,
         ordersList:ordersListParsedFromJson
 
-        );
+    );
   }
 }

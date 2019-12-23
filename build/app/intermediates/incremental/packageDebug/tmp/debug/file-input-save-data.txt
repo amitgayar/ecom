@@ -1,14 +1,14 @@
 #Internal package file, do not edit.
-#Thu Dec 19 00:46:51 IST 2019
+#Sun Dec 22 01:42:41 IST 2019
 4.path=flutter_assets/LICENSE
 13.baseType=DIRECTORY
 8.set=ASSET
 6.path=classes.dex
 0.baseType=DIRECTORY
-10.path=flutter_assets/isolate_snapshot_data
+10.path=flutter_assets/assets/getRequestFormat.json
 5.baseType=DIRECTORY
 1.base=/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out
-8.path=flutter_assets/fonts/Rubik-Regular.ttf
+8.path=flutter_assets/isolate_snapshot_data
 12.path=flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
 3.base=/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/transforms/mergeJniLibs/debug/0
 14.path=flutter_assets/fonts/MaterialIcons-Regular.ttf
@@ -28,15 +28,15 @@
 3.set=NATIVE_RESOURCE
 2.baseType=DIRECTORY
 10.baseType=DIRECTORY
-1.path=flutter_assets/vm_snapshot_data
+1.path=flutter_assets/kernel_blob.bin
 7.baseType=DIRECTORY
 3.path=lib/x86/libflutter.so
 10.set=ASSET
 5.path=flutter_assets/FontManifest.json
 0.base=/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out
-7.path=flutter_assets/fonts/Rubik-Medium.ttf
-11.path=flutter_assets/assets/getRequestFormat.json
-9.path=flutter_assets/assets/PostRequestFormat.json
+7.path=flutter_assets/assets/PostRequestFormat.json
+11.path=flutter_assets/assets/getFrequency.json
+9.path=flutter_assets/assets/getStoreDetails.json
 6.set=DEX
 2.base=/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out
 13.path=lib/x86_64/libflutter.so
@@ -57,7 +57,7 @@ count=15
 4.baseType=DIRECTORY
 5.set=ASSET
 9.baseType=DIRECTORY
-0.path=flutter_assets/kernel_blob.bin
+0.path=flutter_assets/vm_snapshot_data
 12.set=ASSET
 1.set=ASSET
 2.path=flutter_assets/AssetManifest.json

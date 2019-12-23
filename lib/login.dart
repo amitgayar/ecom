@@ -93,17 +93,17 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'Express Stores',
                   style: Theme.of(context).textTheme.headline,
-                  ),
+                ),
               ],
-              ),
+            ),
             const SizedBox(height: 120.0),
             PrimaryColorOverride(
               child: Text(
                 'Enter Your Mobile Number',
                 style: new TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
-                ),
               ),
+            ),
 
             PrimaryColorOverride(
               child: TextField(
@@ -116,12 +116,12 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   hintText: "1234567890",
                   errorText: (validateUsername == 1) ? "Mobile Number can not be empty" : ((validateUsername == 2) ? "Mobile Number should be of length 10" : null),
-                  ),
-
-
-
                 ),
+
+
+
               ),
+            ),
 
             ButtonBar(
               children: <Widget>[
@@ -129,18 +129,18 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text('CANCEL'),
                   shape: const BeveledRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                    ),
+                  ),
                   onPressed: () {
                     _usernameController.clear();
                     _passwordController.clear();
                   },
-                  ),
+                ),
                 RaisedButton(
                   child: const Text('Get OTP'),
                   elevation: 8.0,
                   shape: const BeveledRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                    ),
+                  ),
                   onPressed: () async {
                     setState(() {
                       if (_usernameController.text.isEmpty)
@@ -187,9 +187,9 @@ class _LoginPageState extends State<LoginPage> {
                               phone_for_OTP: Data(
                                 phone_number_OTP: _usernameController.text,
 
-                                )
-                              ),
-                          );
+                              )
+                          ),
+                        );
 
                         Navigator.of(context).push(route);
                       }
@@ -208,13 +208,13 @@ class _LoginPageState extends State<LoginPage> {
                     //print(validateUsername);
                     //print(_passwordController.text);
                   },
-                  ),
+                ),
               ],
-              ),
+            ),
           ],
-          ),
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -231,6 +231,6 @@ class PrimaryColorOverride extends StatelessWidget {
       child: child,
       data: Theme.of(context).copyWith(primaryColor: color),
 
-      );
+    );
   }
 }
