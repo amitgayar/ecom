@@ -24,6 +24,7 @@ import 'Constants/const.dart';
 import 'services/syncData.dart';
 import 'testBarcodeScanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Data {
   final String phone_number_OTP;
@@ -45,13 +46,25 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
   final TextEditingController _passwordController = TextEditingController();
   int validatePassword = 0;
   bool resendPressed = false;
+  FocusNode _focusNode;
 
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     _passwordController.dispose();
+    _focusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _focusNode.addListener(() {
+      print("Has focus: ${_focusNode.hasFocus}");
+    });
+
   }
 
 
@@ -62,148 +75,212 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          children: <Widget>[
-            const SizedBox(height: 80.0),
-            Column(
-              children: <Widget>[
-                const SizedBox(height: 16.0),
-                Text(
-                  'Express Stores',
-                  style: Theme.of(context).textTheme.headline,
-                ),
-              ],
-            ),
+        child: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child:  Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 40, 10, 40),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                          children : <Widget>[
+
+                            Container(
+
+//                              padding: EdgeInsets.all(30),
+                              alignment: Alignment.center,
+                              child: Image.asset('assets/images/logo.png',
+                                                   width: 220.0,
+                                                   height: 190.0,
+                                                   fit: BoxFit.fitWidth,
+                                                   color: Color(0xff429585),
+                                                 ),
+
+                              ),
+                          ]
+                          ),
+                      flex: 6,
+                      ),
+                    Expanded(
+                      child:  Row(children: <Widget>[
+                        PrimaryColorOverride(
+                            child:Container(
+                              width: 150,
+                              child:  TextField(
+                                autofocus: false,
+                                focusNode: _focusNode,
+                                textAlign: TextAlign.center,
+                                controller: _passwordController,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly
+                                ],
+                                decoration: InputDecoration(
+                                  labelText: 'Enter OTP',
+                                  labelStyle: TextStyle(),
+                                  errorText: (validatePassword == 1) ? "OTP can not be empty" : ((validatePassword == 2) ? "You have entered incorrect OTP" : null),
+                                  ),
 
 
+                                ),
+                              )
+                            ),
+
+                      ],
+                                  ),
+                      flex: 3,
+                      ),
+                    Expanded(
+                      child:  ButtonBar(
+                        children: <Widget>[
 
 
-
-            const SizedBox(height: 12.0),
-            PrimaryColorOverride(
-              child: Text(
-                'Enter OTP',
-                style: new TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            PrimaryColorOverride(
-              child: TextField(
-                controller: _passwordController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
-                ],
-                decoration: InputDecoration(
-                  labelText: 'Enter OTP',
-                  errorText: (validatePassword == 1) ? "OTP can not be empty" : ((validatePassword == 2) ? "You have entered incorrect OTP" : null),
-                ),
+                          FlatButton(
+                            child: const Text('Resend OTP'),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(31.0)),
+                              ),
+                            onPressed: () async {
 
 
-              ),
-            ),
-            ButtonBar(
-              children: <Widget>[
+                              String resendRequesNumber = widget.phone_for_OTP.phone_number_OTP;
+                              var p;
+                              processPhoneNumber newPost = new processPhoneNumber(
+                                  phoneNumber: resendRequesNumber);
+                              p = await submitAuthenticationDetails(
+                                  getOTP,
+                                  body: newPost.toMap());
+                              print(p);
+                              setState(() {
+                                resendPressed= true;
+                              });
+                              Fluttertoast.showToast(
+                                  msg: "OTP Sent Successfully",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIos: 1,
+                                  backgroundColor: Color(0xff429585),
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                                  );
+
+                            },
+                            ),
+                          Container(
+                            width: 120,
+                            ),
+                          RaisedButton(
+                            child: const Text('Login'),
+                            color: Color(0xff429585),
+                            elevation: 8.0,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(27.0)),
+                              ),
+                            onPressed: () async {
+                              setState(() {
+
+                                if (_passwordController.text.isEmpty)
+                                {
+                                  validatePassword = 1;
+                                  print("OTP can not be empty");
+                                }
+                                else
+                                {
+                                  validatePassword = 0;
+                                }
+                              });
+
+                              //_insert();
+
+                              Response otpSubmissionResponse;
+                              String phone_fetched = widget.phone_for_OTP.phone_number_OTP;
+                              if (validatePassword == 0){
+                                // Call API to send OTP to the input number
+                                processOTP newPost = new processOTP(
+                                    OTP: _passwordController.text,
+                                    phoneNumber: phone_fetched
+                                    );
+
+                                otpSubmissionResponse = await getStoreDetailsAPI(
+                                    newPost);
+
+                                //Check API Status
+                                if(otpSubmissionResponse.statusCode == 200)
+                                {
+
+                                  await getFrequencyAPI();
+                                  await PostSyncAPI();
+                                  // If status is 200 navigate to OTP screen
+                                  SharedPreferences cronFrequency = await SharedPreferences.getInstance();
+                                  var route = new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                    new HomePage(),
+                                    );
+
+                                  Navigator.of(context).push(route);
+                                }
+                                else {
+
+                                  // If status is not 200 nShow error
+                                  setState(() {
+                                    validatePassword = 2;
+                                  });
+                                }
+                              }
+                              print(_passwordController.text);
+                            },
+                            ),
+
+                        ],
+                        ),
+                      flex: 2,
+                      ),
+                    Expanded(
+                      child: Container(
+                        height: 260,
+                        ),
+                      flex: 2,
+                      ),
+                    Container(
+                      child: InkWell(
+                          onTap: (){
+                            Navigator.pop(context,);
+                          },
+                          child:Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(Icons.arrow_back),
+                              Text('Change Mobile Number',
+                                     style: TextStyle(
+                                         fontWeight: FontWeight.bold,
+                                         fontSize: 14
+                                         ),)
+                            ],
+                            ),
+
+                          ),
+                      ),
 
 
-                FlatButton(
-                  child: const Text('Resend OTP'),
-                  shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  ],
                   ),
-                  onPressed: () async {
-
-                    String resendRequesNumber = widget.phone_for_OTP.phone_number_OTP;
-                    var p;
-                    processPhoneNumber newPost = new processPhoneNumber(
-                        phoneNumber: resendRequesNumber);
-                    p = await submitAuthenticationDetails(
-                        getOTP,
-                        body: newPost.toMap());
-                    print(p);
-
-
-
-                    setState(() {
-                      resendPressed= true;
-                    });
-
-                  },
-                ),
-                RaisedButton(
-                  child: const Text('Login'),
-                  elevation: 8.0,
-                  shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                  ),
-                  onPressed: () async {
-                    setState(() {
-
-                      if (_passwordController.text.isEmpty)
-                      {
-                        validatePassword = 1;
-                        print("OTP can not be empty");
-                      }
-                      else
-                      {
-                        validatePassword = 0;
-                      }
-                    });
-
-                    //_insert();
-
-                    Response otpSubmissionResponse;
-                    String phone_fetched = widget.phone_for_OTP.phone_number_OTP;
-                    if (validatePassword == 0){
-                      // Call API to send OTP to the input number
-                      processOTP newPost = new processOTP(
-                          OTP: _passwordController.text,
-                          phoneNumber: phone_fetched
-                      );
-
-                      otpSubmissionResponse = await getStoreDetailsAPI(
-                          newPost);
-                      //print(p);
-
-
-
-
-                      //Check API Status
-                      if(otpSubmissionResponse.statusCode == 200)
-                      {
-
-                        await getFrequencyAPI();
-                        await PostSyncAPI();
-                        // If status is 200 navigate to OTP screen
-                        SharedPreferences cronFrequency = await SharedPreferences.getInstance();
-                        var route = new MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                          new HomePage(),
-                        );
-
-                        Navigator.of(context).push(route);
-                      }
-                      else {
-
-                        // If status is not 200 nShow error
-                        setState(() {
-                          validatePassword = 2;
-                        });
-                      }
-                    }
-
-
-
-                    print(_passwordController.text);
-                  },
-                ),
-
-              ],
+              )
+            ],
             ),
-            resendPressed ? Text("OTP sent successfully", style: TextStyle(color: Colors.blue)) : SizedBox(),
-          ],
         ),
+
+
+
+
       ),
     );
   }

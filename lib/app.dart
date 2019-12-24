@@ -9,6 +9,7 @@ import 'package:connectivity/connectivity.dart';
 import 'services/syncData.dart';
 import 'AppScreens/customer.dart';
 import 'AppScreens/orders.dart';
+import 'AppScreens/requestStocks.dart';
 
 class DefaultWidget {
   final Widget defaultWidget;
@@ -101,7 +102,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
         '/customers' : (context) => Customer(),
 //        '/addCustomer': (context) => AddCustomer(),
         '/orders' : (context) => Orders(),
-//        '/requestStocks' : (context) => Orders(),
+        '/requestStocks' : (context) => RequestStocks(),
 
       },
 

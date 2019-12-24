@@ -17,13 +17,21 @@ class Customer extends StatelessWidget {
           //            tabs: _tabs.map((String name) => Tab(text: name)).toList(),
           //            ),
           ),
-        body: Card(
-          child: IconButton(
-            icon: Icon(Icons.account_box),
-            onPressed: (){
-              Navigator.pushNamed(context, '/');
-            },
-            ),
+        body: Container(
+          child:
+//          Image(image: AssetImage('images/logo.png'))
+          Image.asset(
+          'assets/images/logo.png',
+          width: 400.0,
+          height: 240.0,
+          fit: BoxFit.fitWidth,
+          ),
+//          IconButton(
+//            icon: Icon(Icons.account_box),
+//            onPressed: (){
+//              Navigator.pushNamed(context, '/');
+//            },
+//            ),
           )
         );
   }

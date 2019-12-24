@@ -781,7 +781,8 @@ class NewAppStateModel extends Model {
   //String fina = finalBarcode;
 
   void updateFlagOfAddCustomItem (bool status) {
-    displayCustomProductPage = true;
+    displayCustomProductPage = status;
+    notifyListeners();
   }
 
   void addCustomItem (String name, String mrp, String sp, String cgst, String sgst, String cess) async {

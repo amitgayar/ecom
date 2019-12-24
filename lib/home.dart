@@ -28,13 +28,6 @@ import 'AppScreens/cart3.dart';
 
 
 
-//NewAppStateModel newModel = NewAppStateModel();
-//NewAppStateModel model2 = NewAppStateModel();
-//NewAppStateModel model3 = NewAppStateModel();
-
-
-
-
 
 class HomePage extends StatefulWidget {
   const HomePage({ Key key }) : super(key: key);
@@ -70,23 +63,33 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
           children: <Widget>[
             DrawerHeader(
               child: Container(
-                color: Color(0xff429585),
+//                color: Color(0xff429585),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Express Store',
-                           style: TextStyle(color: Colors.white70,
-                                                fontSize: 22.0
-                                            ),
-                         ),
-                    Icon(Icons.account_circle,
-                           size:30,
-                         ),
-                    Text('Store Name\n(9876567800)',
-                           style: TextStyle(color: Colors.white70,
-                                            //                                                  fontSize: 22.0
-                                            ),
-                         ),
+                    Expanded(
+                      child: Container(
+                        child: Image.asset('assets/images/logo.png',
+                                             width: 120.0,
+                                             height: 90.0,
+                                             fit: BoxFit.fitWidth,
+                          color: Colors.black87,
+                                           ),
+                        ),
+                      flex: 2,),
+                    Expanded(
+                      child: Icon(Icons.account_circle,
+                                    size:30,
+                                  ),
+                      flex: 1,),
+                    Expanded(
+                      child: Text('Store Name\n(9876567800)',
+                                    style: TextStyle(color: Colors.black,
+                                                     //                                                  fontSize: 22.0
+                                                     ),
+                                  ),
+                      flex: 1,
+                    )
                   ],
                   ),
                 alignment: Alignment.center,
@@ -102,6 +105,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
                 Navigator.pushNamed(context, '/');
               },
               ),
+            Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
             ListTile(
               title : Text('ORDERS'),
               leading: Icon(Icons.shopping_basket),
@@ -109,6 +113,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
                 Navigator.pushNamed(context, '/orders');
               },
               ),
+            Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
             ListTile(
               title : Text('CUSTOMERS'),
               leading: Icon(Icons.account_box),
@@ -116,6 +121,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
                 Navigator.pushNamed(context, '/customers');
               },
               ),
+            Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
             ListTile(
               title : Text('REQUEST STOCKS'),
               leading: Icon(Icons.near_me),
@@ -123,14 +129,27 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
                 Navigator.pushNamed(context, '/requestStocks');
               },
               ),
-            ListTile(
-              title : Text('LogOut'),
-              leading: Icon(Icons.power_settings_new),
-              onTap: (){
-                getSyncAPI();
-//                  Navigator.pushNamed(context, '/login');
-              },
-              ),
+            Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
+            Container(
+              height: 225,
+
+            ),
+            Divider(color:Color(0xff429585) , thickness: 2, height: 10,),
+            Container(
+              alignment: Alignment.topCenter,
+              height: 240,
+//              color: Color(0xff429585),
+              child: ListTile(
+                title : Text('LogOut'),
+
+                leading: Icon(Icons.power_settings_new),
+                onTap: (){
+//                  getSyncAPI();
+                  Navigator.pushNamed(context, '/login');
+                },
+                ),
+            ),
+
             ListTile(
               title : Text('Load DB'),
               leading: Icon(Icons.file_download),
@@ -182,8 +201,9 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
 
 //
 //Blue color : #64b5f6 , #90caf9 ... function
-//Similarly for green : #81c784, #a5d6a7... done
-//For teal : #4db6ac , #80cbc4 ... selection
+//Similarly for green : #81c784, #a5d6a7... done Color(0xff81c784)
+//For teal : #4db6ac , #80cbc4 ... selection ---
+// teal Color(0xff429585)
 // for toast : Colors.black87, text.color.white, center
 
 class NewsListPage extends StatefulWidget {

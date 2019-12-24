@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:io' show Directory;
 import 'Utilities/authentication.dart';
 import 'Databases/Database.dart';
@@ -64,153 +65,178 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center ,
+//          padding: const EdgeInsets.symmetric(horizontal: 24.0),
           children: <Widget>[
-            const SizedBox(height: 80.0),
-            Column(
-              children: <Widget>[
-                const SizedBox(height: 16.0),
-                Text(
-                  'Express Stores',
-                  style: Theme.of(context).textTheme.headline,
-                ),
-              ],
+            Expanded(
+              child: GestureDetector(
+                              onTap: () {
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+
+                        if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                        }
+                        },
+                          child:Container(
+                            alignment: Alignment.center,
+                            child: Image.asset('assets/images/logo.png',
+                               width: 220.0,
+                               height: 190.0,
+                               fit: BoxFit.fitWidth,
+                               color: Color(0xff429585),
+                             ),
+
+                                 ),
+                              ),
+
+
+
+
+
+
+
+                flex: 10,
             ),
-            const SizedBox(height: 120.0),
-            PrimaryColorOverride(
-              child: Text(
-                'Enter Your Mobile Number',
-                style: new TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.left,
-              ),
-            ),
+            Expanded(
+              child: Container(
+                width: 260,
+                height: 60,
+                child: Column(children: <Widget>[
+                  PrimaryColorOverride(
+                    child: Text(
+                      'Enter Your Mobile Number',
+                      style: new TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                      ),
+                    ),
 
-            PrimaryColorOverride(
-              child: TextField(
-                controller: _usernameController,
-                maxLength: 10,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
-                ],
-                decoration: InputDecoration(
-                  hintText: "1234567890",
-                  errorText: (validateUsername == 1) ? "Mobile Number can not be empty" : ((validateUsername == 2) ? "Mobile Number should be of length 10" : null),
+                  PrimaryColorOverride(
+                    child: TextField(
+                      controller: _usernameController,
+                      textAlign: TextAlign.center,
+                      maxLength: 10,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      decoration: InputDecoration(
+                        hintText: "1234567890",
+                        errorText: (validateUsername == 1) ? "Mobile Number can not be empty" : ((validateUsername == 2) ? "Mobile Number should be of length 10" : null),
+                        ),
+
+
+
+                      ),
+                    ),
+                ],),
                 ),
-
-
-
-              ),
+                flex: 5,
             ),
+           Expanded(
+             child: RaisedButton(
+               child: const Text('Get OTP'),
+               color: Color(0xff4db6ac),
+               elevation: 8.0,
+               shape: const RoundedRectangleBorder(
+                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                 ),
+               onPressed: () async {
+                 setState(() {
+                   if (_usernameController.text.isEmpty)
+                   {
+                     validateUsername = 1;
+                     print("can not be empty");
+                   }
+                   else if (_usernameController.text.length < 10)
+                   {
+                     validateUsername = 2;
+                     print("shoulb be of 10 length");
+                   }
+                   else
+                   {
+                     validateUsername = 0;
+                   }
+                 });
 
-            ButtonBar(
-              children: <Widget>[
-                FlatButton(
-                  child: const Text('CANCEL'),
-                  shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                  ),
-                  onPressed: () {
-                    _usernameController.clear();
-                    _passwordController.clear();
-                  },
-                ),
-                RaisedButton(
-                  child: const Text('Get OTP'),
-                  elevation: 8.0,
-                  shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                  ),
-                  onPressed: () async {
-                    setState(() {
-                      if (_usernameController.text.isEmpty)
-                      {
-                        validateUsername = 1;
-                        print("can not be empty");
-                      }
-                      else if (_usernameController.text.length < 10)
-                      {
-                        validateUsername = 2;
-                        print("shoulb be of 10 length");
-                      }
-                      else
-                      {
-                        validateUsername = 0;
-                      }
-                    });
-
-                    //_insert();
-                    //String phoneNumber = _usernameController.text;
-                    //dbHelper.queryRowCount(phoneNumber);
+                 //_insert();
+                 //String phoneNumber = _usernameController.text;
+                 //dbHelper.queryRowCount(phoneNumber);
 
 
 
-                    http.Response p;
-                    if (validateUsername == 0){
-                      // Call API to send OTP to the input number
-                      processPhoneNumber newPost = new processPhoneNumber(
-                          phoneNumber: _usernameController.text);
-                      p = await submitAuthenticationDetails(
-                          constants.getOTP,
-                          body: newPost.toMap());
-                      print(p);
+                 http.Response p;
+                 if (validateUsername == 0){
+                   // Call API to send OTP to the input number
+                   processPhoneNumber newPost = new processPhoneNumber(
+                       phoneNumber: _usernameController.text);
+                   p = await submitAuthenticationDetails(
+                       constants.getOTP,
+                       body: newPost.toMap());
+                   print(p);
 
 
 
-                      //Check API Status
-                      if(p.statusCode == 200)
-                      {
-                        // If status is 200 navigate to OTP screen
-                        var route = new MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                          new LoginPageOTP(
-                              phone_for_OTP: Data(
-                                phone_number_OTP: _usernameController.text,
+                   //Check API Status
+                   if(p.statusCode == 200)
+                   {
+                     // If status is 200 navigate to OTP screen
+                     var route = new MaterialPageRoute(
+                       builder: (BuildContext context) =>
+                       new LoginPageOTP(
+                           phone_for_OTP: Data(
+                             phone_number_OTP: _usernameController.text,
 
-                              )
-                          ),
-                        );
+                             )
+                           ),
+                       );
 
-                        Navigator.of(context).push(route);
-                      }
-                      else {
+                     Navigator.of(context).push(route);
+                   }
+                   else {
 
-                        // If status is not 200 nShow error
-                        setState(() {
-                          validateUsername = 3;
-                        });
-                      }
-                    }
+                     // If status is not 200 nShow error
+                     setState(() {
+                       validateUsername = 3;
+                     });
+                   }
+                 }
 
 
 
-                    print(_usernameController.text);
-                    //print(validateUsername);
-                    //print(_passwordController.text);
-                  },
-                ),
-              ],
-            ),
+                 print(_usernameController.text);
+                 //print(validateUsername);
+                 //print(_passwordController.text);
+               },
+               ),
+             flex: 1,
+             ),
+Expanded(
+  child: new Container(
+    height: 300,
+  ),
+  flex: 2,
+),
+
+//            ButtonBar(
+//              children: <Widget>[
+////                FlatButton(
+////                  child: const Text('CANCEL'),
+////                  shape: const BeveledRectangleBorder(
+////                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+////                  ),
+////                  onPressed: () {
+////                    _usernameController.clear();
+////                    _passwordController.clear();
+////                  },
+////                ),
+//
+//              ],
+//            ),
           ],
         ),
       ),

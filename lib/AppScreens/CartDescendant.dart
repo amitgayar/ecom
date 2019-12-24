@@ -1,11 +1,11 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:express_store/model/app_state_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/services.dart';
-import '../model/app_state_model.dart';
+//import '../model/app_state_model.dart';
 import '../model/queryForUI.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 
 
 
@@ -51,11 +51,12 @@ class _CartDescendant extends State<CartDescendant> {
   bool otherPaymentFlag = false;
   bool creditPaymentFlag = false;
   String paymentMode = 'Payment Mode';
-  bool customItem = false;
+
 
   void creditModeFunc(String mode){
     creditModeFlag = true;
     creditMode = mode;
+    print('.......selected payment mode from UI is .........'+mode);
   }
 
   void cartState(String state){
@@ -65,9 +66,11 @@ class _CartDescendant extends State<CartDescendant> {
       }
       else{{otherPaymentFlag = !otherPaymentFlag;}}
       paymentMode = state;
-      print('.......cart2State changed.........');
+      print('.......selected payment mode from UI is .........'+state);
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -216,6 +219,7 @@ child: Material(
 
 
     TextEditingController tc;
+    final _formKey = GlobalKey<FormState>();
 
     Widget _queryBox(NewAppStateModel model) {
 
@@ -288,7 +292,7 @@ child: Material(
                             ),
                         onPressed: (){
                           setState(() {
-                            customItem = !customItem;
+                            model.updateFlagOfAddCustomItem(true);
                           });
 
                         },
@@ -422,7 +426,7 @@ child: Material(
         child: Row(
           children: <Widget>[
             Icon(Icons.person_add,color: Colors.black,),
-            Text('      Select User' ),
+            Text('      Select Customer' ),
             Spacer(),
             Icon(Icons.report_problem,color: Colors.black,),
 
@@ -841,16 +845,31 @@ child: Material(
                   onPressed: () {
                     setState(() {
                       if (creditModeFlag){
-                        creditModeFlag = !creditModeFlag;
-                        cartState('CREDIT');
-                        setBottomBarHide();
-                        model.generateInvoice(true);
-                        model.analyzeCredit((model.cartTotalValue == null)
-                                                ? 0.0
-                                                : model.cartTotalValue,
-                                                creditMode);
-                        model.removeEditableItemFromCart(productDummy, 'clear_cart');
-                        creditModeFunc('');
+                        if (model.selectedCustomer.length != 0){
+                          print(model.selectCustomer);
+                          creditModeFlag = !creditModeFlag;
+                          cartState('CREDIT');
+                          setBottomBarHide();
+                          model.generateInvoice(true);
+                          model.analyzeCredit((model.cartTotalValue == null)
+                                                  ? 0.0
+                                                  : model.cartTotalValue,
+                                                  creditMode);
+                          model.removeEditableItemFromCart(productDummy, 'clear_cart');
+                          creditModeFunc('');
+                        }
+                        else{
+                          Fluttertoast.showToast(
+                              msg: "!!  Have to Select a Customer",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIos: 1,
+                              backgroundColor: Colors.black87,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                              );
+                        }
+
 
                       }
                       else{
@@ -887,16 +906,29 @@ child: Material(
                     onPressed: () {
                      setState(() {
                        if (creditModeFlag){
-                         creditModeFlag = !creditModeFlag;
-                         model.removeEditableItemFromCart(productDummy, 'clear_cart');
-                         model.generateInvoice(false);
-                         cartState('CREDIT');
-                         setBottomBarHide();
-                         model.analyzeCredit((model.cartTotalValue == null)
-                                                 ? 0.0
-                                                 : model.cartTotalValue,
-                                                 creditMode);
-                         creditModeFunc('');
+                         if (model.selectedCustomer.length !=0){
+                           creditModeFlag = !creditModeFlag;
+                           model.removeEditableItemFromCart(productDummy, 'clear_cart');
+                           model.generateInvoice(false);
+                           cartState('CREDIT');
+                           setBottomBarHide();
+                           model.analyzeCredit((model.cartTotalValue == null)
+                                                   ? 0.0
+                                                   : model.cartTotalValue,
+                                                   creditMode);
+                           creditModeFunc('');
+                         }
+                         else{
+                           Fluttertoast.showToast(
+                               msg: "!! Have to Select a Customer",
+                               toastLength: Toast.LENGTH_LONG,
+                               gravity: ToastGravity.CENTER,
+                               timeInSecForIos: 1,
+                               backgroundColor: Colors.black87,
+                               textColor: Colors.white,
+                               fontSize: 16.0
+                               );
+                         }
                        }
                        else{
                          Fluttertoast.showToast(
@@ -958,190 +990,12 @@ child: Material(
                     alignment: Alignment.bottomCenter,)
                       :
                   new Container(),
-                  customItem
+                  model.currentDisplayCustomProductPage
                       ?
                       Align(
-                        child:Card(
-                          borderOnForeground: false,
-                          child: Container(
-                            padding: EdgeInsets.all(15),
-                            height: 500,
-                            width: 370,
-                            color: Colors.black12,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text('Add Custom Item'),
-                                Divider(color: Color(0xff429585),thickness: 1,height: 10,),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                          'df'
-                                          ),
-                                      Spacer(),
-                                      InkWell(
-                                        child: Icon(
-                                          Icons.clear,
-                                          size: 22.0,
-                                          ),
-                                        onTap: () {
-                                          setState(() {
-                                            customItem = !customItem;
-                                          });
-
-                                        },
-                                        ),
-
-
-                                    ],
-                                    ),
-                                  ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-
-
-                                    const SizedBox(width: 30.0),
-                                    Expanded(
-                                      child: Container(
-
-                                      ),
-                                      flex: 3,
-                                      ),
-                                    Expanded(
-                                      child: TextFormField(
-//                                        focusNode: mrpFocusNode,
-autofocus: false,
-//                                        initialValue: MRP.toString(),
-//                                        inputFormatters: [_amountValidator],
-                                        keyboardType: TextInputType.numberWithOptions(
-                                          decimal: true,
-                                          signed: false,
-                                          ),
-                                        onChanged: (text){
-//                                          model.changeProductValue(text, product, 'mrp');
-
-                                        },
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          //                                            hintText: '${product['mrp'].toString()}'
-                                          ),
-),
-                                      flex: 3,
-                                      ),
-                                    Expanded(
-                                      child: new TextFormField(
-//                                        focusNode: spFocusNode,
-autofocus: false,
-//                                        initialValue: sellingPrice.toString(),
-//                                        inputFormatters: [_amountValidator],
-                                        keyboardType: TextInputType.numberWithOptions(
-                                          decimal: true,
-                                          signed: false,
-                                          ),
-                                        onChanged: (text){
-//                                          model.changeProductValue(text, product, 'sp');
-                                          model.calculateCartTotalValue(model.Discount.toString());
-                                        },
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          //                                            hintText: '${product['sp'].toString()}'
-                                          ),
-),
-                                      flex: 3,
-                                      ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Container(
-                                          width: 60.0,
-
-                                          child: Row(
-                                            children: <Widget>[
-                                              Expanded(
-                                                flex: 1,
-                                                child: TextFormField(
-//                                                  focusNode: quantityFocusNode,
-autofocus: false,
-//                                          initialValue: quantity.toString(),
-//                                                  controller: quantityController,
-                                                  keyboardType: TextInputType.number,
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    WhitelistingTextInputFormatter.digitsOnly
-                                                  ],
-                                                  onChanged: (text){
-//                                                    model.changeProductValue(text, product, 'quantity');
-                                                    model.calculateCartTotalValue(model.Discount.toString());
-                                                  },
-                                                  decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    //                                                      hintText: '${product['quantity'].toString()}'
-                                                    ),
-),
-                                                ),
-                                              Container(
-                                                height: 48.0,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        border: Border(
-                                                          bottom: BorderSide(
-                                                            width: 0.5,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      child: InkWell(
-                                                        child: Icon(
-                                                          Icons.arrow_drop_up,
-                                                          size: 22.0,
-                                                          ),
-                                                        onTap: () {
-//                                                          model.addEditableProductToCart(product);
-                                                          model.calculateCartTotalValue(model.Discount.toString());
-                                                        },
-                                                        ),
-                                                      ),
-                                                    InkWell(
-                                                      child: Icon(
-                                                        Icons.arrow_drop_down,
-                                                        size: 22.0,
-                                                        ),
-                                                      onTap: () {
-//                                                        model.removeEditableItemFromCart(product, "reduce_quantity");
-                                                        model.calculateCartTotalValue(model.Discount.toString());
-                                                      },
-                                                      ),
-                                                  ],
-                                                  ),
-                                                ),
-                                            ],
-                                            ),
-                                          ),
-                                        ),
-                                      flex: 3,
-                                      ),
-                                    Expanded(
-                                      child: Container(
-                                        child: Column(children: <Widget>[
-//                                          Text('${formatter.format(sellingPrice*quantity)}'.toString()),
-                                          SizedBox(
-                                            height: 17,
-                                            ),
-
-                                        ],),
-                                        ),
-                                      flex: 4,
-                                      ),
-                                  ],
-                                  ),
-
-                              ],
-                              ),
-                            ),
+                        child: Opacity(
+                          opacity: 0.90,
+                          child: CustomItem(),
                         ),
                         alignment: Alignment.center,
                       )
@@ -1158,6 +1012,363 @@ autofocus: false,
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+
+
+
+
+
+
+
+
+class CustomItem extends StatefulWidget {
+  CustomItem({this.id});
+  final bool id;
+  @override
+  _CustomItem createState() => _CustomItem();
+}
+
+class _CustomItem extends State<CustomItem> {
+  final customProductNameController  = TextEditingController();
+  final customMRPController  = TextEditingController();
+  final customSPController  = TextEditingController();
+  final customQTYController  = TextEditingController();
+  final customSGSTController  = TextEditingController();
+  final customCGSTController  = TextEditingController();
+  final customCESSController  = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+//    customProductNameController.addListener();
+  }
+
+  @override
+  void dispose() {
+    customProductNameController.dispose();
+    super.dispose();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+//    _print(category, msg:'category in product_grid_view.dart');
+    return ScopedModelDescendant<NewAppStateModel> (
+        builder: (context, child, model)
+    {
+      return Card(
+        borderOnForeground: false,
+        child: Container(
+          color: Colors.black,
+          padding: EdgeInsets.all(15),
+          height: 500,
+          width: 370,
+          child: ListView(
+//                              crossAxisAlignment: CrossAxisAlignment.center,
+children: [
+                     Row(
+    children: <Widget>[
+      Text('Add Custom Item',
+             style: TextStyle(color: Colors.white),),
+      Spacer(),
+      InkWell(
+        child: Icon(
+          Icons.clear,
+          color: Colors.white,
+          size: 22.0,
+          ),
+        onTap: () {
+          setState(() {
+            model.updateFlagOfAddCustomItem(false);
+          });
+
+        },
+        ),
+    ],
+    ),
+               Divider(color: Color(0xff429585),thickness: 1,height: 10,),
+                   Padding(
+                  padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                    child: Row(
+      children: <Widget>[
+        Text('Name   ',
+             style: TextStyle(color: Colors.white),),
+        Container(
+          width: 150,
+          child: TextField(
+            style: TextStyle(color: Colors.white),
+                        controller: customProductNameController,
+                                                                              autofocus: true,
+
+                        ),
+                                  )
+                              ],
+                              ),
+                  ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                        child:
+                        Row(
+                          children: <Widget>[
+                            Text('MRP ',
+                                   style: TextStyle(color: Colors.white),),
+                            Container(
+                              height: 50,
+                              width: 150,
+                              child: TextField(
+                                style: TextStyle(color: Colors.white),
+                                controller: customMRPController,
+                                inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true,
+                                  signed: false,
+                                  ),
+                                onChanged: (text){
+                    //                                          model.changeProductValue(text, product, 'mrp');
+                                  setState(() {
+                                  });
+
+                                },
+                                ),
+                              )
+                          ],
+                          ),
+                        ),
+
+
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                        child:
+                        Row(
+                          children: <Widget>[
+                            Text('SP   ',
+                                   style: TextStyle(color: Colors.white),),
+                            Container(
+                              height: 50,
+                              width: 150,
+                              child: TextField(
+                                style: TextStyle(color: Colors.white),
+                                controller: customSPController,
+                                inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true,
+                                  signed: false,
+                                  ),
+                                onChanged: (text){
+                    //                                          model.changeProductValue(text, product, 'mrp');
+
+                                },
+                                ),
+                              )
+                          ],
+                          ),
+                        ),
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                        child:
+
+
+
+                        Row(
+                          children: <Widget>[
+                            Text('QTY   ',
+                                   style: TextStyle(color: Colors.white),),
+                            Container(
+                              height: 50,
+                              width: 150,
+                              child: TextField(
+                                style: TextStyle(color: Colors.white),
+                                controller: customQTYController,
+                                keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true,
+                                  signed: false,
+                                  ),
+
+                                ),
+                              )
+                          ],
+                          ),
+                        ),
+
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                        child:
+                        Row(
+                          children: <Widget>[
+                            Text('SGST   ',
+                                   style: TextStyle(color: Colors.white),),
+                            Container(
+                              height: 50,
+                              width: 150,
+                              child: TextField(
+                                style: TextStyle(color: Colors.white),
+                                controller: customSGSTController,
+                                keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true,
+                                  signed: false,
+                                  ),
+                                onChanged: (text){
+                    //                                          model.changeProductValue(text, product, 'mrp');
+
+                                },
+                                ),
+                              )
+                          ],
+                          ),
+                        ),
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                        child:
+
+
+
+                        Row(
+                          children: <Widget>[
+                            Text('CGST   ',
+                                   style: TextStyle(color: Colors.white),),
+                            Container(
+                              height: 50,
+                              width: 150,
+                              child: TextField(
+                                style: TextStyle(color: Colors.white),
+                                controller: customCGSTController,
+                                keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true,
+                                  signed: false,
+                                  ),
+                                onChanged: (text){
+                    //                                          model.changeProductValue(text, product, 'mrp');
+
+                                },
+                                ),
+                              )
+                          ],
+                          ),
+                        ),
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                        child:
+
+
+
+                        Row(
+                          children: <Widget>[
+                            Text('CESS   ',
+                                   style: TextStyle(color: Colors.white),),
+                            Container(
+                              height: 50,
+                              width: 150,
+                              child: TextField(
+                                style: TextStyle(color: Colors.white),
+                                controller: customCESSController,
+                                keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true,
+                                  signed: false,
+                                  ),
+                                onChanged: (text){
+                    //                                          model.changeProductValue(text, product, 'mrp');
+
+                                },
+                                ),
+                              )
+                          ],
+                          ),
+                        ),
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                        child:
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+
+                            RaisedButton(
+                    //                                                    height: 50,
+                    //                                                    width: 150,
+                    child: Text('SUBMIT'),
+                      onPressed: (){
+                        model.updateFlagOfAddCustomItem(false);
+                        Map<String, dynamic> customProduct= {
+                          "name": customProductNameController.text,
+                          "mrp": double.parse(customMRPController.text),
+                          "sp": double.parse(customSPController.text),
+                          "quantity": int.parse(customQTYController.text),
+                          "cess": double.parse(customCESSController.text),
+                          "cgst": double.parse(customCGSTController.text),
+                          "sgst": double.parse(customSGSTController.text),
+
+                        };
+                        print('The Custom Item Added From UI ..... :  .... ' + customProduct.toString());
+                        model.addEditableProductToCart(customProduct);
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(22.0)),
+                    )
+                          ],
+                          ),
+                        ),
+
+],
+),
+          ),
+        ) ;
+
+    });
+}
+}
+//var screenSize = MediaQuery.of(context).size;
+
+
+
+
+
+
+
+
+
+
+
+
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+
+
+
+
 
 
 final Map productDummy = {"id": 1, "name": "custom dal"};
@@ -1399,6 +1610,18 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
   }
 }
 
+
+
+
+
+
+
+
+
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+
 class NewProductPage extends StatelessWidget {
 //  final Category category;
 //  const ProductPage({this.category = Category.all});
@@ -1418,6 +1641,30 @@ class NewProductPage extends StatelessWidget {
         });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+
+
+
+
+
+
+
+
+
 
 class ProductGridView extends StatelessWidget {
   final List<Map<String, dynamic>> products;
@@ -1531,7 +1778,7 @@ class ProductCard extends StatelessWidget {
             Fluttertoast.showToast(
                 msg: "Product Added",
                 toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
+                gravity: ToastGravity.CENTER,
                 timeInSecForIos: 1,
                 backgroundColor: Colors.black,
                 textColor: Colors.white,
@@ -1626,6 +1873,22 @@ class CategoryCard extends StatelessWidget {
         );
   }
 }
+
+
+
+
+
+
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+
+
+
+
+
+
+
 
 
 class NewShoppingCartSummary extends StatefulWidget {
@@ -1779,6 +2042,24 @@ child: Column(children: <Widget>[
       );
   }
 }
+
+
+
+
+
+//................................................................................................................................................................
+//................................................................................................................................................................
+//................................................................................................................................................................
+
+
+
+
+
+
+
+
+
+
 
 class KeyboardListener extends StatefulWidget {
 
