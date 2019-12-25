@@ -90,7 +90,17 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+
+    return GestureDetector(
+        onTap: () {
+      FocusScopeNode currentFocus = FocusScope.of(context);
+
+      if (!currentFocus.hasPrimaryFocus) {
+        currentFocus.unfocus();
+      }
+    },
+    child: MaterialApp(
       title: 'ExpStore',
 
       initialRoute: '/login',
@@ -108,6 +118,8 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
 
 
 
-    );
+      ),
+        );
+
   }
 }

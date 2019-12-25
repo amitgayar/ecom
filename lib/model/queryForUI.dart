@@ -35,18 +35,10 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 
   if (id == '' && colName == '' && operator == '' ){
     final _dbProducts = await dbHelper.queryAllRows(table);
-    if (table == 'productCategories'){
-       String raw2 = "SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null'" ;
-      final queryList = await dbHelper.raw_query(raw2);
-      return queryList;
-    }
-    else{
-      print('Total rows in table - ' + table + '...:...' + _dbProducts.length.toString());
+    print('Total rows in table - ' + table + '...:...' + _dbProducts.length.toString());
 //    print('First entry is : ' + _dbProducts.first.toString());
 //    print(_dbProducts);
-      return _dbProducts;
-    }
-
+    return _dbProducts;
 
   }
 
@@ -61,7 +53,7 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
   else {
     print(raw);
   final queryList = await dbHelper.raw_query(raw);
-  print(table + ' ' +colName + ' ' + operator + ' ' + id.toString() + ' ' + '..count.. : ' +queryList.length.toString());
+  print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : ' +queryList.length.toString());
 //    print('First one is : ' + queryList.first.toString());
 //  print(queryList);
   return queryList;
@@ -79,11 +71,7 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 Future<void> queryForAll(NewAppStateModel cartModel, String type, String category_id, String text ) async{
   if (type == 'initStack'){
 //    var allProducts = await queryForUI('products', '', '', '');
-    var allCategories = await queryForUI('productCategories','', '', '');
-
-   print( allCategories[1][
-     'parent_id'
-          ]);
+    var allCategories = await queryForUI('productCategories','parent_id', '=', '1');
     var allCustomProducts = await queryForUI('customProducts', '', '', '');
 
     cartModel.setData(null,  allCategories, allCustomProducts);

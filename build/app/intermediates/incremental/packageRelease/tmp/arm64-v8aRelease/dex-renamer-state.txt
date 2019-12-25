@@ -1,0 +1,4 @@
+#Tue Dec 24 12:26:13 IST 2019
+base.0=/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/app/intermediates/transforms/r8/release/1
+path.0=classes.dex
+renamed.0=classes.dex

@@ -8,10 +8,10 @@ class ProcessDataReceivedFromFromBackend {
   final List<Barcode> BarcodeList;
 
   ProcessDataReceivedFromFromBackend({this.productsList,
-                this.ProductCategoriesList,
-                this.stockRequestsList,
-                this.stockRequestsProductsList,
-                this.BarcodeList});
+    this.ProductCategoriesList,
+    this.stockRequestsList,
+    this.stockRequestsProductsList,
+    this.BarcodeList});
 
   factory ProcessDataReceivedFromFromBackend.fromJson(Map<String, dynamic> parsedJson){
 
@@ -37,7 +37,7 @@ class ProcessDataReceivedFromFromBackend {
         stockRequestsProductsList : stockRequestsProductsListParsedFromJson,
         BarcodeList : BarcodeListParsedFromJson
 
-    );
+        );
   }
 }
 
@@ -51,11 +51,12 @@ class sendDataToBackend {
   var OrderProductsList;
   var CustomerList;
   var CustomerCreditList;
-  var OrderRefundList;
+  var OrderRefundItemsList;
   var CustomProductsList;
   var sync_data_list;
+  var orderRefundList;
 
-  sendDataToBackend(this.StockRequestList, this.StockRequestsProductsList, this.OrdersList, this.OrderProductsList, this.CustomerList, this.CustomerCreditList, this.OrderRefundList, this.CustomProductsList, this.sync_data_list);
+  sendDataToBackend(this.StockRequestList, this.StockRequestsProductsList, this.OrdersList, this.OrderProductsList, this.CustomerList, this.CustomerCreditList, this.OrderRefundItemsList, this.orderRefundList, this.CustomProductsList, this.sync_data_list);
 
   sendDataToBackend.fromJson(Map<String, dynamic> json)
       : StockRequestList = json['requestStocks'],
@@ -64,9 +65,11 @@ class sendDataToBackend {
         OrderProductsList = json['orderItems'],
         CustomerList = json['customers'],
         CustomerCreditList = json['creditLogs'],
-        OrderRefundList = json['refunds'],
+        OrderRefundItemsList = json['refund_items'],
         CustomProductsList = json['customProducts'],
+        orderRefundList = json['refunds'],
         sync_data_list = json['sync_data_list'];
+
 
   Map<String, dynamic> toJson() =>
       {
@@ -76,9 +79,10 @@ class sendDataToBackend {
         'orderItems': OrderProductsList,
         'customers': CustomerList,
         'creditLogs': CustomerCreditList,
-        'refunds': OrderRefundList,
+        'refund_items': OrderRefundItemsList,
         'customProducts': CustomProductsList,
         'sync_data_list' : sync_data_list,
+        'orderRefundList' : orderRefundList,
       };
 }
 
@@ -90,18 +94,20 @@ class ProcessDataSentToFromBackend {
   final List<orderItems> orderItemsList;
   final List<Orders> ordersList;
   final List<customProducts> customProductsList;
-  final List<refunds> refundsList;
+  final List<refundItems> refundItemsList;
   final List<customerCredit> creditLogsList;
   final List<customer> customerList;
+  final List<refunds> orderRefundsList;
 
   ProcessDataSentToFromBackend({this.requestStocksList,
     this.requestStockItemsList,
     this.orderItemsList,
     this.customProductsList,
-    this.refundsList,
+    this.refundItemsList,
     this.creditLogsList,
     this.customerList,
-    this.ordersList
+    this.ordersList,
+    this.orderRefundsList
   });
 
   factory ProcessDataSentToFromBackend.fromJson(Map<String, dynamic> parsedJson){
@@ -111,10 +117,11 @@ class ProcessDataSentToFromBackend {
     var list2 = parsedJson['orders'] as List;
     var list3 = parsedJson['orderItems'] as List;
     var list4 = parsedJson['customProducts'] as List;
-    var list5 = parsedJson['refunds'] as List;
+    var list5 = parsedJson['refundItems'] as List;
     var list6 = parsedJson['creditLogs'] as List;
     var list7 = parsedJson['customers'] as List;
     var list8 = parsedJson['requestStocks'] as List;
+    var list9 = parsedJson['orderRefunds'] as List;
 
 
 
@@ -125,10 +132,11 @@ class ProcessDataSentToFromBackend {
     List<Orders> ordersListParsedFromJson = list2.map((i) => Orders.fromJson(i)).toList();
     List<orderItems> orderItemsListParsedFromJson = list3.map((i) => orderItems.fromJson(i)).toList();
     List<customProducts> customProductsListParsedFromJson = list4.map((i) => customProducts.fromJson(i)).toList();
-    List<refunds> refundsListParsedFromJson = list5.map((i) => refunds.fromJson(i)).toList();
+    List<refundItems> refundsItemsListParsedFromJson = list5.map((i) => refundItems.fromJson(i)).toList();
     List<customerCredit> customerCreditListParsedFromJson = list6.map((i) => customerCredit.fromJson(i)).toList();
     List<customer> customerListParsedFromJson = list7.map((i) => customer.fromJson(i)).toList();
     List<requestStocks> requestStocksListParsedFromJson = list8.map((i) => requestStocks.fromJson(i)).toList();
+    List<refunds> refundsListParsedFromJson = list9.map((i) => refunds.fromJson(i)).toList();
 
 
     return ProcessDataSentToFromBackend(
@@ -136,11 +144,12 @@ class ProcessDataSentToFromBackend {
         requestStockItemsList:requestStockItemsListParsedFromJson,
         orderItemsList:orderItemsListParsedFromJson,
         customProductsList:customProductsListParsedFromJson,
-        refundsList:refundsListParsedFromJson,
+        refundItemsList:refundsItemsListParsedFromJson,
         creditLogsList:customerCreditListParsedFromJson,
         customerList:customerListParsedFromJson,
-        ordersList:ordersListParsedFromJson
+        ordersList:ordersListParsedFromJson,
+        orderRefundsList:refundsListParsedFromJson
 
-    );
+        );
   }
 }

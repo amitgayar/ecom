@@ -177,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                    p = await submitAuthenticationDetails(
                        constants.getOTP,
                        body: newPost.toMap());
-                   print(p);
+                   print("\n\n Status code = ${p.statusCode}");
 
 
 

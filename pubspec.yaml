@@ -28,7 +28,7 @@ dependencies:
   intl: ^0.15.7
   sqflite:
   path:
-  path_provider: ^0.4.1
+  path_provider: ^1.5.1
   http: ^0.12.0
   json_annotation: ^2.0.0
   cron: ^0.2.2

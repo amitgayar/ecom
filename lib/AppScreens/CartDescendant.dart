@@ -87,6 +87,7 @@ class _CartDescendant extends State<CartDescendant> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+
                   IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
@@ -291,6 +292,8 @@ child: Material(
                             ),
                             ),
                         onPressed: (){
+                          model.getListOfCategories();
+                          model.getListOfBrands();
                           setState(() {
                             model.updateFlagOfAddCustomItem(true);
                           });
@@ -359,10 +362,10 @@ child: Material(
                   ListView(
                     padding: const EdgeInsets.symmetric(horizontal: 0.1),
                     children: <Widget>[
-                      //
-                      bottomBarHide?
-                      KeyboardListener()
-                          :new Container(),
+
+//                      model.rawListener?
+//                      KeyboardListener()
+//                          :new Container(),
                       const Divider(
                           color: Colors.deepOrangeAccent, height: 5
                           ),
@@ -372,6 +375,7 @@ child: Material(
                       Container(
                         child: Column(
                           children: <Widget>[
+
                             _productDetailsHeadingSection,
                             shoppingCartRowSection,
                             model.totalCartQuantity == null || model.totalCartQuantity == 0
@@ -482,7 +486,8 @@ child: Material(
             Spacer(),
             RaisedButton(
               child: Text('CREDIT'),
-              onPressed: () {model.analyzeCredit(0.0, "credit");
+              onPressed: () {
+//                model.analyzeCredit(0.0, "credit", true);
               setState(() {
                 cartState('CREDIT');
               });
@@ -612,7 +617,7 @@ child: Material(
                     setState(() {
                       cartState(paymentMode);
                       setBottomBarHide();
-                      model.generateInvoice(true);
+                      model.generateInvoice(true, false);
                       model.removeEditableItemFromCart(productDummy, 'clear_cart');
                     }
                     );
@@ -630,8 +635,9 @@ child: Material(
                 child: Text('DONE'),
                 onPressed: () {
                   setState(() {
+                    model.generateInvoice(false, false);
                     model.removeEditableItemFromCart(productDummy, 'clear_cart');
-                    model.generateInvoice(false);
+
 
                     cartState(paymentMode);
                     setBottomBarHide();
@@ -698,7 +704,7 @@ child: Material(
                   ),
                 onChanged: (text){
                   print(text.toString());
-                  model.analyzeCredit(double.parse(text), 'credit');
+                  model.analyzeCredit(double.parse(text), 'credit', true);
 
                 },
                 decoration: InputDecoration(
@@ -850,11 +856,11 @@ child: Material(
                           creditModeFlag = !creditModeFlag;
                           cartState('CREDIT');
                           setBottomBarHide();
-                          model.generateInvoice(true);
+                          model.generateInvoice(true, true);
                           model.analyzeCredit((model.cartTotalValue == null)
                                                   ? 0.0
                                                   : model.cartTotalValue,
-                                                  creditMode);
+                                                  creditMode, true);
                           model.removeEditableItemFromCart(productDummy, 'clear_cart');
                           creditModeFunc('');
                         }
@@ -909,13 +915,13 @@ child: Material(
                          if (model.selectedCustomer.length !=0){
                            creditModeFlag = !creditModeFlag;
                            model.removeEditableItemFromCart(productDummy, 'clear_cart');
-                           model.generateInvoice(false);
+                           model.generateInvoice(false, true);
                            cartState('CREDIT');
                            setBottomBarHide();
                            model.analyzeCredit((model.cartTotalValue == null)
                                                    ? 0.0
                                                    : model.cartTotalValue,
-                                                   creditMode);
+                                                   creditMode, true);
                            creditModeFunc('');
                          }
                          else{
@@ -993,10 +999,7 @@ child: Material(
                   model.currentDisplayCustomProductPage
                       ?
                       Align(
-                        child: Opacity(
-                          opacity: 0.90,
-                          child: CustomItem(),
-                        ),
+                        child: CustomItem(),
                         alignment: Alignment.center,
                       )
                       :
@@ -1059,6 +1062,8 @@ class _CustomItem extends State<CustomItem> {
   final customSGSTController  = TextEditingController();
   final customCGSTController  = TextEditingController();
   final customCESSController  = TextEditingController();
+  final customCategoryController = TextEditingController();
+  final customBrandController = TextEditingController();
 
   @override
   void initState() {
@@ -1071,7 +1076,9 @@ class _CustomItem extends State<CustomItem> {
     customProductNameController.dispose();
     super.dispose();
   }
-
+  String _selectedCategory ;
+  String _selectedBrand;
+  final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
   @override
   Widget build(BuildContext context) {
@@ -1079,272 +1086,361 @@ class _CustomItem extends State<CustomItem> {
     return ScopedModelDescendant<NewAppStateModel> (
         builder: (context, child, model)
     {
-      return Card(
-        borderOnForeground: false,
-        child: Container(
-          color: Colors.black,
-          padding: EdgeInsets.all(15),
-          height: 500,
-          width: 370,
-          child: ListView(
-//                              crossAxisAlignment: CrossAxisAlignment.center,
-children: [
-                     Row(
-    children: <Widget>[
-      Text('Add Custom Item',
-             style: TextStyle(color: Colors.white),),
-      Spacer(),
-      InkWell(
-        child: Icon(
-          Icons.clear,
-          color: Colors.white,
-          size: 22.0,
-          ),
-        onTap: () {
-          setState(() {
-            model.updateFlagOfAddCustomItem(false);
-          });
+      List categories = (model.finalListOfCategories.length > 0) ? model.finalListOfCategories : ["Select Category"];
+      List brands = (model.finalListOfBrands.length > 0) ? model.finalListOfBrands : ["Select Brand"];
 
-        },
-        ),
-    ],
-    ),
-               Divider(color: Color(0xff429585),thickness: 1,height: 10,),
-                   Padding(
-                  padding: EdgeInsets.only(top: 10, left: 10, right:10),
+      print("$categories :::: $brands");
+      return Stack(
+        children: <Widget>[
+          Opacity(
+            opacity: .8,
+            child: InkWell(
+              onTap: (){
+                model.updateFlagOfAddCustomItem(false);
+              },
+              child: Container(
+                height: 5000,
+                width: 3000,
+                color: Colors.black,
+                ),
+            )
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Card(
+            borderOnForeground: false,
+            child: Container(
+              padding: EdgeInsets.all(15),
+              height: 500,
+              width: 370,
+              child: ListView(
+                //                              crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: <Widget>[
+                      Text('Add Custom Item',
+                             ),
+                      Spacer(),
+                      InkWell(
+                        child: Icon(
+                          Icons.clear,
+                          size: 22.0,
+                          ),
+                        onTap: () {
+                          setState(() {
+                            model.updateFlagOfAddCustomItem(false);
+                          });
+
+                        },
+                        ),
+                    ],
+                    ),
+                  Divider(color: Color(0xff429585),thickness: 1,height: 10,),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right:10),
                     child: Row(
-      children: <Widget>[
-        Text('Name   ',
-             style: TextStyle(color: Colors.white),),
-        Container(
-          width: 150,
-          child: TextField(
-            style: TextStyle(color: Colors.white),
-                        controller: customProductNameController,
-                                                                              autofocus: true,
-
-                        ),
-                                  )
-                              ],
+                      children: <Widget>[
+                        Expanded(
+                          child: Text('Name',
+                                      ),
+                          flex: 1,
+                          ),
+                        Expanded(
+                          child: Container(
+                            width: 150,
+                            child: TextField(
+                              controller: customProductNameController,
+//                              decoration: InputDecoration(
+//                                focusedBorder: UnderlineInputBorder(
+//                                  borderSide: BorderSide(color: Colors.black),
+//                                  ),
+//                                ),
                               ),
-                  ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                        child:
-                        Row(
-                          children: <Widget>[
-                            Text('MRP ',
-                                   style: TextStyle(color: Colors.white),),
-                            Container(
-                              height: 50,
-                              width: 150,
-                              child: TextField(
-                                style: TextStyle(color: Colors.white),
-                                controller: customMRPController,
-                                inputFormatters: <TextInputFormatter>[
-                                  WhitelistingTextInputFormatter.digitsOnly
-                                ],
+                            ),
+                          flex: 4,
+                          ),
+
+                      ],
+                      ),
+                    ),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                    child:
+                    Row(
+                      children: <Widget>[
+
+                        Expanded(
+                          child:Text('MRP ',
+                                     ),
+                          flex: 1,
+                          ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            child: TextField(
+                              controller: customMRPController,
+                              inputFormatters: [_amountValidator],
+//
+                              keyboardType: TextInputType.numberWithOptions(
+                                decimal: true,
+                                signed: false,
+                                ),
+                              onChanged: (text){
+                                //                                          model.changeProductValue(text, product, 'mrp');
+                                setState(() {
+                                });
+
+                              },
+                              ),
+                            ),
+                          flex: 2,
+                          ),
+                        Expanded(
+                          child: Text(''),
+                          flex: 1,
+                        ),
+                        Expanded(
+                          child:Text('SP   ',
+                                     ),
+                          flex: 1,
+                          ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            child: TextField(
+                              controller: customSPController,
+                              inputFormatters: [_amountValidator],
+                              keyboardType: TextInputType.numberWithOptions(
+                                decimal: true,
+                                signed: false,
+                                ),
+                              onChanged: (text){
+                                //                                          model.changeProductValue(text, product, 'mrp');
+
+                              },
+
+                              ),
+                            ),
+                          flex: 2,
+                          ),
+
+
+
+
+                      ],
+                      ),
+                    ),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                    child:
+                    Row(
+                      children: <Widget>[
+
+                        Expanded(
+                          child: Text('SGST   ',
+                                      ),
+                          flex: 1,
+                          ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            width: 150,
+                            child: TextField(
+                              inputFormatters: [_amountValidator],
+                              controller: customSGSTController,
+                              keyboardType: TextInputType.numberWithOptions(
+                                decimal: true,
+                                signed: false,
+                                ),
+                              onChanged: (text){
+                                //                                          model.changeProductValue(text, product, 'mrp');
+
+                              },
+                              ),
+                            ),
+                          flex: 2,
+                          ),
+                        Expanded(
+                          child:Text('',
+                                     ),
+                          flex: 1,
+                          ),
+                        Expanded(
+                          child:Text('CGST   ',
+                                     ),
+                          flex: 1,
+                          ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            width: 150,
+                            child: TextField(
+                              inputFormatters: [_amountValidator],
+                              controller: customCGSTController,
+                              keyboardType: TextInputType.numberWithOptions(
+                                decimal: true,
+                                signed: false,
+                                ),
+                              onChanged: (text){
+                                //                                          model.changeProductValue(text, product, 'mrp');
+
+                              },
+                              ),
+                            ),
+                          flex: 2,
+                          ),
+
+
+
+
+                      ],
+                      ),
+                    ),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                    child:
+
+
+
+                    Row(
+                      children: <Widget>[
+
+                        Expanded(
+                          child:Text('CESS',
+                                     ),
+                          flex: 1,
+                          ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            width: 15,
+                            child: TextField(
+                              inputFormatters: [_amountValidator],
+                              controller: customCESSController,
                                 keyboardType: TextInputType.numberWithOptions(
                                   decimal: true,
                                   signed: false,
                                   ),
                                 onChanged: (text){
-                    //                                          model.changeProductValue(text, product, 'mrp');
-                                  setState(() {
-                                  });
+                                  //                                          model.changeProductValue(text, product, 'mrp');
 
                                 },
-                                ),
-                              )
-                          ],
+                              ),
+                            ),
+                          flex: 2,
                           ),
-                        ),
-
-
-
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                        child:
-                        Row(
-                          children: <Widget>[
-                            Text('SP   ',
-                                   style: TextStyle(color: Colors.white),),
-                            Container(
-                              height: 50,
-                              width: 150,
-                              child: TextField(
-                                style: TextStyle(color: Colors.white),
-                                controller: customSPController,
-                                inputFormatters: <TextInputFormatter>[
-                                  WhitelistingTextInputFormatter.digitsOnly
-                                ],
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                  signed: false,
-                                  ),
-                                onChanged: (text){
-                    //                                          model.changeProductValue(text, product, 'mrp');
-
-                                },
-                                ),
-                              )
-                          ],
+                        Expanded(
+                          child:Text(' ',
+                                     ),
+                          flex: 4,
                           ),
+
+
+
+
+                      ],
+                      ),
+                    ),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: new DropdownButton<String>(
+                            items: categories.map((var value) {
+                              print("\n\n value dropdown = $value");
+                              return new DropdownMenuItem<String>(
+                                value: value,
+                                child: new Text(value),
+                                );
+                            }).toList(),
+                            value: _selectedCategory,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _selectedCategory = newValue;
+                              });
+                            },
+                            hint: Text('Select Category'),
+                            ),
+                          flex: 4,
                         ),
-
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                        child:
-
-
-
-                        Row(
-                          children: <Widget>[
-                            Text('QTY   ',
-                                   style: TextStyle(color: Colors.white),),
-                            Container(
-                              height: 50,
-                              width: 150,
-                              child: TextField(
-                                style: TextStyle(color: Colors.white),
-                                controller: customQTYController,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                  signed: false,
-                                  ),
-
-                                ),
-                              )
-                          ],
+                        Expanded(
+                          child: Text('',
+                                      ),
+                          flex: 1,
                           ),
-                        ),
+                        Expanded(
+                          child: new DropdownButton<String>(
+                            items: brands.map((var value) {
+                              return new DropdownMenuItem<String>(
+                                value: value,
+                                child: new Text(value),
+                                );
+                            }).toList(),
+                            value: _selectedBrand,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _selectedBrand = newValue;
+                              });
+                            },
+                            hint: Text('Select Brand'),
+                            ),
+                          flex: 4,
+                        )
+                    ],
+                      )
+                    ),
 
 
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                        child:
-                        Row(
-                          children: <Widget>[
-                            Text('SGST   ',
-                                   style: TextStyle(color: Colors.white),),
-                            Container(
-                              height: 50,
-                              width: 150,
-                              child: TextField(
-                                style: TextStyle(color: Colors.white),
-                                controller: customSGSTController,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                  signed: false,
-                                  ),
-                                onChanged: (text){
-                    //                                          model.changeProductValue(text, product, 'mrp');
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                    child:
 
-                                },
-                                ),
-                              )
-                          ],
-                          ),
-                        ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
 
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                        child:
+                        RaisedButton(
+                          //                                                    height: 50,
+                          //                                                    width: 150,
+                          child: Text('SUBMIT'),
+                            onPressed: ()async{
+                              model.addCustomItem(
+                                  customProductNameController.text,
+                                  customMRPController.text,
+                                  customSPController.text,
+                                  customCESSController.text,
+                                  customCGSTController.text,
+                                  customSGSTController.text,
+                                _selectedCategory,
+                                _selectedBrand,
+                                  );
+                              print(customBrandController.text);
+                              await queryForAll(model, 'initStack', '', '');
+                              model.updateFlagOfAddCustomItem(false);
+                            },
 
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(22.0)),
+                          )
+                      ],
+                      ),
+                    ),
 
+                ],
+                ),
+              ),
+            ),
 
-                        Row(
-                          children: <Widget>[
-                            Text('CGST   ',
-                                   style: TextStyle(color: Colors.white),),
-                            Container(
-                              height: 50,
-                              width: 150,
-                              child: TextField(
-                                style: TextStyle(color: Colors.white),
-                                controller: customCGSTController,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                  signed: false,
-                                  ),
-                                onChanged: (text){
-                    //                                          model.changeProductValue(text, product, 'mrp');
-
-                                },
-                                ),
-                              )
-                          ],
-                          ),
-                        ),
-
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                        child:
-
-
-
-                        Row(
-                          children: <Widget>[
-                            Text('CESS   ',
-                                   style: TextStyle(color: Colors.white),),
-                            Container(
-                              height: 50,
-                              width: 150,
-                              child: TextField(
-                                style: TextStyle(color: Colors.white),
-                                controller: customCESSController,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                  signed: false,
-                                  ),
-                                onChanged: (text){
-                    //                                          model.changeProductValue(text, product, 'mrp');
-
-                                },
-                                ),
-                              )
-                          ],
-                          ),
-                        ),
-
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10, right:10),
-                        child:
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-
-                            RaisedButton(
-                    //                                                    height: 50,
-                    //                                                    width: 150,
-                    child: Text('SUBMIT'),
-                      onPressed: (){
-                        model.updateFlagOfAddCustomItem(false);
-                        Map<String, dynamic> customProduct= {
-                          "name": customProductNameController.text,
-                          "mrp": double.parse(customMRPController.text),
-                          "sp": double.parse(customSPController.text),
-                          "quantity": int.parse(customQTYController.text),
-                          "cess": double.parse(customCESSController.text),
-                          "cgst": double.parse(customCGSTController.text),
-                          "sgst": double.parse(customSGSTController.text),
-
-                        };
-                        print('The Custom Item Added From UI ..... :  .... ' + customProduct.toString());
-                        model.addEditableProductToCart(customProduct);
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(22.0)),
-                    )
-                          ],
-                          ),
-                        ),
-
-],
-),
-          ),
-        ) ;
+            )
+        ],
+      );
 
     });
 }
@@ -1384,23 +1480,18 @@ class NewShoppingCartRow extends StatefulWidget {
 class _NewShoppingCartRow extends State<NewShoppingCartRow> {
 
 
+  FocusNode _focusNode;
+//  TextEditingController _textFieldController;
+//
+//  @override
+//  void initState() {
+//    _focusNode = FocusNode();
+//    _focusNode.addListener(() {
+//      if (_focusNode.hasFocus) _textFieldController.clear();
+//    });
+//    super.initState();
+//  }
 
-  final myController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-
-    myController.addListener(_printTest);
-  }
-  @override
-  void dispose() {
-    myController.dispose();
-    super.dispose();
-  }
-
-  _printTest() {
-    print("textField of products SP : ${myController.text}");
-  }
 
 
 
@@ -1408,7 +1499,9 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
   @override
   Widget build(BuildContext context) {
     final formatter = NumberFormat.simpleCurrency(name: 'INR',
-                                                      decimalDigits: 2, locale: Localizations.localeOf(context).toString());
+                                                      decimalDigits: 2,
+//                                                      locale: Localizations.localeOf(context).toString()
+                                                  );
     final localTheme = Theme.of(context);
 
 
@@ -1416,21 +1509,19 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
         builder: (context, child, model) {
 
           final Map product =  model.getProductById(widget.id);
-          //print("wdq :: ${model.quantityOfCurrentProductRow[model.quantityOfCurrentProductRow.indexWhere((p) => int.parse(p['id']) == widget.id)]['sp']}");
-          final int quantity =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'].runtimeType.toString() == 'String') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity']) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'];
-          final double sellingPrice =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'].runtimeType.toString() == 'String') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp']) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'];
-          final double MRP =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'].runtimeType.toString() == 'String') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp']) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'];
+          final int quantity =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'].runtimeType.toString() == 'String') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'].toString()) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'];
+//          print("\n\nvalues ${model.editableListOfProductsInCart.firstWhere((p) => p['id'] == widget.id)}");
+          final double sellingPrice =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'].runtimeType.toString() == 'String' && model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'].runtimeType.toString() != '') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'].toString()) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'];
+          final double MRP =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'].runtimeType.toString() == 'String') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'].toString()) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'];
 
 
 
 
-//          myController.text = '${product['sp'].toString()}';
 
           TextEditingController mrpController = TextEditingController(text: '${product['mrp']}');
           TextEditingController spController = TextEditingController(text: '${product['sp']}');
           TextEditingController quantityController = TextEditingController(text: '${quantity.toString()}');
           final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
-          //print("wdq :: ${(model.quantityOfCurrentProductRow[model.quantityOfCurrentProductRow.indexWhere((p) => int.parse(p['id']) == widget.id)]['sp'].runtimeType.toString() == 'String') ? 'string' : 'double'}");
 
           FocusNode mrpFocusNode, spFocusNode, quantityFocusNode;
           return Container(
@@ -1475,7 +1566,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                       ),
                     Expanded(
                       child: TextFormField(
-                        focusNode: mrpFocusNode,
+
                         autofocus: false,
                         initialValue: MRP.toString(),
                         inputFormatters: [_amountValidator],
@@ -1484,9 +1575,11 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                           signed: false,
                           ),
                         onChanged: (text){
+                          print(text);
                           model.changeProductValue(text, product, 'mrp');
 
                         },
+
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: '${product['mrp'].toString()}'
@@ -1496,6 +1589,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                       ),
                     Expanded(
                       child: new TextFormField(
+                        textAlign: TextAlign.center,
                         focusNode: spFocusNode,
                         autofocus: false,
                         initialValue: sellingPrice.toString(),
@@ -1510,7 +1604,6 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                         },
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: '${product['sp'].toString()}'
                             ),
                         ),
                       flex: 3,
@@ -1525,10 +1618,20 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                               Expanded(
                                 flex: 1,
                                 child: TextFormField(
-                                  focusNode: quantityFocusNode,
+                                  focusNode: _focusNode,
+//                                  controller: _textFieldController,
+                                  onFieldSubmitted: (term) {
+//                                    model.setRaw(true);
+                                    _focusNode.unfocus();
+//                                      FocusScope.of(context).requestFocus(_focusNode);
+                                  },
+                                  onTap: (){
+//                                    model.setRaw(false);
+                                  },
+//                                  focusNode: quantityFocusNode,
                                   autofocus: false,
 //                                          initialValue: quantity.toString(),
-                                  controller: quantityController,
+//                                  controller: quantityController,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: <TextInputFormatter>[
                                     WhitelistingTextInputFormatter.digitsOnly
@@ -1806,7 +1909,7 @@ class ProductCard extends StatelessWidget {
                 ),
               Spacer(),
               Text(
-                product == null ? '' : formatter.format(product['sp']),
+                product == null || product['sp'] == "" ? '' : formatter.format(product['sp']),
                 //                          style:
                 //                          theme.textTheme.caption,
 
@@ -2071,39 +2174,39 @@ class KeyboardListener extends StatefulWidget {
 
 class _RawKeyboardListenerState extends State<KeyboardListener> {
 
-//  TextEditingController _controller = new TextEditingController();
+  TextEditingController _controller = new TextEditingController();
   FocusNode _textNode = new FocusNode();
 
 
-//  @override
-//  initState() {
-//    super.initState();
-//  }
+  @override
+  initState() {
+    super.initState();
+  }
 
   //Handle when submitting
-//  void _handleSubmitted(String finalinput) {
-//
-//    setState(() {
-//      SystemChannels.textInput.invokeMethod('TextInput.hide'); //hide keyboard again
-//      _controller.clear();
-//    });
-//  }
+  void _handleSubmitted(String finalinput) {
+
+    setState(() {
+      SystemChannels.textInput.invokeMethod('TextInput.hide'); //hide keyboard again
+      _controller.clear();
+    });
+  }
 
   String barcode = "";
-//  handleKey(RawKeyEvent key) {
-//    //print("Event runtimeType is ${key.runtimeType}");
-//    if(key.runtimeType.toString() == 'RawKeyDownEvent'){
-//      RawKeyEventDataAndroid data = key.data as RawKeyEventDataAndroid;
-//      String _keyCode;
-//      _keyCode = data.keyCode.toString(); //keycode of key event (66 is return)
-//
-//      barcode = barcode + key.data.keyLabel;
-//
+  handleKey(RawKeyEvent key) {
+    //print("Event runtimeType is ${key.runtimeType}");
+    if(key.runtimeType.toString() == 'RawKeyDownEvent'){
+      RawKeyEventDataAndroid data = key.data as RawKeyEventDataAndroid;
+      String _keyCode;
+      _keyCode = data.keyCode.toString(); //keycode of key event (66 is return)
+
+      barcode = barcode + key.data.keyLabel;
+
 //      print("\n\nwhy does this run twice ${newModel.subTotal}");
-//    }
-//
-//    print("\n\n${barcode}");
-//  }
+    }
+
+    print("\n\n${barcode}");
+  }
 
   _buildTextComposer() {
 

@@ -7,6 +7,7 @@ class Customer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('\n\n customer page check     ...... ');
     return Scaffold(
 
         appBar: AppBar(

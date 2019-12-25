@@ -37,7 +37,17 @@ submitAuthenticationDetails(String url, {Map body}) async {
     final result = await InternetAddress.lookup('google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
       print('connected');
-      return http.post(url, body: body);
+      try {
+        print("post was not made");
+        http.Response response = await http.post(url, body: body);
+        print("post was made");
+        return (response);
+      }
+      on SocketException catch (_) {
+        print('\n\n connction Error');
+        return (null);
+      }
+
     }
   } on SocketException catch (_) {
     print('not connected');

@@ -10,25 +10,24 @@ import '../Databases/Database.dart';
 import '../model/Database_Models.dart';
 import 'package:async/async.dart';
 import '../services/addDataToTable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 final dbHelper = DatabaseHelper.instance;
 class NewAppStateModel extends Model {
-
-
-//  ......................................GAYAR SECTION ..............................................
-
-//  ............................................. GAYAR SECTION ENDS .......................................
-
-
+  List tempListOfCategories = [];
+  List get finalListOfCategories => tempListOfCategories;
+  List tempListOfBrands = [];
+  List get finalListOfBrands => tempListOfBrands;
   List<Map> _EditableproductsListForCart = [];
-  int indexOfProductInCart;double discountProvided;
+  int indexOfProductInCart = -1;
+  double discountProvided = 0.0;
 
-  double subTotalValue;
-  double cartTotalValue;
-  double cgstValue;
-  double sgstValue;
-  double cessValue;
+  double subTotalValue = 0.0;
+  double cartTotalValue = 0.0;
+  double cgstValue = 0.0;
+  double sgstValue = 0.0;
+  double cessValue = 0.0;
   bool includeTaxesValue = false;
 
   List<Map> get editableListOfProductsInCart => _EditableproductsListForCart;
@@ -43,16 +42,16 @@ class NewAppStateModel extends Model {
   String get currentBarcode => barcode;
   String get currentBarcodedProductName => barcodedProductName;
   bool get currentDisplayCustomProductPage => displayCustomProductPage;
-  String barcode;
-  String barcodedProductName;
+  String barcode = "";
+  String barcodedProductName = "";
   String tempBarcode = "";
   String get finalBarcode => barcode;
   bool displayCustomProductPage = false, tempIsCustomerSelectedInCart = false, tempAllowCartSubnissiom = false;
   bool get isCustomerSelectedInCart => tempIsCustomerSelectedInCart;
   bool get allowCartSubmissiom => tempAllowCartSubnissiom;
   int get totalCartQuantity => tempCartQuantity;
-  String tempPaymentMethod;
-  double tempTotalAmountPaid, tempCredit;
+  String tempPaymentMethod = "";
+  double tempTotalAmountPaid = 0.0, tempCredit = 0.0;
   String get customerID => tempselectedCustomer['id'].toString();
   String get paymentMethod => tempPaymentMethod;
   double get AmountPaid => tempTotalAmountPaid;
@@ -62,7 +61,20 @@ class NewAppStateModel extends Model {
   Map tempselectedCustomer = {};
   Map get selectedCustomer => tempselectedCustomer;
   String get prefillField => tempPrefillField;
-  String tempPrefillField;
+  String tempPrefillField = "";
+  List<Map<String, dynamic>> _stack = [null];
+  List<Map<String, dynamic>> get stack => _stack;
+  List<Map<String, dynamic>> _dbProducts ;
+  List<Map<String, dynamic>> _dbCustomProducts ;
+  List<Map<String, dynamic>> _dbCategories ;
+  List<Map<String, dynamic>> get dbProducts => List<Map>.from(_dbProducts);
+  List<Map<String, dynamic>> get dbCustomProducts => List<Map>.from(_dbCustomProducts);
+  List<Map<String, dynamic>> get dbCategories => List<Map>.from(_dbCategories);
+
+  // The currently selected category of products.
+  String _selectedCategory = '';
+  String get selectedCategory => _selectedCategory;
+  int tempCartQuantity = 0;
 
 
 
@@ -73,9 +85,6 @@ class NewAppStateModel extends Model {
     //print("\n\nentered state of _EditableproductsListForCart: $_EditableproductsListForCart");
 
     Map _EditableproductsInCart = {};
-
-    bool itemPresentInctNumber;
-
     product.forEach((key, value) {
       _EditableproductsInCart[key.toString()] = value.toString();
     });
@@ -111,23 +120,23 @@ class NewAppStateModel extends Model {
       _EditableproductsInCart["quantity"] = 1;
       _EditableproductsListForCart.add(_EditableproductsInCart);
       print("\n\nProduct added to _EditableproductsListForCart");
-    }
+     }
     else {
       var indexOfItemToAdd = _EditableproductsListForCart.indexWhere((p) => p['id'] == productID);
 
-      if (indexOfItemToAdd != -1) {
+     if (indexOfItemToAdd != -1) {
 
-        print("\n\nitemPresentInCart :::: productNumber : ${(_EditableproductsListForCart[indexOfItemToAdd]['quantity'])}");
-        _EditableproductsListForCart[indexOfItemToAdd]['quantity'] = (_EditableproductsListForCart[indexOfItemToAdd]['quantity'] + 1);
+       print("\n\nitemPresentInCart :::: productNumber : ${(_EditableproductsListForCart[indexOfItemToAdd]['quantity'])}");
+       _EditableproductsListForCart[indexOfItemToAdd]['quantity'] = (_EditableproductsListForCart[indexOfItemToAdd]['quantity'] + 1);
 
-      }
+     }
 
-      else {
-        print("\n\nProduct not in cart _EditableproductsListForCart");
-        _EditableproductsInCart["quantity"] = 1;
-        _EditableproductsListForCart.add(_EditableproductsInCart);
-      }
-    }
+     else {
+       print("\n\nProduct not in cart _EditableproductsListForCart");
+       _EditableproductsInCart["quantity"] = 1;
+       _EditableproductsListForCart.add(_EditableproductsInCart);
+     }
+   }
 
 
 
@@ -139,9 +148,7 @@ class NewAppStateModel extends Model {
 
   }//add Editable product to cart ended
 
-
-
-  // Removes an item from the cart.
+  // Removes an item from the cart Starts
   void removeEditableItemFromCart(Map product, String actionToPerform) {
 
 
@@ -162,7 +169,6 @@ class NewAppStateModel extends Model {
       barcode = "";
       barcodedProductName = "";
       tempBarcode = "";
-      tempPaymentMethod = '';
 
 
     }
@@ -199,13 +205,13 @@ class NewAppStateModel extends Model {
 //    }
     notifyListeners();
   }
+  // Removes an item from the cart Ends
 
-
-
+  //changeProductValue starts
   void changeProductValue(String newValue, Map product, String callingInputField){
 
-    print("enter into changeSP :::: received arguments :::: Changed Price = $newValue :::: for product = $product \n\n");
-    //print(product['id']);
+      print("enter into changeSP :::: received arguments :::: Changed Price = $newValue :::: for product = $product \n\n");
+      //print(product['id']);
 //      _EditableproductsListForCart.forEach((p) {
 //        //if (p['id'] == product['id']) {
 //          print(p['id'].runtimeType);
@@ -213,39 +219,37 @@ class NewAppStateModel extends Model {
 //      }
 //      );
 
-    indexOfProductInCart = _EditableproductsListForCart.indexWhere((p) => p['id'] == product['id']);
+      indexOfProductInCart = _EditableproductsListForCart.indexWhere((p) => p['id'] == product['id']);
 
-    print("\n\ngetting list item for update ::: $indexOfProductInCart");
+      print("\n\ngetting list item for update ::: $indexOfProductInCart");
 
-    //print("\n\n Value of SP at index before update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
+      //print("\n\n Value of SP at index before update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
 
-    if (callingInputField == 'mrp') {
-      _EditableproductsListForCart[indexOfProductInCart]['mrp'] = double.parse(newValue);
-    }
-    else if (callingInputField == 'sp') {
-      _EditableproductsListForCart[indexOfProductInCart]['sp'] = double.parse(newValue);
-    }
-    else if (callingInputField == 'quantity') {
-      _EditableproductsListForCart[indexOfProductInCart]['quantity'] = int.parse(newValue);
-    }
+      if (callingInputField == 'mrp') {
+        _EditableproductsListForCart[indexOfProductInCart]['mrp'] = double.parse(newValue);
+      }
+      else if (callingInputField == 'sp') {
+        _EditableproductsListForCart[indexOfProductInCart]['sp'] = double.parse(newValue);
+      }
+      else if (callingInputField == 'quantity') {
+        _EditableproductsListForCart[indexOfProductInCart]['quantity'] = int.parse(newValue);
+      }
 
 
-    //print("\n\n Value of SP at index after update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
+      //print("\n\n Value of SP at index after update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
 //    _availableProducts.firstWhere((p) => p['id'] == id)["sp"] = _availableProducts.firstWhere((p) => p['id'] == id)["sp"] + changedPrice;
 //    print("abc = ${_availableProducts.firstWhere((p) => p['id'] == id)["sp"]}");
 //    print(changedPrice);
 //
-    print(_EditableproductsListForCart[indexOfProductInCart]);
+      print(_EditableproductsListForCart[indexOfProductInCart]);
 
 //
-    //print('\n\nQuantity of Index ::: ${editableListOfProductsInCart[editableListOfProductsInCart.indexWhere((p) => int.parse(p['id']) == int.parse(product['id']))]['sp'].runtimeType}');
+      //print('\n\nQuantity of Index ::: ${editableListOfProductsInCart[editableListOfProductsInCart.indexWhere((p) => int.parse(p['id']) == int.parse(product['id']))]['sp'].runtimeType}');
 //    print('changed selling price');
     notifyListeners();
   }
+  //changeProductValue Ends
 
-
-
-  int tempCartQuantity;
   void calculateCartTotalValue (String discount) {
 
     print("Entered into calculateCartTotalValue");
@@ -316,8 +320,6 @@ class NewAppStateModel extends Model {
 
   }
 
-
-
   void setGST(bool value){
     if (value) {
       includeTaxesValue = true;
@@ -332,12 +334,8 @@ class NewAppStateModel extends Model {
     notifyListeners();
   }
 
-
-
-
   processBarcode(RawKeyEvent key) {
-    print(key);
-    print("Event runtimeType is ${key}");
+    //print("Event runtimeType is ${key.runtimeType}");
     if(key.runtimeType.toString() == 'RawKeyDownEvent'){
       if (key.data.logicalKey.keyLabel != null) {
         tempBarcode = tempBarcode + key.data.keyLabel;
@@ -390,11 +388,6 @@ class NewAppStateModel extends Model {
         displayCustomProductPage = false;
 
       }
-      else {
-        barcodedProductName = barcodedProductList[0]['name'];
-        displayCustomProductPage = true;
-        print("Barcoded product detected but need to add new custom product = $barcode\n\n");
-      }
 
     }
     else if(productListFromCustomProductTable.length > 0) {
@@ -402,6 +395,11 @@ class NewAppStateModel extends Model {
       calculateCartTotalValue(Discount.toString());
       displayCustomProductPage = false;
       print("custom product detected");
+    }
+    else if (barcodedProductList.length > 0) {
+      barcodedProductName = barcodedProductList[0]['name'];
+      displayCustomProductPage = true;
+      print("Barcoded product detected but need to add new custom product = $barcode\n\n");
     }
     else {
       barcodedProductName = "";
@@ -414,8 +412,9 @@ class NewAppStateModel extends Model {
   }
 
 
-  void analyzeCredit (double totalAmountPaid, String paymentMode) {
-    if (paymentMode == "credit") {
+  void analyzeCredit (double totalAmountPaid, String paymentMode, bool isCredit) {
+    print("\n\n analyzeCredit entered");
+    if (isCredit) {
       tempTotalAmountPaid = totalAmountPaid;
       tempCredit = cartTotalValue - tempTotalAmountPaid;
     }
@@ -424,6 +423,8 @@ class NewAppStateModel extends Model {
       tempCredit = 0;
     }
     tempPaymentMethod = paymentMode;
+
+    print("\n\ntempTotalAmountPaid = $tempTotalAmountPaid :::: cartTotalValue = $cartTotalValue");
     notifyListeners();
   }
 
@@ -437,31 +438,32 @@ class NewAppStateModel extends Model {
   Update Customer Table - Pending
   Clear Cart
    */
-  void generateInvoice (bool printReceipt) async{
+  void generateInvoice (bool printReceipt, bool isCredit) async{
 
-
-
+    print("\n\nenter into generate invoice");
     String invoiceNumber = "invoice_${DateTime.now().toString()}";
     bool is_receipt_printed = printReceipt;
     List<Map<String, dynamic>> storeProductsInCart = [];
 
     //Adding Order to table
     Map<String, dynamic> rowOrder = {
-      DatabaseHelper.customer_id : customerID,
+      DatabaseHelper.invoice : invoiceNumber,
+      DatabaseHelper.cart_total : subTotal,
       DatabaseHelper.cart_discount_total : discountProvided,
+      DatabaseHelper.paid_amount_total : cartTotal,
+      DatabaseHelper.customer_id : customerID,
       DatabaseHelper.cgst : cgstValue,
       DatabaseHelper.sgst : sgstValue,
       DatabaseHelper.cess : cessValue,
-      DatabaseHelper.mrp_total : cartTotalValue,
       DatabaseHelper.is_receipt_printed : is_receipt_printed,
       DatabaseHelper.payment_method : tempPaymentMethod,
-      DatabaseHelper.paid_amount_total : tempTotalAmountPaid,
-      DatabaseHelper.status : "Completed",
-      DatabaseHelper.invoice : invoiceNumber,
+      DatabaseHelper.status : "completed",
+
       DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
+    print('${DatabaseHelper.ordersTable} Order Row to be inserted: $rowOrder');
     var return_id = await dbHelper.insert(DatabaseHelper.ordersTable, rowOrder);
     print('${DatabaseHelper.ordersTable} inserted row id on order submission: $return_id');
 
@@ -470,7 +472,7 @@ class NewAppStateModel extends Model {
     _EditableproductsListForCart.forEach((p) {
       p[DatabaseHelper.order_id] = invoiceNumber;
     }
-                                         );
+    );
 
     List<Map<String, dynamic>> enterProductsToCart = [];
 
@@ -480,22 +482,16 @@ class NewAppStateModel extends Model {
         print("$key::::$value");
         productItem[key.toString()] = value;
       });
-      if (item.containsKey("to_be_saved")) {
-        productItem["id"] = item["custom_product_id"];
-      }
-      else {
-        productItem["id"] = item["product_id"];
-      }
       enterProductsToCart.add(productItem);
       print(enterProductsToCart);
     });
 
 
     List<orderItems> ordersListParsedFromCartItems = enterProductsToCart.map((i) => orderItems.fromJson(i)).toList();
-    insert_Order_Products(ordersListParsedFromCartItems);
+    await insert_Order_Products(ordersListParsedFromCartItems);
 
     //Adding Credit to table
-    if (paymentMethod == "credit") {
+    if (isCredit) {
       Map<String, dynamic> rowCredit = {
         DatabaseHelper.customer_id : customerID,
         DatabaseHelper.amount : tempCredit,
@@ -509,40 +505,40 @@ class NewAppStateModel extends Model {
 
     // Update customer Data
 
-    if (tempselectedCustomer.length>0) {
+  if (tempselectedCustomer.length>0) {
 
 
-      var totalOrders = (selectedCustomer['total_orders'] == "") ? 1 : (int.parse(selectedCustomer['total_orders'].toString()) + 1);
-      var totalSpent = (selectedCustomer['total_spent'] == "") ? cartTotalValue : (int.parse(selectedCustomer['total_spent'].toString()) + cartTotalValue);
-      var totalDiscountOfCustomer = (selectedCustomer['total_discount'] == "") ? Discount : (int.parse(selectedCustomer['total_discount'].toString()) + Discount);
-      var credit_balance = (selectedCustomer['credit_balance'] == "") ? credit : (int.parse(selectedCustomer['credit_balance'].toString()) + credit);
-      print("selectedCustomer['total_orders'] = ${selectedCustomer['total_orders']}");
-      Map<String, dynamic> row = {
-        DatabaseHelper.name : selectedCustomer['name'],
-        DatabaseHelper.phone_number : selectedCustomer['phone_number'],
-        DatabaseHelper.gender : selectedCustomer['gender'],
-        DatabaseHelper.total_orders : totalOrders,
-        DatabaseHelper.total_spent : totalSpent,
-        DatabaseHelper.average_spent : totalSpent/totalOrders,
-        DatabaseHelper.total_discount : totalDiscountOfCustomer,
-        DatabaseHelper.avg_discount_per_order : totalDiscountOfCustomer/totalOrders,
-        DatabaseHelper.credit_balance : credit_balance,
-        DatabaseHelper.updated_at : new DateTime.now().toString()
+    var totalOrders = (selectedCustomer['total_orders'] == "") ? 1 : (int.parse(selectedCustomer['total_orders'].toString()) + 1);
+    var totalSpent = (selectedCustomer['total_spent'] == "") ? cartTotalValue : (int.parse(selectedCustomer['total_spent'].toString()) + cartTotalValue);
+    var totalDiscountOfCustomer = (selectedCustomer['total_discount'] == "") ? Discount : (int.parse(selectedCustomer['total_discount'].toString()) + Discount);
+    var credit_balance = (selectedCustomer['credit_balance'] == "") ? credit : (int.parse(selectedCustomer['credit_balance'].toString()) + credit);
+    print("selectedCustomer['total_orders'] = ${selectedCustomer['total_orders']}");
+    Map<String, dynamic> row = {
+      DatabaseHelper.name : selectedCustomer['name'],
+      DatabaseHelper.phone_number : selectedCustomer['phone_number'],
+      DatabaseHelper.gender : selectedCustomer['gender'],
+      DatabaseHelper.total_orders : totalOrders,
+      DatabaseHelper.total_spent : totalSpent,
+      DatabaseHelper.average_spent : totalSpent/totalOrders,
+      DatabaseHelper.total_discount : totalDiscountOfCustomer,
+      DatabaseHelper.avg_discount_per_order : totalDiscountOfCustomer/totalOrders,
+      DatabaseHelper.credit_balance : credit_balance,
+      DatabaseHelper.updated_at : new DateTime.now().toString()
 
-      };
+    };
 
 //    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customerTable, id, DatabaseHelper.id,"=");
-      insertRow(customerID, row, DatabaseHelper.customerTable,"=");
+    insertRow(customerID, row, DatabaseHelper.customerTable,"=");
 
-    }
+  }
 
-
-
-    // Adding order items to table
-    _EditableproductsListForCart.forEach((p) {
-      p[DatabaseHelper.order_id] = invoiceNumber;
-    }
-                                         );
+//
+//
+//    // Adding order items to table
+//    _EditableproductsListForCart.forEach((p) {
+//      p[DatabaseHelper.order_id] = invoiceNumber;
+//    }
+//    );
 
     // Updating Inventory
     enterProductsToCart.forEach((p) {
@@ -552,12 +548,12 @@ class NewAppStateModel extends Model {
         storeProductsInCart.add(p);
       }
     }
-                                );
+    );
 
-    List<Map<String, dynamic>> allCategories = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null'");
-    print(allCategories);
+//    List<Map<String, dynamic>> allCategories = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null'");
+//    print(allCategories);
 
-    if (storeProductsInCart.runtimeType != null) {
+    if (storeProductsInCart.length > 0) {
       print("storeProductsInCart = ${storeProductsInCart}");
       List<products> productsListParsedFromCart = storeProductsInCart.map((i) => products.fromJson(i)).toList();
       insert_products(productsListParsedFromCart);
@@ -574,6 +570,7 @@ class NewAppStateModel extends Model {
 //    print("verify entry into updatedProduct table: $updatedProduct\n\n\n");
 
 
+    print("\n\n All Data inserted Successfully");
     //Clearing Cart
     _EditableproductsListForCart.clear();
     discountProvided = 0.0;
@@ -586,8 +583,8 @@ class NewAppStateModel extends Model {
     barcode = "";
     barcodedProductName = "";
     tempBarcode = "";
-    calculateCartTotalValue(Discount.toString());
     tempPaymentMethod = "";
+    calculateCartTotalValue(Discount.toString());
 
 
     notifyListeners();
@@ -602,23 +599,10 @@ class NewAppStateModel extends Model {
   Map getProductById(String id) {
     //print("Returning product for actions = ${_EditableproductsListForCart.firstWhere((p) => p['id'] == id)} \n\n\n");
     return _EditableproductsListForCart.firstWhere((p) => p['id'] == id);
+
   }
 
-
-
   // Code for QuickLinks Starts
-
-  List<Map<String, dynamic>> _dbProducts ;
-  List<Map<String, dynamic>> _dbCustomProducts ;
-  List<Map<String, dynamic>> _dbCategories ;
-  List<Map<String, dynamic>> get dbProducts => List<Map>.from(_dbProducts);
-  List<Map<String, dynamic>> get dbCustomProducts => List<Map>.from(_dbCustomProducts);
-  List<Map<String, dynamic>> get dbCategories => List<Map>.from(_dbCategories);
-
-  // The currently selected category of products.
-  String _selectedCategory = '';
-  String get selectedCategory => _selectedCategory;
-
 
   void setData(List<Map<String, dynamic>> products, List<Map<String, dynamic>> categories, List<Map<String, dynamic>> customProducts){
     _dbProducts = products;
@@ -642,8 +626,6 @@ class NewAppStateModel extends Model {
   }
 
 
-  List<Map<String, dynamic>> _stack = [null];
-  List<Map<String, dynamic>> get stack => _stack;
 //  Map<String, Map<String, dynamic>> _stackMap = {'Stack2': {}, 'Stack3': {}};
 //  Map<String, Map<String, dynamic>> get stackMap => _stackMap;
 
@@ -674,9 +656,6 @@ class NewAppStateModel extends Model {
 
   //Code for QuickLinks Ends
 
-
-
-
   // Code for adding customer Started
 
   void selectCustomer (Map customer){
@@ -690,12 +669,12 @@ class NewAppStateModel extends Model {
       DatabaseHelper.name : name,
       DatabaseHelper.phone_number : phoneNumber,
       DatabaseHelper.gender : "",
-      DatabaseHelper.total_orders : "",
-      DatabaseHelper.total_spent : "",
-      DatabaseHelper.average_spent : "",
-      DatabaseHelper.total_discount : "",
-      DatabaseHelper.avg_discount_per_order : "",
-      DatabaseHelper.credit_balance : "",
+      DatabaseHelper.total_orders : "0",
+      DatabaseHelper.total_spent : "0",
+      DatabaseHelper.average_spent : "0",
+      DatabaseHelper.total_discount : "0",
+      DatabaseHelper.avg_discount_per_order : "0",
+      DatabaseHelper.credit_balance : "0",
       DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
@@ -713,49 +692,44 @@ class NewAppStateModel extends Model {
     notifyListeners();
   }
 
+  bool _isNumeric(String str) {
+    if(str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
+  }
+
   queryCustomerInDatabase (String searchString) async {
     tempCustomersInDatabaseToDisplay = [];
     List<Map<String, dynamic>> customerList = [];
     print("Entered into queryCustomerInDatabase");
+
+
+
     if (searchString.length < 3) {
       customerList = await dbHelper.queryAllRows(DatabaseHelper.customerTable);
       tempPrefillField = "";
     }
     else if (searchString.length >= 3) {
-      String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.phone_number} LIKE '%$searchString% COLLATE utf8_general_ci ORDER BY ${DatabaseHelper.name}";
-      String searchQueryName = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.name} LIKE '%$searchString%' COLLATE utf8_general_ci ORDER BY ${DatabaseHelper.name}";
-      List<Map> customerListPhoneNumber = await dbHelper.raw_query(searchQueryPhoneNumber);
-      List<Map> customerListName = await dbHelper.raw_query(searchQueryName);
-      print("customerListPhoneNumber = $customerListPhoneNumber :::: customerListName = $customerListName\n\n");
-
-      if(customerListPhoneNumber.length > 0) {
+      if (_isNumeric(searchString)) {
+        print("\n\n string is numeric");
+        String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.phone_number} LIKE '%$searchString%' COLLATE utf8_general_ci ORDER BY ${DatabaseHelper.name}";
+        customerList = await dbHelper.raw_query(searchQueryPhoneNumber);
         tempPrefillField = "phone";
-      }
-      else if (customerListName.length > 0) {
-        tempPrefillField = "name";
       }
       else {
-        tempPrefillField = "phone";
+        print("\n\n string is not numeric");
+        String searchQueryName = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.name} LIKE '%$searchString%' COLLATE utf8_general_ci ORDER BY ${DatabaseHelper.name}";
+        customerList = await dbHelper.raw_query(searchQueryName);
+        tempPrefillField = "name";
       }
 
-      customerList = customerListPhoneNumber;
-      customerListName.forEach((item) {
-        print("item id = ${item['id']}\n\n");
-        if (customerList.length<=0) {
-          customerList = customerListName;
-        }
-        else {
-          customerList.forEach((item2) {
-
-            if (item2['id'] != item['id']) {
-              customerList.add(item);
-            }
-          });
-        }
-      });
-
     }
-    print("customerList = $customerList\n\n");
+
+
+
+
+    print("\n\ncustomerList = $customerList");
 
     if (customerList.length > 0) {
       customerList.forEach((item) {
@@ -773,32 +747,31 @@ class NewAppStateModel extends Model {
 
   // Code for adding customer Ended
 
-
-
-
 // Code for adding custom Item Started
 
   //String fina = finalBarcode;
 
+  //call from +custom item button
   void updateFlagOfAddCustomItem (bool status) {
     displayCustomProductPage = status;
     notifyListeners();
   }
 
-  void addCustomItem (String name, String mrp, String sp, String cgst, String sgst, String cess) async {
+  void addCustomItem (String name, String mrp, String sp, String cgst, String sgst, String cess, String category, String brand) async {
 
     print("\n\nEntered into Add Custom Item");
 
     Map<String, dynamic> row = {
       DatabaseHelper.name : name,
-      DatabaseHelper.mrp : mrp,
-      DatabaseHelper.sp : sp,
-      DatabaseHelper.cgst : cgst,
-      DatabaseHelper.sgst : sgst,
-      DatabaseHelper.cess : cess,
+      DatabaseHelper.mrp : (mrp != "") ? double.parse(mrp) : 0.0,
+      DatabaseHelper.sp : (sp != "") ? double.parse(sp) : 0.0,
+      DatabaseHelper.cgst : (cgst != "") ? double.parse(cgst) : 0.0,
+      DatabaseHelper.sgst : (sgst != "") ? double.parse(sgst) : 0.0,
+      DatabaseHelper.cess : (cess != "") ? double.parse(cess) : 0.0,
       DatabaseHelper.to_be_saved : true,
       DatabaseHelper.barcode : finalBarcode,
-      DatabaseHelper.category_id : "",
+      DatabaseHelper.category_id : category,
+      DatabaseHelper.brand : brand,
       DatabaseHelper.uom : "",
       DatabaseHelper.updated_at : new DateTime.now().toString()
 
@@ -816,17 +789,269 @@ class NewAppStateModel extends Model {
     barcode = "";
     barcodedProductName = "";
     displayCustomProductPage = false;
-    notifyListeners();
 
     addEditableProductToCart(addedCustomItemFromDatabse[0]);
 
 
+    notifyListeners();
+
+  }
+// Code for adding custom Item Ended
+
+  // Code to get list of categories
+
+  getListOfCategories () async{
+    List<Map> retrievedCategories = [];
+    tempListOfCategories = [];
+    String query = "SELECT ${DatabaseHelper.name} FROM ${DatabaseHelper.productCategoriesTable} ORDER BY "
+        "${DatabaseHelper.name}";
+    retrievedCategories = await dbHelper.raw_query(query);
+    print("\n\nretrievedStocks = $retrievedCategories");
+
+    retrievedCategories.forEach((item) {
+      if (!tempListOfCategories.contains(item)){
+        tempListOfCategories.add(item[DatabaseHelper.name]);
+      }
+
+    });
+    print("\n\ntempListOfCategories = $tempListOfCategories");
+
+    notifyListeners();
 
   }
 
-// Code for adding custom Item Started
+
+  // Code to get list of brands
+
+  getListOfBrands () async{
+    List<Map> retrievedBrands = [];
+    tempListOfBrands = [];
+    String query = "SELECT ${DatabaseHelper.brand} FROM ${DatabaseHelper.productsTable} ORDER BY "
+        "${DatabaseHelper.brand}";
+    retrievedBrands = await dbHelper.raw_query(query);
+    print("\n\nretrievedStocks = $retrievedBrands");
+
+
+    retrievedBrands.forEach((item) {
+      if(!tempListOfBrands.contains(item)) {
+
+        tempListOfBrands.add(item[DatabaseHelper.brand]);
+      }
+
+    });
+    print("\n\tempListOfBrands = $tempListOfBrands");
+
+    notifyListeners();
+
+  }
+
+
+
+
+
+
+  // Code Specific for StockRequest and items
+
+  List<Map> tempRequestStocksToDisplay = [];
+  List<Map> get finalRequestStocksToDisplay => tempRequestStocksToDisplay;
+  List<Map> tempRequestStockItemsToDisplay = [];
+  List<Map> get finalRequestStockItemsToDisplay => tempRequestStockItemsToDisplay;
+  int stockRequestGeneratedID = 0;
+  List<Map> tempGeneratedRequestStocksToDisplay = [];
+  List<Map> get finalGeneratedRequestStocksToDisplay => tempGeneratedRequestStocksToDisplay;
+  List<Map> tempGeneratedRequestStockItemsToDisplay = [];
+  List<Map> get finalGeneratedRequestStockItemsToDisplay => tempGeneratedRequestStockItemsToDisplay;
+
+  //Code to getStockRequestsFromDatabase in Database Starts
+  getStockRequestsFromDatabase(String status /*"delivered" or "all"*/) async {
+    print("\n\nEnter Into getStockRequestsFromDatabase");
+
+    tempRequestStocksToDisplay = [];
+    List<Map> retrievedStocks = [];
+    if (status == "delivered") {
+      String query = "SELECT * FROM ${DatabaseHelper.stockRequestsTable} WHERE ${DatabaseHelper.status} = '$status' "
+          "ORDER BY ${DatabaseHelper.updated_at} DESC";
+      retrievedStocks = await dbHelper.raw_query(query);
+      print("\n\nretrievedStocks = $retrievedStocks");
+    }
+    else {
+      String query = "SELECT * FROM ${DatabaseHelper.stockRequestsTable} ORDER BY ${DatabaseHelper.updated_at} DESC";
+      retrievedStocks = await dbHelper.raw_query(query);
+      print("\n\nretrievedStocks = $retrievedStocks");
+    }
+
+    retrievedStocks.forEach((item) {
+      Map stockTemp = {};
+      item.forEach((key, value) {
+        stockTemp[key.toString()] = value;
+      });
+      print("\n\n orderTemp = $stockTemp");
+      tempRequestStocksToDisplay.add(stockTemp);
+    });
+
+    print("\n\ntempOrdersInDatabaseToDisplay = $tempRequestStocksToDisplay");
+    print("\n\nfinalOrdersToDisplay = $finalRequestStocksToDisplay");
+
+    notifyListeners();
+
+  }
+  //Code to getStockRequestsFromDatabase in Database Ends
+
+  //Code to getStockRequestItemsFromDatabase in Database Starts
+    getStockRequestItemsFromDatabase(int id) async {
+      print("\n\nEnter Into getStockRequestItemsFromDatabase");
+
+      tempRequestStockItemsToDisplay = [];
+      List<Map> retrievedStockItems = [];
+      String query = "SELECT * FROM ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.stock_request_id} = '$id' "
+          "ORDER BY ${DatabaseHelper.updated_at} DESC";
+      retrievedStockItems = await dbHelper.raw_query(query);
+      print("\n\nretrievedStockItems = $retrievedStockItems");
+
+      retrievedStockItems.forEach((item) {
+        Map stockItemTemp = {};
+        item.forEach((key, value) {
+          stockItemTemp[key.toString()] = value;
+        });
+        print("\n\n stockItemTemp = $stockItemTemp");
+        tempRequestStockItemsToDisplay.add(stockItemTemp);
+      });
+
+      print("\n\ntempRequestStockItemsToDisplay = $tempRequestStockItemsToDisplay");
+      print("\n\nfinalRequestStockItemsToDisplay = $finalRequestStockItemsToDisplay");
+
+      notifyListeners();
+
+    }
+  //Code to getStockRequestItemsFromDatabase in Database Ends
+
+  //Code to saveStockRequestToDatabase in Database Starts
+  saveStockRequestToDatabase() async {
+    print("\n\nEnter Into getStockRequestItemsFromDatabase");
+
+    int total_quantity = 0;
+    stockRequestGeneratedID = 0;
+    _EditableproductsListForCart.forEach((item) {
+      total_quantity  = total_quantity + item["quantity"];
+    });
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.status : "request_sent",
+      DatabaseHelper.delivered_at : "",
+      DatabaseHelper.accepted_at : "",
+      DatabaseHelper.total_amount : "",
+      DatabaseHelper.temp_id : "",
+      DatabaseHelper.updated_at : new DateTime.now().toString(),
+      DatabaseHelper.total_quantity : total_quantity
+
+    };
+
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsTable, id, DatabaseHelper.id,"=");
+    final return_id = await dbHelper.insert(DatabaseHelper.stockRequestsTable, row);
+    print('${DatabaseHelper.stockRequestsTable} inserted row id: $return_id');
+
+    stockRequestGeneratedID = return_id;
+
+    tempGeneratedRequestStocksToDisplay = await dbHelper.raw_query("Select * from ${DatabaseHelper.stockRequestsTable} WHERE ${DatabaseHelper.id} = '$stockRequestGeneratedID'");
+
+    //Add stockRequestsProductsTable
+    _EditableproductsListForCart.forEach((item) async {
+      Map<String, dynamic> row = {
+        DatabaseHelper.stock_request_id : stockRequestGeneratedID,
+        DatabaseHelper.product_id : item['product_id'],
+        DatabaseHelper.custom_product_id : item['custom_product_id'],
+        DatabaseHelper.requested_qty : item['quantity'],
+        DatabaseHelper.accepted_qty : 0,
+        DatabaseHelper.note : "",
+        DatabaseHelper.delivered_qty : 0,
+        DatabaseHelper.product_price : 0.0,
+        DatabaseHelper.barcode : item['barcode'],
+        DatabaseHelper.updated_at : new DateTime.now().toString()
+
+      };
+
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsProductsTable, id, DatabaseHelper.id,"=");
+      //print(listOfItems);
+      final return_id = await dbHelper.insert(DatabaseHelper.stockRequestsProductsTable, row);
+      print('${DatabaseHelper.stockRequestsProductsTable} inserted row id: $return_id');
+    });
+
+    tempGeneratedRequestStockItemsToDisplay = await dbHelper.raw_query("Select * from ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.stock_request_id} = '$stockRequestGeneratedID'");
+
+    notifyListeners();
+
+  }
+  //Code to saveStockRequestToDatabase in Database Ends
+
+  //Code to updateStockRequestToDatabase in Database Starts
+  updateStockRequestToDatabase() async {
+    print("\n\nEnter Into getStockRequestItemsFromDatabase");
+
+    int total_quantity = 0;
+    stockRequestGeneratedID = 0;
+    _EditableproductsListForCart.forEach((item) {
+      total_quantity  = total_quantity + item["quantity"];
+    });
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.status : "request_sent",
+      DatabaseHelper.delivered_at : "",
+      DatabaseHelper.accepted_at : "",
+      DatabaseHelper.total_amount : "",
+      DatabaseHelper.temp_id : "",
+      DatabaseHelper.updated_at : new DateTime.now().toString(),
+      DatabaseHelper.total_quantity : total_quantity
+
+    };
+
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsTable, id, DatabaseHelper.id,"=");
+    final return_id = await dbHelper.insert(DatabaseHelper.stockRequestsTable, row);
+    print('${DatabaseHelper.stockRequestsTable} inserted row id: $return_id');
+
+    stockRequestGeneratedID = return_id;
+
+    tempGeneratedRequestStocksToDisplay = await dbHelper.raw_query("Select * from ${DatabaseHelper.stockRequestsTable} WHERE ${DatabaseHelper.id} = '$stockRequestGeneratedID'");
+
+    //Add stockRequestsProductsTable
+    _EditableproductsListForCart.forEach((item) async {
+      Map<String, dynamic> row = {
+        DatabaseHelper.stock_request_id : stockRequestGeneratedID,
+        DatabaseHelper.product_id : item['product_id'],
+        DatabaseHelper.custom_product_id : item['custom_product_id'],
+        DatabaseHelper.requested_qty : item['quantity'],
+        DatabaseHelper.accepted_qty : 0,
+        DatabaseHelper.note : "",
+        DatabaseHelper.delivered_qty : 0,
+        DatabaseHelper.product_price : 0.0,
+        DatabaseHelper.barcode : item['barcode'],
+        DatabaseHelper.updated_at : new DateTime.now().toString()
+
+      };
+
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsProductsTable, id, DatabaseHelper.id,"=");
+      //print(listOfItems);
+      final return_id = await dbHelper.insert(DatabaseHelper.stockRequestsProductsTable, row);
+      print('${DatabaseHelper.stockRequestsProductsTable} inserted row id: $return_id');
+    });
+
+    tempGeneratedRequestStockItemsToDisplay = await dbHelper.raw_query("Select * from ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.stock_request_id} = '$stockRequestGeneratedID'");
+
+    notifyListeners();
+
+  }
+
+
+  columnstable () async {
+    String queryRequest = "SELECT sql FROM sqlite_master "
+    "WHERE tbl_name = '${DatabaseHelper.OrderRefundItemsTable}' AND type = 'table'";
+//        "WHERE TABLE_NAME = '${DatabaseHelper.OrderRefundItemsTable}' ORDER BY ORDINAL_POSITION";
+    List<Map<String, dynamic>> OrderRefundItemsTable = await dbHelper.raw_query(queryRequest);
+    print("\n\ncolumns of OrderRefundItemsTable = $OrderRefundItemsTable");
+  }
+ //Code to updateStockRequestToDatabase in Database Ends
 
 }
+
 
 
 

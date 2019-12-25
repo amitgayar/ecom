@@ -253,12 +253,12 @@
     },
     {
       "id": 8,
-      "name": "Lingerie",
+      "name": "Jeans",
       "parent_id": 7
     },
     {
       "id": 9,
-      "name": "Bra for Gayar's Girlfriend",
+      "name": "T-Shirt",
       "parent_id": 8
     }
   ],
@@ -269,7 +269,9 @@
     "status": "requested",
     "total_amount": 500,
     "delivered_at": "",
-    "accepted_at": ""
+    "accepted_at": "",
+    "temp_id": 1,
+    "total_quantity": 2
   }
   ],
   "requestStockItems": [{
@@ -286,8 +288,7 @@
     "updated_at": "2019-12-13T12:50:11.843Z",
     "note": "",
     "product_price": 123
-  }
-  ],
+  }],
   "barcode": [{
     "id": 1,
     "barcode": "4005808725298",
@@ -310,13 +311,13 @@
       "id": 4,
       "barcode": "8901491366052",
       "product_id": 1,
-      "product_name": "Marlboro Clasic"
+      "product_name": "Parle G"
     },
     {
       "id": 5,
       "barcode": "8901725122010",
       "product_id": 1,
-      "product_name": "Navy cut"
+      "product_name": "Maggi"
     }
   ]
 }

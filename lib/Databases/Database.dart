@@ -25,13 +25,14 @@ class DatabaseHelper {
   static final product_id = 'product_id';
   static final barcode = 'barcode';
   //static final cgst = 'cgst';
+  //static final name = 'name';
   //static final sgst = 'sgst';
   //static final cess = 'cess';
 
   // variables for creating ordersTable
   static final ordersTable = 'orders';
   static final invoice = 'invoice';
-  static final mrp_total = 'mrp_total';
+  static final cart_total = 'cart_total';
   static final cart_discount_total = 'cart_discount_total';
   static final paid_amount_total = 'paid_amount_total';
   static final customer_id = 'customer_id';
@@ -70,6 +71,7 @@ class DatabaseHelper {
   //static final cess = 'cess';
   //static final category_id = 'category_id';
   //static final uom = 'uom';
+  //static final brand = 'brand';
 
   // variables for creating customerTable
   static final customerTable = 'customer';
@@ -89,6 +91,8 @@ class DatabaseHelper {
   static final delivered_at = 'delivered_at';
   static final accepted_at = 'accepted_at';
   static final total_amount = 'total_amount';
+  static final temp_id = 'temp_id';
+  static final total_quantity = 'total_quantity';
 
 
   // variables for creating stockRequestsProductsTable
@@ -117,12 +121,23 @@ class DatabaseHelper {
   //static final customer_id = 'customer_id';
 
 
-  // variables for creating OrderRefundTable
-  static final OrderRefundTable = 'refunds';
+  // variables for creating OrderRefundItemsTable
+  static final OrderRefundItemsTable = 'OrderRefundItemsTable';
   static final orderItems_id = 'orderItems_id';
   static final refund_qty = 'refund_qty';
-  static final refund_mode = 'refund_mode';
-  static final refund_amt = 'refund_amt';
+  static final refund_id = 'refund_id';
+  static final refunded_item_refund_amount = 'refunded_item_refund_amount';
+  //static final order_id = 'order_id';
+
+  // variables for creating orderRefundsTable
+  static final refundTable = 'refundTable';
+  //static final order_id = 'order_id';
+  static final total_amount_refunded = 'total_amount_refunded';
+  static final total_quantity_refunded = 'total_quantity_refunded';
+  //static final paid_amount_total = 'paid_amount_total';
+  //static final payment_method = 'payment_method';
+  //static final is_receipt_printed = 'is_receipt_printed';
+
 
   // variables for creating DataSynctable
   static final dataSyncTable = 'data_sync';
@@ -158,8 +173,8 @@ class DatabaseHelper {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
     return await openDatabase(path,
-        version: _databaseVersion,
-        onCreate: _onCreate);
+                                  version: _databaseVersion,
+                                  onCreate: _onCreate);
   }
 
   // SQL code to create the database table
@@ -180,6 +195,7 @@ class DatabaseHelper {
           CREATE TABLE $orderProductsTable (
             $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $order_id TEXT,
+            $name TEXT,
             $mrp DECIMAL,
             $sp DECIMAL,
             $cgst DECIMAL,
@@ -199,7 +215,7 @@ class DatabaseHelper {
           CREATE TABLE $ordersTable (
             $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $invoice TEXT NOT NULL,
-            $mrp_total DECIMAL,
+            $cart_total DECIMAL,
             $cart_discount_total DECIMAL,
             $paid_amount_total DECIMAL,
             $customer_id INTEGER,
@@ -227,7 +243,7 @@ class DatabaseHelper {
             $brand TEXT,
             $category_id INTEGER,
             $inventory INTEGER,
-            $is_barcode_available BOOLEAN,
+            $is_barcode_available TEXT,
             $hsn TEXT,
             $uom TEXT,
             $size TEXT,
@@ -249,6 +265,7 @@ class DatabaseHelper {
             $cess DECIMAL,
             $category_id BOOLEAN,
             $uom TEXT,
+            $brand TEXT,
             $to_be_saved BOOLEAN,
             $barcode TEXT,
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -283,7 +300,9 @@ class DatabaseHelper {
             $accepted_at DATETIME,
             $total_amount INTEGER,
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            $updated_at DATETIME
+            $updated_at DATETIME,
+            $temp_id TEXT,
+            $total_quantity INTEGER
           )
           ''');
 
@@ -323,25 +342,47 @@ class DatabaseHelper {
             $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $customer_id INTEGER NOT NULL,
             $amount DECIMAL NOT NULL,
-            $order_id INTEGER NOT NULL,
+            $order_id TEXT NOT NULL,
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             $updated_at DATETIME
           )
           ''');
 
-    // Create OrderRefundTable
+    // Create OrderRefundItemsTable
     await db.execute('''
-          CREATE TABLE $OrderRefundTable (
+          CREATE TABLE $OrderRefundItemsTable (
             $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             $orderItems_id INTEGER NOT NULL,
             $refund_qty INTEGER NOT NULL,
-            $refund_mode TEXT,
-            $refund_amt DECIMAL NOT NULL,
+            $refunded_item_refund_amount DECIMAL,
+            $order_id TEXT,
+            $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            $updated_at DATETIME,
+            $refund_id INTEGER
+          )
+          ''');
+
+//    // variables for creating orderRefundsTable
+//    //static final order_id = 'order_id';
+//    static final total_amount_refunded = 'cart_total';
+//    //static final paid_amount_total = 'paid_amount_total';
+//    //static final payment_method = 'payment_method';
+//    //static final is_receipt_printed = 'is_receipt_printed';
+
+    // Create OrderRefundTable
+    await db.execute('''
+          CREATE TABLE $refundTable (
+            $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            $order_id INTEGER NOT NULL,
+            $total_amount_refunded INTEGER NOT NULL,
+            $paid_amount_total TEXT,
+            $payment_method TEXT,
+            $is_receipt_printed TEXT,
+            $total_quantity_refunded INTEGER,
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             $updated_at DATETIME
           )
           ''');
-
 
     // Create dataSyncTable
     await db.execute('''

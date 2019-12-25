@@ -77,16 +77,17 @@ Future getSyncAPI() async {
   // insert data to stockRequestsProducts table
   await insert_stockRequestsProducts(updateDatabase.stockRequestsProductsList);
 
+  print("ProcessDataReceivedFromFromBackend completed");
   String body1 =  await rootBundle.loadString('assets/PostRequestFormat.json');
   final jsonResponse1 = json.decode(body1);
 
 
   ProcessDataSentToFromBackend updateDatabase1 = new ProcessDataSentToFromBackend.fromJson(jsonResponse1);
 
-  // insert data to barcode table
+  // insert data to insert_stockRequests table
   await insert_stockRequests(updateDatabase1.requestStocksList);
 
-  // insert data to products table
+  // insert data to insert_stockRequestsProducts table
   await insert_stockRequestsProducts(updateDatabase1.requestStockItemsList);
 
   // insert data to insert_Orders table
@@ -101,8 +102,11 @@ Future getSyncAPI() async {
   // insert data to insert_customerCredit table
   await insert_customerCredit(updateDatabase1.creditLogsList);
 
-  // insert data to stockRequests table
-  await insert_OrderRefund(updateDatabase1.refundsList);
+  // insert data to insert_OrderRefundItems table
+  await insert_OrderRefundItems(updateDatabase1.refundItemsList);
+
+  // insert data to insert_OrderRefund table
+  await insert_OrderRefund(updateDatabase1.orderRefundsList);
 
   // insert data to insert_customProducts table
   await insert_customProducts(updateDatabase1.customProductsList);
@@ -140,11 +144,13 @@ Future PostSyncAPI() async {
   List<Map<String, dynamic>> getOrderProductsList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.orderProductsTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
   List<Map<String, dynamic>> getCustomerList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
   List<Map<String, dynamic>> getCustomerCreditList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customerCreditTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
-  List<Map<String, dynamic>> getOrderRefundList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.OrderRefundTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
+  List<Map<String, dynamic>> getOrderRefundItemsList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.OrderRefundItemsTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
+  List<Map<String, dynamic>> getOrderRefundList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.refundTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
   List<Map<String, dynamic>> getCustomProductsList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customProductsTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
   List<Map<String, dynamic>> getSyncDataList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.dataSyncTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
-  sendDataToBackend backendDataObject = new sendDataToBackend(getStockRequestList, getStockRequestsProductsList, getOrdersList, getOrderProductsList, getCustomerList, getCustomerCreditList, getOrderRefundList, getCustomProductsList, getSyncDataList);
+  sendDataToBackend backendDataObject = new sendDataToBackend(getStockRequestList, getStockRequestsProductsList, getOrdersList, getOrderProductsList, getCustomerList, getCustomerCreditList, getOrderRefundList, getOrderRefundItemsList, getCustomProductsList, getSyncDataList);
   String backendData = jsonEncode(backendDataObject);
+  sendDataToBackend bhjbn = sendDataToBackend(getStockRequestList, getStockRequestsProductsList, getOrdersList, getOrderProductsList, getCustomerList, getCustomerCreditList, getOrderRefundItemsList, getOrderRefundList, getCustomProductsList, getSyncDataList);
   print(constants.syncPostAPIUrl);
   var syncPostResponse = await dbSyncPost(constants.syncPostAPIUrl, backendData);
   print("POST Response Received");
@@ -257,66 +263,72 @@ Future getStoreDetailsAPI(processOTP newPost) async {
 
 
 
-
+  print("\n\n constants.submitOTP= ${constants.submitOTP}");
   http.Response otpVerificationApiResponse = await submitAuthenticationDetails(
       constants.submitOTP,
       body: newPost.toMap());
   //print(p);
 
 
-  print("otpVerificationApiResponse body in login OTP file ${otpVerificationApiResponse.body}");
-
-  //print("dqewfes ${syncGetFrequencyResponse.statusCode}");
-
-  SharedPreferences is_get_frequency_sync_successful = await SharedPreferences.getInstance();
-
-  if (otpVerificationApiResponse != null) {
-    if(otpVerificationApiResponse.statusCode == 200){
-      await insert_syncData("GET", true, "Store Details Received Successfylly");
-      await is_get_frequency_sync_successful.setBool('cronStoreDetailsStatus', true);
-
-    }
-    else if(otpVerificationApiResponse.statusCode == 401)
-    {
-      await insert_syncData("GET", false, "Authentication failed");
-      await is_get_frequency_sync_successful.setBool('cronStoreDetailsStatus', false);
-      navigatorKey.currentState.pushNamed('/login');
-    }
+  if (otpVerificationApiResponse == null) {
+    return otpVerificationApiResponse;
   }
-
   else {
-    await is_get_frequency_sync_successful.setBool('cronFrequencyStatus', false);
-    await insert_syncData("GET", false, "No Internet Connection");
+    //print("otpVerificationApiResponse body in login OTP file ${otpVerificationApiResponse.body}");
+
+    //print("dqewfes ${syncGetFrequencyResponse.statusCode}");
+
+    SharedPreferences is_get_frequency_sync_successful = await SharedPreferences.getInstance();
+
+    if (otpVerificationApiResponse != null) {
+      if(otpVerificationApiResponse.statusCode == 200){
+        await insert_syncData("GET", true, "Store Details Received Successfylly");
+        await is_get_frequency_sync_successful.setBool('cronStoreDetailsStatus', true);
+
+      }
+      else if(otpVerificationApiResponse.statusCode == 401)
+      {
+        await insert_syncData("GET", false, "Authentication failed");
+        await is_get_frequency_sync_successful.setBool('cronStoreDetailsStatus', false);
+        navigatorKey.currentState.pushNamed('/login');
+      }
+    }
+
+    else {
+      await is_get_frequency_sync_successful.setBool('cronFrequencyStatus', false);
+      await insert_syncData("GET", false, "No Internet Connection");
+    }
+    //Data of get request
+    //print("xcfghvbjnkrdtcfghvbjnkmrtfcghvb m ${syncGetResponse.body}");
+
+    //*****************Replace next line by syncGetResponse.body when API is ready**********************
+
+    String body;
+
+    body =  otpVerificationApiResponse.body;
+    body =  await rootBundle.loadString('assets/getStoreDetails.json');
+
+    //print("print response $body");
+    final jsonResponse = json.decode(body);
+
+
+    SharedPreferences cronFrequency = await SharedPreferences.getInstance();
+
+    jsonResponse.forEach((key, value) async {
+
+      print("\n\nStore Details json key: $key : $value\n");
+      await cronFrequency.setString(key.toString(), value.toString());
+      print("\n\nShared Preferences: $key : ${cronFrequency.getString("authentication_token")}");
+
+
+    });
+    return otpVerificationApiResponse;
   }
-  //Data of get request
-  //print("xcfghvbjnkrdtcfghvbjnkmrtfcghvb m ${syncGetResponse.body}");
-
-  //*****************Replace next line by syncGetResponse.body when API is ready**********************
-
-  String body;
-
-  body =  otpVerificationApiResponse.body;
-  body =  await rootBundle.loadString('assets/getStoreDetails.json');
-
-  //print("print response $body");
-  final jsonResponse = json.decode(body);
-
-
-  SharedPreferences cronFrequency = await SharedPreferences.getInstance();
-
-  jsonResponse.forEach((key, value) async {
-
-    print("\n\nStore Details json key: $key : $value\n");
-    await cronFrequency.setString(key.toString(), value.toString());
-    print("\n\nShared Preferences: $key : ${cronFrequency.getString("authentication_token")}");
-
-
-  });
 
   //print(cronFrequency.getString('cronFrequency'));
 
 
-  return otpVerificationApiResponse;
+
 
 
 }

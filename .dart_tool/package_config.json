@@ -243,7 +243,7 @@
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.5.1",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -258,6 +258,12 @@
       "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.4"
+    },
+    {
+      "name": "platform",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/platform-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "1.24"
     },
     {
       "name": "pub_semver",
@@ -410,7 +416,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2019-12-23T21:02:46.125019Z",
+  "generated": "2019-12-24T09:21:01.952992Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

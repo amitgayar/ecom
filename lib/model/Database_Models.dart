@@ -34,42 +34,45 @@ class categories {
 
 // class for orderItems
 class orderItems {
-  int id;
-  int order_id;
-  double mrp;
-  double sp;
-  double cgst;
-  double sgst;
-  double cess;
-  int quantity;
-  int product_id;
+  String id;
+  String name;
+  String order_id;
+  String mrp;
+  String sp;
+  String cgst;
+  String sgst;
+  String cess;
+  String quantity;
+  String product_id;
   String barcode;
-  int custom_product_id;
+  String custom_product_id;
   var created_at;
   var updated_at;
 
 
 
-  orderItems(this.id, this.order_id, this.mrp, this.sp, this.cgst, this.sgst, this.cess, this.quantity, this.product_id, this.barcode, this.custom_product_id, this.created_at, this.updated_at);
+  orderItems(this.name, this.id, this.order_id, this.mrp, this.sp, this.cgst, this.sgst, this.cess, this.quantity, this.product_id, this.barcode, this.custom_product_id, this.created_at, this.updated_at);
 
   orderItems.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        order_id = json['order_id'],
-        mrp = json['mrp'].toDouble(),
-        sp = json['sp'].toDouble(),
-        cgst = json['cgst'].toDouble(),
-        sgst = json['sgst'].toDouble(),
-        cess = json['cess'].toDouble(),
-        quantity = json['quantity'],
-        product_id = json['product_id'],
-        barcode = json['barcode'],
-        custom_product_id = json['custom_product_id'],
+      : id = json['id'].toString(),
+        order_id = json['order_id'].toString(),
+        mrp = json['mrp'].toString(),
+        sp = json['sp'].toString(),
+        cgst = json['cgst'].toString(),
+        sgst = json['sgst'].toString(),
+        cess = json['cess'].toString(),
+        quantity = json['quantity'].toString(),
+        product_id = json['product_id'].toString(),
+        barcode = json['barcode'].toString(),
+        custom_product_id = json['custom_product_id'].toString(),
         created_at = json['created_at'],
-        updated_at = json['updated_at'];
+        updated_at = json['updated_at'],
+        name = json['name'];
 
   Map<String, dynamic> toJson() =>
       {
         'id' : id,
+        'name' : name,
         'order_id' : order_id,
         'mrp' : mrp,
         'sp' : sp,
@@ -94,7 +97,7 @@ class Orders {
   double cgst;
   double sgst;
   double cess;
-  double mrp_total;
+  double cart_total;
   bool is_receipt_printed;
   int id;
   String payment_method;
@@ -104,7 +107,7 @@ class Orders {
   var created_at;
   var updated_at;
 
-  Orders(this.customer_id, this.cart_discount_total, this.cgst, this.sgst, this.cess, this.mrp_total, this.is_receipt_printed, this.id, this.payment_method, this.paid_amount_total, this.status, this.invoice, this.created_at, this.updated_at);
+  Orders(this.customer_id, this.cart_discount_total, this.cgst, this.sgst, this.cess, this.cart_total, this.is_receipt_printed, this.id, this.payment_method, this.paid_amount_total, this.status, this.invoice, this.created_at, this.updated_at);
 
   Orders.fromJson(Map<String, dynamic> json)
       : customer_id = json['customer_id'],
@@ -112,7 +115,7 @@ class Orders {
         cgst = json['cgst'].toDouble(),
         sgst = json['sgst'].toDouble(),
         cess = json['cess'].toDouble(),
-        mrp_total = json['mrp_total'].toDouble(),
+        cart_total = json['cart_total'].toDouble(),
         is_receipt_printed = json['is_receipt_printed'],
         id = json['id'],
         payment_method = json['payment_method'],
@@ -129,7 +132,7 @@ class Orders {
         'cgst' : cgst,
         'sgst' : sgst,
         'cess' : cess,
-        'mrp_total' : mrp_total,
+        'cart_total' : cart_total,
         'is_receipt_printed' : is_receipt_printed,
         'id' : id,
         'payment_method' : payment_method,
@@ -165,16 +168,16 @@ class products {
   products(this.id, this.name, this.mrp, this.sp, this.cgst, this.sgst, this.cess, this.brand, this.category_id, this.inventory, this.is_barcode_available, this.hsn, this.uom, this.size, this.color, this.created_at, this.updated_at);
 
   products.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+      : id = int.parse(json['id'].toString()),
         name = json['name'],
-        mrp = json['mrp'].toDouble(),
-        sp = json['sp'].toDouble(),
-        cgst = json['cgst'].toDouble(),
-        sgst = json['sgst'].toDouble(),
-        cess = json['cess'].toDouble(),
+        mrp = double.parse(json['mrp'].toString()),
+        sp = double.parse(json['sp'].toString()),
+        cgst = double.parse(json['cgst'].toString()),
+        sgst = double.parse(json['sgst'].toString()),
+        cess = double.parse(json['cess'].toString()),
         brand = json['brand'],
-        category_id = json['category_id'],
-        inventory = json['inventory'],
+        category_id = int.parse(json['category_id'].toString()),
+        inventory = int.parse(json['inventory'].toString()),
         is_barcode_available = json['is_barcode_available'],
         hsn = json['hsn'],
         uom = json['uom'],
@@ -222,9 +225,10 @@ class customProducts {
   String uom;
   var created_at;
   var updated_at;
+  String brand;
 
 
-  customProducts(this.id, this.name, this.mrp, this.sp, this.to_be_saved, this.barcode, this.category_id, this.uom, this.created_at, this.updated_at);
+  customProducts(this.brand, this.id, this.name, this.mrp, this.sp, this.to_be_saved, this.barcode, this.category_id, this.uom, this.created_at, this.updated_at);
 
   customProducts.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -239,7 +243,9 @@ class customProducts {
         category_id = json['category_id'],
         uom = json['uom'],
         created_at = json['created_at'],
-        updated_at = json['updated_at'];
+        updated_at = json['updated_at'],
+        brand = json['brand'];
+
 
   Map<String, dynamic> toJson() =>
       {
@@ -256,6 +262,7 @@ class customProducts {
         'uom' : uom,
         'created_at' : created_at,
         'updated_at' : updated_at,
+        'brand' : brand,
       };
 }
 
@@ -319,8 +326,10 @@ class requestStocks {
   var created_at;
   var updated_at;
   int id;
+  int temp_id;
+  int total_quantity;
 
-  requestStocks(this.status, this.delivered_at, this.accepted_at, this.total_amount, this.created_at, this.updated_at, this.id);
+  requestStocks(this.total_quantity, this.temp_id, this.status, this.delivered_at, this.accepted_at, this.total_amount, this.created_at, this.updated_at, this.id);
 
   requestStocks.fromJson(Map<String, dynamic> json)
       : status = json['status'],
@@ -329,7 +338,9 @@ class requestStocks {
         total_amount = json['total_amount'].toDouble(),
         created_at = json['created_at'],
         updated_at = json['updated_at'],
-        id = json['id'];
+        id = json['id'],
+        temp_id = json['temp_id'],
+        total_quantity = json['total_quantity'];
 
   Map<String, dynamic> toJson() =>
       {
@@ -340,6 +351,8 @@ class requestStocks {
         'created_at' : created_at,
         'updated_at' : updated_at,
         'id' : id,
+        'temp_id' : temp_id,
+        'total_quantity' : total_quantity,
       };
 }
 
@@ -463,36 +476,83 @@ class customerCredit {
 
 
 
-// class for OrderRefundTable
-class refunds {
+// class for OrderRefundItemsTable
+class refundItems {
+  int id;
   int orderItems_id;
   int refund_qty;
-  String refund_mode;
-  double refund_amt;
+  int refunded_item_refund_amount;
+  String order_id;
+  int refund_id;
   var created_at;
   var updated_at;
-  int id;
+  refundItems(this.refunded_item_refund_amount, this.order_id, this.refund_id, this.orderItems_id, this.refund_qty, this.created_at, this.updated_at, this.id);
 
-  refunds(this.refund_amt, this.orderItems_id, this.refund_qty, this.refund_mode, this.created_at, this.updated_at, this.id);
-
-  refunds.fromJson(Map<String, dynamic> json)
-      : orderItems_id = json['orderItems_id'],
+  refundItems.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        orderItems_id = json['orderItems_id'],
         refund_qty = json['refund_qty'],
-        refund_mode = json['refund_mode'],
+        refunded_item_refund_amount = json['refunded_item_refund_amount'],
+        order_id = json['order_id'],
+        refund_id = int.parse(json['refund_id'].toString()),
         created_at = json['created_at'],
-        updated_at = json['updated_at'],
-        id = json['id'],
-        refund_amt = json['refund_amt'].toDouble();
+        updated_at = json['updated_at'];
+
+
 
   Map<String, dynamic> toJson() =>
       {
+        'id' : id,
         'orderItems_id' : orderItems_id,
         'refund_qty' : refund_qty,
-        'refund_mode' : refund_mode,
+        'refunded_item_refund_amount' : refunded_item_refund_amount,
+        'order_id' : order_id,
+        'refund_id' : refund_id,
         'created_at' : created_at,
         'updated_at' : updated_at,
-        'refund_amt' : refund_amt,
+      };
+}
+
+
+// class for OrderRefundTable
+class refunds {
+  int id;
+  String order_id;
+  double total_amount_refunded;
+  double paid_amount_total;
+  String payment_method;
+  bool is_receipt_printed;
+  int total_quantity_refunded;
+  var created_at;
+  var updated_at;
+
+  double total_refund_amt;
+
+  refunds(this.id, this.order_id, this.total_amount_refunded, this.paid_amount_total, this.payment_method, this.is_receipt_printed, this.total_quantity_refunded, this.updated_at, this.created_at);
+
+  refunds.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        order_id = json['order_id'],
+        total_amount_refunded = double.parse(json['total_amount_refunded'].toString()),
+        paid_amount_total = double.parse(json['paid_amount_total'].toString()),
+        payment_method = json['payment_method'],
+        is_receipt_printed = json['is_receipt_printed'],
+        total_quantity_refunded = int.parse(json['total_quantity_refunded'].toString()),
+        updated_at = json['updated_at'];
+
+
+
+  Map<String, dynamic> toJson() =>
+      {
         'id' : id,
+        'order_id' : order_id,
+        'total_amount_refunded' : total_amount_refunded,
+        'paid_amount_total' : paid_amount_total,
+        'payment_method' : payment_method,
+        'is_receipt_printed' : is_receipt_printed,
+        'total_quantity_refunded' : total_quantity_refunded,
+        'created_at' : created_at,
+        'updated_at' : updated_at,
       };
 }
 

@@ -1,0 +1,214 @@
+{
+  "requestStocks": [{
+    "id": 1,
+    "created_at": "2019-12-13T12:50:11.843Z",
+    "updated_at": "2019-12-13T12:50:11.843Z",
+    "status": "requested",
+    "total_amount": 500,
+    "delivered_at": "",
+    "accepted_at": ""
+  }
+  ],
+  "requestStockItems": [{
+    "id": 4,
+    "product_id": 1,
+    "requested_qty": 5,
+    "barcode": "12894140",
+    "is_custom_product": false,
+    "custom_product_id": 12,
+    "stock_request_id": 1,
+    "delivered_qty": 0,
+    "accepted_qty": 0,
+    "created_at": "2019-12-13T12:50:11.843Z",
+    "updated_at": "2019-12-13T12:50:11.843Z",
+    "note": "",
+    "product_price": 123
+  }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "created_at": "2019-12-13T14:40:53.348Z",
+      "updated_at": "2019-12-13T14:40:53.348Z",
+      "customer_id": 0,
+      "invoice": "string",
+      "mrp_total": 0,
+      "cart_discount_total": 0,
+      "paid_amount_total": 0,
+      "credit_amount": 0,
+      "payment_method": "cash",
+      "cgst": 0,
+      "sgst": 0,
+      "cess": 0,
+      "is_receipt_printed": true,
+      "status": "refunded"
+    }
+  ],
+  "orderItems": [
+    {
+      "id": 1,
+      "order_id": 0,
+      "mrp": 0,
+      "sp": 0,
+      "cgst": 0,
+      "sgst": 0,
+      "cess": 0,
+      "quantity": 0,
+      "product_id": 0,
+      "barcode": "8901023008177",
+      "custom_product_id": 0
+    }
+  ],
+  "customProducts": [
+    {
+      "id": 1,
+      "name": "custom dal",
+      "barcode": "8901023008177",
+      "mrp": 10,
+      "sp": 10,
+      "cgst": 9.0,
+      "sgst": 9.0,
+      "cess": 2.0,
+      "category_id": 5,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 2,
+      "name": "custom drink",
+      "barcode": "8901725122010",
+      "mrp": 10,
+      "sp": 10,
+      "cgst": 9.0,
+      "sgst": 9.0,
+      "cess": 2.0,
+      "category_id": 6,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 3,
+      "name": "custom cloth",
+      "barcode": "8901764012501",
+      "mrp": 10,
+      "sp": 10,
+      "cgst": 9.0,
+      "sgst": 9.0,
+      "cess": 2.0,
+      "category_id": 0,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 4,
+      "name": "custom electronics",
+      "barcode": "2011234001112",
+      "mrp": 10,
+      "sp": 10,
+      "cgst": 9.0,
+      "sgst": 9.0,
+      "cess": 2.0,
+      "category_id": 4,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 5,
+      "name": "custom rice",
+      "barcode": "8901030721915",
+      "mrp": 10,
+      "sp": 10,
+      "cgst": 9.0,
+      "sgst": 9.0,
+      "cess": 2.0,
+      "category_id": 5,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 6,
+      "name": "custom wheat",
+      "barcode": "8901030719394",
+      "mrp": 10,
+      "sp": 10,
+      "cgst": 9.0,
+      "sgst": 9.0,
+      "cess": 2.0,
+      "category_id": 0,
+      "uom": "kg",
+      "to_be_saved": true
+    },
+    {
+      "id": 7,
+      "name": "custom electronics",
+      "barcode": "89008881",
+      "mrp": 10,
+      "sp": 10,
+      "cgst": 9.0,
+      "sgst": 9.0,
+      "cess": 2.0,
+      "category_id": 0,
+      "uom": "kg",
+      "to_be_saved": true
+    }
+  ],
+  "refunds": [
+    {
+      "id": 1,
+      "orderItems_id": 0,
+      "refund_qty": 0,
+      "refund_mode": "string",
+      "created_date": "2019-12-13T14:40:53.348Z",
+      "updated_date": "2019-12-13T14:40:53.348Z",
+      "refund_amt": 0
+    }
+  ],
+  "creditLogs": [
+    {
+      "id": 1,
+      "order_id": 0,
+      "customer_id": 0,
+      "amount": 0,
+      "created_date": "2019-12-13T14:40:53.348Z",
+      "updated_date": "2019-12-13T14:40:53.348Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "name": "Amit",
+      "gender": "M",
+      "phone_number": "9878923030",
+      "credit_balance": 100,
+      "total_orders": 10,
+      "total_spent": 2000,
+      "average_spent": 200,
+      "total_discount": 50,
+      "avg_discount_per_order": 5
+    },
+    {
+      "id": 2,
+      "name": "Mohit",
+      "gender": "M",
+      "phone_number": "9711575088",
+      "credit_balance": 20,
+      "total_orders": 50,
+      "total_spent": 20000,
+      "average_spent": 400,
+      "total_discount": 1000,
+      "avg_discount_per_order": 20
+    },
+    {
+      "id": 3,
+      "name": "Manav",
+      "gender": "M",
+      "phone_number": "8368856340",
+      "credit_balance": 110,
+      "total_orders": 10,
+      "total_spent": 10000,
+      "average_spent": 1000,
+      "total_discount": 1000,
+      "avg_discount_per_order": 1000
+    }
+  ]
+}
