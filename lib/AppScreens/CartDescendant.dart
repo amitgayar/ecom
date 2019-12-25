@@ -1076,7 +1076,7 @@ class _CustomItem extends State<CustomItem> {
     customProductNameController.dispose();
     super.dispose();
   }
-  String _selectedCategory ;
+  String _selectedCategory;
   String _selectedBrand;
   final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
@@ -1250,6 +1250,7 @@ class _CustomItem extends State<CustomItem> {
                             height: 50,
                             width: 150,
                             child: TextField(
+
                               inputFormatters: [_amountValidator],
                               controller: customSGSTController,
                               keyboardType: TextInputType.numberWithOptions(
@@ -1260,6 +1261,7 @@ class _CustomItem extends State<CustomItem> {
                                 //                                          model.changeProductValue(text, product, 'mrp');
 
                               },
+
                               ),
                             ),
                           flex: 2,
@@ -1330,6 +1332,7 @@ class _CustomItem extends State<CustomItem> {
                                   //                                          model.changeProductValue(text, product, 'mrp');
 
                                 },
+
                               ),
                             ),
                           flex: 2,
@@ -1370,32 +1373,36 @@ class _CustomItem extends State<CustomItem> {
                             ),
                           flex: 4,
                         ),
-                        Expanded(
-                          child: Text('',
-                                      ),
-                          flex: 1,
-                          ),
-                        Expanded(
-                          child: new DropdownButton<String>(
-                            items: brands.map((var value) {
-                              return new DropdownMenuItem<String>(
-                                value: value,
-                                child: new Text(value),
-                                );
-                            }).toList(),
-                            value: _selectedBrand,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _selectedBrand = newValue;
-                              });
-                            },
-                            hint: Text('Select Brand'),
-                            ),
-                          flex: 4,
-                        )
+
                     ],
                       )
                     ),
+                  Padding(
+                      padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                      child: Row(
+                        children: <Widget>[
+
+                          Expanded(
+                            child: new DropdownButton<String>(
+                              items: brands.map((var value) {
+                                return new DropdownMenuItem<String>(
+                                  value: value,
+                                  child: new Text(value),
+                                  );
+                              }).toList(),
+                              value: _selectedBrand,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _selectedBrand = newValue;
+                                });
+                              },
+                              hint: Text('Select Brand'),
+                              ),
+                            flex: 4,
+                            )
+                        ],
+                        )
+                      ),
 
 
                   Padding(
@@ -1411,19 +1418,52 @@ class _CustomItem extends State<CustomItem> {
                           //                                                    width: 150,
                           child: Text('SUBMIT'),
                             onPressed: ()async{
-                              model.addCustomItem(
+                            if (customCESSController.text == ''){
+                              customCESSController.text = '0.0';
+                            }
+                            if (customCGSTController.text == ''){
+                              customCGSTController.text = '0.0';
+                            }
+                            if (customSGSTController.text == ''){
+                              customSGSTController.text = '0.0';
+                            }
+                            if(_selectedBrand == null){
+                              _selectedBrand = '';
+                            }
+                            if (_selectedCategory == null){_selectedCategory = '';
+                            }
+
+
+
+                              if (
+                              customProductNameController.text != '' &&
+                              customMRPController.text != '' &&
+                              customSPController.text != ''
+                              ){
+                                model.addCustomItem(
                                   customProductNameController.text,
                                   customMRPController.text,
                                   customSPController.text,
                                   customCESSController.text,
                                   customCGSTController.text,
                                   customSGSTController.text,
-                                _selectedCategory,
-                                _selectedBrand,
+                                  _selectedCategory,
+                                  _selectedBrand,
                                   );
-                              print(customBrandController.text);
-                              await queryForAll(model, 'initStack', '', '');
-                              model.updateFlagOfAddCustomItem(false);
+                                await queryForAll(model, 'initStack', '', '');
+                                model.updateFlagOfAddCustomItem(false);
+                              }
+                              else{
+                                Fluttertoast.showToast(
+                                    msg: "!! Name, Mrp, SP must not be Empty",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIos: 1,
+                                    backgroundColor: Colors.black,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                    );
+                              }
                             },
 
                             shape: RoundedRectangleBorder(

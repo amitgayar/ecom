@@ -777,6 +777,7 @@ class NewAppStateModel extends Model {
 
     };
 
+    print("\n\n category to be inserted = $category");
     print("\n\n Row to be inserted = $row");
 //    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customProductsTable, id, DatabaseHelper.id,"=");
     final return_id = await dbHelper.insert(DatabaseHelper.customProductsTable, row);

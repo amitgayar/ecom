@@ -21,24 +21,36 @@ final dbHelper = DatabaseHelper.instance;
 //NewAppStateModel cartModel = new NewAppStateModel();
 
 Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  String operator, String id, {String colName2:'', String category_id:''}) async {
- String raw;
+  String raw;
   if (colName == 'name' && category_id == ''){
-    raw = "SELECT * FROM $table WHERE $colName $operator LOWER('%$id%')";
- }
+    raw = "SELECT * FROM $table WHERE $colName $operator LOWER('%$id%') ORDER BY name ASC";
+  }
   else if (category_id != ''){
 
-    raw = "SELECT * FROM $table WHERE LOWER('%$colName%') $operator LOWER('%$id%') AND $colName2 = $category_id";
+    raw = "SELECT * FROM $table WHERE LOWER('%$colName%') $operator LOWER('%$id%') AND $colName2 = $category_id ORDER BY name ASC";
   }
- else {
-    raw = "SELECT * FROM $table WHERE $colName $operator $id";
+  else {
+    raw = "SELECT * FROM $table WHERE $colName $operator $id ORDER BY name ASC";
   }
 
   if (id == '' && colName == '' && operator == '' ){
-    final _dbProducts = await dbHelper.queryAllRows(table);
-    print('Total rows in table - ' + table + '...:...' + _dbProducts.length.toString());
+
+    if (table == 'productCategories'){
+
+      String rawQueryForParentCategories = "SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null' ORDER BY name ASC" ;
+      final queryList = await dbHelper.raw_query(rawQueryForParentCategories);
+      return queryList;
+    }
+    else{
+      raw = 'SELECT * FROM $table ORDER BY name ASC';
+
+      final _dbProducts = await dbHelper.raw_query(raw);
+      print('Total rows in table - ' + table + '...:...' + _dbProducts.length.toString());
 //    print('First entry is : ' + _dbProducts.first.toString());
 //    print(_dbProducts);
-    return _dbProducts;
+      return _dbProducts;
+    }
+
 
   }
 
@@ -52,11 +64,11 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 //  }
   else {
     print(raw);
-  final queryList = await dbHelper.raw_query(raw);
-  print(table + ' ' +colName + ' ' + operator + ' ' + id + ' ' + '..count.. : ' +queryList.length.toString());
+    final queryList = await dbHelper.raw_query(raw);
+    print(table + ' ' +colName + ' ' + operator + ' ' + id.toString() + ' ' + '..count.. : ' +queryList.length.toString());
 //    print('First one is : ' + queryList.first.toString());
 //  print(queryList);
-  return queryList;
+    return queryList;
   }
 
 
@@ -71,7 +83,11 @@ Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  Str
 Future<void> queryForAll(NewAppStateModel cartModel, String type, String category_id, String text ) async{
   if (type == 'initStack'){
 //    var allProducts = await queryForUI('products', '', '', '');
-    var allCategories = await queryForUI('productCategories','parent_id', '=', '1');
+    var allCategories = await queryForUI('productCategories','', '', '');
+
+    print( allCategories[1][
+           'parent_id'
+           ]);
     var allCustomProducts = await queryForUI('customProducts', '', '', '');
 
     cartModel.setData(null,  allCategories, allCustomProducts);
@@ -126,16 +142,16 @@ void onTapCategoryEntry(NewAppStateModel cartModel, Map<String, dynamic> categor
 }
 
 void goToParentCategory(NewAppStateModel cartModel) async{
-    cartModel.setStack(null);
-    Map<String, dynamic> category = cartModel.stack.last;
-    if (category == null){
-      await queryForAll(cartModel, 'initStack', '', '');
-      cartModel.setCategory('');
-    }
-    else{
-      await queryForAll(cartModel, 'secondStack', category['id'].toString(), '');
-      cartModel.setCategory(category['name']);
-    }
+  cartModel.setStack(null);
+  Map<String, dynamic> category = cartModel.stack.last;
+  if (category == null){
+    await queryForAll(cartModel, 'initStack', '', '');
+    cartModel.setCategory('');
+  }
+  else{
+    await queryForAll(cartModel, 'secondStack', category['id'].toString(), '');
+    cartModel.setCategory(category['name']);
+  }
 }
 
 
