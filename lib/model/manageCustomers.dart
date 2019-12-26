@@ -15,8 +15,23 @@ import '../services/addDataToTable.dart';
 final dbHelper = DatabaseHelper.instance;
 class manageCustomersModel extends Model {
 
-  List<Map> get customersInDatabaseToDisplay => tempCustomersInDatabaseToDisplay;
-  List<Map> tempCustomersInDatabaseToDisplay = [];
+
+//  ----------------------Gayar------------------------------
+
+  void setCustomerListData(List<Map<String, dynamic>> customerList){
+    tempCustomersInDatabaseToDisplay = customerList;
+    print('[from File : manageCustomers.dart] Number of Customers in DB ........ = .........' + tempCustomersInDatabaseToDisplay.length.toString());
+    notifyListeners();
+  }
+  List<Map<String, dynamic>> getCustomers(){
+    return tempCustomersInDatabaseToDisplay;
+
+  }
+//  -----------------------Gayar-----------------------------
+
+
+  List<Map<String, dynamic>> get customersInDatabaseToDisplay => tempCustomersInDatabaseToDisplay;
+  List<Map<String, dynamic>> tempCustomersInDatabaseToDisplay;
   String get prefillField => tempPrefillFieldType;
   String tempPrefillFieldType;
   Map tempselectedCustomer = {};
@@ -38,7 +53,7 @@ class manageCustomersModel extends Model {
 
 
   //Code to Search customer in Database Starts
-  queryCustomerInDatabase (String type /*all, credit*/, String searchString) async {
+  Future<List<Map<String, dynamic>>> queryCustomerInDatabase (String type /*all, credit*/, String searchString) async {
     print("Entered into queryCustomerInDatabase");
     tempCustomersInDatabaseToDisplay = [];
     List<Map<String, dynamic>> customerList = [];
@@ -72,6 +87,7 @@ class manageCustomersModel extends Model {
       if (searchString.length < 3) {
         customerList = await dbHelper.queryAllRows(DatabaseHelper.customerTable);
         tempPrefillFieldType = "";
+        return customerList;
       }
       else if (searchString.length >= 3) {
         if (_isNumeric(searchString)) {
@@ -95,7 +111,7 @@ class manageCustomersModel extends Model {
 
     if (customerList.length > 0) {
       customerList.forEach((item) {
-        Map tempCustomer = {};
+        Map<String, dynamic> tempCustomer = {};
         item.forEach((key, value) {
           tempCustomer[key.toString()] = value.toString();
         });

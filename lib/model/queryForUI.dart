@@ -11,7 +11,8 @@ import 'dart:convert';
 import '../model/ProcessJsonToUpdateDB.dart';
 import '../Utilities/DBsync.dart';
 import '../model/Database_Models.dart';
-import '../model/app_state_model.dart';
+import 'app_state_model.dart';
+import 'manageCustomers.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 final dbHelper = DatabaseHelper.instance;
@@ -85,9 +86,7 @@ Future<void> queryForAll(NewAppStateModel cartModel, String type, String categor
 //    var allProducts = await queryForUI('products', '', '', '');
     var allCategories = await queryForUI('productCategories','', '', '');
 
-    print( allCategories[1][
-           'parent_id'
-           ]);
+    print( allCategories[1]['parent_id']);
     var allCustomProducts = await queryForUI('customProducts', '', '', '');
 
     cartModel.setData(null,  allCategories, allCustomProducts);
@@ -119,7 +118,7 @@ Future<void> queryForAll(NewAppStateModel cartModel, String type, String categor
 }
 
 void searchCatalogue(NewAppStateModel cartModel, String text) async{
-  if(text.length>3){
+  if(text.length>2){
     await queryForAll(cartModel, 'initSearch', '', text);
   }
   else if(text.length<2) {
@@ -170,3 +169,18 @@ List<Map<String, dynamic>> mapQuery(List<Map<String, dynamic>> query) {
   }
   return mapList;
 }
+
+void  _getCustomersG(manageCustomersModel model) async{
+  var customerList = await model.queryCustomerInDatabase('all', '');
+  model.setCustomerListData(customerList);
+
+}
+
+List<Map<String, dynamic>> getCustomersG(manageCustomersModel model){
+  _getCustomersG(model);
+  List<Map<String, dynamic>> customerList;
+  customerList = model.customersInDatabaseToDisplay;
+  print('gayar in qUI\n\n' + customerList.toString());
+  return customerList;
+}
+

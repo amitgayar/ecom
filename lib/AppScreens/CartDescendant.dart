@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 //import '../model/app_state_model.dart';
 import '../model/queryForUI.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../model/manageCustomers.dart';
 
 
 
@@ -419,10 +420,10 @@ child: Material(
 
                         Divider(color: Colors.red, height: 10,thickness: 1,),
                         InkWell(
-    // When the user taps the button, show a snackbar.
     onTap: () {
-      // add custom item in quick links - add function to show bar of custom items
-      Navigator.pushNamed(context, '/customers');
+
+//      Navigator.pushNamed(context, '/customers');
+        model.setSelectCustomerForCartFlag();
     },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -1003,7 +1004,12 @@ child: Material(
                         alignment: Alignment.center,
                       )
                       :
-                      new Container()
+                      new Container(),
+                  model.selectCustomerForCartFlag
+                      ?
+                  SelectCustomer()
+                      :
+                      new Container(),
                 ],
                 );
             }),
@@ -1031,10 +1037,143 @@ child: Material(
 
 
 //................................................................................................................................................................
-//................................................................................................................................................................
-//................................................................................................................................................................
-//................................................................................................................................................................
-//................................................................................................................................................................
+
+//...............................................SelectCustomerSection.................................................................................................................
+
+List<Map<String, dynamic>> dummyCustomersList =
+[
+  {
+    "id": 1,
+    "name": "Amit",
+    "gender": "M",
+    "phone_number": "9878923030",
+    "credit_balance": 100,
+    "total_orders": 10,
+    "total_spent": 2000,
+    "average_spent": 200,
+    "total_discount": 50,
+    "avg_discount_per_order": 5
+  },
+  {
+    "id": 2,
+    "name": "Mohit",
+    "gender": "M",
+    "phone_number": "9711575088",
+    "credit_balance": 20,
+    "total_orders": 50,
+    "total_spent": 20000,
+    "average_spent": 400,
+    "total_discount": 1000,
+    "avg_discount_per_order": 20
+  }
+
+];
+
+
+manageCustomersModel customersModel = manageCustomersModel();
+
+
+
+
+class SelectCustomer extends StatefulWidget {
+
+
+  @override
+  _SelectCustomer createState() => _SelectCustomer ();
+}
+
+class _SelectCustomer extends State<SelectCustomer> {
+
+  List<Container> _buildCustomerTiles(BuildContext context, List<Map<String,dynamic>> customerList ) {
+    if (customerList == null || customerList.isEmpty) {
+      return const <Container>[];
+    }
+    return List.generate(customerList.length, (index) {
+      return Container(
+        child: ListTile (
+          title: Text(customerList[index]['name']),
+          subtitle: Text(customerList[index]['phone_number']),
+          onTap: (){
+
+//            model.setSelectCustomerForCartFlag(false);
+          },
+          ),
+        );
+    }).toList() ;
+  }
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    getCustomersG(customersModel);
+
+  print('gayar in UI\n\n' + dummyCustomersList.toString());
+
+    return ScopedModel<manageCustomersModel>(
+      model:  customersModel,
+      child: ScopedModelDescendant<manageCustomersModel> (
+
+        builder: (context, child, model) {
+
+
+      return Container(
+            height:440,
+//            width: 5000,
+color: Colors.white,
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: ListView(
+        children: <Widget>[
+          Container(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: SizedBox(
+                  height: 40,
+                  width: 280,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'search',
+                      filled: false,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        size: 18.0,
+                        ),
+                      ),
+                    onChanged: (text) async{
+//                      search customer textfield
+                    },
+
+                    ),
+                  ),
+                )
+              ),
+          Text('Select Customer'),
+          Divider(color: Colors.black12, thickness: 3, height: 20,),
+
+          Column(
+              children: _buildCustomerTiles(context, model.tempCustomersInDatabaseToDisplay),
+
+              )
+
+
+        ],
+        ),
+      )
+            );
+        }
+    )
+      );
+
+
+
+}
+}
+
+
+
 //................................................................................................................................................................
 //................................................................................................................................................................
 //................................................................................................................................................................
@@ -1042,14 +1181,12 @@ child: Material(
 
 
 
-
-
-
+//...................................CustomItemAddSection.............................................................................................................................
 
 
 class CustomItem extends StatefulWidget {
-  CustomItem({this.id});
-  final bool id;
+//  CustomItem({this.id});
+//  final bool id;
   @override
   _CustomItem createState() => _CustomItem();
 }
@@ -1550,7 +1687,6 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
 
           final Map product =  model.getProductById(widget.id);
           final int quantity =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'].runtimeType.toString() == 'String') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'].toString()) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'];
-//          print("\n\nvalues ${model.editableListOfProductsInCart.firstWhere((p) => p['id'] == widget.id)}");
           final double sellingPrice =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'].runtimeType.toString() == 'String' && model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'].runtimeType.toString() != '') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'].toString()) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['sp'];
           final double MRP =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'].runtimeType.toString() == 'String') ? double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'].toString()) : model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['mrp'];
 

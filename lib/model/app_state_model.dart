@@ -15,6 +15,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final dbHelper = DatabaseHelper.instance;
 class NewAppStateModel extends Model {
+
+  //.................................................inputs by gayar ...............................................................................................................
+  bool _selectCustomerForCartFlag = false;
+  bool get selectCustomerForCartFlag => _selectCustomerForCartFlag;
+  void setSelectCustomerForCartFlag(){
+    _selectCustomerForCartFlag = !_selectCustomerForCartFlag;
+    notifyListeners();
+  }
+
+  //.....................................................inputs by gayar...........................................................................................................
+
+
+
+
+
   List tempListOfCategories = [];
   List get finalListOfCategories => tempListOfCategories;
   List tempListOfBrands = [];
@@ -759,8 +774,11 @@ class NewAppStateModel extends Model {
 
   void addCustomItem (String name, String mrp, String sp, String cgst, String sgst, String cess, String category, String brand) async {
 
-    print("\n\nEntered into Add Custom Item");
+    print("\n\nEntered into Add Custom Item :::: retrievedCategories = $retrievedCategories");
 
+    int categoryID = retrievedCategories.indexWhere(((p) => p['name'] == category));
+
+    print("\n\nEntered into Add Custom Item :::: categoryID = $categoryID");
     Map<String, dynamic> row = {
       DatabaseHelper.name : name,
       DatabaseHelper.mrp : (mrp != "") ? double.parse(mrp) : 0.0,
@@ -770,14 +788,13 @@ class NewAppStateModel extends Model {
       DatabaseHelper.cess : (cess != "") ? double.parse(cess) : 0.0,
       DatabaseHelper.to_be_saved : true,
       DatabaseHelper.barcode : finalBarcode,
-      DatabaseHelper.category_id : category,
+      DatabaseHelper.category_id : (categoryID>0) ? retrievedCategories.firstWhere(((p) => p['name'] == category))['id'] : "null",
       DatabaseHelper.brand : brand,
       DatabaseHelper.uom : "",
       DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
 
-    print("\n\n category to be inserted = $category");
     print("\n\n Row to be inserted = $row");
 //    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customProductsTable, id, DatabaseHelper.id,"=");
     final return_id = await dbHelper.insert(DatabaseHelper.customProductsTable, row);
@@ -800,11 +817,11 @@ class NewAppStateModel extends Model {
 // Code for adding custom Item Ended
 
   // Code to get list of categories
-
+  List<Map> retrievedCategories = [];
   getListOfCategories () async{
-    List<Map> retrievedCategories = [];
+
     tempListOfCategories = [];
-    String query = "SELECT ${DatabaseHelper.name} FROM ${DatabaseHelper.productCategoriesTable} ORDER BY "
+    String query = "SELECT * FROM ${DatabaseHelper.productCategoriesTable} ORDER BY "
         "${DatabaseHelper.name}";
     retrievedCategories = await dbHelper.raw_query(query);
     print("\n\nretrievedStocks = $retrievedCategories");
@@ -820,7 +837,6 @@ class NewAppStateModel extends Model {
     notifyListeners();
 
   }
-
 
   // Code to get list of brands
 
