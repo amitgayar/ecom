@@ -329,12 +329,16 @@ class _CartDescendant extends State<CartDescendant> {
           return ExpansionPanel(
             headerBuilder: (BuildContext context, bool isExpanded) {
               return Container(
+                alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text('Quick Links',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16
-                                  )
-                          ),
+                child: FlatButton(
+                  child: Text('Quick Links',
+                                  style: TextStyle(
+//                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,color: Colors.black
+                                      )
+                              ),
+                ),
                 );
             },
             body: Container(
@@ -367,7 +371,7 @@ class _CartDescendant extends State<CartDescendant> {
                     children: <Widget>[
 
 //                      model.rawListener?
-//                      KeyboardListener()
+//                      KeyboardListener(),
 //                          :new Container(),
                       const Divider(
                           color: Colors.deepOrangeAccent, height: 5
@@ -1061,34 +1065,6 @@ class _CartDescendant extends State<CartDescendant> {
 
 //...............................................SelectCustomerSection.................................................................................................................
 
-//List<Map<String, dynamic>> dummyCustomersList =
-//[
-//  {
-//    "id": 1,
-//    "name": "Amit",
-//    "gender": "M",
-//    "phone_number": "9878923030",
-//    "credit_balance": 100,
-//    "total_orders": 10,
-//    "total_spent": 2000,
-//    "average_spent": 200,
-//    "total_discount": 50,
-//    "avg_discount_per_order": 5
-//  },
-//  {
-//    "id": 2,
-//    "name": "Mohit",
-//    "gender": "M",
-//    "phone_number": "9711575088",
-//    "credit_balance": 20,
-//    "total_orders": 50,
-//    "total_spent": 20000,
-//    "average_spent": 400,
-//    "total_discount": 1000,
-//    "avg_discount_per_order": 20
-//  }
-//
-//];
 
 
 //manageCustomersModel customersModel = manageCustomersModel();
@@ -1112,32 +1088,7 @@ class _SelectCustomer extends State<SelectCustomer> {
   @override
   Widget build(BuildContext context) {
 
-//    List<Container> _buildCustomerTiles(BuildContext context, NewAppStateModel cartModel, manageCustomersModel customerModel, List<Map> customerList ) {
-//      if (customerList == null || customerList.isEmpty) {
-//        print('build tiles : $customerList');
-//        return const <Container>[];
-//      }
-//      print('build tiles : ' + customerList.toString());
-//      return List.generate(customerList.length, (index) {
-//        return Container(
-//          child: ListTile (
-//            title: Text(customerList[index]['name']),
-//            subtitle: Text(customerList[index]['phone_number']),
-//            onTap: () async {
-//              print("\n\ncustomerList[index]['id'] = ${customerList[index]['id']}");
-//              int id = int.parse(customerList[index]['id'].toString());
-//              await customerModel.selectCustomer(id, "cart");
-//              var selectedCustomer = await customerModel.selectedCustomer;
-//              print('\nSelected Customer from Select Customer stack  :   ... $selectedCustomer');
-//              await cartModel.setSelectCustomerForCartFlag(false);
-//
-//
-//
-//            },
-//            ),
-//          );
-//      }).toList() ;
-//    }
+
 
 
     return ScopedModelDescendant<NewAppStateModel> (
@@ -2416,26 +2367,28 @@ class _RawKeyboardListenerState extends State<KeyboardListener> {
   void _handleSubmitted(String finalinput) {
 
     setState(() {
-      SystemChannels.textInput.invokeMethod('TextInput.hide'); //hide keyboard again
-      _controller.clear();
+      //SystemChannels.textInput.invokeMethod('TextInput.hide'); //hide keyboard again
+      //_controller.clear();
     });
   }
 
   String barcode = "";
-  handleKey(RawKeyEvent key) {
-    //print("Event runtimeType is ${key.runtimeType}");
-    if(key.runtimeType.toString() == 'RawKeyDownEvent'){
-      RawKeyEventDataAndroid data = key.data as RawKeyEventDataAndroid;
-      String _keyCode;
-      _keyCode = data.keyCode.toString(); //keycode of key event (66 is return)
-
-      barcode = barcode + key.data.keyLabel;
-
-//      print("\n\nwhy does this run twice ${newModel.subTotal}");
-    }
-
-    print("\n\n${barcode}");
-  }
+//  handleKey(RawKeyEvent key) {
+//    //print("Event runtimeType is ${key.runtimeType}");
+//    print(key);
+//    print("sdadsda");
+//    if(key.runtimeType.toString() == 'RawKeyDownEvent'){
+//      RawKeyEventDataAndroid data = key.data as RawKeyEventDataAndroid;
+//      String _keyCode;
+//      _keyCode = data.keyCode.toString(); //keycode of key event (66 is return)
+//
+//      barcode = barcode + key.data.keyLabel;
+//
+////      print("\n\nwhy does this run twice ${newModel.subTotal}");
+//    }
+//
+//    print("\n\n${barcode}");
+//  }
 
   _buildTextComposer() {
 
@@ -2444,7 +2397,7 @@ class _RawKeyboardListenerState extends State<KeyboardListener> {
 
     return ScopedModelDescendant<NewAppStateModel> (
         builder: (context, child, model) {
-          FocusScope.of(context).requestFocus(_textNode);
+          //FocusScope.of(context).requestFocus(_textNode);
           return new RawKeyboardListener(
               focusNode: _textNode,
               autofocus: false,

@@ -92,15 +92,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
   Widget build(BuildContext context) {
 
 
-    return GestureDetector(
-        onTap: () {
-      FocusScopeNode currentFocus = FocusScope.of(context);
-
-      if (!currentFocus.hasPrimaryFocus) {
-        currentFocus.unfocus();
-      }
-    },
-    child: MaterialApp(
+    return MaterialApp(
       title: 'ExpStore',
 
       initialRoute: '/login',
@@ -109,17 +101,27 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
         '/login': (context) => LoginPage(),
         '/': (context) => HomePage(),
         '/cart': (context) => new Container(),
-        '/customers' : (context) => customer(),
+        '/customers' : (context) => Customer(),
 //        '/addCustomer': (context) => AddCustomer(),
         '/orders' : (context) => Orders(),
         '/requestStocks' : (context) => RequestStocks(),
 
-      },
+      }
 
 
 
-      ),
-        );
+      );
+//      GestureDetector(
+//        onTap: () {
+//          print("asdaadaa");
+//      FocusScopeNode currentFocus = FocusScope.of(context);
+//      print(currentFocus);
+//      if (!currentFocus.hasPrimaryFocus) {
+//        currentFocus.unfocus();
+//      }
+//    },
+//    child: ,
+//        );
 
   }
 }
