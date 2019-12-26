@@ -34,6 +34,9 @@ List<Item> _data = generateItems(1);
 
 
 class CartDescendant extends StatefulWidget {
+  CartDescendant({@required this.customerModel}
+      );
+  final customerModel;
   @override
   _CartDescendant createState() => _CartDescendant();
 }
@@ -97,26 +100,23 @@ class _CartDescendant extends State<CartDescendant> {
                     },
                     ),
                   Spacer(),
-                  Card(
-//                    width: 189,
-child: Material(
-  shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(22.0)),
-  elevation: 18.0,
-  color: Color(0xff429585),
-  clipBehavior: Clip.antiAlias, // Add This
-  child: MaterialButton(
-    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    height: 40.0,
-    child: new Text(formatter.format(cartTotal),
-                      style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold
-                                       ),),
-    onPressed: () {
-      setBottomBarHide();
-    },
-    ),
-  ),
-),
+                  Material(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22.0)),
+                    elevation: 18.0,
+                    color: Color(0xff429585),
+                    clipBehavior: Clip.antiAlias, // Add This
+                    child: MaterialButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      height: 40.0,
+                      child: new Text(formatter.format(cartTotal),
+                                        style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold
+                                                         ),),
+                      onPressed: () {
+                        setBottomBarHide();
+                      },
+                      ),
+                    ),
 
                   Spacer(),
                   IconButton(
@@ -210,6 +210,7 @@ child: Material(
     }
 
     var shoppingCartRowSection = Container(
+      color: Colors.white,
       child: ScopedModelDescendant<NewAppStateModel>(
         builder: (context, child, model) {
           return Column (
@@ -226,6 +227,7 @@ child: Material(
     Widget _queryBox(NewAppStateModel model) {
 
       return Container(
+        color: Colors.white,
           alignment: Alignment.centerLeft,
           child: Row(
             children: <Widget>[
@@ -374,6 +376,7 @@ child: Material(
                       //              quickLinkSection,
                       _buildPanel(model),
                       Container(
+                        color: Colors.white,
                         child: Column(
                           children: <Widget>[
 
@@ -418,22 +421,40 @@ child: Material(
                             ),
                         ),
 
+                        model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+                        Divider(color: Colors.green, height: 10,thickness: 1,)
+                        :
                         Divider(color: Colors.red, height: 10,thickness: 1,),
                         InkWell(
-    onTap: () {
-
+    onTap: () async {
+     if (model.selectedCustomer != null && model.selectedCustomer['id'] != null){
+       print('selsejijijij ${model.selectedCustomer['id']}');
+       await model.selectCustomer(0, '');
+       print('selsejijijij ${model.selectedCustomer}');
+       model.setSelectCustomerForCartFlag(false);
+     }
+     else{
+       await model.queryCustomerInDatabase('all', '');
 //      Navigator.pushNamed(context, '/customers');
-        model.setSelectCustomerForCartFlag();
+       print('lolo ${model.selectedCustomer}');
+       model.setSelectCustomerForCartFlag(true);
+     }
+
     },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        color: Color(0xffe48181),
+        color: model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+        Color(0xff429585) : Color(0xffe48181),
         child: Row(
           children: <Widget>[
-            Icon(Icons.person_add,color: Colors.black,),
-            Text('      Select Customer' ),
+            model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+            Icon(Icons.person,color: Colors.black,) : Icon(Icons.person_add,color: Colors.black,) ,
+            //Text(model.selectedCustomer['name'] ),
+            model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+            Text("      ${model.selectedCustomer['name']}") : Text('      Select Customer' ),
             Spacer(),
-            Icon(Icons.report_problem,color: Colors.black,),
+            model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+            Icon(Icons.clear,color: Colors.black,):Icon(Icons.report_problem,color: Colors.black,),
 
           ],
           ),
@@ -1040,37 +1061,37 @@ child: Material(
 
 //...............................................SelectCustomerSection.................................................................................................................
 
-List<Map<String, dynamic>> dummyCustomersList =
-[
-  {
-    "id": 1,
-    "name": "Amit",
-    "gender": "M",
-    "phone_number": "9878923030",
-    "credit_balance": 100,
-    "total_orders": 10,
-    "total_spent": 2000,
-    "average_spent": 200,
-    "total_discount": 50,
-    "avg_discount_per_order": 5
-  },
-  {
-    "id": 2,
-    "name": "Mohit",
-    "gender": "M",
-    "phone_number": "9711575088",
-    "credit_balance": 20,
-    "total_orders": 50,
-    "total_spent": 20000,
-    "average_spent": 400,
-    "total_discount": 1000,
-    "avg_discount_per_order": 20
-  }
+//List<Map<String, dynamic>> dummyCustomersList =
+//[
+//  {
+//    "id": 1,
+//    "name": "Amit",
+//    "gender": "M",
+//    "phone_number": "9878923030",
+//    "credit_balance": 100,
+//    "total_orders": 10,
+//    "total_spent": 2000,
+//    "average_spent": 200,
+//    "total_discount": 50,
+//    "avg_discount_per_order": 5
+//  },
+//  {
+//    "id": 2,
+//    "name": "Mohit",
+//    "gender": "M",
+//    "phone_number": "9711575088",
+//    "credit_balance": 20,
+//    "total_orders": 50,
+//    "total_spent": 20000,
+//    "average_spent": 400,
+//    "total_discount": 1000,
+//    "avg_discount_per_order": 20
+//  }
+//
+//];
 
-];
 
-
-manageCustomersModel customersModel = manageCustomersModel();
+//manageCustomersModel customersModel = manageCustomersModel();
 
 
 
@@ -1082,90 +1103,122 @@ class SelectCustomer extends StatefulWidget {
   _SelectCustomer createState() => _SelectCustomer ();
 }
 
+
+
 class _SelectCustomer extends State<SelectCustomer> {
-
-  List<Container> _buildCustomerTiles(BuildContext context, List<Map<String,dynamic>> customerList ) {
-    if (customerList == null || customerList.isEmpty) {
-      return const <Container>[];
-    }
-    return List.generate(customerList.length, (index) {
-      return Container(
-        child: ListTile (
-          title: Text(customerList[index]['name']),
-          subtitle: Text(customerList[index]['phone_number']),
-          onTap: (){
-
-//            model.setSelectCustomerForCartFlag(false);
-          },
-          ),
-        );
-    }).toList() ;
-  }
-
 
 
 
   @override
   Widget build(BuildContext context) {
 
-    getCustomersG(customersModel);
+//    List<Container> _buildCustomerTiles(BuildContext context, NewAppStateModel cartModel, manageCustomersModel customerModel, List<Map> customerList ) {
+//      if (customerList == null || customerList.isEmpty) {
+//        print('build tiles : $customerList');
+//        return const <Container>[];
+//      }
+//      print('build tiles : ' + customerList.toString());
+//      return List.generate(customerList.length, (index) {
+//        return Container(
+//          child: ListTile (
+//            title: Text(customerList[index]['name']),
+//            subtitle: Text(customerList[index]['phone_number']),
+//            onTap: () async {
+//              print("\n\ncustomerList[index]['id'] = ${customerList[index]['id']}");
+//              int id = int.parse(customerList[index]['id'].toString());
+//              await customerModel.selectCustomer(id, "cart");
+//              var selectedCustomer = await customerModel.selectedCustomer;
+//              print('\nSelected Customer from Select Customer stack  :   ... $selectedCustomer');
+//              await cartModel.setSelectCustomerForCartFlag(false);
+//
+//
+//
+//            },
+//            ),
+//          );
+//      }).toList() ;
+//    }
 
-  print('gayar in UI\n\n' + dummyCustomersList.toString());
 
-    return ScopedModel<manageCustomersModel>(
-      model:  customersModel,
-      child: ScopedModelDescendant<manageCustomersModel> (
+    return ScopedModelDescendant<NewAppStateModel> (
 
         builder: (context, child, model) {
 
+          List<Container> _buildCustomerTiles(BuildContext context) {
 
-      return Container(
-            height:440,
-//            width: 5000,
-color: Colors.white,
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: ListView(
-        children: <Widget>[
-          Container(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: SizedBox(
-                  height: 40,
-                  width: 280,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'search',
-                      filled: false,
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 18.0,
-                        ),
-                      ),
-                    onChanged: (text) async{
-//                      search customer textfield
-                    },
+            List<Map> customerList = model.tempCustomersInDatabaseToDisplay;
+            if (customerList == null || customerList.isEmpty) {
+              print('build tiles : $customerList');
+              return const <Container>[];
+            }
+            print('build tiles : ' + customerList.toString());
+            return List.generate(customerList.length, (index) {
+              return Container(
+                child: ListTile (
+                  title: Text(customerList[index]['name']),
+                  subtitle: Text(customerList[index]['phone_number']),
+                  onTap: () async {
+                    print("\n\ncustomerList[index]['id'] = ${customerList[index]['id']}");
+                    int id = int.parse(customerList[index]['id'].toString());
+                    await model.selectCustomer(id, "cart");
+                    var selectedCustomer = await model.selectedCustomer;
+                    print('\nSelected Customer from Select Customer stack  :   ... $selectedCustomer');
+                    model.setSelectCustomerForCartFlag(false);
 
-                    ),
+
+                  },
                   ),
-                )
-              ),
+                );
+            }).toList() ;
+          }
+
+          return Container(
+//                  height:440,
+//            width: 5000,
+  color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: ListView(
+          children: <Widget>[
+            Container(
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: SizedBox(
+                    height: 40,
+                    width: 280,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'search',
+                        filled: false,
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 18.0,
+                          ),
+                        ),
+                      onChanged: (text) async{
+                        model.queryCustomerInDatabase("all", text);
+                        //_buildCustomerTiles(context);
+                      },
+
+                      ),
+                    ),
+                  )
+                ),
           Text('Select Customer'),
           Divider(color: Colors.black12, thickness: 3, height: 20,),
 
           Column(
-              children: _buildCustomerTiles(context, model.tempCustomersInDatabaseToDisplay),
+            children: _buildCustomerTiles(context),
 
-              )
+            )
 
 
         ],
         ),
       )
-            );
+);
         }
-    )
-      );
+        );
 
 
 

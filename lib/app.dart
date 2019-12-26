@@ -109,7 +109,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
         '/login': (context) => LoginPage(),
         '/': (context) => HomePage(),
         '/cart': (context) => new Container(),
-        '/customers' : (context) => Customer(),
+        '/customers' : (context) => customer(),
 //        '/addCustomer': (context) => AddCustomer(),
         '/orders' : (context) => Orders(),
         '/requestStocks' : (context) => RequestStocks(),

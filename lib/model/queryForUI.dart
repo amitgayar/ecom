@@ -170,17 +170,17 @@ List<Map<String, dynamic>> mapQuery(List<Map<String, dynamic>> query) {
   return mapList;
 }
 
-void  _getCustomersG(manageCustomersModel model) async{
-  var customerList = await model.queryCustomerInDatabase('all', '');
-  model.setCustomerListData(customerList);
-
-}
-
-List<Map<String, dynamic>> getCustomersG(manageCustomersModel model){
-  _getCustomersG(model);
-  List<Map<String, dynamic>> customerList;
-  customerList = model.customersInDatabaseToDisplay;
-  print('gayar in qUI\n\n' + customerList.toString());
-  return customerList;
-}
+//void  _getCustomersG(manageCustomersModel model) async{
+//  var customerList = await model.queryCustomerInDatabase('all', '');
+//  model.setCustomerListData(customerList);
+//
+//}
+//
+//List<Map<String, dynamic>> getCustomersG(manageCustomersModel model){
+//  _getCustomersG(model);
+//  List<Map<String, dynamic>> customerList;
+//  customerList = model.customersInDatabaseToDisplay;
+//  print('gayar in qUI\n\n' + customerList.toString());
+//  return customerList;
+//}
 

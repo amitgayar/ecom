@@ -15,23 +15,8 @@ import '../services/addDataToTable.dart';
 final dbHelper = DatabaseHelper.instance;
 class manageCustomersModel extends Model {
 
-
-//  ----------------------Gayar------------------------------
-
-  void setCustomerListData(List<Map<String, dynamic>> customerList){
-    tempCustomersInDatabaseToDisplay = customerList;
-    print('[from File : manageCustomers.dart] Number of Customers in DB ........ = .........' + tempCustomersInDatabaseToDisplay.length.toString());
-    notifyListeners();
-  }
-  List<Map<String, dynamic>> getCustomers(){
-    return tempCustomersInDatabaseToDisplay;
-
-  }
-//  -----------------------Gayar-----------------------------
-
-
-  List<Map<String, dynamic>> get customersInDatabaseToDisplay => tempCustomersInDatabaseToDisplay;
-  List<Map<String, dynamic>> tempCustomersInDatabaseToDisplay;
+  List<Map> get customersInDatabaseToDisplay => tempCustomersInDatabaseToDisplay;
+  List<Map> tempCustomersInDatabaseToDisplay = [];
   String get prefillField => tempPrefillFieldType;
   String tempPrefillFieldType;
   Map tempselectedCustomer = {};
@@ -53,7 +38,7 @@ class manageCustomersModel extends Model {
 
 
   //Code to Search customer in Database Starts
-  Future<List<Map<String, dynamic>>> queryCustomerInDatabase (String type /*all, credit*/, String searchString) async {
+  queryCustomerInDatabase (String type /*all, credit*/, String searchString) async {
     print("Entered into queryCustomerInDatabase");
     tempCustomersInDatabaseToDisplay = [];
     List<Map<String, dynamic>> customerList = [];
@@ -62,7 +47,7 @@ class manageCustomersModel extends Model {
 
     if (type == "credit") {
       if (searchString.length < 3) {
-        String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.credit_balance} != '0' AND ${DatabaseHelper.credit_balance} != '0.0' ORDER BY ${DatabaseHelper.name}";
+        String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} ORDER BY ${DatabaseHelper.name}";
         customerList = await dbHelper.raw_query(searchQueryPhoneNumber);
         tempPrefillFieldType = "";
       }
@@ -85,9 +70,9 @@ class manageCustomersModel extends Model {
     else {
 
       if (searchString.length < 3) {
-        customerList = await dbHelper.queryAllRows(DatabaseHelper.customerTable);
+        String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} ORDER BY ${DatabaseHelper.name}";
+        customerList = await dbHelper.raw_query(searchQueryPhoneNumber);
         tempPrefillFieldType = "";
-        return customerList;
       }
       else if (searchString.length >= 3) {
         if (_isNumeric(searchString)) {
@@ -111,7 +96,7 @@ class manageCustomersModel extends Model {
 
     if (customerList.length > 0) {
       customerList.forEach((item) {
-        Map<String, dynamic> tempCustomer = {};
+        Map tempCustomer = {};
         item.forEach((key, value) {
           tempCustomer[key.toString()] = value.toString();
         });
@@ -131,21 +116,38 @@ class manageCustomersModel extends Model {
   //Code to selectCustomer in Database Starts
   Future<String> selectCustomer (int id, String source /* "cart" or "customer_section"*/) async {
 
-    tempselectedCustomer = tempCustomersInDatabaseToDisplay.firstWhere((p) => p['id'] == id);
-    notifyListeners();
-    if (source == "cart") {
-      return "add_customer_to_cart";
-    }
-    else {
 
-      await getOrdersFromDatabase(tempselectedCustomer['id'], "credit_history");
 
-      return "display_customer_details";
+    if (id == 0){
+      tempselectedCustomer = {};
+      notifyListeners();
+      print('customer removed');
+      return 'customer removed';
     }
+    else{
+      print(("\n\n tempCustomersInDatabaseToDisplay = $tempCustomersInDatabaseToDisplay"));
+      tempselectedCustomer = tempCustomersInDatabaseToDisplay.firstWhere((p) => p['id'] == id.toString());
+      notifyListeners();
+      print(("\n\n tempselectedCustomer = $tempselectedCustomer"));
+
+      if (source == "cart") {
+        return "add_customer_to_cart";
+      }
+      else {
+
+        await getOrdersFromDatabase(tempselectedCustomer['id'], "credit_history");
+
+        return "display_customer_details";
+      }
+
+    }
+
 
 
 
   }
+  //Code to selectCustomer in Database Ends
+
   //Code to selectCustomer in Database Ends
 
   //Code to calculateCredit in Database Starts
@@ -184,7 +186,7 @@ class manageCustomersModel extends Model {
     tempOrdersInDatabaseToDisplay = [];
     List<Map> retrievedOrders = [];
     if (type == "customer_credit_history") {
-      String searchingOrderHistory = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.amount FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' AND ${DatabaseHelper.ordersTable}.${DatabaseHelper.payment_method} = 'credit' ORDER BY ${DatabaseHelper.updated_at} DESC";
+      String searchingOrderHistory = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.* FROM ${DatabaseHelper.customerCreditTable} LEFT OUTER JOIN ${DatabaseHelper.ordersTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.customer_id} = '$id' ORDER BY ${DatabaseHelper.updated_at} DESC";
       retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
       print("\n\nQuery = $searchingOrderHistory");
     }
@@ -222,7 +224,7 @@ class manageCustomersModel extends Model {
   // Code to getCustomerById in Database Ends
 
   // Code to addNewCustomer in Database Starts
-  void addNewCustomer (String phoneNumber, String name, String source) async {
+  Future<Map> addNewCustomer (String phoneNumber, String name, String source) async {
 
     Map<String, dynamic> row = {
       DatabaseHelper.name : name,
@@ -238,14 +240,34 @@ class manageCustomersModel extends Model {
 
     };
 
+    print("\n\nCustomer to add = $row\n\n");
     final return_id = await dbHelper.insert(DatabaseHelper.customerTable, row);
 
-    selectCustomer(return_id, source);
+    print("\n\nCustomer return_id = $return_id\n\n");
+    List<Map> newCustomer = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.id} = '$return_id'");
+    print("\n\nCustomer newCustomer = $newCustomer\n\n");
+    notifyListeners();
+    return newCustomer[0];
+  }
+// Code to addNewCustomer in Database Ends
+
+// Code to addNewCustomer in Database Ends
+
+
+//  ----------------------Gayar------------------------------
+
+  void setCustomerListData(List<Map<String, dynamic>> customerList){
+    tempCustomersInDatabaseToDisplay = customerList;
+    print('[from File : manageCustomers.dart] Number of Customers in DB ........ = .........' + tempCustomersInDatabaseToDisplay.length.toString());
     notifyListeners();
   }
-  // Code to addNewCustomer in Database Ends
-}
+  List<Map<String, dynamic>> getCustomers(){
+    return tempCustomersInDatabaseToDisplay;
 
+  }
+//  -----------------------Gayar-----------------------------
+
+}
 
 
 

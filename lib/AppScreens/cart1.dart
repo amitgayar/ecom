@@ -4,12 +4,13 @@ import 'package:scoped_model/scoped_model.dart';
 import '../model/app_state_model.dart';
 import 'CartDescendant.dart';
 import 'package:intl/intl.dart';
+import '../model/manageCustomers.dart';
 
 
 //----------------Model initialization for cart 1
 
 NewAppStateModel cartModel1 = NewAppStateModel();
-
+manageCustomersModel customerModelCart1 = new manageCustomersModel();
 //---------------- CLASS for TabBar Heading or Cart Status
 
 
@@ -82,7 +83,7 @@ class _Cart1 extends State<Cart1> {
 
         child: ScopedModel<NewAppStateModel>(
           model: cartModel1,
-          child: CartDescendant(),
+          child: CartDescendant(customerModel: customerModelCart1),
           ),
         ),
       );

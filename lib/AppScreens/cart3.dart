@@ -4,11 +4,14 @@ import 'package:scoped_model/scoped_model.dart';
 import '../model/app_state_model.dart';
 import 'CartDescendant.dart';
 import 'package:intl/intl.dart';
+import '../model/manageCustomers.dart';
+
 
 
 //----------------Model initialization for cart 3
 
 NewAppStateModel cartModel3 = NewAppStateModel();
+manageCustomersModel customerModelCart3 = new manageCustomersModel();
 
 
 
@@ -88,7 +91,7 @@ class _Cart3 extends State<Cart3> {
 
         child: ScopedModel<NewAppStateModel>(
           model: cartModel3,
-          child: CartDescendant(),
+          child: CartDescendant(customerModel: customerModelCart3),
           ),
         ),
       );
