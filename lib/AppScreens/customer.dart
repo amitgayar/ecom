@@ -4,6 +4,8 @@ import 'package:scoped_model/scoped_model.dart';
 import '../model/manageCustomers.dart';
 import 'customerDescendent.dart';
 import '../model/app_state_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 NewAppStateModel customerModel = new NewAppStateModel();
 
 //----------------Model initialization for cart 1
@@ -64,6 +66,8 @@ List<Map<String, dynamic>> dummyCustomersList = [
     "avg_discount_per_order": 5
   },
 ];
+
+
 
 
 //--------------------- CLASS to exploit ScopedModel for the CART
@@ -228,7 +232,9 @@ String selectedType = 'customer';
 String selectedHistory = 'credit';
 String selectedCustomer = '';
 int selectedCustomerID = 0 ;
-bool isCostumerSelected = false;
+bool isCustomerSelected = false;
+bool payButtonClicked = false;
+bool successMessage = false;
 
  void pageState({String type:'',String customer :'', int customerID}){
   selectedType = type;
@@ -271,7 +277,7 @@ bool isCostumerSelected = false;
 //                     await model.selectCustomer(id, "cart");
 //                     var selectedCustomer = await model.selectedCustomer;
 //                     pageState(customer: 'amit');
-                     isCostumerSelected = true;
+                     isCustomerSelected = true;
 
                    });
 
@@ -369,22 +375,300 @@ color: Colors.white,
         ),
       )
 ),
-              isCostumerSelected
+              isCustomerSelected
                   ?
               Container(
+                alignment: Alignment.center,
                 height: 5000,
                 width: 5000,
                 color: Colors.white,
-                child: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                                  onPressed: (){
+                child: ListView(
+          children: <Widget>[
+            Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: (){
+                setState(() {
+                  isCustomerSelected = false;
+                });
+              },
+            ),
+            Text('Customer ABC'),
+          ],
+          ),
+            Divider(thickness: 2,color: Colors.blueGrey,),
+            Row(
+              children: <Widget>[
+                Text('Phone Number: '),
+                Spacer(),
+                Text('9989099898'),
+
+              ],
+            ),
+            Row(children: <Widget>[
+              Text('Pending Credits: Rs. 232'),
+              Spacer(),
+              RaisedButton(
+                child: Text('PAY'),
+                color: Colors.green,
+                onPressed: (){
                   setState(() {
-                    isCostumerSelected = false;
+                    payButtonClicked = true;
                   });
-                }
-                ),
+                },
               )
-                  :new Container()
+
+            ],
+                ),
+            Divider(thickness: 1, height: 5,color: Colors.blueGrey,),
+            Row(
+              children: <Widget>[
+                Text('Total Spent: rs.234'),
+                Spacer(),
+                Text('Avg Spent : Rs .34'),
+
+              ],
+              ),
+            Row(
+              children: <Widget>[
+                Text('Total Discount : Rs 34 '),
+                Spacer(),
+                Text('Discount/Order : Rs 56'),
+
+              ],
+              ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+//                  color: Color(0xff429585),
+child: FlatButton(
+    child: Text('Credit History'),
+    color: selectedHistory == 'credit'
+        ?
+    Colors.greenAccent
+        :
+    Colors.white,
+    onPressed:(){
+
+      setState(() {
+        selectedHistory = 'credit';
+      });
+
+    }
+    ),
+),
+                  flex: 1,
+                  ),
+                Expanded(
+                  child: FlatButton(
+                      child: Text('Order History'),
+                      color: selectedHistory == 'order'
+                          ?
+                      Colors.greenAccent
+                          :
+                      Colors.white,
+                      onPressed:(){
+                        setState(() {
+                          selectedHistory = 'order';
+                        });
+
+                      }
+                      ),
+                  flex: 1,
+                  ),
+              ],
+              ),
+            Row(
+              children: <Widget>[
+                selectedHistory == 'credit'?
+                Text('Total Orders On Credit : 345??) or Totol Orders'):
+                Text('Totol Orders : 56'),
+
+              ],
+            ),
+            Divider(thickness: 2, color: Colors.blueGrey, height: 10,),
+            ListTile(
+              title: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text('Invoice: w9u93u9'),
+                      Spacer(),
+                      Text('Date???'),
+
+                    ],
+                    ),
+                  Row(
+                    children: <Widget>[
+                      Text('Total Amount : Rs 34 '),
+                      Spacer(),
+                      Text('3 Items'),
+
+                    ],
+                    ),
+                  Row(
+                    children: <Widget>[
+                      Text('CREDIT : rs  789'),
+                      Spacer(),
+                      Text('Total Discount :  Rs 345'),
+
+                    ],
+                    ),
+                  Row(
+                    children: <Widget>[
+                      Text('Total Paid : rs 78 '),
+                      Spacer(),
+                      RaisedButton(
+                        child: Text('CASH'),
+                      ),
+                      RaisedButton(
+                        child: Text('GST'),
+                        ),
+
+
+                    ],
+                    ),
+
+                ],
+              ),
+            )
+          ],
+          )
+
+                )
+
+                  :new Container(),
+            payButtonClicked?
+            Container(
+                alignment: Alignment.center,
+                height: 5000,
+                width: 5000,
+                color: Colors.white,
+                child: ListView(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: (){
+                            setState(() {
+                              payButtonClicked = false;
+                            });
+                          },
+                          ),
+                        Text('Customer ABC pay'),
+                      ],
+                      ),
+                    Divider(thickness: 2,color: Colors.blueGrey,),
+                    Row(
+                      children: <Widget>[
+                        Text('Phone Number: '),
+                        Spacer(),
+                        Text('9989099898'),
+
+                      ],
+                      ),
+                    Row(children: <Widget>[
+                      Text('Pending Credits: Rs. 232'),
+
+
+                    ],
+                        ),
+                    Divider(thickness: 1, height: 5,color: Colors.blueGrey,),
+                    Row(
+                      children: <Widget>[
+                        Text('Paid Amount: rs.234'),
+
+
+                      ],
+                      ),
+                    Row(
+                      children: <Widget>[
+                        Text('Payment Mode'),
+                      ],
+                      ),
+                    Row(
+                      children: <Widget>[
+                      RaisedButton(
+                        child: Text('PAYTM'),
+                      ),
+                        RaisedButton(
+                          child: Text('CASH'),
+                          ),
+                        RaisedButton(
+                          child: Text('BHIM UPI'),
+                          ),
+                        RaisedButton(
+                          child: Text('OTHER'),
+                          ),
+                      ],
+                      ),
+                    Row(
+                      children: <Widget>[
+
+                        Text('Remaining Credits : rs 78'),
+
+                      ],
+                      ),
+                    RaisedButton(
+                      child: Text('Pay Credits'),
+                      onPressed: (){
+                        successMessage = true;
+                      },
+                    )
+                  ],
+                  )
+
+                )
+                :
+
+              successMessage?
+              Align(
+                child: Stack(
+                  children: <Widget>[
+                    Opacity(
+                        opacity: .8,
+                        child: InkWell(
+                          onTap: (){
+                            setState(() {
+                              successMessage = false;
+                            });
+                          },
+                          child: Container(
+                            height: 5000,
+                            width: 3000,
+                            color: Colors.black,
+                            ),
+                          )
+                        ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Card(
+                        child: Container(
+                          alignment: Alignment.bottomCenter,
+                          padding: EdgeInsets.all(15),
+                          height: 170,
+                          width: 1000,
+                          child: Column(children: <Widget>[
+                            Icon(Icons.attach_money),
+                            Spacer(),
+                            Text('Successfully Deducted Rs ?? from Credit !'),
+                            Spacer(),
+                            Text('Remaining Credit : Rs. ??',
+                                 style: TextStyle(color: Colors.red),)
+                          ],),
+                          ),
+                        ),
+
+                      )
+                  ],
+                  ),
+                alignment: Alignment.center,
+                )
+                  :
+              new Container(),
 
             ],
           );

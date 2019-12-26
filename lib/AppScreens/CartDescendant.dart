@@ -119,12 +119,21 @@ class _CartDescendant extends State<CartDescendant> {
                     ),
 
                   Spacer(),
+                  (model.selectedCustomer != null && model.selectedCustomer['id'] != null)?
+                  SizedBox(
+                    width: 20,
+                  )
+                      :
                   IconButton(
                     icon: Icon(Icons.person_add
                                ),
-                    onPressed: () {
+                    onPressed: () async {
+                      await model.queryCustomerInDatabase('all', '');
+                      print('lolo ${model.selectedCustomer}');
+                      model.setSelectCustomerForCartFlag(true);
+
+
                       // Select customer from bottom bar - Add function to load all customers
-                      Navigator.pushNamed(context, '/customer');
                     },
                     ),
                 ],
