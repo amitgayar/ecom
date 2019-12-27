@@ -116,38 +116,21 @@ class manageCustomersModel extends Model {
   //Code to selectCustomer in Database Starts
   Future<String> selectCustomer (int id, String source /* "cart" or "customer_section"*/) async {
 
-
-
-    if (id == 0){
-      tempselectedCustomer = {};
-      notifyListeners();
-      print('customer removed');
-      return 'customer removed';
+    tempselectedCustomer = tempCustomersInDatabaseToDisplay.firstWhere((p) => p['id'] == id.toString());
+    notifyListeners();
+    if (source == "cart") {
+      return "add_customer_to_cart";
     }
-    else{
-      print(("\n\n tempCustomersInDatabaseToDisplay = $tempCustomersInDatabaseToDisplay"));
-      tempselectedCustomer = tempCustomersInDatabaseToDisplay.firstWhere((p) => p['id'] == id.toString());
-      notifyListeners();
-      print(("\n\n tempselectedCustomer = $tempselectedCustomer"));
+    else {
 
-      if (source == "cart") {
-        return "add_customer_to_cart";
-      }
-      else {
+      await getOrdersFromDatabase(int.parse(tempselectedCustomer['id'].toString()), "customer_credit_history");
 
-        await getOrdersFromDatabase(tempselectedCustomer['id'], "credit_history");
-
-        return "display_customer_details";
-      }
-
+      return "display_customer_details";
     }
-
 
 
 
   }
-  //Code to selectCustomer in Database Ends
-
   //Code to selectCustomer in Database Ends
 
   //Code to calculateCredit in Database Starts
@@ -249,25 +232,9 @@ class manageCustomersModel extends Model {
     notifyListeners();
     return newCustomer[0];
   }
-// Code to addNewCustomer in Database Ends
-
-// Code to addNewCustomer in Database Ends
-
-
-//  ----------------------Gayar------------------------------
-
-  void setCustomerListData(List<Map<String, dynamic>> customerList){
-    tempCustomersInDatabaseToDisplay = customerList;
-    print('[from File : manageCustomers.dart] Number of Customers in DB ........ = .........' + tempCustomersInDatabaseToDisplay.length.toString());
-    notifyListeners();
-  }
-  List<Map<String, dynamic>> getCustomers(){
-    return tempCustomersInDatabaseToDisplay;
-
-  }
-//  -----------------------Gayar-----------------------------
-
+  // Code to addNewCustomer in Database Ends
 }
+
 
 
 

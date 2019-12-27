@@ -127,11 +127,32 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.9"
+  datetime_picker_formfield:
+    dependency: "direct main"
+    description:
+      name: datetime_picker_formfield
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
+  esc_pos_printer:
+    dependency: "direct main"
+    description:
+      name: esc_pos_printer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.0"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_datetime_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_datetime_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -156,6 +177,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.19"
+  gbk_codec:
+    dependency: transitive
+    description:
+      name: gbk_codec
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   glob:
     dependency: transitive
     description:
@@ -163,6 +191,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  hex:
+    dependency: transitive
+    description:
+      name: hex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   html:
     dependency: transitive
     description:
@@ -296,6 +331,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+  ping_discover_network:
+    dependency: "direct main"
+    description:
+      name: ping_discover_network
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0+1"
   platform:
     dependency: transitive
     description:
@@ -455,6 +497,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7+13"
+  wifi:
+    dependency: "direct main"
+    description:
+      name: wifi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
   xml:
     dependency: transitive
     description:

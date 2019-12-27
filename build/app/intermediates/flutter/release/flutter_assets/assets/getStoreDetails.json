@@ -8,5 +8,5 @@
   "store_registered_name": "Store 1 Pvt. Ltd.",
   "store_cin_no": "232f2132",
   "authentication_token" : "jfkhd273uygwhjbqw",
-  "is_gst_mandatory" : true
+  "is_gst_mandatory" : false
 }

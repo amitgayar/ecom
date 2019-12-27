@@ -110,10 +110,28 @@
       "languageVersion": "2.3"
     },
     {
+      "name": "datetime_picker_formfield",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/datetime_picker_formfield-0.4.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "esc_pos_printer",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/esc_pos_printer-1.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/admin/flutter/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "2.2"
+    },
+    {
+      "name": "flutter_datetime_picker",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.2.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "flutter_test",
@@ -140,10 +158,22 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "gbk_codec",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/gbk_codec-0.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "glob",
       "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/glob-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "hex",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/hex-0.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "1.0"
     },
     {
       "name": "html",
@@ -258,6 +288,12 @@
       "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.4"
+    },
+    {
+      "name": "ping_discover_network",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/ping_discover_network-0.2.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "platform",
@@ -398,6 +434,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "wifi",
+      "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/wifi-0.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "xml",
       "rootUri": "file:///Users/admin/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/xml-3.5.0",
       "packageUri": "lib/",
@@ -416,7 +458,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2019-12-24T09:21:01.952992Z",
+  "generated": "2019-12-26T22:14:35.071778Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

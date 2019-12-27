@@ -274,7 +274,8 @@ Future getStoreDetailsAPI(processOTP newPost) async {
     return otpVerificationApiResponse;
   }
   else {
-    //print("otpVerificationApiResponse body in login OTP file ${otpVerificationApiResponse.body}");
+    print("otpVerificationApiResponse body in login OTP file ${otpVerificationApiResponse.body}");
+    print("otpVerificationApiResponseStatus body in login OTP file ${otpVerificationApiResponse.statusCode}");
 
     //print("dqewfes ${syncGetFrequencyResponse.statusCode}");
 
@@ -284,6 +285,24 @@ Future getStoreDetailsAPI(processOTP newPost) async {
       if(otpVerificationApiResponse.statusCode == 200){
         await insert_syncData("GET", true, "Store Details Received Successfylly");
         await is_get_frequency_sync_successful.setBool('cronStoreDetailsStatus', true);
+        String body;
+
+        body =  otpVerificationApiResponse.body;
+        body = await rootBundle.loadString('assets/getStoreDetails.json');
+        final jsonResponse = json.decode(body);
+
+
+
+        SharedPreferences cronFrequency = await SharedPreferences.getInstance();
+
+        jsonResponse.forEach((key, value) async {
+
+          print("\n\nStore Details json key: $key : $value\n");
+          await cronFrequency.setString(key.toString(), value.toString());
+          print("\n\nShared Preferences: $key : ${cronFrequency.getString("authentication_token")}");
+
+
+        });
 
       }
       else if(otpVerificationApiResponse.statusCode == 401)
@@ -303,25 +322,11 @@ Future getStoreDetailsAPI(processOTP newPost) async {
 
     //*****************Replace next line by syncGetResponse.body when API is ready**********************
 
-    String body;
 
-    body =  otpVerificationApiResponse.body;
-    body =  await rootBundle.loadString('assets/getStoreDetails.json');
+    //body =  await rootBundle.loadString('assets/getStoreDetails.json');
 
     //print("print response $body");
-    final jsonResponse = json.decode(body);
 
-
-    SharedPreferences cronFrequency = await SharedPreferences.getInstance();
-
-    jsonResponse.forEach((key, value) async {
-
-      print("\n\nStore Details json key: $key : $value\n");
-      await cronFrequency.setString(key.toString(), value.toString());
-      print("\n\nShared Preferences: $key : ${cronFrequency.getString("authentication_token")}");
-
-
-    });
     return otpVerificationApiResponse;
   }
 

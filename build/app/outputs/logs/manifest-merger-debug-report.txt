@@ -9,31 +9,37 @@ MERGED from [:fluttertoast] /Users/admin/Downloads/ntw_projects/flutter/QueueBus
 MERGED from [:shared_preferences] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/shared_preferences/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences_web] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/shared_preferences_web/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences_macos] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/shared_preferences_macos/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
+MERGED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-13:12
 MERGED from [:sqflite] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/sqflite/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-10:12
 MERGED from [:path_provider] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.fragment:fragment:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0-rc01.aar/e90c3b939348c3f9e29427d3c58da10c/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0-rc01.aar/48d2b48e50e4952f05e2d9440f02acf7/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0-rc01.aar/b353a6b97058f8ff28eac75c0a3e739a/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.loader:loader:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/loader-1.0.0-rc01.aar/dec65caf0f1a4dcf29639675d7d6c932/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.viewpager:viewpager:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0-rc01.aar/5f092b44a6400fb2a4631ce1290cda20/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0-rc01.aar/14c02a062f3cbca3918832c63498f352/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.drawerlayout:drawerlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0-rc01.aar/6ecd19e5ac0b11307849fafee08204fb/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0-rc01.aar/b697b8d21a73354f7c211f45e983218b/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.customview:customview:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/customview-1.0.0-rc01.aar/4106842b3048ac9d326e0488b558db8b/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0-rc01.aar/27ff58286b112f744e15f38b3f9a5e20/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0-rc01.aar/4ad340621e34f707aa33ba30b8580e73/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.core:core:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0-rc01.aar/614e1e1f44e04ffc53d4be0bf09e19ec/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0-rc01.aar/812bac085cf8907324f1f430488bfd2a/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.arch.core:core-runtime:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0-rc01.aar/0bd44e5024266ee34de748c1ec8c797b/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0-rc01.aar/57d86ed6134473bba952b82f13546d01/AndroidManifest.xml:17:1-25:12
-MERGED from [androidx.interpolator:interpolator:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0-rc01.aar/728e648f692b57524d6fed99b949d770/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0-rc01.aar/7003f531d35cab6ef6f36cc00fdd75e0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.documentfile:documentfile:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0-rc01.aar/4ba1eff1d5d55e63a182434297ea8a71/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0-rc01.aar/011c949c2c6dacf5a47b0edef7c6c4f1/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.print:print:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/print-1.0.0-rc01.aar/0199367cdb535961f9d3d18f750959d6/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0-rc01.aar/08c51d7dcc925319b559a02d502d53b3/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.1.0-alpha02] /Users/admin/.gradle/caches/transforms-1/files-1.1/fragment-1.1.0-alpha02.aar/762fddc907b50074bc74ced4b9bc5b62/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/d981fe2f01bcd9991252b6d805a41e79/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/admin/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.1.aar/c8e7cf408ca3943ca454c7664651893e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/b0ea332e87353b65327ee648f0af133e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/e517892a10747308b33df4c76ffb33cb/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/0e6581bc24a4d8f6a189cdc86f6f5fc0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/38d941cb4b66a0478f61ee6c51ebafe9/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/4d46faf9d837a627f85eb668beff4a4a/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0-alpha02] /Users/admin/.gradle/caches/transforms-1/files-1.1/activity-1.0.0-alpha02.aar/83a6bfb896d39f258e090a84bf344889/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/0bf0d0ed8abf7ce32bb741a5c325582d/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/2b92cb65b2fa9f40173c116e5c51eb70/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/ab587721e712ea1bda32a53163761037/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/97b8587d2a67688d97dd4c460e8ea351/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/cb3dc7fd539baf1293cf6b0817b77502/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.1.0-alpha01.aar/e5f58b1799faf09036e9f043c7d542b8/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/87024c6ab6a6ae1c2a57a4da7e998f8f/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/e5eda585811b8c4e24e09ed115ccf2e2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/954f6e23a2d458215f953ee6b1335bc2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.1.0-alpha01.aar/b4f4bd85b55ea99032ab7e41e7129779/AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/a26a4c2e7721ce16210427ef5e767823/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/08318c25fa3ddba53ab59356ae37d3eb/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/96ef55a7c63454511d85aa6a605051ec/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/3cc938a981bb3f611f1f160d60cd4055/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/88452f14cd0c3303a8d9e2c85d9b6368/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/416dac47a4d8582fd01ce7c4d4351d32/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/df6f702229e4e0de32d6541d3156d35d/AndroidManifest.xml:17:1-22:12
 INJECTED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 INJECTED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 INJECTED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/debug/AndroidManifest.xml:1:1-7:12
@@ -53,12 +59,12 @@ INJECTED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_st
 		ADDED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/main/AndroidManifest.xml:1:11-69
 application
 ADDED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/main/AndroidManifest.xml:9:5-32:19
-MERGED from [androidx.core:core:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/AndroidManifest.xml:22:5-89
-MERGED from [androidx.core:core:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/AndroidManifest.xml:22:5-89
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0-rc01.aar/57d86ed6134473bba952b82f13546d01/AndroidManifest.xml:22:5-23:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0-rc01.aar/57d86ed6134473bba952b82f13546d01/AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.core:core:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.1.0-alpha01.aar/e5f58b1799faf09036e9f043c7d542b8/AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.1.0-alpha01.aar/e5f58b1799faf09036e9f043c7d542b8/AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.1.0-alpha01.aar/b4f4bd85b55ea99032ab7e41e7129779/AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.1.0-alpha01.aar/b4f4bd85b55ea99032ab7e41e7129779/AndroidManifest.xml:22:5-23:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/AndroidManifest.xml:22:18-86
+		ADDED from [androidx.core:core:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.1.0-alpha01.aar/e5f58b1799faf09036e9f043c7d542b8/AndroidManifest.xml:22:18-86
 	android:label
 		ADDED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/main/AndroidManifest.xml:11:9-38
 	android:icon
@@ -107,56 +113,68 @@ MERGED from [:shared_preferences_web] /Users/admin/Downloads/ntw_projects/flutte
 MERGED from [:shared_preferences_web] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/shared_preferences_web/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences_macos] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/shared_preferences_macos/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences_macos] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/shared_preferences_macos/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/sqflite/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/sqflite/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
-MERGED from [androidx.fragment:fragment:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0-rc01.aar/e90c3b939348c3f9e29427d3c58da10c/AndroidManifest.xml:20:5-44
-MERGED from [androidx.fragment:fragment:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0-rc01.aar/e90c3b939348c3f9e29427d3c58da10c/AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0-rc01.aar/48d2b48e50e4952f05e2d9440f02acf7/AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0-rc01.aar/48d2b48e50e4952f05e2d9440f02acf7/AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0-rc01.aar/b353a6b97058f8ff28eac75c0a3e739a/AndroidManifest.xml:20:5-44
-MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0-rc01.aar/b353a6b97058f8ff28eac75c0a3e739a/AndroidManifest.xml:20:5-44
-MERGED from [androidx.loader:loader:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/loader-1.0.0-rc01.aar/dec65caf0f1a4dcf29639675d7d6c932/AndroidManifest.xml:20:5-44
-MERGED from [androidx.loader:loader:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/loader-1.0.0-rc01.aar/dec65caf0f1a4dcf29639675d7d6c932/AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager:viewpager:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0-rc01.aar/5f092b44a6400fb2a4631ce1290cda20/AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager:viewpager:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0-rc01.aar/5f092b44a6400fb2a4631ce1290cda20/AndroidManifest.xml:20:5-44
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0-rc01.aar/14c02a062f3cbca3918832c63498f352/AndroidManifest.xml:20:5-44
-MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0-rc01.aar/14c02a062f3cbca3918832c63498f352/AndroidManifest.xml:20:5-44
-MERGED from [androidx.drawerlayout:drawerlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0-rc01.aar/6ecd19e5ac0b11307849fafee08204fb/AndroidManifest.xml:20:5-44
-MERGED from [androidx.drawerlayout:drawerlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0-rc01.aar/6ecd19e5ac0b11307849fafee08204fb/AndroidManifest.xml:20:5-44
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0-rc01.aar/b697b8d21a73354f7c211f45e983218b/AndroidManifest.xml:20:5-44
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0-rc01.aar/b697b8d21a73354f7c211f45e983218b/AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/customview-1.0.0-rc01.aar/4106842b3048ac9d326e0488b558db8b/AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/customview-1.0.0-rc01.aar/4106842b3048ac9d326e0488b558db8b/AndroidManifest.xml:20:5-44
-MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0-rc01.aar/27ff58286b112f744e15f38b3f9a5e20/AndroidManifest.xml:20:5-44
-MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0-rc01.aar/27ff58286b112f744e15f38b3f9a5e20/AndroidManifest.xml:20:5-44
-MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0-rc01.aar/4ad340621e34f707aa33ba30b8580e73/AndroidManifest.xml:20:5-44
-MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0-rc01.aar/4ad340621e34f707aa33ba30b8580e73/AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.0.0-rc01.aar/20c555846ead54199af986233cde75c3/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0-rc01.aar/614e1e1f44e04ffc53d4be0bf09e19ec/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0-rc01.aar/614e1e1f44e04ffc53d4be0bf09e19ec/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0-rc01.aar/812bac085cf8907324f1f430488bfd2a/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0-rc01.aar/812bac085cf8907324f1f430488bfd2a/AndroidManifest.xml:20:5-44
-MERGED from [androidx.arch.core:core-runtime:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0-rc01.aar/0bd44e5024266ee34de748c1ec8c797b/AndroidManifest.xml:20:5-44
-MERGED from [androidx.arch.core:core-runtime:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0-rc01.aar/0bd44e5024266ee34de748c1ec8c797b/AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0-rc01.aar/57d86ed6134473bba952b82f13546d01/AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0-rc01.aar/57d86ed6134473bba952b82f13546d01/AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0-rc01.aar/728e648f692b57524d6fed99b949d770/AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0-rc01.aar/728e648f692b57524d6fed99b949d770/AndroidManifest.xml:20:5-44
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0-rc01.aar/7003f531d35cab6ef6f36cc00fdd75e0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0-rc01.aar/7003f531d35cab6ef6f36cc00fdd75e0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.documentfile:documentfile:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0-rc01.aar/4ba1eff1d5d55e63a182434297ea8a71/AndroidManifest.xml:20:5-44
-MERGED from [androidx.documentfile:documentfile:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0-rc01.aar/4ba1eff1d5d55e63a182434297ea8a71/AndroidManifest.xml:20:5-44
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0-rc01.aar/011c949c2c6dacf5a47b0edef7c6c4f1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0-rc01.aar/011c949c2c6dacf5a47b0edef7c6c4f1/AndroidManifest.xml:20:5-44
-MERGED from [androidx.print:print:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/print-1.0.0-rc01.aar/0199367cdb535961f9d3d18f750959d6/AndroidManifest.xml:20:5-44
-MERGED from [androidx.print:print:1.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/print-1.0.0-rc01.aar/0199367cdb535961f9d3d18f750959d6/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0-rc01.aar/08c51d7dcc925319b559a02d502d53b3/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0-rc01.aar/08c51d7dcc925319b559a02d502d53b3/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0-alpha02] /Users/admin/.gradle/caches/transforms-1/files-1.1/fragment-1.1.0-alpha02.aar/762fddc907b50074bc74ced4b9bc5b62/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0-alpha02] /Users/admin/.gradle/caches/transforms-1/files-1.1/fragment-1.1.0-alpha02.aar/762fddc907b50074bc74ced4b9bc5b62/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/d981fe2f01bcd9991252b6d805a41e79/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/d981fe2f01bcd9991252b6d805a41e79/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/admin/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.1.aar/c8e7cf408ca3943ca454c7664651893e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/admin/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.1.aar/c8e7cf408ca3943ca454c7664651893e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/b0ea332e87353b65327ee648f0af133e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/b0ea332e87353b65327ee648f0af133e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/e517892a10747308b33df4c76ffb33cb/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/e517892a10747308b33df4c76ffb33cb/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/0e6581bc24a4d8f6a189cdc86f6f5fc0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/0e6581bc24a4d8f6a189cdc86f6f5fc0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/38d941cb4b66a0478f61ee6c51ebafe9/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/38d941cb4b66a0478f61ee6c51ebafe9/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/4d46faf9d837a627f85eb668beff4a4a/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/4d46faf9d837a627f85eb668beff4a4a/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0-alpha02] /Users/admin/.gradle/caches/transforms-1/files-1.1/activity-1.0.0-alpha02.aar/83a6bfb896d39f258e090a84bf344889/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0-alpha02] /Users/admin/.gradle/caches/transforms-1/files-1.1/activity-1.0.0-alpha02.aar/83a6bfb896d39f258e090a84bf344889/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/0bf0d0ed8abf7ce32bb741a5c325582d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/0bf0d0ed8abf7ce32bb741a5c325582d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/2b92cb65b2fa9f40173c116e5c51eb70/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/2b92cb65b2fa9f40173c116e5c51eb70/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/ab587721e712ea1bda32a53163761037/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/ab587721e712ea1bda32a53163761037/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/97b8587d2a67688d97dd4c460e8ea351/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/97b8587d2a67688d97dd4c460e8ea351/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/cb3dc7fd539baf1293cf6b0817b77502/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/cb3dc7fd539baf1293cf6b0817b77502/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.1.0-alpha01.aar/e5f58b1799faf09036e9f043c7d542b8/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-1.1.0-alpha01.aar/e5f58b1799faf09036e9f043c7d542b8/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/87024c6ab6a6ae1c2a57a4da7e998f8f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/87024c6ab6a6ae1c2a57a4da7e998f8f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/e5eda585811b8c4e24e09ed115ccf2e2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/e5eda585811b8c4e24e09ed115ccf2e2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/954f6e23a2d458215f953ee6b1335bc2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/954f6e23a2d458215f953ee6b1335bc2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.1.0-alpha01.aar/b4f4bd85b55ea99032ab7e41e7129779/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-alpha01] /Users/admin/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.1.0-alpha01.aar/b4f4bd85b55ea99032ab7e41e7129779/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/a26a4c2e7721ce16210427ef5e767823/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/a26a4c2e7721ce16210427ef5e767823/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/08318c25fa3ddba53ab59356ae37d3eb/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/08318c25fa3ddba53ab59356ae37d3eb/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/96ef55a7c63454511d85aa6a605051ec/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/96ef55a7c63454511d85aa6a605051ec/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/3cc938a981bb3f611f1f160d60cd4055/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/3cc938a981bb3f611f1f160d60cd4055/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/88452f14cd0c3303a8d9e2c85d9b6368/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/88452f14cd0c3303a8d9e2c85d9b6368/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/416dac47a4d8582fd01ce7c4d4351d32/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/416dac47a4d8582fd01ce7c4d4351d32/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/df6f702229e4e0de32d6541d3156d35d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/df6f702229e4e0de32d6541d3156d35d/AndroidManifest.xml:20:5-44
 INJECTED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/debug/AndroidManifest.xml
 INJECTED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/debug/AndroidManifest.xml
 	android:targetSdkVersion
@@ -169,11 +187,27 @@ uses-permission#android.permission.INTERNET
 ADDED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/debug/AndroidManifest.xml:6:5-66
 	android:name
 		ADDED from /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/android/app/src/debug/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:22-76
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-79
+ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:5-79
+MERGED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-79
+MERGED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-79
 	android:name
-		ADDED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:22-76
+		ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:22-76
 uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:5-76
+ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:9:5-76
+MERGED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:5-76
+MERGED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:5-76
 	android:name
-		ADDED from [:connectivity] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/connectivity/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:22-73
+		ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:9:22-73
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:10:22-76
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:11:5-76
+	android:name
+		ADDED from [:wifi] /Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:11:22-73

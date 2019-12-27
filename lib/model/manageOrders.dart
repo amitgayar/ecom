@@ -80,7 +80,7 @@ class manageOrders extends Model {
     if (type == "customer_credit_history") {
       String searchingOrderHistory = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.amount FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' AND ${DatabaseHelper.ordersTable}.${DatabaseHelper.payment_method} = 'credit' ORDER BY ${DatabaseHelper.updated_at} DESC";
       retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
-      print("\n\nQuery = $searchingOrderHistory");
+      //print("\n\nQuery = $searchingOrderHistory");
     }
     else if (type == "all_orders_of_customer"){
       String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' ORDER BY ${DatabaseHelper.updated_at} DESC";
@@ -96,12 +96,12 @@ class manageOrders extends Model {
       item.forEach((key, value) {
         orderTemp[key.toString()] = value;
       });
-      print("\n\n orderTemp = $orderTemp");
+      //print("\n\n orderTemp = $orderTemp");
       tempOrdersInDatabaseToDisplay.add(orderTemp);
     });
 
-    print("\n\ntempOrdersInDatabaseToDisplay = $tempOrdersInDatabaseToDisplay");
-    print("\n\nfinalOrdersToDisplay = $finalOrdersToDisplay");
+//    print("\n\ntempOrdersInDatabaseToDisplay = $tempOrdersInDatabaseToDisplay");
+//    print("\n\nfinalOrdersToDisplay = $finalOrdersToDisplay");
 
     tempOrderItemsList = [];
     tempSelectedOrder = {};
@@ -119,7 +119,7 @@ class manageOrders extends Model {
     tempPaymentMethodForFilter = paymentMethod;
     tempStatusForFilter = status;
     tempCreditForFilter = isCredit;
-    print("entered into filterorders");
+    print("entered into filterorders : $searchString");
     String finalQuery, query1, query2, query3, query4, query5, query6, query7, query8, query9, query10, query11, query12;
 
     query1 = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount}, "
@@ -228,12 +228,17 @@ class manageOrders extends Model {
       item.forEach((key, value) {
         orderTemp[key.toString()] = value;
       });
-      print("\n\n orderTemp = $orderTemp");
-      tempOrdersInDatabaseToDisplay.add(orderTemp);
+
+      int indexOfRefundedItem = tempOrdersInDatabaseToDisplay.indexWhere((p) => p['id'] == item['id']);
+      //print("\n\n orderTemp = $orderTemp :::: indexOfRefundedItem = $indexOfRefundedItem");
+      if (indexOfRefundedItem < 0) {
+        tempOrdersInDatabaseToDisplay.add(orderTemp);
+      }
+
     });
 
-    print("\n\ntempOrdersInDatabaseToDisplay = $tempOrdersInDatabaseToDisplay");
-    print("\n\nfinalOrdersToDisplay = $finalOrdersToDisplay");
+//    print("\n\ntempOrdersInDatabaseToDisplay = $tempOrdersInDatabaseToDisplay");
+//    print("\n\nfinalOrdersToDisplay = ${finalOrdersToDisplay.length}");
 
     notifyListeners();
 

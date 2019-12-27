@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_tint_switch_track.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_tint_default.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_tint_spinner.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_color_highlight_material.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/color-v23/abc_tint_edittext.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/color-v23/abc_tint_edittext.xml"
+    }
+]

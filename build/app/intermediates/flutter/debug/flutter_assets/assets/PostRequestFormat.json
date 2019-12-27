@@ -166,8 +166,8 @@
       "orderItems_id": 0,
       "refund_qty": 0,
       "refund_id": 3,
-      "created_date": "2019-12-13T14:40:53.348Z",
-      "updated_date": "2019-12-13T14:40:53.348Z",
+      "created_at": "2019-12-13T14:40:53.348Z",
+      "updated_at": "2019-12-13T14:40:53.348Z",
       "refunded_item_refund_amount": 123,
       "order_id": "Invoice Number"
     }
@@ -178,8 +178,8 @@
       "total_amount_refunded": 0,
       "total_quantity_refunded": 0,
       "paid_amount_total": 3,
-      "created_date": "2019-12-13T14:40:53.348Z",
-      "updated_date": "2019-12-13T14:40:53.348Z",
+      "created_at": "2019-12-13T14:40:53.348Z",
+      "updated_at": "2019-12-13T14:40:53.348Z",
       "payment_method": "cash",
       "order_id": "Invoice Number",
       "is_receipt_printed": false
@@ -191,8 +191,8 @@
       "order_id": 0,
       "customer_id": 0,
       "amount": 0,
-      "created_date": "2019-12-13T14:40:53.348Z",
-      "updated_date": "2019-12-13T14:40:53.348Z"
+      "created_at": "2019-12-13T14:40:53.348Z",
+      "updated_at": "2019-12-13T14:40:53.348Z"
     }
   ],
   "customers": [
@@ -210,9 +210,9 @@
     },
     {
       "id": 2,
-      "name": "Mohit",
+      "name": "Mayank",
       "gender": "M",
-      "phone_number": "9711575088",
+      "phone_number": "9826482725",
       "credit_balance": 20,
       "total_orders": 50,
       "total_spent": 20000,

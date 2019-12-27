@@ -15,13 +15,13 @@ class processPhoneNumber {
 
   factory processPhoneNumber.fromJson(Map<String, dynamic> json) {
     return processPhoneNumber(
-      phoneNumber: json['phoneNumber'],
+      phoneNumber: json['phone_number'],
     );
   }
 
   Map toMap() {
     var map = new Map<String, dynamic>();
-    map["phoneNumber"] = phoneNumber;
+    map["phone_number"] = phoneNumber;
     print(map);
 
     return map;
@@ -38,7 +38,7 @@ submitAuthenticationDetails(String url, {Map body}) async {
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
       print('connected');
       try {
-        print("post was not made");
+        print("post was not made to url: $url ::: to body = $body");
         http.Response response = await http.post(url, body: body);
         print("post was made");
         return (response);
@@ -67,15 +67,15 @@ class processOTP {
 
   factory processOTP.fromJson(Map<String, dynamic> json) {
     return processOTP(
-      OTP: json['OTP'],
-      phoneNumber: json['phoneNumber'],
+      OTP: json['otp'],
+      phoneNumber: json['phone_number'],
     );
   }
 
   Map toMap() {
     var map = new Map<String, dynamic>();
-    map["OTP"] = OTP;
-    map["phoneNumber"] = phoneNumber;
+    map["otp"] = OTP;
+    map["phone_number"] = phoneNumber;
     print("SubmitOTP done $map");
 
     return map;

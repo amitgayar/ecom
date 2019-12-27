@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'testBarcodeScanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,8 +7,9 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'services/syncData.dart';
 import 'AppScreens/customer.dart';
-import 'AppScreens/orders.dart';
+import 'AppScreens/orderSuper.dart';
 import 'AppScreens/requestStocks.dart';
+import 'AppScreens/orderDetails.dart';
 
 class DefaultWidget {
   final Widget defaultWidget;
@@ -68,7 +68,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
       vsync: this,
       duration: Duration(milliseconds: 450),
       value: 1.0,
-    );
+      );
   }
 
   @override
@@ -87,41 +87,26 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
 
 
 
-
   @override
   Widget build(BuildContext context) {
-
-
     return MaterialApp(
       title: 'ExpStore',
-
+      navigatorKey: navigatorKey,
       initialRoute: '/login',
 //      onGenerateRoute: _getRoute,
       routes: {
         '/login': (context) => LoginPage(),
         '/': (context) => HomePage(),
         '/cart': (context) => new Container(),
-        '/customers' : (context) => Customer(),
+        '/customers' : (context) => new Customer(),
 //        '/addCustomer': (context) => AddCustomer(),
-        '/orders' : (context) => Orders(),
-        '/requestStocks' : (context) => RequestStocks(),
+        '/orders' : (context) => new orderName(),
+        '/requestStocks' : (context) => new Container(),
 
-      }
+      },
 
 
 
       );
-//      GestureDetector(
-//        onTap: () {
-//          print("asdaadaa");
-//      FocusScopeNode currentFocus = FocusScope.of(context);
-//      print(currentFocus);
-//      if (!currentFocus.hasPrimaryFocus) {
-//        currentFocus.unfocus();
-//      }
-//    },
-//    child: ,
-//        );
-
   }
 }

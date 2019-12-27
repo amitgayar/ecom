@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 //import '../model/app_state_model.dart';
 import '../model/queryForUI.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../model/manageCustomers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -34,9 +34,7 @@ List<Item> _data = generateItems(1);
 
 
 class CartDescendant extends StatefulWidget {
-  CartDescendant({@required this.customerModel}
-      );
-  final customerModel;
+
   @override
   _CartDescendant createState() => _CartDescendant();
 }
@@ -44,35 +42,7 @@ class CartDescendant extends StatefulWidget {
 class _CartDescendant extends State<CartDescendant> {
 
 
-  bool bottomBarHide = false;
-  bool creditModeFlag = false;
-  String creditMode = '';
-  void setBottomBarHide(){
-    setState(() {
-      bottomBarHide = !bottomBarHide;
-    });
-  }
-  bool otherPaymentFlag = false;
-  bool creditPaymentFlag = false;
-  String paymentMode = 'Payment Mode';
 
-
-  void creditModeFunc(String mode){
-    creditModeFlag = true;
-    creditMode = mode;
-    print('.......selected payment mode from UI is .........'+mode);
-  }
-
-  void cartState(String state){
-    setState(() {
-      if (state == 'CREDIT'){
-        creditPaymentFlag = !creditPaymentFlag;
-      }
-      else{{otherPaymentFlag = !otherPaymentFlag;}}
-      paymentMode = state;
-      print('.......selected payment mode from UI is .........'+state);
-    });
-  }
 
 
 
@@ -113,7 +83,7 @@ class _CartDescendant extends State<CartDescendant> {
                                         style: TextStyle(color:Colors.black, fontWeight: FontWeight.bold
                                                          ),),
                       onPressed: () {
-                        setBottomBarHide();
+                        model.setBottomBarHide();
                       },
                       ),
                     ),
@@ -340,14 +310,12 @@ class _CartDescendant extends State<CartDescendant> {
               return Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: FlatButton(
-                  child: Text('Quick Links',
-                                  style: TextStyle(
+                child: Text('Quick Links',
+                                style: TextStyle(
 //                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,color: Colors.black
-                                      )
-                              ),
-                ),
+fontSize: 16,color: Colors.black
+)
+                            ),
                 );
             },
             body: Container(
@@ -407,7 +375,7 @@ class _CartDescendant extends State<CartDescendant> {
 
                             NewShoppingCartSummary(model: model),
 
-                            model.totalCartQuantity == null || !bottomBarHide
+                            model.totalCartQuantity == null || !model.bottomBarHide
                                 ?SizedBox(
                               height: 50,
                               )
@@ -436,43 +404,52 @@ class _CartDescendant extends State<CartDescendant> {
 
                         model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
                         Divider(color: Colors.green, height: 10,thickness: 1,)
-                        :
+                            :
                         Divider(color: Colors.red, height: 10,thickness: 1,),
                         InkWell(
-    onTap: () async {
-     if (model.selectedCustomer != null && model.selectedCustomer['id'] != null){
-       print('selsejijijij ${model.selectedCustomer['id']}');
-       await model.selectCustomer(0, '');
-       print('selsejijijij ${model.selectedCustomer}');
-       model.setSelectCustomerForCartFlag(false);
-     }
-     else{
-       await model.queryCustomerInDatabase('all', '');
+                          onTap: () async {
+                            if (model.selectedCustomer != null && model.selectedCustomer['id'] != null){
+                              print('\n\nselectedCustomer ID = ${model.selectedCustomer['id']}');
+
+                            }
+                            else{
+                              await model.queryCustomerInDatabase('all', '');
 //      Navigator.pushNamed(context, '/customers');
-       print('lolo ${model.selectedCustomer}');
-       model.setSelectCustomerForCartFlag(true);
-     }
+                              print('lolo ${model.selectedCustomer}');
+                              model.setSelectCustomerForCartFlag(true);
+                            }
 
-    },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        color: model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
-        Color(0xff429585) : Color(0xffe48181),
-        child: Row(
-          children: <Widget>[
-            model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
-            Icon(Icons.person,color: Colors.black,) : Icon(Icons.person_add,color: Colors.black,) ,
-            //Text(model.selectedCustomer['name'] ),
-            model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
-            Text("      ${model.selectedCustomer['name']}") : Text('      Select Customer' ),
-            Spacer(),
-            model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
-            Icon(Icons.clear,color: Colors.black,):Icon(Icons.report_problem,color: Colors.black,),
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            color: model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+                            Color(0xff429585) : Color(0xffe48181),
+                            child: Row(
+                              children: <Widget>[
+                                model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+                                Icon(Icons.person,color: Colors.black,) : Icon(Icons.person_add,color: Colors.black,) ,
+                                //Text(model.selectedCustomer['name'] ),
+                                model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+                                Text("      ${model.selectedCustomer['name']}") : Text('      Select Customer' ),
+                                Spacer(),
+                                model.selectedCustomer != null && model.selectedCustomer['id'] != null ?
+                                InkWell(
+                                  onTap: ()async {
+                                    if (model.selectedCustomer != null && model.selectedCustomer['id'] != null){
+                                      print('\n\nselectedCustomer ID = ${model.selectedCustomer['id']}');
+                                      print('selectedCustomer = ${model.selectedCustomer}');
+                                      await model.selectCustomer(0, '');
+                                      print('selectedCustomer = ${model.selectedCustomer}');
+                                      model.setSelectCustomerForCartFlag(false);
+                                    }
+                                  },
+                                  child: Icon(Icons.clear,color: Colors.black,),
+                                ):Icon(Icons.report_problem,color: Colors.black,),
 
-          ],
-          ),
-        ),
-    ),
+                              ],
+                              ),
+                            ),
+                          ),
 
 
   Divider(color: Colors.grey, height: 1,thickness: 1,),
@@ -480,7 +457,7 @@ class _CartDescendant extends State<CartDescendant> {
 
 
 
-  !otherPaymentFlag && !creditPaymentFlag
+  !model.otherPaymentFlag && !model.creditPaymentFlag
       ?
   Container(
     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -490,9 +467,7 @@ class _CartDescendant extends State<CartDescendant> {
           children: <Widget>[
             InkWell(
               onTap: () {
-                setState(() {
-                  setBottomBarHide();
-                });
+                model.setBottomBarHide();
 
               },
                 child: Container(
@@ -503,6 +478,17 @@ class _CartDescendant extends State<CartDescendant> {
 
 
             Text('Select Payment Mode'),
+            Spacer(),
+            OutlineButton(child: Text('Clear Cart'),
+                              onPressed: (){
+                                setState(() {
+                                  model.cartState(model.paymentMode, false);
+                                  model.setBottomBarHide();
+                                  model.removeEditableItemFromCart(productDummy,"clear_cart");
+                                });
+                              },
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                          ),
 
 
           ],
@@ -513,7 +499,7 @@ class _CartDescendant extends State<CartDescendant> {
               child: Text('CASH'),
               onPressed: () {
                 setState(() {
-                  cartState('CASH');
+                  model.cartState('CASH',true);
                 });
               },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -522,9 +508,9 @@ class _CartDescendant extends State<CartDescendant> {
             RaisedButton(
               child: Text('CREDIT'),
               onPressed: () {
-//                model.analyzeCredit(0.0, "credit", true);
+                model.analyzeCredit(0.0, "credit", true);
               setState(() {
-                cartState('CREDIT');
+                model.cartState('CREDIT',true);
               });
               },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -534,7 +520,7 @@ class _CartDescendant extends State<CartDescendant> {
               child: Text('DEBIT/CREDIT CARD'),
               onPressed: () {
                 setState(() {
-                  cartState('DEBIT/CREDIT CARD');
+                  model.cartState('DEBIT/CREDIT CARD',true);
 //
                 });
               },
@@ -554,7 +540,7 @@ class _CartDescendant extends State<CartDescendant> {
               child: Text('PAYTM'),
               onPressed: () {
                 setState(() {
-                  cartState('PAYTM');
+                  model.cartState('PAYTM', true);
                 });
               },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -564,7 +550,7 @@ class _CartDescendant extends State<CartDescendant> {
               child: Text('BHIM UPI'),
               onPressed: () {
                 setState(() {
-                  cartState('BHIM UPI');
+                  model.cartState('BHIM UPI', true);
                 });
               },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -574,7 +560,7 @@ class _CartDescendant extends State<CartDescendant> {
               child: Text('OTHER'),
               onPressed: () {
                setState(() {
-                 cartState('OTHER');
+                 model.cartState('OTHER', true);
                });
               },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -586,7 +572,7 @@ class _CartDescendant extends State<CartDescendant> {
       ),
     )
       :
-  otherPaymentFlag
+  model.otherPaymentFlag
       ?
   Container(
     padding: EdgeInsets.symmetric(horizontal: 7),
@@ -598,24 +584,26 @@ class _CartDescendant extends State<CartDescendant> {
             InkWell(
               onTap: () {
                 setState(() {
-                  cartState(paymentMode);
+                  model.cartState(model.paymentMode, false);
                 });
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 18),
-                child: Icon(Icons.navigate_before),
+                child: Row(children: <Widget>[
+                  Icon(Icons.navigate_before), Text(model.paymentMode),
+                ],)
                 ),
               ),
 
-            Text(paymentMode),
+
 
             Spacer(),
 
             OutlineButton(child: Text('Clear Cart'),
                            onPressed: (){
                              setState(() {
-                               cartState(paymentMode);
-                               setBottomBarHide();
+                               model.cartState(model.paymentMode, false);
+                               model.setBottomBarHide();
                                model.removeEditableItemFromCart(productDummy,"clear_cart");
                              });
                            },
@@ -650,8 +638,12 @@ class _CartDescendant extends State<CartDescendant> {
                   child: Text('PRINT RECEIPT'),
                   onPressed: () {
                     setState(() {
-                      cartState(paymentMode);
-                      setBottomBarHide();
+                      model.cartState(model.paymentMode, false);
+                      model.analyzeCredit((model.cartTotalValue == null)
+                                             ? 0.0
+                                             : model.cartTotalValue,
+                                             model.creditModeBy, false);
+                      model.setBottomBarHide();
                       model.generateInvoice(true, false);
                       model.removeEditableItemFromCart(productDummy, 'clear_cart');
                     }
@@ -670,12 +662,16 @@ class _CartDescendant extends State<CartDescendant> {
                 child: Text('DONE'),
                 onPressed: () {
                   setState(() {
+                    model.analyzeCredit((model.cartTotalValue == null)
+                                           ? 0.0
+                                           : model.cartTotalValue,
+                                           model.paymentMode, false);
                     model.generateInvoice(false, false);
                     model.removeEditableItemFromCart(productDummy, 'clear_cart');
 
 
-                    cartState(paymentMode);
-                    setBottomBarHide();
+                    model.cartState(model.paymentMode, false);
+                    model.setBottomBarHide();
                   });
 
                 },
@@ -689,7 +685,7 @@ class _CartDescendant extends State<CartDescendant> {
       ],
       ),
     )
-      :creditPaymentFlag
+      :model.creditPaymentFlag
       ?
   Container(
     padding: EdgeInsets.symmetric(horizontal: 13),
@@ -698,9 +694,8 @@ class _CartDescendant extends State<CartDescendant> {
         Row(children: <Widget>[
           InkWell(
             onTap: () {
-              setState(() {
-                cartState(paymentMode);
-              });
+              model.cartState(model.paymentMode, false);
+              model.creditModeFunc('',false);
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 18),
@@ -708,15 +703,13 @@ class _CartDescendant extends State<CartDescendant> {
               ),
             ),
 
-          Text(paymentMode,style:TextStyle(fontSize: 15)),
+          Text(model.paymentMode,style:TextStyle(fontSize: 15)),
           Spacer(),
           OutlineButton(child: Text('Clear Cart'),
                             onPressed: (){
-                              setState(() {
-                                cartState(paymentMode);
-                                setBottomBarHide();
+                                model.cartState(model.paymentMode, false);
+                                model.setBottomBarHide();
                                 model.removeEditableItemFromCart(productDummy,"clear_cart");
-                              });
                             },
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                         ),
@@ -729,7 +722,7 @@ class _CartDescendant extends State<CartDescendant> {
             Text('Amount Paid    ',),
             Spacer(),
             Container(
-              width: 40,
+              width: 60,
               child: TextFormField(
                 autofocus: false,
                 initialValue: '0',
@@ -759,7 +752,7 @@ class _CartDescendant extends State<CartDescendant> {
             Container(
                 padding: EdgeInsets.all(10),
                 height: 33,
-                width: 50,
+                width: 70,
                 child: Text(model.credit.toString())
                 )
           ],
@@ -769,15 +762,13 @@ class _CartDescendant extends State<CartDescendant> {
           children: <Widget>[
             Expanded(
               child: RaisedButton(
-                color:  creditMode == 'CASH'
+                color:  model.creditModeBy == 'CASH'
                     ?Color(0xff4db6ac)
                     :Colors.white30,
 //                ,
                 child: Text('CASH'),
                 onPressed: () {
-                  setState(() {
-                    creditModeFunc('CASH');
-                  });
+                    model.creditModeFunc('CASH',true);
                 },
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                 ),
@@ -792,14 +783,14 @@ class _CartDescendant extends State<CartDescendant> {
 
             Expanded(
               child: RaisedButton(
-                  color:  creditMode == 'DEBIT/CREDIT CARD'
+                  color:  model.creditModeBy == 'DEBIT/CREDIT CARD'
                       ?Color(0xff4db6ac)
                       :Colors.white30,
                 child: Text('DEBIT/CREDIT CARD'),
                 onPressed: () {
                   setState(() {
                     setState(() {
-                      creditModeFunc('DEBIT/CREDIT CARD');
+                      model.creditModeFunc('DEBIT/CREDIT CARD', true);
                     });
 //
                   });
@@ -815,13 +806,13 @@ class _CartDescendant extends State<CartDescendant> {
           children: <Widget>[
             Expanded(
                 child:RaisedButton(
-                    color:  creditMode == 'PAYTM'
+                    color:  model.creditModeBy == 'PAYTM'
                         ?Color(0xff4db6ac)
                         :Colors.white30,
                   child: Text('PAYTM'),
                   onPressed: () {
                     setState(() {
-                      creditModeFunc('PAYTM');
+                      model.creditModeFunc('PAYTM', true);
                     });
                   },
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -836,13 +827,13 @@ class _CartDescendant extends State<CartDescendant> {
                 ),
             Expanded(
                 child:RaisedButton(
-                    color:  creditMode == 'BHIM UPI'
+                    color:  model.creditModeBy == 'BHIM UPI'
                         ?Color(0xff4db6ac)
                         :Colors.white30,
                   child: Text('BHIM UPI'),
                   onPressed: () {
                     setState(() {
-                      creditModeFunc('BHIM UPI');
+                      model.creditModeFunc('BHIM UPI', true);
                     });
                   },
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -857,13 +848,13 @@ class _CartDescendant extends State<CartDescendant> {
                 ),
             Expanded(
                 child:RaisedButton(
-                    color:  creditMode == 'OTHER'
+                    color:  model.creditModeBy == 'OTHER'
                         ?Color(0xff4db6ac)
                         :Colors.white30,
                   child: Text('OTHER'),
                   onPressed: () {
                     setState(() {
-                      creditModeFunc('OTHER');
+                      model.creditModeFunc('OTHER', true);
                     });
                   },
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -885,19 +876,19 @@ class _CartDescendant extends State<CartDescendant> {
                   child: Text('PRINT RECEIPT'),
                   onPressed: () {
                     setState(() {
-                      if (creditModeFlag){
+                      if (model.creditModeFlag){
                         if (model.selectedCustomer.length != 0){
                           print(model.selectCustomer);
-                          creditModeFlag = !creditModeFlag;
-                          cartState('CREDIT');
-                          setBottomBarHide();
-                          model.generateInvoice(true, true);
+                          model.creditModeFunc('', false);
+                          model.cartState('CREDIT',false);
+                          model.setBottomBarHide();
                           model.analyzeCredit((model.cartTotalValue == null)
                                                   ? 0.0
                                                   : model.cartTotalValue,
-                                                  creditMode, true);
+                                                  model.creditModeBy, true);
+                          model.generateInvoice(true, true);
                           model.removeEditableItemFromCart(productDummy, 'clear_cart');
-                          creditModeFunc('');
+                          model.creditModeFunc('', true);
                         }
                         else{
                           Fluttertoast.showToast(
@@ -946,18 +937,19 @@ class _CartDescendant extends State<CartDescendant> {
                     child: Text('DONE'),
                     onPressed: () {
                      setState(() {
-                       if (creditModeFlag){
+                       if (model.creditModeFlag){
                          if (model.selectedCustomer.length !=0){
-                           creditModeFlag = !creditModeFlag;
-                           model.removeEditableItemFromCart(productDummy, 'clear_cart');
-                           model.generateInvoice(false, true);
-                           cartState('CREDIT');
-                           setBottomBarHide();
+
+                           model.cartState('CREDIT', false);
+                           model.setBottomBarHide();
                            model.analyzeCredit((model.cartTotalValue == null)
                                                    ? 0.0
                                                    : model.cartTotalValue,
-                                                   creditMode, true);
-                           creditModeFunc('');
+                                                   model.creditModeBy, true);
+                           model.generateInvoice(false, true);
+                           model.removeEditableItemFromCart(productDummy, 'clear_cart');
+
+                           model.creditModeFunc('', false);
                          }
                          else{
                            Fluttertoast.showToast(
@@ -1021,7 +1013,7 @@ class _CartDescendant extends State<CartDescendant> {
                     ],
                     ),
 
-                  bottomBarHide != true
+                  model.bottomBarHide != true
                       ?
                   Align(
                     child: Container(
@@ -1092,8 +1084,10 @@ class SelectCustomer extends StatefulWidget {
 
 class _SelectCustomer extends State<SelectCustomer> {
 
-
-
+  TextEditingController _customerNameController;
+  TextEditingController _phoneController;
+  TextEditingController _searchKeyController;
+  String searchKey;
   @override
   Widget build(BuildContext context) {
 
@@ -1116,12 +1110,16 @@ class _SelectCustomer extends State<SelectCustomer> {
               return Container(
                 child: ListTile (
                   title: Text(customerList[index]['name']),
-                  subtitle: Text(customerList[index]['phone_number']),
+                  subtitle: Column(crossAxisAlignment:CrossAxisAlignment.start,
+                                   children: <Widget>[
+                    Text(customerList[index]['phone_number']),
+                    Divider(color: Color(0xff429585), thickness: 1,height: 30,)
+                  ],),
                   onTap: () async {
                     print("\n\ncustomerList[index]['id'] = ${customerList[index]['id']}");
                     int id = int.parse(customerList[index]['id'].toString());
                     await model.selectCustomer(id, "cart");
-                    var selectedCustomer = await model.selectedCustomer;
+                    var selectedCustomer =  await model.selectedCustomer;
                     print('\nSelected Customer from Select Customer stack  :   ... $selectedCustomer');
                     model.setSelectCustomerForCartFlag(false);
 
@@ -1132,40 +1130,50 @@ class _SelectCustomer extends State<SelectCustomer> {
             }).toList() ;
           }
 
-          return Container(
+          return Stack(
+            children: <Widget>[
+              Container(
 //                  height:440,
 //            width: 5000,
-  color: Colors.white,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: ListView(
-          children: <Widget>[
-            Container(
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: SizedBox(
-                    height: 40,
-                    width: 280,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'search',
-                        filled: false,
-                        prefixIcon: Icon(
-                          Icons.search,
-                          size: 18.0,
-                          ),
-                        ),
-                      onChanged: (text) async{
-                        model.queryCustomerInDatabase("all", text);
-                        //_buildCustomerTiles(context);
-                      },
+color: Colors.white,
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: ListView(
+        children: <Widget>[
 
+
+          Container(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: SizedBox(
+                  height: 40,
+                  width: 380,
+                  child: TextField(
+                    controller: _searchKeyController,
+
+                    decoration: InputDecoration(
+                      hintText: 'search by name or phone number',
+                      filled: false,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        size: 14.0,
+                        ),
                       ),
+                    onChanged: (text) async{
+                      model.queryCustomerInDatabase("all", text);
+                      model.setAddCustomerForCartFlag(true);
+
+
+                      //_buildCustomerTiles(context);
+                    },
+
                     ),
-                  )
-                ),
-          Text('Select Customer'),
-          Divider(color: Colors.black12, thickness: 3, height: 20,),
+                  ),
+                )
+              ),
+          Container(height: 20,),
+          Text('Select Customer',style: TextStyle(fontWeight: FontWeight.bold),),
+          Divider(color: Colors.black12, thickness: 1, height: 20,),
 
           Column(
             children: _buildCustomerTiles(context),
@@ -1176,7 +1184,99 @@ class _SelectCustomer extends State<SelectCustomer> {
         ],
         ),
       )
-);
+),
+              (model.tempCustomersInDatabaseToDisplay.length<=0) && model.addCustomerForCartFlag
+                  ?
+              Align(alignment: Alignment.centerRight,
+                      child: Container(
+//                  height:440,
+//            width: 5000,
+color: Colors.white,
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: ListView(
+        children: <Widget>[
+
+
+          Container(
+            height: 40,
+            alignment: Alignment.centerLeft,
+              child: Text('Create New', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17),)
+              ),
+          Divider(color: Colors.black12, thickness: 1, height: 20,),
+          Container(height: 20,),
+          Text('Customer Phone Number', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+          TextFormField(
+initialValue: model.prefillField == 'phone'? model.PrefillFieldContentCustomer:'',
+            decoration: InputDecoration(
+              suffixIcon: Icon(Icons.phone)
+            ),
+            controller: _phoneController,
+            maxLength: 10,
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly
+            ],
+            ),
+          Container(height: 20,),
+          Text('Customer Name', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+          TextFormField(
+            initialValue: model.prefillField == 'name'? model.PrefillFieldContentCustomer:'',
+            controller: _customerNameController,
+
+          ),
+          Container(height: 20,),
+          Container(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+//                  width: 50,
+child: RaisedButton(
+  child: Text('CANCEL', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+  color: Color(0xffe48181),
+  onPressed: (){
+    model.setAddCustomerForCartFlag(false);
+//            addCustomer(_customerNameController.text, _phoneController.text);
+  },
+  ),
+  flex: 2,
+),
+
+                Expanded(
+                  child: Container(
+                    width: 20,
+                  ),
+                  flex: 1,
+                ),
+                Expanded(
+//                  width: 50,
+child: RaisedButton(
+  child: Text('ADD', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+  color: Color(0xff81c784),
+  onPressed: (){
+    model.addNewCustomer(_phoneController.text, _customerNameController.text, 'cart');
+    print('customer added from the cart ... fkhgkhg');
+//            addCustomer(_customerNameController.text, _phoneController.text);
+  },
+  ),
+  flex: 2,
+),
+
+              ],
+            ),
+          )
+
+        ],
+        ),
+      )
+),)
+:
+                  new Container()
+
+
+
+            ],
+          );
         }
         );
 
@@ -1727,10 +1827,15 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                         ),
                       Spacer(),
                       InkWell(
-                        child: Icon(
-                          Icons.clear,
-                          size: 22.0,
-                          ),
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                            child: Icon(
+                                                      Icons.clear,
+                                                      size: 13.0,
+                                                      ),
+                                             height: 25,width:40),
+
+
                         onTap: () {
                           model.removeEditableItemFromCart(product,  'remove_row');
                           model.calculateCartTotalValue(model.Discount.toString());
@@ -1742,6 +1847,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                     ),
                   ),
                 Row(
+                  key: ValueKey(product['id'].toString()),
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
 
@@ -1751,7 +1857,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                       child: Container(
 
                       ),
-                      flex: 3,
+                      flex: 2,
                       ),
                     Expanded(
                       child: TextFormField(
@@ -1807,18 +1913,10 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                               Expanded(
                                 flex: 1,
                                 child: TextFormField(
-                                  focusNode: _focusNode,
-//                                  controller: _textFieldController,
-                                  onFieldSubmitted: (term) {
-//                                    model.setRaw(true);
-                                    _focusNode.unfocus();
-//                                      FocusScope.of(context).requestFocus(_focusNode);
-                                  },
-                                  onTap: (){
-//                                    model.setRaw(false);
-                                  },
+
+
 //                                  focusNode: quantityFocusNode,
-                                  autofocus: false,
+autofocus: false,
 //                                          initialValue: quantity.toString(),
 //                                  controller: quantityController,
                                   keyboardType: TextInputType.number,
@@ -1833,7 +1931,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                                       border: InputBorder.none,
                                       hintText: '${product['quantity'].toString()}'
                                       ),
-                                  ),
+),
                                 ),
                               Container(
                                 height: 48.0,
@@ -1877,10 +1975,12 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                             ),
                           ),
                         ),
-                      flex: 3,
+                      flex: 4,
                       ),
                     Expanded(
                       child: Container(
+                        padding: EdgeInsets.only(right: 10),
+                        alignment: Alignment.centerRight,
                         child: Column(children: <Widget>[
                           Text('${formatter.format(sellingPrice*quantity)}'.toString()),
                           SizedBox(
@@ -2194,6 +2294,19 @@ class NewShoppingCartSummary extends StatefulWidget {
 class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
 //   AppStateModel model;
 //   _ShoppingCartSummary({this.model});
+  String isGstMandatory = "false";
+  void getSharedPReference () async {
+    print("\n\n Entered into getSharedPReference");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isGstMandatory = prefs.getString("is_gst_mandatory");
+    print("\n\n isGstMandatory = $isGstMandatory :::: isGstMandatory type = ${isGstMandatory.runtimeType}");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSharedPReference();
+  }
 
 
   @override
@@ -2206,6 +2319,7 @@ class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
                                                       decimalDigits: 2, locale: Localizations.localeOf(context).toString());
     final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
+
     return ScopedModelDescendant<NewAppStateModel>(
       builder: (context, child, model) {
         final double TotalCartValue =  (model.cartTotal == null) ? 0.0 : model.cartTotal;
@@ -2216,15 +2330,21 @@ class _ShoppingCartSummary extends State<NewShoppingCartSummary> {
         final double discount =  (model.Discount != null) ? model.Discount : 0.0;
         TextEditingController discountController = TextEditingController(text: '${discount.toString()}');
 
+        //isGstMandatory != "false" ? model.includeTaxesValue = true : model.includeTaxesValue=false;
+
+
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
+              SizedBox (
+                height: 20,
+                ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('GST'),
-                  Switch(
+                  isGstMandatory != "false" ? Text("") : Switch(
                     value: (model.includeTaxes == null ? false : model.includeTaxes),
                     onChanged: (bool value) {
                       setState(() {
@@ -2287,7 +2407,7 @@ child: Column(children: <Widget>[
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       const Expanded(
-        child: Text('Subtotal'),
+        child: Text('SUBTOTAL'),
         ),
       Text(
         formatter.format(subTotal),
@@ -2409,8 +2529,8 @@ class _RawKeyboardListenerState extends State<KeyboardListener> {
           //FocusScope.of(context).requestFocus(_textNode);
           return new RawKeyboardListener(
               focusNode: _textNode,
-              autofocus: false,
-              onKey: (key) => model.processBarcode(key),
+              autofocus: true,
+              onKey: (key) => model.processBarcode1(key),
               child: Text("")
               );
         });

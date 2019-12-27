@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/interpolator/btn_radio_to_off_mtrl_animation_interpolator_0.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/interpolator/btn_radio_to_off_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/interpolator/btn_radio_to_on_mtrl_animation_interpolator_0.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/interpolator/btn_radio_to_on_mtrl_animation_interpolator_0.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_1.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_1.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml"
+    },
+    {
+        "merged": "/Users/admin/Downloads/ntw_projects/flutter/QueueBuster/express_store/build/wifi/intermediates/res/merged/release/interpolator/fast_out_slow_in.xml",
+        "source": "/Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-1.1.0-alpha01.aar/5bdef56821fe4b1b89e6364393d33cc0/res/interpolator/fast_out_slow_in.xml"
+    }
+]

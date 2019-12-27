@@ -6,6 +6,7 @@ import io.github.ponnamkarthik.toast.fluttertoast.FluttertoastPlugin;
 import io.flutter.plugins.pathprovider.PathProviderPlugin;
 import io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin;
 import com.tekartik.sqflite.SqflitePlugin;
+import com.ly.wifi.WifiPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -20,6 +21,7 @@ public final class GeneratedPluginRegistrant {
     PathProviderPlugin.registerWith(registry.registrarFor("io.flutter.plugins.pathprovider.PathProviderPlugin"));
     SharedPreferencesPlugin.registerWith(registry.registrarFor("io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin"));
     SqflitePlugin.registerWith(registry.registrarFor("com.tekartik.sqflite.SqflitePlugin"));
+    WifiPlugin.registerWith(registry.registrarFor("com.ly.wifi.WifiPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {

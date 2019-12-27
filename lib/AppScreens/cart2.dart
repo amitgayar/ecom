@@ -5,12 +5,12 @@ import '../model/app_state_model.dart';
 import 'CartDescendant.dart';
 import 'package:intl/intl.dart';
 import '../model/manageCustomers.dart';
-
+manageCustomersModel customerModelCart2 = new manageCustomersModel();
 
 //----------------Model initialization for cart 2
 
 NewAppStateModel cartModel2 = NewAppStateModel();
-manageCustomersModel customerModelCart2 = new manageCustomersModel();
+
 
 
 //---------------- CLASS for TabBar Heading or Cart Status
@@ -30,13 +30,13 @@ class HeadingOfCart2 extends StatelessWidget {
             {
 
               final formatter = NumberFormat.simpleCurrency(name: 'INR',
-                                                                decimalDigits: 2, locale: Localizations.localeOf(context).toString());
+                  decimalDigits: 2, locale: Localizations.localeOf(context).toString());
 
               return Container(
                 child: head == 1
                     ?
                 Text('Active',
-                         style: TextStyle(fontWeight: FontWeight.bold))
+                    style: TextStyle(fontWeight: FontWeight.bold))
                     :
                 Container(
                     margin: EdgeInsets.all(10),
@@ -45,24 +45,24 @@ class HeadingOfCart2 extends StatelessWidget {
                       children: <Widget>[
 
                         Text(model.totalCartQuantity == 0 || model.totalCartQuantity == null ?
-                             'No Item'
-                                 :
-                             formatter.format(model.cartTotal) + ' (${model.totalCartQuantity})',
+                        'No Item'
+                            :
+                        formatter.format(model.cartTotal) + ' (${model.totalCartQuantity})',
 
-                             ),
+                        ),
 
 
                       ],
-                      )
                     )
+                )
                 ,
 
-                );
+              );
             }
-            )
+        )
 
 
-        );
+    );
   }
 }
 
@@ -86,10 +86,10 @@ class _Cart2 extends State<Cart2> {
 
         child: ScopedModel<NewAppStateModel>(
           model: cartModel2,
-          child: CartDescendant(customerModel: customerModelCart2),
-          ),
+          child: CartDescendant(),
         ),
-      );
+      ),
+    );
   }
 
 }

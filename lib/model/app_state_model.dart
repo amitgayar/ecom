@@ -24,6 +24,52 @@ class NewAppStateModel extends Model {
     notifyListeners();
   }
 
+  bool _addCustomerForCartFlag = true;
+  bool get addCustomerForCartFlag => _addCustomerForCartFlag;
+  void setAddCustomerForCartFlag(bool value){
+    _addCustomerForCartFlag = value;
+    notifyListeners();
+  }
+
+
+  bool _bottomBarHide = false;
+  bool get bottomBarHide => _bottomBarHide;
+  bool _creditModeFlag = false;
+  bool get creditModeFlag => _creditModeFlag;
+  String _creditModeBy = '';
+  String get creditModeBy => _creditModeBy;
+  void setBottomBarHide() {
+    _bottomBarHide = !_bottomBarHide;
+    notifyListeners();
+  }
+
+  bool _otherPaymentFlag = false;
+bool get otherPaymentFlag => _otherPaymentFlag;
+  bool _creditPaymentFlag = false;
+  bool get creditPaymentFlag => _creditPaymentFlag;
+  String _paymentMode = 'Payment Mode';
+  String get paymentMode => _paymentMode;
+
+
+
+  void creditModeFunc(String mode, bool value){
+    _creditModeFlag = value;
+    _creditModeBy = mode;
+    print('.......selected payment mode from UI is .........'+mode);
+  notifyListeners();
+  }
+
+  void cartState(String state, bool value){
+
+      if (state == 'CREDIT'){
+        _creditPaymentFlag = value;
+      }
+      else{{_otherPaymentFlag = value;}}
+      _paymentMode = state;
+      print('.......selected payment mode from UI is .........'+state);
+    notifyListeners();
+  }
+
   //.....................................................inputs by gayar...........................................................................................................
 
 
@@ -43,7 +89,7 @@ class NewAppStateModel extends Model {
   double cgstValue = 0.0;
   double sgstValue = 0.0;
   double cessValue = 0.0;
-  bool includeTaxesValue = false;
+  bool includeTaxesValue = true;
 
   List<Map> get editableListOfProductsInCart => _EditableproductsListForCart;
 
@@ -67,7 +113,7 @@ class NewAppStateModel extends Model {
   int get totalCartQuantity => tempCartQuantity;
   String tempPaymentMethod = "";
   double tempTotalAmountPaid = 0.0, tempCredit = 0.0;
-  String get customerID => tempselectedCustomer['id'].toString();
+  String get customerID => selectedCustomer['id'].toString();
   String get paymentMethod => tempPaymentMethod;
   double get AmountPaid => tempTotalAmountPaid;
   double get credit => tempCredit;
@@ -91,7 +137,7 @@ class NewAppStateModel extends Model {
 
 
   // Adds a Editable product to the cart.
-   addEditableProductToCart(Map product) {
+  addEditableProductToCart(Map product) {
     print("enter into addEditableProductToCart\n\n received argumet: $product");
     //print("\n\nentered state of _EditableproductsListForCart: $_EditableproductsListForCart");
 
@@ -131,23 +177,23 @@ class NewAppStateModel extends Model {
       _EditableproductsInCart["quantity"] = 1;
       _EditableproductsListForCart.add(_EditableproductsInCart);
       print("\n\nProduct added to _EditableproductsListForCart");
-     }
+    }
     else {
       var indexOfItemToAdd = _EditableproductsListForCart.indexWhere((p) => p['id'] == productID);
 
-     if (indexOfItemToAdd != -1) {
+      if (indexOfItemToAdd != -1) {
 
-       print("\n\nitemPresentInCart :::: productNumber : ${(_EditableproductsListForCart[indexOfItemToAdd]['quantity'])}");
-       _EditableproductsListForCart[indexOfItemToAdd]['quantity'] = (_EditableproductsListForCart[indexOfItemToAdd]['quantity'] + 1);
+        print("\n\nitemPresentInCart :::: productNumber : ${(_EditableproductsListForCart[indexOfItemToAdd]['quantity'])}");
+        _EditableproductsListForCart[indexOfItemToAdd]['quantity'] = (_EditableproductsListForCart[indexOfItemToAdd]['quantity'] + 1);
 
-     }
+      }
 
-     else {
-       print("\n\nProduct not in cart _EditableproductsListForCart");
-       _EditableproductsInCart["quantity"] = 1;
-       _EditableproductsListForCart.add(_EditableproductsInCart);
-     }
-   }
+      else {
+        print("\n\nProduct not in cart _EditableproductsListForCart");
+        _EditableproductsInCart["quantity"] = 1;
+        _EditableproductsListForCart.add(_EditableproductsInCart);
+      }
+    }
 
 
 
@@ -180,6 +226,7 @@ class NewAppStateModel extends Model {
       barcode = "";
       barcodedProductName = "";
       tempBarcode = "";
+      selectedCustomer = {};
 
 
     }
@@ -196,7 +243,7 @@ class NewAppStateModel extends Model {
           print("\n\n $_EditableproductsListForCart");
         }
         else {
-          print("Current Quantity = _EditableproductsListForCart[indexOfItemToRemove]['quantity']");
+          print("Current Quantity = ${_EditableproductsListForCart[indexOfItemToRemove]['quantity']}");
           _EditableproductsListForCart[indexOfItemToRemove]['quantity'] = _EditableproductsListForCart[indexOfItemToRemove]['quantity'] - 1;
           //print("\n\n $_EditableproductsListForCart");
           print("Updated Quantity = _EditableproductsListForCart[indexOfItemToRemove]['quantity']");
@@ -214,6 +261,7 @@ class NewAppStateModel extends Model {
 //        _productsInCart[productId]--;
 //      }
 //    }
+    print("\n\nexiting remove item gfrom cart");
     notifyListeners();
   }
   // Removes an item from the cart Ends
@@ -221,8 +269,8 @@ class NewAppStateModel extends Model {
   //changeProductValue starts
   void changeProductValue(String newValue, Map product, String callingInputField){
 
-      print("enter into changeSP :::: received arguments :::: Changed Price = $newValue :::: for product = $product \n\n");
-      //print(product['id']);
+    print("enter into changeSP :::: received arguments :::: Changed Price = $newValue :::: for product = $product \n\n");
+    //print(product['id']);
 //      _EditableproductsListForCart.forEach((p) {
 //        //if (p['id'] == product['id']) {
 //          print(p['id'].runtimeType);
@@ -230,32 +278,32 @@ class NewAppStateModel extends Model {
 //      }
 //      );
 
-      indexOfProductInCart = _EditableproductsListForCart.indexWhere((p) => p['id'] == product['id']);
+    indexOfProductInCart = _EditableproductsListForCart.indexWhere((p) => p['id'] == product['id']);
 
-      print("\n\ngetting list item for update ::: $indexOfProductInCart");
+    print("\n\ngetting list item for update ::: $indexOfProductInCart");
 
-      //print("\n\n Value of SP at index before update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
+    //print("\n\n Value of SP at index before update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
 
-      if (callingInputField == 'mrp') {
-        _EditableproductsListForCart[indexOfProductInCart]['mrp'] = double.parse(newValue);
-      }
-      else if (callingInputField == 'sp') {
-        _EditableproductsListForCart[indexOfProductInCart]['sp'] = double.parse(newValue);
-      }
-      else if (callingInputField == 'quantity') {
-        _EditableproductsListForCart[indexOfProductInCart]['quantity'] = int.parse(newValue);
-      }
+    if (callingInputField == 'mrp') {
+      _EditableproductsListForCart[indexOfProductInCart]['mrp'] = double.parse(newValue);
+    }
+    else if (callingInputField == 'sp') {
+      _EditableproductsListForCart[indexOfProductInCart]['sp'] = double.parse(newValue);
+    }
+    else if (callingInputField == 'quantity') {
+      _EditableproductsListForCart[indexOfProductInCart]['quantity'] = int.parse(newValue);
+    }
 
 
-      //print("\n\n Value of SP at index after update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
+    //print("\n\n Value of SP at index after update  ::: ${_EditableproductsListForCart[indexOfProductInCart]['sp']}");
 //    _availableProducts.firstWhere((p) => p['id'] == id)["sp"] = _availableProducts.firstWhere((p) => p['id'] == id)["sp"] + changedPrice;
 //    print("abc = ${_availableProducts.firstWhere((p) => p['id'] == id)["sp"]}");
 //    print(changedPrice);
 //
-      print(_EditableproductsListForCart[indexOfProductInCart]);
+    print(_EditableproductsListForCart[indexOfProductInCart]);
 
 //
-      //print('\n\nQuantity of Index ::: ${editableListOfProductsInCart[editableListOfProductsInCart.indexWhere((p) => int.parse(p['id']) == int.parse(product['id']))]['sp'].runtimeType}');
+    //print('\n\nQuantity of Index ::: ${editableListOfProductsInCart[editableListOfProductsInCart.indexWhere((p) => int.parse(p['id']) == int.parse(product['id']))]['sp'].runtimeType}');
 //    print('changed selling price');
     notifyListeners();
   }
@@ -345,8 +393,12 @@ class NewAppStateModel extends Model {
     notifyListeners();
   }
 
-  processBarcode(RawKeyEvent key) {
-    //print("Event runtimeType is ${key.runtimeType}");
+  processBarcode1(RawKeyEvent key) {
+    print("Event runtimeType is ${key.runtimeType}");
+    print('\n\n\ mkndkjfnd...............!!!!!!!');
+    print(key.data);
+    print(key.logicalKey);
+    print( key.physicalKey);
     if(key.runtimeType.toString() == 'RawKeyDownEvent'){
       if (key.data.logicalKey.keyLabel != null) {
         tempBarcode = tempBarcode + key.data.keyLabel;
@@ -424,8 +476,9 @@ class NewAppStateModel extends Model {
 
 
   void analyzeCredit (double totalAmountPaid, String paymentMode, bool isCredit) {
-    print("\n\n analyzeCredit entered");
+    print("\n\n analyzeCredit entered : totalAmountPaid = $totalAmountPaid : isCredit = $isCredit");
     if (isCredit) {
+      print("\n\n analyzeCredit entered : totalAmountPaid = $totalAmountPaid : isCredit = $isCredit");
       tempTotalAmountPaid = totalAmountPaid;
       tempCredit = cartTotalValue - tempTotalAmountPaid;
     }
@@ -435,7 +488,7 @@ class NewAppStateModel extends Model {
     }
     tempPaymentMethod = paymentMode;
 
-    print("\n\ntempTotalAmountPaid = $tempTotalAmountPaid :::: cartTotalValue = $cartTotalValue");
+    print("\n\ntempTotalAmountPaid = $tempTotalAmountPaid :::: tempCredit = $tempCredit");
     notifyListeners();
   }
 
@@ -456,12 +509,14 @@ class NewAppStateModel extends Model {
     bool is_receipt_printed = printReceipt;
     List<Map<String, dynamic>> storeProductsInCart = [];
 
+
+
     //Adding Order to table
     Map<String, dynamic> rowOrder = {
       DatabaseHelper.invoice : invoiceNumber,
       DatabaseHelper.cart_total : subTotal,
       DatabaseHelper.cart_discount_total : discountProvided,
-      DatabaseHelper.paid_amount_total : cartTotal,
+      DatabaseHelper.paid_amount_total : tempTotalAmountPaid,
       DatabaseHelper.customer_id : customerID,
       DatabaseHelper.cgst : cgstValue,
       DatabaseHelper.sgst : sgstValue,
@@ -474,7 +529,7 @@ class NewAppStateModel extends Model {
 
     };
 
-    print('${DatabaseHelper.ordersTable} Order Row to be inserted: $rowOrder');
+    print('\n\n${DatabaseHelper.ordersTable} Order Row to be inserted: $rowOrder\n\n');
     var return_id = await dbHelper.insert(DatabaseHelper.ordersTable, rowOrder);
     print('${DatabaseHelper.ordersTable} inserted row id on order submission: $return_id');
 
@@ -483,7 +538,7 @@ class NewAppStateModel extends Model {
     _EditableproductsListForCart.forEach((p) {
       p[DatabaseHelper.order_id] = invoiceNumber;
     }
-    );
+                                         );
 
     List<Map<String, dynamic>> enterProductsToCart = [];
 
@@ -494,7 +549,7 @@ class NewAppStateModel extends Model {
         productItem[key.toString()] = value;
       });
       enterProductsToCart.add(productItem);
-      print(enterProductsToCart);
+      print("\n\nproduct items to be inserted: $productItem\n\n");
     });
 
 
@@ -502,6 +557,7 @@ class NewAppStateModel extends Model {
     await insert_Order_Products(ordersListParsedFromCartItems);
 
     //Adding Credit to table
+    print('\n\n${DatabaseHelper.customerCreditTable} check status of credit: $isCredit\n\n');
     if (isCredit) {
       Map<String, dynamic> rowCredit = {
         DatabaseHelper.customer_id : customerID,
@@ -511,37 +567,38 @@ class NewAppStateModel extends Model {
       };
 
       return_id = await dbHelper.insert(DatabaseHelper.customerCreditTable, rowCredit);
-      print('${DatabaseHelper.customerCreditTable} inserted row id on order submission: $return_id');
+      print('\n\n${DatabaseHelper.customerCreditTable} inserted row id on order submission: $return_id\n\n');
     }
 
     // Update customer Data
 
-  if (tempselectedCustomer.length>0) {
+    if (selectedCustomer.length>0) {
 
 
-    var totalOrders = (selectedCustomer['total_orders'] == "") ? 1 : (int.parse(selectedCustomer['total_orders'].toString()) + 1);
-    var totalSpent = (selectedCustomer['total_spent'] == "") ? cartTotalValue : (int.parse(selectedCustomer['total_spent'].toString()) + cartTotalValue);
-    var totalDiscountOfCustomer = (selectedCustomer['total_discount'] == "") ? Discount : (int.parse(selectedCustomer['total_discount'].toString()) + Discount);
-    var credit_balance = (selectedCustomer['credit_balance'] == "") ? credit : (int.parse(selectedCustomer['credit_balance'].toString()) + credit);
-    print("selectedCustomer['total_orders'] = ${selectedCustomer['total_orders']}");
-    Map<String, dynamic> row = {
-      DatabaseHelper.name : selectedCustomer['name'],
-      DatabaseHelper.phone_number : selectedCustomer['phone_number'],
-      DatabaseHelper.gender : selectedCustomer['gender'],
-      DatabaseHelper.total_orders : totalOrders,
-      DatabaseHelper.total_spent : totalSpent,
-      DatabaseHelper.average_spent : totalSpent/totalOrders,
-      DatabaseHelper.total_discount : totalDiscountOfCustomer,
-      DatabaseHelper.avg_discount_per_order : totalDiscountOfCustomer/totalOrders,
-      DatabaseHelper.credit_balance : credit_balance,
-      DatabaseHelper.updated_at : new DateTime.now().toString()
+      var totalOrders = (selectedCustomer['total_orders'] == "") ? 1 : (int.parse(selectedCustomer['total_orders'].toString()) + 1);
+      var totalSpent = (selectedCustomer['total_spent'].toString() == "") ? tempTotalAmountPaid : (double.parse(selectedCustomer['total_spent'].toString()) + tempTotalAmountPaid);
+      var totalDiscountOfCustomer = (selectedCustomer['total_discount'] == "") ? Discount : (double.parse(selectedCustomer['total_discount'].toString()) + Discount);
+      var credit_balance = (selectedCustomer['credit_balance'] == "") ? credit : (double.parse(selectedCustomer['credit_balance'].toString()) + credit);
+      print("selectedCustomer['total_orders'] = ${selectedCustomer['total_orders']}");
+      Map<String, dynamic> row = {
+        DatabaseHelper.name : selectedCustomer['name'],
+        DatabaseHelper.phone_number : selectedCustomer['phone_number'],
+        DatabaseHelper.gender : selectedCustomer['gender'],
+        DatabaseHelper.total_orders : totalOrders,
+        DatabaseHelper.total_spent : totalSpent,
+        DatabaseHelper.average_spent : totalSpent/totalOrders,
+        DatabaseHelper.total_discount : totalDiscountOfCustomer,
+        DatabaseHelper.avg_discount_per_order : totalDiscountOfCustomer/totalOrders,
+        DatabaseHelper.credit_balance : credit_balance,
+        DatabaseHelper.updated_at : new DateTime.now().toString()
 
-    };
+      };
 
+      print("\n\nCustomer row to be updated: $row\n\n");
 //    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.customerTable, id, DatabaseHelper.id,"=");
-    insertRow(customerID, row, DatabaseHelper.customerTable,"=");
+      insertRow(customerID, row, DatabaseHelper.customerTable,"=");
 
-  }
+    }
 
 //
 //
@@ -557,9 +614,10 @@ class NewAppStateModel extends Model {
         p['id'] = p['product_id'].toString();
         p[DatabaseHelper.inventory] = (int.parse(p[DatabaseHelper.inventory]) - p['quantity']).toString();
         storeProductsInCart.add(p);
+        print("\n\n Updated product inventory : $p");
       }
     }
-    );
+                                );
 
 //    List<Map<String, dynamic>> allCategories = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null'");
 //    print(allCategories);
@@ -595,6 +653,7 @@ class NewAppStateModel extends Model {
     barcodedProductName = "";
     tempBarcode = "";
     tempPaymentMethod = "";
+    selectedCustomer = {};
     calculateCartTotalValue(Discount.toString());
 
 
@@ -705,7 +764,7 @@ class NewAppStateModel extends Model {
       DatabaseHelper.cess : (cess != "") ? double.parse(cess) : 0.0,
       DatabaseHelper.to_be_saved : true,
       DatabaseHelper.barcode : finalBarcode,
-      DatabaseHelper.category_id : (categoryID>0) ? retrievedCategories.firstWhere(((p) => p['name'] == category))['id'] : "null",
+      DatabaseHelper.category_id : (categoryID>=0) ? retrievedCategories.firstWhere(((p) => p['name'] == category))['id'] : "null",
       DatabaseHelper.brand : brand,
       DatabaseHelper.uom : "",
       DatabaseHelper.updated_at : new DateTime.now().toString()
@@ -832,31 +891,31 @@ class NewAppStateModel extends Model {
   //Code to getStockRequestsFromDatabase in Database Ends
 
   //Code to getStockRequestItemsFromDatabase in Database Starts
-    getStockRequestItemsFromDatabase(int id) async {
-      print("\n\nEnter Into getStockRequestItemsFromDatabase");
+  getStockRequestItemsFromDatabase(int id) async {
+    print("\n\nEnter Into getStockRequestItemsFromDatabase");
 
-      tempRequestStockItemsToDisplay = [];
-      List<Map> retrievedStockItems = [];
-      String query = "SELECT * FROM ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.stock_request_id} = '$id' "
-          "ORDER BY ${DatabaseHelper.updated_at} DESC";
-      retrievedStockItems = await dbHelper.raw_query(query);
-      print("\n\nretrievedStockItems = $retrievedStockItems");
+    tempRequestStockItemsToDisplay = [];
+    List<Map> retrievedStockItems = [];
+    String query = "SELECT * FROM ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.stock_request_id} = '$id' "
+        "ORDER BY ${DatabaseHelper.updated_at} DESC";
+    retrievedStockItems = await dbHelper.raw_query(query);
+    print("\n\nretrievedStockItems = $retrievedStockItems");
 
-      retrievedStockItems.forEach((item) {
-        Map stockItemTemp = {};
-        item.forEach((key, value) {
-          stockItemTemp[key.toString()] = value;
-        });
-        print("\n\n stockItemTemp = $stockItemTemp");
-        tempRequestStockItemsToDisplay.add(stockItemTemp);
+    retrievedStockItems.forEach((item) {
+      Map stockItemTemp = {};
+      item.forEach((key, value) {
+        stockItemTemp[key.toString()] = value;
       });
+      print("\n\n stockItemTemp = $stockItemTemp");
+      tempRequestStockItemsToDisplay.add(stockItemTemp);
+    });
 
-      print("\n\ntempRequestStockItemsToDisplay = $tempRequestStockItemsToDisplay");
-      print("\n\nfinalRequestStockItemsToDisplay = $finalRequestStockItemsToDisplay");
+    print("\n\ntempRequestStockItemsToDisplay = $tempRequestStockItemsToDisplay");
+    print("\n\nfinalRequestStockItemsToDisplay = $finalRequestStockItemsToDisplay");
 
-      notifyListeners();
+    notifyListeners();
 
-    }
+  }
   //Code to getStockRequestItemsFromDatabase in Database Ends
 
   //Code to saveStockRequestToDatabase in Database Starts
@@ -977,12 +1036,12 @@ class NewAppStateModel extends Model {
 
   columnstable () async {
     String queryRequest = "SELECT sql FROM sqlite_master "
-    "WHERE tbl_name = '${DatabaseHelper.OrderRefundItemsTable}' AND type = 'table'";
+        "WHERE tbl_name = '${DatabaseHelper.OrderRefundItemsTable}' AND type = 'table'";
 //        "WHERE TABLE_NAME = '${DatabaseHelper.OrderRefundItemsTable}' ORDER BY ORDINAL_POSITION";
     List<Map<String, dynamic>> OrderRefundItemsTable = await dbHelper.raw_query(queryRequest);
     print("\n\ncolumns of OrderRefundItemsTable = $OrderRefundItemsTable");
   }
- //Code to updateStockRequestToDatabase in Database Ends
+  //Code to updateStockRequestToDatabase in Database Ends
 
 
 
@@ -1001,14 +1060,18 @@ class NewAppStateModel extends Model {
 
   String get prefillField => tempPrefillFieldType;
   String tempPrefillFieldType;
-  Map tempselectedCustomer = {};
-  Map get selectedCustomer => tempselectedCustomer;
+  String get PrefillFieldContentCustomer => tempPrefillFieldContentCustomer;
+  String tempPrefillFieldContentCustomer;
+  Map selectedCustomer = {};
+  Map get finalselectedCustomer => selectedCustomer;
   List<Map> tempOrdersInDatabaseToDisplay = [];
   List<Map> get finalOrdersToDisplay => tempOrdersInDatabaseToDisplay;
   double amountPaidTemp = 0.0;
   double get finalAmountPaid => amountPaidTemp;
   double creditTemp = 0.0;
   double get finalRemainingCredit => creditTemp;
+  double get totalCreditsFinal => totalCreditsTemp;
+  double totalCreditsTemp = 0;
 
 
 
@@ -1016,13 +1079,15 @@ class NewAppStateModel extends Model {
   queryCustomerInDatabase (String type /*all, credit*/, String searchString) async {
     print("Entered into queryCustomerInDatabase");
     tempCustomersInDatabaseToDisplay = [];
+    tempPrefillFieldType = "";
+    selectedCustomer = {};
     List<Map<String, dynamic>> customerList = [];
 
 
 
     if (type == "credit") {
       if (searchString.length < 3) {
-        String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} ORDER BY ${DatabaseHelper.name}";
+        String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.credit_balance} != '0' AND ${DatabaseHelper.credit_balance} != '0.0' AND ${DatabaseHelper.credit_balance} != '' ORDER BY ${DatabaseHelper.name}";
         customerList = await dbHelper.raw_query(searchQueryPhoneNumber);
         tempPrefillFieldType = "";
       }
@@ -1032,12 +1097,14 @@ class NewAppStateModel extends Model {
           String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.phone_number} LIKE '%$searchString%' COLLATE utf8_general_ci AND ${DatabaseHelper.credit_balance} != '0' AND ${DatabaseHelper.credit_balance} != '0.0' AND ${DatabaseHelper.credit_balance} != '' ORDER BY ${DatabaseHelper.name}";
           customerList = await dbHelper.raw_query(searchQueryPhoneNumber);
           tempPrefillFieldType = "phone";
+          tempPrefillFieldContentCustomer = searchString;
         }
         else {
           print("\n\n string is not numeric");
           String searchQueryName = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.name} LIKE '%$searchString%' COLLATE utf8_general_ci AND ${DatabaseHelper.credit_balance} != '0' AND ${DatabaseHelper.credit_balance} != '0.0' AND ${DatabaseHelper.credit_balance} != '' ORDER BY ${DatabaseHelper.name}";
           customerList = await dbHelper.raw_query(searchQueryName);
           tempPrefillFieldType = "name";
+          tempPrefillFieldContentCustomer = searchString;
         }
 
       }
@@ -1055,12 +1122,14 @@ class NewAppStateModel extends Model {
           String searchQueryPhoneNumber = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.phone_number} LIKE '%$searchString%' COLLATE utf8_general_ci ORDER BY ${DatabaseHelper.name}";
           customerList = await dbHelper.raw_query(searchQueryPhoneNumber);
           tempPrefillFieldType = "phone";
+          tempPrefillFieldContentCustomer = searchString;
         }
         else {
           print("\n\n string is not numeric");
           String searchQueryName = "SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.name} LIKE '%$searchString%' COLLATE utf8_general_ci ORDER BY ${DatabaseHelper.name}";
           customerList = await dbHelper.raw_query(searchQueryName);
           tempPrefillFieldType = "name";
+          tempPrefillFieldContentCustomer = searchString;
         }
 
       }
@@ -1068,21 +1137,27 @@ class NewAppStateModel extends Model {
     }
 
     print("\n\ncustomerList = $customerList");
-
+    totalCreditsTemp = 0;
     if (customerList.length > 0) {
       customerList.forEach((item) {
         Map tempCustomer = {};
         item.forEach((key, value) {
           tempCustomer[key.toString()] = value.toString();
         });
-        tempCustomersInDatabaseToDisplay.add(tempCustomer);
+        totalCreditsTemp = totalCreditsTemp + ((tempCustomer['credit_balance'].toString() != 'null') ?
+        double.parse(tempCustomer['credit_balance'].toString()) : 0);
+        int index = tempCustomersInDatabaseToDisplay.indexWhere((p) => p['id'] == tempCustomer['id']);
+
+        if (index<0) {
+          tempCustomersInDatabaseToDisplay.add(tempCustomer);
+        }
+
       });
     }
 
-    tempPrefillFieldType = "";
-    tempselectedCustomer = {};
 
-    print("tempCustomersInDatabaseToDisplay = $tempCustomersInDatabaseToDisplay :::: tempPrefillFieldType = $tempPrefillFieldType :::: searchString = $searchString\n\n");
+
+    print("tempCustomersInDatabaseToDisplay = $tempCustomersInDatabaseToDisplay :::: tempPrefillFieldType = $tempPrefillFieldType :::: searchString = $searchString :::: tempPrefillFieldContentCustomer = $tempPrefillFieldContentCustomer\n\n");
     notifyListeners();
 
   }
@@ -1093,24 +1168,24 @@ class NewAppStateModel extends Model {
 
 
 
-    if (id == 0){
-      tempselectedCustomer = {};
+    if (id <= 0){
+      selectedCustomer = {};
       notifyListeners();
       print('customer removed');
       return 'customer removed';
     }
     else{
       print(("\n\n tempCustomersInDatabaseToDisplay = $tempCustomersInDatabaseToDisplay"));
-      tempselectedCustomer = tempCustomersInDatabaseToDisplay.firstWhere((p) => p['id'] == id.toString());
+      selectedCustomer = tempCustomersInDatabaseToDisplay.firstWhere((p) => p['id'] == id.toString());
       notifyListeners();
-      print(("\n\n tempselectedCustomer = $tempselectedCustomer"));
+      print(("\n\n selectedCustomer = $selectedCustomer"));
 
       if (source == "cart") {
         return "add_customer_to_cart";
       }
       else {
 
-        await getOrdersFromDatabase(tempselectedCustomer['id'], "credit_history");
+        await getOrdersFromDatabase(int.parse(selectedCustomer['id'].toString()), "customer_credit_history");
 
         return "display_customer_details";
       }
@@ -1122,6 +1197,11 @@ class NewAppStateModel extends Model {
 
   }
   //Code to selectCustomer in Database Ends
+
+
+
+
+
 
   //Code to selectCustomer in Database Ends
 
@@ -1154,42 +1234,6 @@ class NewAppStateModel extends Model {
   }
   //Code to updateCustomerDatabase in Database Ends
 
-  //Code to getOrdersFromDatabase in Database Starts
-  getOrdersFromDatabase(int id, String type /*"customer_credit_history" or "all_orders" or "all_orders_of_customer"*/) async {
-    print("\n\nEnter Into getOrdersFromDatabase");
-
-    tempOrdersInDatabaseToDisplay = [];
-    List<Map> retrievedOrders = [];
-    if (type == "customer_credit_history") {
-      String searchingOrderHistory = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.* FROM ${DatabaseHelper.customerCreditTable} LEFT OUTER JOIN ${DatabaseHelper.ordersTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.customer_id} = '$id' ORDER BY ${DatabaseHelper.updated_at} DESC";
-      retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
-      print("\n\nQuery = $searchingOrderHistory");
-    }
-    else if (type == "all_orders_of_customer"){
-      String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' ORDER BY ${DatabaseHelper.updated_at} DESC";
-      retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
-    }
-    else {
-      String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} ORDER BY ${DatabaseHelper.updated_at} DESC";
-      retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
-    }
-
-    retrievedOrders.forEach((item) {
-      Map orderTemp = {};
-      item.forEach((key, value) {
-        orderTemp[key.toString()] = value;
-      });
-      print("\n\n orderTemp = $orderTemp");
-      tempOrdersInDatabaseToDisplay.add(orderTemp);
-    });
-
-    print("\n\ntempOrdersInDatabaseToDisplay = $tempOrdersInDatabaseToDisplay");
-    print("\n\nfinalOrdersToDisplay = $finalOrdersToDisplay");
-
-    notifyListeners();
-
-  }
-  //Code to getOrdersFromDatabase in Database Ends
 
   // Code to getCustomerById in Database Starts
   Map getCustomerById(int id) {
@@ -1199,7 +1243,8 @@ class NewAppStateModel extends Model {
   // Code to getCustomerById in Database Ends
 
   // Code to addNewCustomer in Database Starts
-  Future<Map> addNewCustomer (String phoneNumber, String name, String source) async {
+
+  addNewCustomer (String phoneNumber, String name, String source) async {
 
     Map<String, dynamic> row = {
       DatabaseHelper.name : name,
@@ -1221,9 +1266,17 @@ class NewAppStateModel extends Model {
     print("\n\nCustomer return_id = $return_id\n\n");
     List<Map> newCustomer = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.id} = '$return_id'");
     print("\n\nCustomer newCustomer = $newCustomer\n\n");
+    Map tempCustomer = {};
+    newCustomer[0].forEach((key,value) {
+      tempCustomer['$key'] = value;
+    });
+    selectedCustomer = tempCustomer;
+
+    print("\n\n selectedCustomer = $selectedCustomer\n\n");
+    _selectCustomerForCartFlag = false;
     notifyListeners();
-    return newCustomer[0];
   }
+
 // Code to addNewCustomer in Database Ends
 
 // Code to addNewCustomer in Database Ends
@@ -1240,8 +1293,494 @@ class NewAppStateModel extends Model {
     return tempCustomersInDatabaseToDisplay;
 
   }
-}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Code to manage orders
+  List<Map> tempRefundedOrders = [];
+  List<Map> get finalRefundedOrders => tempRefundedOrders;
+
+  String tempDateForFilter = "";
+  String tempSearchStringForFilter = "";
+  String tempPaymentMethodForFilter = "";
+  String tempStatusForFilter = "";
+  bool tempCreditForFilter = false;
+  String get finalDateForFilter => tempDateForFilter;
+  String get finalSearchStringForFilter => tempSearchStringForFilter;
+  String get finalPaymentMethodForFilter => tempPaymentMethodForFilter;
+  String get finalStatusForFilter => tempStatusForFilter;
+  bool get finalCreditForFilter => tempCreditForFilter;
+
+  String tempRefundedOrderPaymentMethod = "";
+  String get finalRefundedOrderPaymentMethod => tempRefundedOrderPaymentMethod;
+
+  List<Map> tempRefundedOrderItems = [];
+  List<Map> get finaltempRefundedOrderItems => tempRefundedOrderItems;
+  List<Map> tempOrderItemsList = [];
+  List<Map> get finalOrderItemsList => tempOrderItemsList;
+  Map tempSelectedOrder = {};
+  Map get finalSelectedOrder => tempSelectedOrder;
+  double tempTotalRefundQuantity = 0;
+  double tempRefundTotalAmount = 0;
+  double tempRefundPaidTotalAmount = 0;
+  double tempAmountCredited = 0;
+  double get finalTotalRefundQuantity => tempTotalRefundQuantity;
+  double get finalRefundTotalAmount => tempRefundTotalAmount;
+  double get finalRefundPaidTotalAmount => tempRefundPaidTotalAmount;
+  double get finalAmountCredited => tempAmountCredited;
+
+  List<Map> tempOrdersItemsToBeRefunded = [];
+  List<Map> get finalOrdersItemsToBeRefunded => tempOrdersItemsToBeRefunded;
+
+  double tempTotalAmountToBeRefunded = 0.0;
+  int tempTotalItemsToBeRefunded = 0;
+  double get finalAmountToBeRefunded => tempTotalAmountToBeRefunded;
+  int get finalItemsItemsToBeRefunded => tempTotalItemsToBeRefunded;
+  double tempAmountRefundedToCustomer = 0.0;
+  double get finalAmountRefundedToCustomer => tempAmountRefundedToCustomer;
+  String tempPaymentModeToCustomer = "";
+  String get finalPaymentModeToCustomer => tempPaymentModeToCustomer;
+
+
+
+  //Code to getOrdersFromDatabase in Database Starts
+  getOrdersFromDatabase(int id, String type /*"customer_credit_history" or "all_orders" or "all_orders_of_customer"*/) async {
+    print("\n\nEnter Into getOrdersFromDatabase :::: id = $id");
+
+    tempOrdersInDatabaseToDisplay = [];
+    List<Map> retrievedOrders = [];
+    if (type == "customer_credit_history") {
+      String searchingOrderHistory = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.amount FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' AND ${DatabaseHelper.ordersTable}.${DatabaseHelper.payment_method} = 'credit' ORDER BY ${DatabaseHelper.updated_at} DESC";
+      retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
+      print("\n\nQuery = $searchingOrderHistory :::: retrievedOrders = $retrievedOrders\n\n");
+    }
+    else if (type == "all_orders_of_customer"){
+      String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' ORDER BY ${DatabaseHelper.updated_at} DESC";
+      retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
+    }
+    else {
+      String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} ORDER BY ${DatabaseHelper.updated_at} DESC";
+      retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
+    }
+
+    retrievedOrders.forEach((item) {
+      Map orderTemp = {};
+      item.forEach((key, value) {
+        orderTemp[key.toString()] = value;
+      });
+      //print("\n\n orderTemp = $orderTemp");
+      tempOrdersInDatabaseToDisplay.add(orderTemp);
+    });
+
+    print("\n\ntempOrdersInDatabaseToDisplay = $tempOrdersInDatabaseToDisplay");
+    print("\n\nfinalOrdersToDisplay = $finalOrdersToDisplay");
+
+    tempOrderItemsList = [];
+    tempSelectedOrder = {};
+
+    notifyListeners();
+
+  }
+  //Code to getOrdersFromDatabase in Database Ends
+
+  //Code to filterOrders in Database Starts
+  filterOrders (String searchString, String date /*YYYY-DD-MM*/, String paymentMethod, String status, bool isCredit) async {
+    tempDateForFilter = date;
+    tempSearchStringForFilter = searchString;
+    tempPaymentMethodForFilter = paymentMethod;
+    tempStatusForFilter = status;
+    tempCreditForFilter = isCredit;
+    print("entered into filterorders :::: $tempDateForFilter");
+    String finalQuery, query1, query2, query3, query4, query5, query6, query7, query8, query9, query10, query11, query12;
+
+    query1 = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount}, "
+        "COUNT(${DatabaseHelper.orderProductsTable}.${DatabaseHelper.id}) as order_quantity";
+
+    query2 = ", ${DatabaseHelper.customerTable}.${DatabaseHelper.name}, ${DatabaseHelper.customerTable}.${DatabaseHelper.phone_number}";
+
+    query3 = " FROM ${DatabaseHelper.ordersTable} LEFT OUTER JOIN ${DatabaseHelper.orderProductsTable} ON "
+        "${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice} = ${DatabaseHelper.orderProductsTable}.${DatabaseHelper.order_id} "
+        "LEFT OUTER JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice} = "
+        "${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} ";
+
+    query4 = "INNER JOIN ${DatabaseHelper.customerTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = "
+        "${DatabaseHelper.customerTable}.${DatabaseHelper.id} ";
+
+    query5 = "UPPER(${DatabaseHelper.ordersTable}.${DatabaseHelper.payment_method}) = UPPER('$paymentMethod') ";
+
+    query6 = "UPPER(${DatabaseHelper.ordersTable}.${DatabaseHelper.status}) = UPPER('$status') ";
+
+    query7 = "${DatabaseHelper.ordersTable}.${DatabaseHelper.created_at} LIKE '%$date%' COLLATE utf8_general_ci ";
+
+    query8 = "${DatabaseHelper.customerTable}.${DatabaseHelper.phone_number} LIKE '%$searchString%' COLLATE utf8_general_ci ";
+
+    query9 = "${DatabaseHelper.customerTable}.${DatabaseHelper.name} LIKE '%$searchString%' COLLATE utf8_general_ci ";
+
+    query10 = "GROUP BY ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice} ORDER BY "
+        "${DatabaseHelper.ordersTable}.${DatabaseHelper.updated_at} DESC";
+
+    query11 = "${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount} != '0' AND "
+        "${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount} != '0.0' AND "
+        "${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount} != '' ";
+
+    tempOrdersInDatabaseToDisplay = [];
+
+    if (searchString.length>=3) {
+      print("\n\n${searchString.length}");
+      finalQuery = query1+query2+query3+query4+"WHERE ";
+    }
+    else {
+      finalQuery = query1+query3+"WHERE ";
+    }
+
+    //Adding Where Clause for credit Filter
+    if (isCredit) {
+      finalQuery = finalQuery+query11;
+    }
+    //Adding Where Clause for Date Filter
+    if (date != "" && finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+      finalQuery = finalQuery+query7;
+    }
+    else if (date != "" && finalQuery.substring(finalQuery.length - 6) != "WHERE "){
+      finalQuery = finalQuery+"AND "+query7;
+    }
+
+    //Adding Where Clause for Status Filter
+    if (status != "" && finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+      finalQuery = finalQuery+query6;
+    }
+    else if (status != "" && finalQuery.substring(finalQuery.length - 6) != "WHERE "){
+      finalQuery = finalQuery+"AND "+query6;
+    }
+
+    //Adding Where Clause for payment mode Filter
+    if (paymentMethod != "" && finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+      finalQuery = finalQuery+query5;
+    }
+    else if (paymentMethod != "" && finalQuery.substring(finalQuery.length - 6) != "WHERE "){
+      finalQuery = finalQuery+"AND "+query5;
+    }
+
+    //Adding Where Clause for Sear String Filter
+    if (searchString.length>=3 && _isNumeric(searchString)) {
+      if (finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+        finalQuery = finalQuery+query8;
+      }
+      else if (finalQuery.substring(finalQuery.length - 6) != "WHERE "){
+        finalQuery = finalQuery+"AND "+query8;
+      }
+    }
+    if (searchString.length>=3 && !_isNumeric(searchString)) {
+      if (finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+        finalQuery = finalQuery+query9;
+      }
+      else if (finalQuery.substring(finalQuery.length - 6) != "WHERE "){
+        finalQuery = finalQuery+"AND "+query9;
+      }
+    }
+
+    if (finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+      finalQuery = query1+query3+query10;
+    }
+    else {
+      finalQuery = finalQuery+query10;
+    }
+
+
+
+
+
+    print("\n\nquery = ${finalQuery}\n\n");
+    List<Map> retrievedOrders = await dbHelper.raw_query(finalQuery);
+    print("\n\nretrievedOrders = ${retrievedOrders}");
+
+    print("\n\n number of retrievedOrders = ${retrievedOrders.length}");
+
+    retrievedOrders.forEach((item) {
+      Map orderTemp = {};
+      item.forEach((key, value) {
+        orderTemp[key.toString()] = value;
+      });
+
+      int indexOfRefundedItem = tempOrdersInDatabaseToDisplay.indexWhere((p) => p['id'] == item['id']);
+      print("\n\n orderTemp = $orderTemp :::: indexOfRefundedItem = $indexOfRefundedItem");
+      if (indexOfRefundedItem < 0) {
+        tempOrdersInDatabaseToDisplay.add(orderTemp);
+      }
+
+    });
+
+//    print("\n\ntempOrdersInDatabaseToDisplay = $tempOrdersInDatabaseToDisplay");
+//    print("\n\nfinalOrdersToDisplay = ${finalOrdersToDisplay.length}");
+
+    notifyListeners();
+
+  }
+  //Code to filterOrders in Database Ends
+
+  //Code to selectOrder in Database Starts
+  selectOrder (int id) async {
+    tempSelectedOrder = tempOrdersInDatabaseToDisplay.firstWhere((p) => p['id'] == id);
+
+    if (_isNumeric(tempSelectedOrder['customer_id'].toString())) {
+      await orderCustomer(tempSelectedOrder['customer_id']);
+    }
+    else {
+      selectedCustomer = {};
+    }
+
+    await itemsOfSelectedOrder(tempSelectedOrder['invoice']);
+    if (tempSelectedOrder['status'] != 'completed') {
+      await refundItemsOfSelectedOrder(tempSelectedOrder['invoice']);
+      await refundListSelectedOrder(tempSelectedOrder['invoice']);
+    }
+
+    notifyListeners();
+  }
+  //Code to selectOrder in Database Ends
+
+  //Code for getting data of refundListSelectedOrder starts
+  refundListSelectedOrder(String invoice) async {
+    List<Map> refundListFromDb =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.refundTable} WHERE "
+                                                               "${DatabaseHelper.order_id} = '$invoice'"
+                                                           );
+
+
+    refundListFromDb.forEach((item) {
+      Map tempOrder = {};
+      item.forEach((key, value) {
+        tempOrder[key.toString()] = value;
+      });
+      print("\n\ntempOrder = $tempOrder");
+      tempRefundedOrders.add(tempOrder);
+    });
+
+    orderRefundedDetails(tempRefundedOrders);
+    notifyListeners();
+  }
+  //Code for getting data of orderCustomer Ends
+
+  //Code for getting data of orderCustomer starts
+  orderCustomer(int id) async {
+    List<Map> customer =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.id} = '$id'");
+    Map tempCustomer = {};
+    customer[0].forEach((key, value) {
+      tempCustomer[key.toString()] = value;
+    });
+    selectedCustomer = tempCustomer;
+    notifyListeners();
+  }
+  //Code for getting data of orderCustomer Ends
+
+  //Code for getting data of itemsOfSelectedOrder starts
+  itemsOfSelectedOrder(String invoice) async {
+    List<Map> itemsSelectedOrder =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.orderProductsTable} "
+                                                                 "WHERE ${DatabaseHelper.order_id} = '$invoice'");
+
+    itemsSelectedOrder.forEach((item) {
+      Map tempOrder = {};
+      item.forEach((key, value) {
+        tempOrder[key.toString()] = value;
+      });
+      print("\n\ntempOrder = $tempOrder");
+      tempOrderItemsList.add(tempOrder);
+    });
+
+    print("\n\ntempOrderItemsList = $tempOrderItemsList");
+    notifyListeners();
+  }
+  //Code for getting data of itemsOfSelectedOrder Ends
+
+  //Code for getting data of refundItemsOfSelectedOrder starts
+  refundItemsOfSelectedOrder(String invoice) async {
+    List<Map> refundItemsFromDb =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.OrderRefundItemsTable} WHERE "
+                                                                "${DatabaseHelper.order_id} = '$invoice'"
+                                                            );
+
+
+    refundItemsFromDb.forEach((item) {
+      Map tempOrder = {};
+      item.forEach((key, value) {
+        tempOrder[key.toString()] = value;
+      });
+      print("\n\ntempOrder = $tempOrder");
+      tempRefundedOrderItems.add(tempOrder);
+    });
+
+    notifyListeners();
+  }
+  //Code for getting data of orderCustomer Ends
+
+  //Code for getting data of updateRefundDetailsOnUi starts
+  updateRefundDetailsOnUi(int refundQuantity, int id) async {
+    tempTotalAmountToBeRefunded = 0.0;
+    tempTotalItemsToBeRefunded = 0;
+    Map refundItemToBeUpdated = tempOrderItemsList.firstWhere((p) => p['id'] == id);
+    int indexOfRefundedItem = tempOrdersItemsToBeRefunded.indexWhere((p) => p['id'] == id);
+    if (indexOfRefundedItem<0){
+      refundItemToBeUpdated['quantity'] = refundQuantity;
+      tempOrdersItemsToBeRefunded.add(refundItemToBeUpdated);
+    }
+    else{
+      tempOrdersItemsToBeRefunded[indexOfRefundedItem]['quantity'] = refundQuantity;
+    }
+
+    tempOrdersItemsToBeRefunded.forEach((item){
+      tempTotalItemsToBeRefunded = tempTotalItemsToBeRefunded + item['quantity'];
+      tempTotalAmountToBeRefunded = tempTotalAmountToBeRefunded + item['quantity'];
+
+    });
+
+    notifyListeners();
+
+  }
+  //Code for getting data of updateRefundDetailsOnUi Ends
+
+  //Code for getting data of orderRefundDetails Starts
+  orderRefundedDetails (List<Map> refundedOrders) {
+    tempTotalRefundQuantity = 0;
+    tempRefundTotalAmount = 0;
+    tempRefundPaidTotalAmount = 0;
+    tempAmountCredited = 0;
+    List paymentMethod = [];
+
+    refundedOrders.forEach((item){
+      tempTotalRefundQuantity = tempTotalRefundQuantity + item[DatabaseHelper.total_quantity_refunded];
+      tempRefundTotalAmount = tempRefundTotalAmount + item[DatabaseHelper.total_amount_refunded];
+      tempRefundPaidTotalAmount = tempRefundPaidTotalAmount + item[DatabaseHelper.paid_amount_total];
+      paymentMethod.add(item[DatabaseHelper.payment_method]);
+    });
+
+    paymentMethod = paymentMethod.toSet().toList();
+
+    paymentMethod.forEach((item){
+      tempRefundedOrderPaymentMethod = tempRefundedOrderPaymentMethod.toString() + " " + tempRefundedOrderPaymentMethod.toString();
+    });
+
+    tempAmountCredited = tempRefundTotalAmount - tempRefundPaidTotalAmount;
+
+    notifyListeners();
+  }
+  //Code for getting data of orderRefundDetails Ends
+
+  //Code for getting data of setRefundDetails Starts
+  setRefundDetails (String refundedAmount, String refundedPaymentMode) {
+    tempAmountRefundedToCustomer = double.parse(refundedAmount);
+    tempPaymentModeToCustomer = refundedPaymentMode;
+
+    notifyListeners();
+  }
+  //Code for getting data of setRefundDetails Ends
+
+  //Code for getting data of submitRefundDetailsToDb Starts
+  submitRefundDetailsToDb (String refundedPaymentMode) async {
+    selectedCustomer[DatabaseHelper.credit_balance] = selectedCustomer[DatabaseHelper.credit_balance] -
+        tempTotalAmountToBeRefunded + tempAmountRefundedToCustomer;
+    selectedCustomer[DatabaseHelper.total_spent] = selectedCustomer[DatabaseHelper.credit_balance] + tempTotalAmountToBeRefunded;
+    if (tempSelectedOrder[DatabaseHelper.cart_total] == tempTotalAmountToBeRefunded) {
+      selectedCustomer[DatabaseHelper.total_orders] = selectedCustomer[DatabaseHelper.total_orders] - 1;
+    }
+    selectedCustomer[DatabaseHelper.average_spent] = selectedCustomer[DatabaseHelper.total_spent]/
+        (selectedCustomer[DatabaseHelper.total_orders] == 0 ? 1 : selectedCustomer[DatabaseHelper.total_orders]);
+    selectedCustomer[DatabaseHelper.total_discount] = selectedCustomer[DatabaseHelper.total_discount] -
+        tempSelectedOrder[DatabaseHelper.cart_discount_total];
+    selectedCustomer[DatabaseHelper.avg_discount_per_order] = selectedCustomer[DatabaseHelper.total_discount]/
+        (selectedCustomer[DatabaseHelper.total_orders] == 0 ? 1 : selectedCustomer[DatabaseHelper.total_orders]);
+
+    selectedCustomer.remove(DatabaseHelper.created_at);
+
+    final id = await dbHelper.update(DatabaseHelper.customerTable, selectedCustomer, DatabaseHelper.id, selectedCustomer[DatabaseHelper.id]);
+    print('${DatabaseHelper.customerTable} update row id: $id');
+
+    //Update Order Status
+    tempSelectedOrder[DatabaseHelper.status] = ((tempSelectedOrder[DatabaseHelper.cart_total] == tempTotalAmountToBeRefunded)
+        ? "refunded" : "partially_refunded");
+    final order_id = await dbHelper.update(DatabaseHelper.ordersTable, tempSelectedOrder, DatabaseHelper.id, tempSelectedOrder[DatabaseHelper.id]);
+    print('${DatabaseHelper.ordersTable} update row id: $order_id');
+
+    //Insert refundedOrder
+    Map<String, dynamic> row = {
+      DatabaseHelper.order_id : tempSelectedOrder[DatabaseHelper.invoice],
+      DatabaseHelper.total_amount_refunded : tempTotalAmountToBeRefunded,
+      DatabaseHelper.paid_amount_total : tempAmountRefundedToCustomer,
+      DatabaseHelper.payment_method : tempPaymentModeToCustomer,
+      DatabaseHelper.updated_at : new DateTime.now().toString(),
+      DatabaseHelper.is_receipt_printed : false,
+      DatabaseHelper.total_quantity_refunded : tempTotalItemsToBeRefunded,
+
+    };
+    final refundreturn_id = await dbHelper.insert(DatabaseHelper.refundTable, row);
+    print('${DatabaseHelper.refundTable} inserted row id: $refundreturn_id');
+
+    //Insert refundOrderItems
+    tempOrdersItemsToBeRefunded.forEach((item) async {
+
+      Map<String, dynamic> row = {
+        DatabaseHelper.orderItems_id : item['id'],
+        DatabaseHelper.refund_qty : tempTotalItemsToBeRefunded,
+        DatabaseHelper.refunded_item_refund_amount : tempTotalAmountToBeRefunded,
+        DatabaseHelper.updated_at : new DateTime.now().toString(),
+        DatabaseHelper.order_id : item[DatabaseHelper.order_id],
+        DatabaseHelper.refund_id : refundreturn_id,
+
+      };
+
+//    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.OrderRefundTable, id, DatabaseHelper.id,"=");
+      final return_id = await dbHelper.insert(DatabaseHelper.OrderRefundItemsTable, row);
+      print('${DatabaseHelper.OrderRefundItemsTable} inserted row id: $return_id');
+
+    });
+
+
+    clearAllData();
+    notifyListeners();
+  }
+  //Code for getting data of submitRefundDetailsToDb Ends
+
+  // Code to getCustomerById in refundItemsOfSelectedOrder Starts
+  Map getOrderById(int id) {
+    //print("Returning product for actions = ${_EditableproductsListForCart.firstWhere((p) => p['id'] == id)} \n\n\n");
+    return tempOrdersInDatabaseToDisplay.firstWhere((p) => p['id'] == id);
+  }
+  // Code to getCustomerById in Database Ends
+
+  // code to clear All Data Starts
+  clearAllData () {
+    tempOrdersInDatabaseToDisplay = [];
+    tempRefundedOrders = [];
+    tempRefundedOrderPaymentMethod = "";
+    tempRefundedOrderItems = [];
+    tempOrderItemsList = [];
+    tempSelectedOrder = {};
+    selectedCustomer = {};
+    tempTotalRefundQuantity = 0;
+    tempRefundTotalAmount = 0;
+    tempRefundPaidTotalAmount = 0;
+    tempAmountCredited = 0;
+    tempOrdersItemsToBeRefunded = [];
+    tempTotalAmountToBeRefunded = 0.0;
+    tempTotalItemsToBeRefunded = 0;
+    tempAmountRefundedToCustomer = 0.0;
+    tempPaymentModeToCustomer = "";
+    selectedCustomer = {};
+    notifyListeners();
+  }
+// code to clear All Data Ends
+}
 
 
 

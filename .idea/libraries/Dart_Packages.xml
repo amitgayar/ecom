@@ -128,10 +128,31 @@
             </list>
           </value>
         </entry>
+        <entry key="datetime_picker_formfield">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/datetime_picker_formfield-0.4.3/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="esc_pos_printer">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/esc_pos_printer-1.5.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter">
           <value>
             <list>
               <option value="$USER_HOME$/flutter/flutter/packages/flutter/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_datetime_picker">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.2.5/lib" />
             </list>
           </value>
         </entry>
@@ -163,10 +184,24 @@
             </list>
           </value>
         </entry>
+        <entry key="gbk_codec">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/gbk_codec-0.3.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="glob">
           <value>
             <list>
               <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/glob-1.2.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="hex">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/hex-0.1.2/lib" />
             </list>
           </value>
         </entry>
@@ -300,6 +335,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="ping_discover_network">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/ping_discover_network-0.2.0+1/lib" />
             </list>
           </value>
         </entry>
@@ -464,6 +506,13 @@
             </list>
           </value>
         </entry>
+        <entry key="wifi">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/wifi-0.1.5/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="xml">
           <value>
             <list>
@@ -499,9 +548,14 @@
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/csslib-0.16.1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-0.1.3/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/dart_style-1.2.9/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/datetime_picker_formfield-0.4.3/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/esc_pos_printer-1.5.0/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.2.5/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-3.1.3/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/front_end-0.1.19/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/gbk_codec-0.3.2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/glob-1.2.0/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/hex-0.1.2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/html-0.14.0+3/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.0+2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.3/lib" />
@@ -521,6 +575,7 @@
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.5.1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.8.0+1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/ping_discover_network-0.2.0+1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/platform-2.2.1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/pub_semver-1.4.2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/pubspec_parse-0.1.5/lib" />
@@ -543,6 +598,7 @@
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/typed_data-1.1.6/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.0.8/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/watcher-0.9.7+13/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/wifi-0.1.5/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/xml-3.5.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/yaml-2.2.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/bin/cache/pkg/sky_engine/lib" />
