@@ -71,7 +71,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   }
 
 
-  bool _secondScreen = true;
+  bool _secondScreen = false;
   bool _thirdScreen = false;
 
   bool get secondScreen => _secondScreen;

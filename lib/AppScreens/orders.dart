@@ -258,35 +258,31 @@ class _OrderTiles extends State<OrderTiles> {
                         child:Text(
                           (orderList[index]["${DatabaseHelper.paid_amount_total}"] != null) ? "Total Paid: ${formatter.format(orderList[index]["${DatabaseHelper.paid_amount_total}"])}" : "",
                         ),
-                        flex: 2,
+                        flex: 3,
                       ),
                       Expanded (
-                        child: RaisedButton(
-                            child: Text(orderList[index]['${DatabaseHelper.status}']),
-                            onPressed: () {
-                            },
-                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                        child: Container(
+                          color: Color(0xffe48181),
+                            child: Text(orderList[index]['${DatabaseHelper.status}'].toUpperCase()),
                         ),
-                        flex: 2,
+                        flex: 3,
                       ),
-                      (orderList[index]['${DatabaseHelper.payment_method}'] != "") ? Expanded (
-                        child: RaisedButton(
-                            child: Text(orderList[index]['${DatabaseHelper.payment_method}']),
-                            onPressed: () {
-                            },
-                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                      (orderList[index]['${DatabaseHelper.payment_method}'] != "") ?
+                      Expanded (
+                        child: Container(
+                          color: Color(0xff81c784),
+                            child: Text(orderList[index]['${DatabaseHelper.payment_method}'].toUpperCase()),
                         ),
-                        flex: 1,
+                        flex: 3,
                       ) : Text(""),
                       (double.parse(orderList[index]["${DatabaseHelper.cgst}"].toString()) > 0 || double.parse(orderList[index][DatabaseHelper.sgst.toString()].toString()) > 0 ||
-                          double.parse(orderList[index][DatabaseHelper.cess.toString()].toString()) > 0) ? Expanded (
-                        child: RaisedButton(
+                          double.parse(orderList[index][DatabaseHelper.cess.toString()].toString()) > 0) ?
+                      Expanded (
+                        child: Container(
+                          color: Colors.lightBlueAccent,
                             child: Text("GST"),
-                            onPressed: () {
-                            },
-                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                         ),
-                        flex: 1,
+                        flex: 3,
                       ) : Text("")
 
 
@@ -299,7 +295,6 @@ class _OrderTiles extends State<OrderTiles> {
             ),
           ),
           onTap: () async {
-
             model.orderPageState(true, false);
           },
         ),
@@ -307,7 +302,7 @@ class _OrderTiles extends State<OrderTiles> {
     }).toList() ;
   }
 
-  final List<String> paymentModes = ["Cash", "PayTM",""];
+  final List<String> paymentModes = ["Cash", "PayTM","BhimUPI","Other"];
   String _date = "Not set";
   String _selectedPaymentMode;
   String _selectedOrderStatus;
@@ -413,12 +408,13 @@ class _OrderTiles extends State<OrderTiles> {
                                 ),
                               Expanded(
                                 child:Container(
+                                  width:100,
                                   child: DropdownButton<String>(
                                     items: paymentModes.map((String value) {
                                       //print("\n\n value dropdown = $value");
                                       return new DropdownMenuItem<String>(
                                         value: value,
-                                        child: new Text(value),
+                                        child: new Text(value, style: TextStyle(fontSize: 13),),
                                         );
                                     }).toList(),
                                     value: _selectedPaymentMode,
@@ -427,20 +423,22 @@ class _OrderTiles extends State<OrderTiles> {
                                         _selectedPaymentMode = newValue;
                                       });
                                     },
-                                    hint: Text('Payment Mode'),
+                                    hint: Text('Payment Mode', style: TextStyle(fontSize: 13),),
                                     ),
                                   ),
                                 flex: 2,
                                 ),
                               Expanded(
                                 child:Container(
+                                    width:100,
                                     child: Padding(
+                                      padding: EdgeInsets.all(10),
                                       child: DropdownButton<String>(
                                         items: <String>["Credit", "All"].map((String value) {
                                           //print("\n\n value dropdown = $value");
                                           return new DropdownMenuItem<String>(
                                             value: value,
-                                            child: new Text(value),
+                                            child: new Text(value, style: TextStyle(fontSize: 13),),
                                             );
                                         }).toList(),
                                         value: _selectedCreditStatus,
@@ -449,7 +447,7 @@ class _OrderTiles extends State<OrderTiles> {
                                             _selectedCreditStatus = newValue;
                                           });
                                         },
-                                        hint: Text('All'),
+                                        hint: Text('All', style: TextStyle(fontSize: 13),),
                                         ),
                                       )
                                     ),
@@ -457,14 +455,15 @@ class _OrderTiles extends State<OrderTiles> {
                                 ),
                               Expanded (
                                 child: Container(
+                                    width:100,
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: DropdownButton<String>(
-                                        items: <String>["Completed", "Refunded", "Partially refunded"].map((String value) {
+                                        items: <String>["Completed", "Refunded", "Partially Refunded"].map((String value) {
                                           //print("\n\n value dropdown = $value");
                                           return new DropdownMenuItem<String>(
                                             value: value,
-                                            child: new Text(value),
+                                            child: new Text(value, style: TextStyle(fontSize: 13),),
                                             );
                                         }).toList(),
                                         value: _selectedOrderStatus,
@@ -473,7 +472,7 @@ class _OrderTiles extends State<OrderTiles> {
                                             _selectedOrderStatus = newValue;
                                           });
                                         },
-                                        hint: Text('Status'),
+                                        hint: Text('Status', style: TextStyle(fontSize: 13),),
                                         ),
                                       )
                                     ),
