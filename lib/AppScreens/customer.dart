@@ -10,13 +10,6 @@ import 'package:express_store/Databases/Database.dart';
 
 NewAppStateModel customerModel = new NewAppStateModel();
 
-//----------------Model initialization for cart 1
-
-
-//---------------- CLASS for TabBar Heading or Cart Status
-
-
-//--------------------- CLASS to exploit ScopedModel for the CART
 
 class Customer extends StatefulWidget {
   @override
@@ -166,6 +159,11 @@ child: Column(
   }
 }
 
+
+
+
+
+
 class SelectCustomer extends StatefulWidget {
 
   @override
@@ -306,14 +304,17 @@ class _SelectCustomer extends State<SelectCustomer> {
         );
     }).toList() ;
   }
-
   String selectedType = 'customer';
-  String selectedHistory = 'credit';
+  String selectedHistory = 'credit';//
   String selectedCustomer = '';
   int selectedCustomerID = 0 ;
   bool isCustomerSelected = false;
   bool payButtonClicked = false;
   bool successMessage = false;
+
+  String paymentMode  = '';
+
+  TextEditingController _paidAmountController = new TextEditingController();
 
   void pageState({String type:'',String customer :'', int customerID}){
     selectedType = type;
@@ -638,8 +639,14 @@ child: FlatButton(
                       Divider(thickness: 1, height: 5,color: Colors.blueGrey,),
                       Row(
                         children: <Widget>[
-                          Text('Paid Amount: rs.234'), //This has to be a text field
-
+                          Text('Paid Amount:'),
+                          Spacer(),
+                          Container(
+                            child: TextField(
+                              controller: _paidAmountController,
+                            ),
+                            width: 60,
+                          )
 
                         ],
                         ),
@@ -650,23 +657,70 @@ child: FlatButton(
                         ),
                       Row(
                         children: <Widget>[
-                          RaisedButton(
-                            child: Text('PAYTM'),
-                            onPressed: (){},// Need a payment mode in a variable to call a function
+                          Expanded(
+                            child: RaisedButton(
+                              color: paymentMode == 'PAYTM'? Color(0xff81c784) : Colors.white70,
+                              child: Text('PAYTM'),
+                              onPressed: (){
+                                setState(() {
+                                  paymentMode = 'PAYTM';
+                                });
+                              },// Need a payment mode in a variable to call a function
+                              ),
+                            flex: 1,
+                          ),
+                          Container(
+                            width: 50,
+                          ),
+                          Expanded(
+                            child: RaisedButton(
+                              color: paymentMode == 'CASH'? Color(0xff81c784) : Colors.white70,
+                              child: Text('CASH'), // Need a payment mode in a variable to call a function
+                              onPressed: (){
+                                setState(() {
+                                  paymentMode = 'CASH';
+                                });
+                              },),
+                            flex: 1,
                             ),
-                          RaisedButton(
-                            child: Text('CASH'), // Need a payment mode in a variable to call a function
-                            onPressed: (){},),
-                          RaisedButton(
-                            child: Text('BHIM UPI'), // Need a payment mode in a variable to call a function
-                            onPressed: (){},
-                            ),
-                          RaisedButton(
-                            child: Text('OTHER'), // Need a payment mode in a variable to call a function
-                            onPressed: (){},
-                            ),
+
+
+
                         ],
                         ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: RaisedButton(
+                              color: paymentMode == 'BHIM UPI'? Color(0xff81c784) : Colors.white70,
+                              child: Text('BHIM UPI'), // Need a payment mode in a variable to call a function
+                              onPressed: (){
+                                setState(() {
+                                  paymentMode = 'BHIM UPI';
+                                });
+                              },
+                              ),
+                            flex: 1,
+                            ),
+                          Container(
+                            width: 50,
+                            ),
+                          Expanded(
+                            child: RaisedButton(
+                              color: paymentMode == 'OTHER'? Color(0xff81c784) : Colors.white70,
+                              child: Text('OTHER'), // Need a payment mode in a variable to call a function
+                              onPressed: (){
+                                setState(() {
+                                  paymentMode = 'OTHER';
+                                });
+                              },
+                              ),
+                            flex: 1,
+                            ),
+
+
+                        ],
+                      ),
                       Row(
                         children: <Widget>[
 

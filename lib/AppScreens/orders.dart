@@ -38,21 +38,7 @@ class _OrderName extends State<OrderName> {
 
 
 
-List<Map<String, dynamic >> productList = [{
-  'name': 'product_name',
-  'sp': '90',
-  'mrp': '90',
-  'qty': '9',
-  'total' : '810'
-},
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  }
-];
+
 
 
 class OrderDescendant extends StatelessWidget {
