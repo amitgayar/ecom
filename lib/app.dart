@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'services/syncData.dart';
 import 'AppScreens/customer.dart';
-import 'AppScreens/orderSuper.dart';
+import 'AppScreens/orders.dart';
 import 'AppScreens/requestStocks.dart';
 
 class DefaultWidget {

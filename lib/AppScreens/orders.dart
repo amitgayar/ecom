@@ -4,6 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:express_store/Databases/Database.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../model/app_state_model.dart';
+
+
+NewAppStateModel orderModel = new NewAppStateModel();
+
+
+
+
+class OrderName extends StatefulWidget {
+  @override
+  _OrderName createState() => _OrderName();
+}
+
+class _OrderName extends State<OrderName> {
+
+  @override
+  Widget build(BuildContext context) {
+
+//    orderModel.filterOrders("", "", "", "", false);
+    return Scaffold(
+      body: SafeArea(
+
+        child: ScopedModel<NewAppStateModel>(
+          model: orderModel,
+          child: OrderDescendant(orderModel: orderModel),
+          ),
+        ),
+      );
+  }
+
+}
 
 
 
@@ -258,31 +289,40 @@ class _OrderTiles extends State<OrderTiles> {
                         child:Text(
                           (orderList[index]["${DatabaseHelper.paid_amount_total}"] != null) ? "Total Paid: ${formatter.format(orderList[index]["${DatabaseHelper.paid_amount_total}"])}" : "",
                         ),
-                        flex: 3,
+                        flex: 10,
                       ),
                       Expanded (
                         child: Container(
                           color: Color(0xffe48181),
-                            child: Text(orderList[index]['${DatabaseHelper.status}'].toUpperCase()),
+                            child: Text(orderList[index]['${DatabaseHelper.status}'][0].toUpperCase()+
+                                            orderList[index]['${DatabaseHelper.status}'].substring(1),
+                                        style: TextStyle(fontSize: 13),
+                                        ),
                         ),
-                        flex: 3,
+                        flex: 4,
                       ),
+                      Text(' '),
                       (orderList[index]['${DatabaseHelper.payment_method}'] != "") ?
                       Expanded (
                         child: Container(
                           color: Color(0xff81c784),
-                            child: Text(orderList[index]['${DatabaseHelper.payment_method}'].toUpperCase()),
+                            child: Text(orderList[index]['${DatabaseHelper.payment_method}'].toUpperCase(),
+                                          style: TextStyle(fontSize: 11),
+                                        ),
                         ),
                         flex: 3,
                       ) : Text(""),
+                      Text(' '),
                       (double.parse(orderList[index]["${DatabaseHelper.cgst}"].toString()) > 0 || double.parse(orderList[index][DatabaseHelper.sgst.toString()].toString()) > 0 ||
                           double.parse(orderList[index][DatabaseHelper.cess.toString()].toString()) > 0) ?
                       Expanded (
                         child: Container(
                           color: Colors.lightBlueAccent,
-                            child: Text("GST"),
+                            child: Text("GST",
+                                          style: TextStyle(fontSize: 11),
+                                        ),
                         ),
-                        flex: 3,
+                        flex: 2,
                       ) : Text("")
 
 
