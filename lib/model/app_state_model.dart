@@ -80,7 +80,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   String _orderPagePayment = '';
   String get orderPagePayment => _orderPagePayment;
 
-  void orderPageState(value2, value3, {value4 = false}){
+  void orderPageState(value2, value3){
     _secondScreen = value2;
     _thirdScreen = value3;
     notifyListeners();

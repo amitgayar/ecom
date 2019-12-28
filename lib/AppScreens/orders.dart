@@ -176,7 +176,7 @@ class _OrderTiles extends State<OrderTiles> {
 
 
 
-  List<Container> _buildCustomerTiles(BuildContext context, List<Map> orderList ) {
+  List<Container> _buildCustomerTiles(BuildContext context, List<Map> orderList, NewAppStateModel model ) {
 
     if (orderList == null || orderList.isEmpty) {
       return const <Container>[];
@@ -300,7 +300,7 @@ class _OrderTiles extends State<OrderTiles> {
           ),
           onTap: () async {
 
-//            model.setSelectCustomerForCartFlag(false);
+            model.orderPageState(true, false);
           },
         ),
       );
@@ -329,7 +329,7 @@ class _OrderTiles extends State<OrderTiles> {
           return Stack(children: <Widget>[
             Container(
                   color: Colors.white,
-                      child: ListView(
+                  child: ListView(
                         children: <Widget>[
                           Row(
                             children: <Widget>[
@@ -413,7 +413,6 @@ class _OrderTiles extends State<OrderTiles> {
                                 ),
                               Expanded(
                                 child:Container(
-                                  width: 150,
                                   child: DropdownButton<String>(
                                     items: paymentModes.map((String value) {
                                       //print("\n\n value dropdown = $value");
@@ -431,12 +430,11 @@ class _OrderTiles extends State<OrderTiles> {
                                     hint: Text('Payment Mode'),
                                     ),
                                   ),
-                                flex: 3,
+                                flex: 2,
                                 ),
                               Expanded(
                                 child:Container(
                                     child: Padding(
-                                      padding: EdgeInsets.all(10),
                                       child: DropdownButton<String>(
                                         items: <String>["Credit", "All"].map((String value) {
                                           //print("\n\n value dropdown = $value");
@@ -491,7 +489,7 @@ class _OrderTiles extends State<OrderTiles> {
                           Divider(color: Colors.black12, thickness: 3, height: 20,),
 
                           Column(
-                            children: _buildCustomerTiles(context, widget.orderModel.finalOrdersToDisplay),
+                            children: _buildCustomerTiles(context, widget.orderModel.finalOrdersToDisplay, model),
 
                             )
 
