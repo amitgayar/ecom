@@ -70,6 +70,27 @@ bool get otherPaymentFlag => _otherPaymentFlag;
     notifyListeners();
   }
 
+
+  bool _secondScreen = true;
+  bool _thirdScreen = false;
+
+  bool get secondScreen => _secondScreen;
+  bool get thirdScreen => _thirdScreen;
+
+  String _orderPagePayment = '';
+  String get orderPagePayment => _orderPagePayment;
+
+  void orderPageState(value2, value3, {value4 = false}){
+    _secondScreen = value2;
+    _thirdScreen = value3;
+    notifyListeners();
+  }
+  void setOrderPagePayment({String mode:''}){
+    _orderPagePayment = mode;
+    notifyListeners();
+  }
+
+
   //.....................................................inputs by gayar...........................................................................................................
 
 

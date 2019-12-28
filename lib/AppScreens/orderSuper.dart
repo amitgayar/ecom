@@ -5,25 +5,15 @@ import '../model/app_state_model.dart';
 import 'orders.dart';
 NewAppStateModel orderModel = new NewAppStateModel();
 
-//----------------Model initialization for cart 1
-
-
-//---------------- CLASS for TabBar Heading or Cart Status
 
 
 
-
-
-
-
-//--------------------- CLASS to exploit ScopedModel for the CART
-
-class orderName extends StatefulWidget {
+class OrderName extends StatefulWidget {
   @override
-  _orderName createState() => _orderName();
+  _OrderName createState() => _OrderName();
 }
 
-class _orderName extends State<orderName> {
+class _OrderName extends State<OrderName> {
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +24,7 @@ class _orderName extends State<orderName> {
 
         child: ScopedModel<NewAppStateModel>(
           model: orderModel,
-          child: OrderDescendent(orderModel: orderModel),
+          child: OrderDescendant(orderModel: orderModel),
         ),
       ),
     );

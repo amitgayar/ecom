@@ -205,6 +205,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
 //For teal : #4db6ac , #80cbc4 ... selection ---
 // teal Color(0xff429585)
 // for toast : Colors.black87, text.color.white, center
+// red cancel = Color(0xffe48181)
 
 class NewsListPage extends StatefulWidget {
 

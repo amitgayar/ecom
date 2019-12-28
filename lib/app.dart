@@ -9,7 +9,6 @@ import 'services/syncData.dart';
 import 'AppScreens/customer.dart';
 import 'AppScreens/orderSuper.dart';
 import 'AppScreens/requestStocks.dart';
-import 'AppScreens/orderDetails.dart';
 
 class DefaultWidget {
   final Widget defaultWidget;
@@ -100,7 +99,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
         '/cart': (context) => new Container(),
         '/customers' : (context) => new Customer(),
 //        '/addCustomer': (context) => AddCustomer(),
-        '/orders' : (context) => new orderName(),
+        '/orders' : (context) => new OrderName(),
         '/requestStocks' : (context) => new Container(),
 
       },
