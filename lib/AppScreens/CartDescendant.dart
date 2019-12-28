@@ -1336,6 +1336,7 @@ class _CustomItem extends State<CustomItem> {
     return ScopedModelDescendant<NewAppStateModel> (
         builder: (context, child, model)
     {
+
       List categories = (model.finalListOfCategories.length > 0) ? model.finalListOfCategories : ["Select Category"];
       List brands = (model.finalListOfBrands.length > 0) ? model.finalListOfBrands : ["Select Brand"];
 

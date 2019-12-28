@@ -90,7 +90,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ExpStore',
-      navigatorKey: navigatorKey,
+//      navigatorKey: navigatorKey,
       initialRoute: '/login',
 //      onGenerateRoute: _getRoute,
       routes: {

@@ -146,14 +146,6 @@ class OrderDescendant extends StatelessWidget {
 
 
 
-
-
-
-
-
-
-
-
 class OrderTiles extends StatefulWidget {
   OrderTiles({@required this.orderModel});
   final NewAppStateModel orderModel;
@@ -315,15 +307,18 @@ class _OrderTiles extends State<OrderTiles> {
     }).toList() ;
   }
 
+  final List<String> paymentModes = ["Cash", "PayTM",""];
+  String _date = "Not set";
+  String _selectedPaymentMode;
+  String _selectedOrderStatus;
+  String _selectedCreditStatus;
+
 
   @override
   Widget build(BuildContext context) {
 
 
-    String _date = "Not set";
-    String _selectedPaymentMode;
-    String _selectedOrderStatus;
-    String _selectedCreditStatus;
+
 
 
     return ScopedModelDescendant<NewAppStateModel> (
@@ -333,201 +328,184 @@ class _OrderTiles extends State<OrderTiles> {
 
           return Stack(children: <Widget>[
             Container(
-//                  height:440,
-//            width: 5000,
                   color: Colors.white,
-                      child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0),
                       child: ListView(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child:Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(20),
-                                        child: SizedBox(
-                                          height: 30,
-                                          width: 400,
-                                          child: new TextFormField(
-                                            onChanged: (text) async{
-                                              widget.orderModel.filterOrders(text,
-                                                                                 widget.orderModel.finalDateForFilter, widget.orderModel.finalPaymentMethodForFilter,
-                                                                                 widget.orderModel.finalStatusForFilter, widget.orderModel.finalCreditForFilter);
-                                            },
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child:Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(20),
+                                      child: SizedBox(
+                                        height: 30,
+                                        width: 400,
+                                        child: new TextFormField(
+                                          onChanged: (text) async{
+                                            widget.orderModel.filterOrders(text,
+                                                                               widget.orderModel.finalDateForFilter, widget.orderModel.finalPaymentMethodForFilter,
+                                                                               widget.orderModel.finalStatusForFilter, widget.orderModel.finalCreditForFilter);
+                                          },
 
-                                            decoration: new InputDecoration(
-                                              prefixIcon: Icon(Icons.search),
-                                              hintText: "search customer name or number",
-                                              fillColor: Colors.green,
-                                              border: new OutlineInputBorder(
-                                                borderRadius: new BorderRadius.circular(25.0),
-                                                borderSide: new BorderSide(
-                                                    color: Colors.red
-                                                    ),
-                                                ),
-                                              ),
-                                            validator: (val) {
-                                              if(val.length==0) {
-                                                return "Email cannot be empty";
-                                              }else{
-                                                return null;
-                                              }
-                                            },
-                                            //                                    keyboardType: TextInputType.emailAddress,
-                                            //                                    style: new TextStyle(
-                                            //                                      fontFamily: "Poppins",
-                                            //                                      ),
+                                          decoration: new InputDecoration(
+                                            prefixIcon: Icon(Icons.search),
+                                            hintText: "search customer name or number",
                                             ),
-                                          //
-                                          //
-                                          //
-                                          ),
-                                        )
-                                      ),
-                                  flex: 7,
-                                  ),
-                                Expanded (
-                                  child: RaisedButton(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(Icons.calendar_today,
-                                                 size:16,
-                                               ),
-                                          Text("  ${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}"),
 
-                                        ],
+
+                                          ),
+                                        //
+                                        //
+                                        //
                                         ),
-                                      onPressed: () {
-                                        DatePicker.showDatePicker(context,
-                                                                      theme: DatePickerTheme(
-                                                                        containerHeight: 210.0,
-                                                                        ),
-                                                                      showTitleActions: true,
-                                                                      minTime: DateTime(2000, 1, 1),
-                                                                      maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
-                                              print('confirm $date');
-                                              _date = '${date.year}-${date.month}-${date.day}';
-
-
-                                              print("Date = $_date");
-                  //                                      widget.orderModel.filterOrders(widget.orderModel.finalSearchStringForFilter,
-                  //                                          _date, widget.orderModel.finalPaymentMethodForFilter,
-                  //                                          widget.orderModel.finalStatusForFilter, widget.orderModel.finalCreditForFilter);
-
-
-                                              setState(() {});
-                                            }, locale: LocaleType.en);
-
-                                      },
-                                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
-                                      ),
-                                  flex: 4,
-                                  ),
-
-
-
-                              ],
-                              ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child:Container(
-                                    child: Icon(Icons.filter_list,
-                                                  size:25,
-                                                ),
+                                      )
                                     ),
-                                  flex: 1,
-                                  ),
-                                Expanded(
-                                  child:Container(
-                                    width: 150,
-                                    child: DropdownButton<String>(
-                                      items: <String>["name", "value"].map((String value) {
-                                        //print("\n\n value dropdown = $value");
-                                        return new DropdownMenuItem<String>(
-                                          value: value,
-                                          child: new Text(value),
-                                          );
-                                      }).toList(),
-                                      value: _selectedPaymentMode,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          _selectedPaymentMode = newValue;
-                                        });
-                                      },
-                                      hint: Text('Payment Mode'),
+                                flex: 7,
+                                ),
+                              Expanded (
+                                child: RaisedButton(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(Icons.calendar_today,
+                                               size:16,
+                                             ),
+                                        Text("  ${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}"),
+
+                                      ],
                                       ),
+                                    onPressed: () {
+                                      DatePicker.showDatePicker(context,
+                                                                    theme: DatePickerTheme(
+                                                                      containerHeight: 210.0,
+                                                                      ),
+                                                                    showTitleActions: true,
+                                                                    minTime: DateTime(2000, 1, 1),
+                                                                    maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
+                                            print('confirm $date');
+                                            _date = '${date.year}-${date.month}-${date.day}';
+
+
+                                            print("Date = $_date");
+                                            //                                      widget.orderModel.filterOrders(widget.orderModel.finalSearchStringForFilter,
+                                            //                                          _date, widget.orderModel.finalPaymentMethodForFilter,
+                                            //                                          widget.orderModel.finalStatusForFilter, widget.orderModel.finalCreditForFilter);
+
+
+                                            setState(() {});
+                                          }, locale: LocaleType.en);
+
+                                    },
+                                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                                     ),
-                                  flex: 3,
+                                flex: 4,
+                                ),
+                            ],
+                            ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child:Container(
+                                  child: Icon(Icons.filter_list,
+                                                size:15,
+                                              ),
                                   ),
-                                Expanded(
-                                  child:Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: DropdownButton<String>(
-                                          items: <String>["Credit", "All"].map((String value) {
-                                            //print("\n\n value dropdown = $value");
-                                            return new DropdownMenuItem<String>(
-                                              value: value,
-                                              child: new Text(value),
-                                              );
-                                          }).toList(),
-                                          value: _selectedCreditStatus,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _selectedCreditStatus = newValue;
-                                            });
-                                          },
-                                          hint: Text('All'),
-                                          ),
-                                        )
-                                      ),
-                                  flex: 2,
+                                flex: 1,
+                                ),
+                              Expanded(
+                                child:Container(
+                                  width: 150,
+                                  child: DropdownButton<String>(
+                                    items: paymentModes.map((String value) {
+                                      //print("\n\n value dropdown = $value");
+                                      return new DropdownMenuItem<String>(
+                                        value: value,
+                                        child: new Text(value),
+                                        );
+                                    }).toList(),
+                                    value: _selectedPaymentMode,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _selectedPaymentMode = newValue;
+                                      });
+                                    },
+                                    hint: Text('Payment Mode'),
+                                    ),
                                   ),
-                                Expanded (
-                                  child: Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: DropdownButton<String>(
-                                          items: <String>["Completed", "Refunded", "Partially refunded"].map((String value) {
-                                            //print("\n\n value dropdown = $value");
-                                            return new DropdownMenuItem<String>(
-                                              value: value,
-                                              child: new Text(value),
-                                              );
-                                          }).toList(),
-                                          value: _selectedOrderStatus,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _selectedOrderStatus = newValue;
-                                            });
-                                          },
-                                          hint: Text('Status'),
-                                          ),
-                                        )
-                                      ),
-                                  flex: 2,
-                                  ),
+                                flex: 3,
+                                ),
+                              Expanded(
+                                child:Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: DropdownButton<String>(
+                                        items: <String>["Credit", "All"].map((String value) {
+                                          //print("\n\n value dropdown = $value");
+                                          return new DropdownMenuItem<String>(
+                                            value: value,
+                                            child: new Text(value),
+                                            );
+                                        }).toList(),
+                                        value: _selectedCreditStatus,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            _selectedCreditStatus = newValue;
+                                          });
+                                        },
+                                        hint: Text('All'),
+                                        ),
+                                      )
+                                    ),
+                                flex: 2,
+                                ),
+                              Expanded (
+                                child: Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: DropdownButton<String>(
+                                        items: <String>["Completed", "Refunded", "Partially refunded"].map((String value) {
+                                          //print("\n\n value dropdown = $value");
+                                          return new DropdownMenuItem<String>(
+                                            value: value,
+                                            child: new Text(value),
+                                            );
+                                        }).toList(),
+                                        value: _selectedOrderStatus,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            _selectedOrderStatus = newValue;
+                                          });
+                                        },
+                                        hint: Text('Status'),
+                                        ),
+                                      )
+                                    ),
+                                flex: 2,
+                                ),
 
 
 
-                              ],
-                              ),
-                            Divider(color: Colors.black12, thickness: 3, height: 20,),
-                            Text('Total Orders: ${widget.orderModel.finalOrdersToDisplay.length.toString()}'),
-                            Divider(color: Colors.black12, thickness: 3, height: 20,),
+                            ],
+                            ),
+                          Divider(color: Colors.black12, thickness: 3, height: 20,),
+                          Text('Total Orders: ${widget.orderModel.finalOrdersToDisplay.length.toString()}'),
+                          Divider(color: Colors.black12, thickness: 3, height: 20,),
 
-                            Column(
-            children: _buildCustomerTiles(context, widget.orderModel.finalOrdersToDisplay),
+                          Column(
+                            children: _buildCustomerTiles(context, widget.orderModel.finalOrdersToDisplay),
 
-            )
+                            )
 
 
-        ],
-        ),
-                              )
+                        ],
                         ),
+                        ),
+
+
+
+
+
+
+
             model.secondScreen?
             Align(
                 alignment: Alignment.topCenter,
@@ -597,7 +575,7 @@ class OrderScreen2 extends StatelessWidget {
       'payment_mode' : 'cash',
       'amount_credited' : 80,
       'amount_paid' : 60,
-      'refunded_date' : '2:12:2019'
+      'refunded_date' : '8:12:2019'
     },
     {
       'total_refunded_items' : 4,
@@ -785,7 +763,12 @@ class OrderScreen2 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Icon(Icons.arrow_back),
+                      IconButton(
+                        icon:Icon(Icons.arrow_back),
+                        onPressed: (){
+                          model.orderPageState(false, false);
+                        },
+                      ),
 
                       Text('Order : <Number>'),
                     ],),
@@ -996,11 +979,6 @@ class OrderScreen2 extends StatelessWidget {
 
 
 
-//class OrderScreen3 extends StatefulWidget {
-//  _OrderScreen3 createState() => _OrderScreen3();
-//}
-//
-//class _OrderScreen3 extends State<OrderScreen3> {
 class OrderScreen3 extends StatelessWidget {
   final List<Map<String, dynamic >> productList = [{
     'name': 'product_name',
@@ -1022,7 +1000,7 @@ class OrderScreen3 extends StatelessWidget {
   List<Container> v(BuildContext context, List<Map<String, dynamic >> productList) {
     return List.generate(productList.length, (index){
       return Container(
-        child: OrderRow(product: productList[index]),
+        child: OrderRowEditable(product: productList[index]),
         );
     }).toList();
   }
@@ -1058,7 +1036,7 @@ class OrderScreen3 extends StatelessWidget {
                 children: <Widget>[
                   Row(children: <Widget>[
 
-                    Text('Order : <Number> .... Screen3'),
+                    Text('Order : <Number>'),
                   ],),
                   Divider(color: Colors.black12, thickness: 1, height: 10,),
                   Row(children: <Widget>[
@@ -1168,66 +1146,75 @@ class OrderScreen3 extends StatelessWidget {
                            ),
                     ],
                     ),
-                  Row(
-                    children: <Widget>[
-
-                      Text('Add To Credits'),
-                      Spacer(),
-                      RaisedButton(
-                          child: Text('ADD CREDIT'),
-                          onPressed: () {
-
-                            model.orderPageState(true, false);
-                          },
-                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
-                          ),
-
-                    ],
-                    ),
+                  model.orderPagePayment == ''?
                   Container(
-                      width: 20,
-                      height: 15
-                      ),
+                    child: Column(children: <Widget>[
 
-                  Row(
-                    children: <Widget>[
-                      RaisedButton(
-                          child: Text('CASH'),
-                          onPressed: () {
-                          model.setOrderPagePayment(mode: 'CASH');
-                          },
-                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
-                          ),
-                      Spacer(),
-                      RaisedButton(
-                          child: Text('PAYTM'),
-                          onPressed: () {
-                            model.setOrderPagePayment(mode: 'PAYTM');
+                      Row(
+                        children: <Widget>[
 
-                          },
-                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
-                          ),
-                      Spacer(),
-                      RaisedButton(
-                          child: Text('BHIM UPI'),
-                          onPressed: () {
-                            model.setOrderPagePayment(mode: 'BHIM UPI');
+                          Text('Add To Credits'),
+                          Spacer(),
+                          RaisedButton(
+                              child: Text('ADD CREDIT'),
+                              onPressed: () {
 
-                          },
-                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
-                          ),
-                      Spacer(),
-                      RaisedButton(
-                          child: Text('OTHER'),
-                          onPressed: () {
-                            model.setOrderPagePayment(mode: 'OTHER');
+                                model.orderPageState(true, false);
+                              },
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                              ),
 
-                          },
-                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                        ],
+                        ),
+                      Container(
+                          width: 20,
+                          height: 15
                           ),
 
-                    ],
-                    ),
+                      Row(
+                        children: <Widget>[
+                          RaisedButton(
+                              child: Text('CASH'),
+                              onPressed: () {
+                                model.setOrderPagePayment(mode: 'CASH');
+                              },
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                              ),
+                          Spacer(),
+                          RaisedButton(
+                              child: Text('PAYTM'),
+                              onPressed: () {
+                                model.setOrderPagePayment(mode: 'PAYTM');
+
+                              },
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                              ),
+                          Spacer(),
+                          RaisedButton(
+                              child: Text('BHIM UPI'),
+                              onPressed: () {
+                                model.setOrderPagePayment(mode: 'BHIM UPI');
+
+                              },
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                              ),
+                          Spacer(),
+                          RaisedButton(
+                              child: Text('OTHER'),
+                              onPressed: () {
+                                model.setOrderPagePayment(mode: 'OTHER');
+
+                              },
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                              ),
+
+                        ],
+                        ),
+                    ],),
+                  )
+                  :
+                      new Container(),
+
                  model.orderPagePayment != ''?
                  Container(
                    child: Column(children: <Widget>[
@@ -1352,6 +1339,187 @@ class OrderRow extends StatelessWidget {
         });
   }
 }
+
+class OrderRowEditable extends StatelessWidget {
+  OrderRowEditable({@required this.product});
+  final Map<String, dynamic > product;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 10, left: 10, right:10),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  product['name'].toString(),
+
+                  ),
+                Spacer(),
+                InkWell(
+                  child: Container(
+                      alignment: Alignment.centerRight,
+                      child: Icon(
+                        Icons.clear,
+                        size: 13.0,
+                        ),
+                      height: 25,width:40),
+
+
+                  onTap: () {
+
+                  },
+                  ),
+
+
+              ],
+              ),
+            ),
+          Row(
+            key: ValueKey(product['id'].toString()),
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+
+
+              const SizedBox(width: 30.0),
+              Expanded(
+                child: Container(
+
+                ),
+                flex: 2,
+                ),
+              Expanded(
+                child: TextFormField(
+
+                  autofocus: false,
+                  initialValue: product['mrp'],
+                  keyboardType: TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: false,
+                    ),
+                  onChanged: (text){
+
+                  },
+
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: '${product['mrp'].toString()}'
+                      ),
+                  ),
+                flex: 3,
+                ),
+              Expanded(
+                child: new TextFormField(
+                  textAlign: TextAlign.center,
+                  autofocus: false,
+                  initialValue: product['sp'],
+                  keyboardType: TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: false,
+                    ),
+                  onChanged: (text){
+
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
+                flex: 3,
+                ),
+              Expanded(
+                child: Center(
+                  child: Container(
+                    width: 60.0,
+
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: TextFormField(
+
+
+//                                  focusNode: quantityFocusNode,
+autofocus: false,
+//                                          initialValue: quantity.toString(),
+//                                  controller: quantityController,
+                            keyboardType: TextInputType.number,
+
+                            onChanged: (text){
+
+                            },
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: '${product['quantity'].toString()}'
+                                ),
+),
+                          ),
+                        Container(
+                          height: 48.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      width: 0.5,
+                                      ),
+                                    ),
+                                  ),
+                                child: InkWell(
+                                  child: Icon(
+                                    Icons.arrow_drop_up,
+                                    size: 22.0,
+                                    ),
+                                  onTap: () {
+
+                                  },
+                                  ),
+                                ),
+                              InkWell(
+                                child: Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 22.0,
+                                  ),
+                                onTap: () {
+
+                                },
+                                ),
+                            ],
+                            ),
+                          ),
+                      ],
+                      ),
+                    ),
+                  ),
+                flex: 4,
+                ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(right: 10),
+                  alignment: Alignment.centerRight,
+                  child: Column(children: <Widget>[
+                    Text(product['total']),
+                    SizedBox(
+                      height: 17,
+                      ),
+
+                  ],),
+                  ),
+                flex: 4,
+                ),
+            ],
+            ),
+          Divider(color: Color(0xff429585),thickness: 1,height: 4,)
+
+        ],
+        ),
+      );
+  }
+}
+
 
 
 
