@@ -42,6 +42,8 @@ class DatabaseHelper {
   static final cess = 'cess';
   static final is_receipt_printed = 'is_receipt_printed';
   //static final status = 'Order_Status';
+  //static final total_items = "total_items";
+  static final total_quantity = 'total_quantity';
 
   // variables for creating productsTable
   static final productsTable = 'products';
@@ -92,7 +94,18 @@ class DatabaseHelper {
   static final accepted_at = 'accepted_at';
   static final total_amount = 'total_amount';
   static final temp_id = 'temp_id';
-  static final total_quantity = 'total_quantity';
+  //static final total_quantity = 'total_quantity';
+  static final total_items = "total_items";
+
+  // variables for creating packageDispatch
+  static final packageDispatch = 'packageDispatch';
+  //static final status = 'Order_Status';
+  //static final delivered_at = 'delivered_at';
+  //static final accepted_at = 'accepted_at';
+  //static final total_amount = 'total_amount';
+  //static final temp_id = 'temp_id';
+  //static final total_quantity = 'total_quantity';
+  //static final total_items = "total_items";
 
 
   // variables for creating stockRequestsProductsTable
@@ -106,6 +119,7 @@ class DatabaseHelper {
   static final delivered_qty = 'delivered_qty';
   static final product_price = 'product_price';
   //static final barcode = 'barcode';
+  static final  packageId = 'packageId';
 
 
   // variables for creating barcodeTable
@@ -173,8 +187,8 @@ class DatabaseHelper {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
     return await openDatabase(path,
-                                  version: _databaseVersion,
-                                  onCreate: _onCreate);
+        version: _databaseVersion,
+        onCreate: _onCreate);
   }
 
   // SQL code to create the database table
@@ -226,7 +240,9 @@ class DatabaseHelper {
             $is_receipt_printed BOOLEAN,
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             $status TEXT,
-            $updated_at DATETIME
+            $updated_at DATETIME,
+            $total_quantity INTEGER,
+            $total_items INTEGER
           )
           ''');
 
@@ -302,7 +318,24 @@ class DatabaseHelper {
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             $updated_at DATETIME,
             $temp_id TEXT,
-            $total_quantity INTEGER
+            $total_quantity INTEGER,
+            $total_items INTEGER
+          )
+          ''');
+
+    // Create packageDispatch
+    await db.execute('''
+          CREATE TABLE $packageDispatch (
+            $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,  
+            $status TEXT,
+            $delivered_at DATETIME,
+            $accepted_at DATETIME,
+            $total_amount INTEGER,
+            $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            $updated_at DATETIME,
+            $temp_id TEXT,
+            $total_quantity INTEGER,
+            $total_items INTEGER
           )
           ''');
 
@@ -310,6 +343,7 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE $stockRequestsProductsTable (
             $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            $packageId INTEGER,
             $stock_request_id INTEGER NOT NULL,
             $custom_product_id INTEGER,
             $product_id INTEGER,
@@ -344,7 +378,8 @@ class DatabaseHelper {
             $amount DECIMAL NOT NULL,
             $order_id TEXT NOT NULL,
             $created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            $updated_at DATETIME
+            $updated_at DATETIME,
+            $payment_method TEXT
           )
           ''');
 

@@ -200,7 +200,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
 }
 
 //
-//Blue color : #64b5f6 , #90caf9 ... function
+//Blue color : #64b5f6 , #90caf9 ... function  Color(0xff64b5f6)
 //Similarly for green : #81c784, #a5d6a7... done Color(0xff81c784)
 //For teal : #4db6ac , #80cbc4 ... selection ---
 // teal Color(0xff429585)

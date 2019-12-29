@@ -12,13 +12,12 @@ Map<String, int> tempIdMappingForRequestStocks = {};
 
 void insertRow(String id, Map<String, dynamic> row, String dbTable, String operator) async {
   if (id == "null") {
-    //print(row);
+    print(row);
     final return_id = await dbHelper.insert(dbTable, row);
     print('$dbTable inserted row id: $return_id');
     if (dbTable == DatabaseHelper.stockRequestsTable) {
       tempIdMappingForRequestStocks[row['temp_id'].toString()] = return_id;
     }
-
   }
   else {
 
@@ -33,8 +32,10 @@ void insertRow(String id, Map<String, dynamic> row, String dbTable, String opera
       print('$dbTable update row id: $id');
     }
     else{
+      print('\n\n:::: inserted row = $row');
       final return_id = await dbHelper.insert(dbTable, row);
-      print('$dbTable inserted row id: $return_id');
+      print('$dbTable inserted row id: $return_id :::: inserted row = $row');
+
     }
   }
 }
@@ -139,6 +140,8 @@ Future<Map<String, dynamic>> insert_Orders(List<Orders> data) async {
     String paid_amount_total = '${obj.paid_amount_total}';
     String status = '${obj.status}';
     String invoice = '${obj.invoice}';
+    String total_quantity = '${obj.total_quantity}';
+    String total_items = '${obj.total_items}';
 
 
     //print("data to be inserted: ${obj}");
@@ -155,6 +158,8 @@ Future<Map<String, dynamic>> insert_Orders(List<Orders> data) async {
       DatabaseHelper.paid_amount_total : paid_amount_total,
       DatabaseHelper.status : status,
       DatabaseHelper.invoice : invoice,
+      DatabaseHelper.total_items : total_items,
+      DatabaseHelper.total_quantity : total_quantity,
       DatabaseHelper.updated_at : new DateTime.now().toString()
 
     };
@@ -313,8 +318,8 @@ Future<Map<String, dynamic>> insert_Customer(List<customer> data) async {
 
 
 
-// Insert into stockRequests table of Database
-Future<Map<String, dynamic>> insert_stockRequests(List<requestStocks> data) async {
+// Insert into requestStocksAndPackageDispatch table of Database
+Future<Map<String, dynamic>> insert_requestStocksAndPackageDispatch(List<requestStocksAndPackageDispatch> data, String tableName) async {
 
   data.forEach((obj) async {
     String status = '${obj.status}';
@@ -324,23 +329,26 @@ Future<Map<String, dynamic>> insert_stockRequests(List<requestStocks> data) asyn
     String id = '${obj.id}';
     String temp_id = '${obj.temp_id}';
     String total_quantity = '${obj.total_quantity}';
+    String total_items = '${obj.total_items}';
 
 
     //print("data to be inserted: ${obj}");
 
     Map<String, dynamic> row = {
+      DatabaseHelper.id : id,
       DatabaseHelper.status : status,
       DatabaseHelper.delivered_at : delivered_at,
       DatabaseHelper.accepted_at : accepted_at,
       DatabaseHelper.total_amount : total_amount,
       DatabaseHelper.temp_id : temp_id,
       DatabaseHelper.updated_at : new DateTime.now().toString(),
-      DatabaseHelper.total_quantity : total_quantity
+      DatabaseHelper.total_quantity : total_quantity,
+      DatabaseHelper.total_items : total_items
 
     };
 
 //    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.stockRequestsTable, id, DatabaseHelper.id,"=");
-    insertRow(id, row, DatabaseHelper.stockRequestsTable,"=");
+    insertRow(id, row, tableName,"=");
 
 
   });
@@ -363,7 +371,7 @@ Future<Map<String, dynamic>> insert_stockRequestsProducts(List<requestStockItems
     String delivered_qty = '${obj.delivered_qty}';
     String product_price = '${obj.product_price}';
     String barcode = '${obj.barcode}';
-    String is_custom_product = '${obj.is_custom_product}';
+    String packageId = '${obj.packageId}';
 
     if (id.toString() == "null") {
       stock_request_id = tempIdMappingForRequestStocks[stock_request_id.toString()].toString();
@@ -371,6 +379,7 @@ Future<Map<String, dynamic>> insert_stockRequestsProducts(List<requestStockItems
     //print("data to be inserted: ${obj}");
 
     Map<String, dynamic> row = {
+      DatabaseHelper.id : id,
       DatabaseHelper.stock_request_id : stock_request_id,
       DatabaseHelper.product_id : product_id,
       DatabaseHelper.custom_product_id : custom_product_id,
@@ -380,7 +389,8 @@ Future<Map<String, dynamic>> insert_stockRequestsProducts(List<requestStockItems
       DatabaseHelper.delivered_qty : delivered_qty,
       DatabaseHelper.product_price : product_price,
       DatabaseHelper.barcode : barcode,
-      DatabaseHelper.updated_at : new DateTime.now().toString()
+      DatabaseHelper.updated_at : new DateTime.now().toString(),
+      DatabaseHelper.packageId : packageId
 
     };
 
@@ -442,6 +452,7 @@ Future<Map<String, dynamic>> insert_customerCredit(List<customerCredit> data) as
     String amount = "${obj.amount}";
     String order_id = "${obj.order_id}";
     String id = "${obj.id}";
+    String payment_method = "${obj.payment_method}";
 
 
     //print("data to be inserted: ${obj}");
@@ -451,7 +462,8 @@ Future<Map<String, dynamic>> insert_customerCredit(List<customerCredit> data) as
       DatabaseHelper.customer_id : customer_id,
       DatabaseHelper.amount : amount,
       DatabaseHelper.order_id : order_id,
-      DatabaseHelper.updated_at : new DateTime.now().toString()
+      DatabaseHelper.updated_at : new DateTime.now().toString(),
+      DatabaseHelper.payment_method : payment_method
 
     };
 

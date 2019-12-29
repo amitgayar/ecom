@@ -24,26 +24,26 @@ final dbHelper = DatabaseHelper.instance;
 Future<List<Map<String, dynamic>>> queryForUI(String table, String colName,  String operator, String id, {String colName2:'', String category_id:''}) async {
   String raw;
   if (colName == 'name' && category_id == ''){
-    raw = "SELECT * FROM $table WHERE $colName $operator LOWER('%$id%') ORDER BY LOWER('name') ASC";
+    raw = "SELECT * FROM $table WHERE $colName $operator LOWER('%$id%') ORDER BY name ASC";
   }
   else if (category_id != ''){
 
-    raw = "SELECT * FROM $table WHERE LOWER('%$colName%') $operator LOWER('%$id%') AND $colName2 = $category_id ORDER BY LOWER('name') ASC";
+    raw = "SELECT * FROM $table WHERE LOWER('%$colName%') $operator LOWER('%$id%') AND $colName2 = $category_id ORDER BY name ASC";
   }
   else {
-    raw = "SELECT * FROM $table WHERE $colName $operator $id ORDER BY LOWER('name') ASC";
+    raw = "SELECT * FROM $table WHERE $colName $operator $id ORDER BY name ASC";
   }
 
   if (id == '' && colName == '' && operator == '' ){
 
     if (table == 'productCategories'){
 
-      String rawQueryForParentCategories = "SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null' ORDER BY LOWER('name') ASC" ;
+      String rawQueryForParentCategories = "SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null' ORDER BY name ASC" ;
       final queryList = await dbHelper.raw_query(rawQueryForParentCategories);
       return queryList;
     }
     else{
-      raw = "SELECT * FROM $table ORDER BY LOWER('name') ASC";
+      raw = 'SELECT * FROM $table ORDER BY name ASC';
 
       final _dbProducts = await dbHelper.raw_query(raw);
       print('Total rows in table - ' + table + '...:...' + _dbProducts.length.toString());

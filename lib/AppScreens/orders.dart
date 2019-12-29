@@ -5,8 +5,6 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:express_store/Databases/Database.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../model/app_state_model.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/services.dart';
 
 
 NewAppStateModel orderModel = new NewAppStateModel();
@@ -24,16 +22,17 @@ class _OrderName extends State<OrderName> {
   @override
   Widget build(BuildContext context) {
 
-//    orderModel.filterOrders("", "", "", "", false);
+
+    orderModel.filterOrders("", "", "", "", false);
     return Scaffold(
       body: SafeArea(
 
         child: ScopedModel<NewAppStateModel>(
           model: orderModel,
-          child: OrderDescendant(orderModel: orderModel),
-          ),
+          child: OrderDescendant(),
         ),
-      );
+      ),
+    );
   }
 
 }
@@ -41,11 +40,11 @@ class _OrderName extends State<OrderName> {
 
 
 
+class OrderDescendant extends StatefulWidget {
+  _OrderDescendant createState() => _OrderDescendant();
+}
 
-
-class OrderDescendant extends StatelessWidget {
-  OrderDescendant({@required this.orderModel});
-  final NewAppStateModel orderModel;
+class _OrderDescendant extends State<OrderDescendant> {
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +155,7 @@ class OrderDescendant extends StatelessWidget {
           title: Text('Orders'),
           backgroundColor: Color(0xff429585),
         ),
-        body: OrderTiles(orderModel: orderModel)
+        body: OrderTiles()
 
     );
   }
@@ -166,8 +165,6 @@ class OrderDescendant extends StatelessWidget {
 
 
 class OrderTiles extends StatefulWidget {
-  OrderTiles({@required this.orderModel});
-  final NewAppStateModel orderModel;
 
   @override
   _OrderTiles createState() => _OrderTiles ();
@@ -176,7 +173,7 @@ class OrderTiles extends StatefulWidget {
 class _OrderTiles extends State<OrderTiles> {
 
   final formatter = NumberFormat.simpleCurrency(name: 'INR', decimalDigits: 0);
-  List<Map<String, dynamic >> dummyRowItems = [{
+  List<Map> dummyRowItems = [{
     'name': 'product_name',
     'sp': '90',
     'mrp': '90',
@@ -254,7 +251,7 @@ class _OrderTiles extends State<OrderTiles> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          (orderList[index]["${DatabaseHelper.amount}"] != null) ? "CREDIT: ${formatter.format(orderList[index]["${DatabaseHelper.amount}"])}" : "CREDIT: ${formatter.format(0)}",
+                          (orderList[index]["${DatabaseHelper.amount}"].toString() != 'null') ? "CREDIT: ${formatter.format(orderList[index]["${DatabaseHelper.amount}"])}" : "CREDIT: ${formatter.format(0)}",
                         ),
                         flex: 3,
                       ),
@@ -282,10 +279,10 @@ class _OrderTiles extends State<OrderTiles> {
                       Expanded (
                         child: Container(
                           color: Color(0xffe48181),
-                            child: Text(orderList[index]['${DatabaseHelper.status}'][0].toUpperCase()+
-                                            orderList[index]['${DatabaseHelper.status}'].substring(1),
-                                        style: TextStyle(fontSize: 13),
-                                        ),
+                          child: Text(orderList[index]['${DatabaseHelper.status}'][0].toUpperCase()+
+                              orderList[index]['${DatabaseHelper.status}'].substring(1),
+                            style: TextStyle(fontSize: 13),
+                          ),
                         ),
                         flex: 4,
                       ),
@@ -294,9 +291,9 @@ class _OrderTiles extends State<OrderTiles> {
                       Expanded (
                         child: Container(
                           color: Color(0xff81c784),
-                            child: Text(orderList[index]['${DatabaseHelper.payment_method}'].toUpperCase(),
-                                          style: TextStyle(fontSize: 11),
-                                        ),
+                          child: Text(orderList[index]['${DatabaseHelper.payment_method}'].toUpperCase(),
+                            style: TextStyle(fontSize: 11),
+                          ),
                         ),
                         flex: 3,
                       ) : Text(""),
@@ -306,9 +303,9 @@ class _OrderTiles extends State<OrderTiles> {
                       Expanded (
                         child: Container(
                           color: Colors.lightBlueAccent,
-                            child: Text("GST",
-                                          style: TextStyle(fontSize: 11),
-                                        ),
+                          child: Text("GST",
+                            style: TextStyle(fontSize: 11),
+                          ),
                         ),
                         flex: 2,
                       ) : Text("")
@@ -323,6 +320,7 @@ class _OrderTiles extends State<OrderTiles> {
             ),
           ),
           onTap: () async {
+            model.selectOrder(int.parse(orderList[index]['id'].toString()));
             model.orderPageState(true, false);
           },
         ),
@@ -351,179 +349,188 @@ class _OrderTiles extends State<OrderTiles> {
 
           return Stack(children: <Widget>[
             Container(
-                  color: Colors.white,
-                  child: ListView(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child:Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: SizedBox(
-                                        height: 30,
-                                        width: 400,
-                                        child: new TextFormField(
-                                          onChanged: (text) async{
-                                            widget.orderModel.filterOrders(text,
-                                                                               widget.orderModel.finalDateForFilter, widget.orderModel.finalPaymentMethodForFilter,
-                                                                               widget.orderModel.finalStatusForFilter, widget.orderModel.finalCreditForFilter);
-                                          },
+              color: Colors.white,
+              child: ListView(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child:Container(
+                            child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: SizedBox(
+                                height: 30,
+                                width: 400,
+                                child: new TextFormField(
+                                  onChanged: (text) async{
+                                    model.filterOrders(text,
+                                        model.finalDateForFilter, model.finalPaymentMethodForFilter,
+                                        model.finalStatusForFilter, model.finalCreditForFilter);
+                                  },
 
-                                          decoration: new InputDecoration(
-                                            prefixIcon: Icon(Icons.search),
-                                            hintText: "search customer name or number",
-                                            ),
-
-
-                                          ),
-                                        //
-                                        //
-                                        //
-                                        ),
-                                      )
-                                    ),
-                                flex: 7,
-                                ),
-                              Expanded (
-                                child: RaisedButton(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(Icons.calendar_today,
-                                               size:16,
-                                             ),
-                                        Text("  ${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}"),
-
-                                      ],
-                                      ),
-                                    onPressed: () {
-                                      DatePicker.showDatePicker(context,
-                                                                    theme: DatePickerTheme(
-                                                                      containerHeight: 210.0,
-                                                                      ),
-                                                                    showTitleActions: true,
-                                                                    minTime: DateTime(2000, 1, 1),
-                                                                    maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
-                                            print('confirm $date');
-                                            _date = '${date.year}-${date.month}-${date.day}';
-
-
-                                            print("Date = $_date");
-                                            //                                      widget.orderModel.filterOrders(widget.orderModel.finalSearchStringForFilter,
-                                            //                                          _date, widget.orderModel.finalPaymentMethodForFilter,
-                                            //                                          widget.orderModel.finalStatusForFilter, widget.orderModel.finalCreditForFilter);
-
-
-                                            setState(() {});
-                                          }, locale: LocaleType.en);
-
-                                    },
-                                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
-                                    ),
-                                flex: 4,
-                                ),
-                            ],
-                            ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child:Container(
-                                  child: Icon(Icons.filter_list,
-                                                size:15,
-                                              ),
+                                  decoration: new InputDecoration(
+                                    prefixIcon: Icon(Icons.search),
+                                    hintText: "search customer name or number",
                                   ),
-                                flex: 1,
+
+
                                 ),
-                              Expanded(
-                                child:Container(
-                                  width:100,
-                                  child: DropdownButton<String>(
-                                    items: paymentModes.map((String value) {
-                                      //print("\n\n value dropdown = $value");
-                                      return new DropdownMenuItem<String>(
-                                        value: value,
-                                        child: new Text(value, style: TextStyle(fontSize: 13),),
-                                        );
-                                    }).toList(),
-                                    value: _selectedPaymentMode,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        _selectedPaymentMode = newValue;
-                                      });
-                                    },
-                                    hint: Text('Payment Mode', style: TextStyle(fontSize: 13),),
-                                    ),
-                                  ),
-                                flex: 2,
-                                ),
-                              Expanded(
-                                child:Container(
-                                    width:100,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: DropdownButton<String>(
-                                        items: <String>["Credit", "All"].map((String value) {
-                                          //print("\n\n value dropdown = $value");
-                                          return new DropdownMenuItem<String>(
-                                            value: value,
-                                            child: new Text(value, style: TextStyle(fontSize: 13),),
-                                            );
-                                        }).toList(),
-                                        value: _selectedCreditStatus,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            _selectedCreditStatus = newValue;
-                                          });
-                                        },
-                                        hint: Text('All', style: TextStyle(fontSize: 13),),
-                                        ),
-                                      )
-                                    ),
-                                flex: 2,
-                                ),
-                              Expanded (
-                                child: Container(
-                                    width:100,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: DropdownButton<String>(
-                                        items: <String>["Completed", "Refunded", "Partially Refunded"].map((String value) {
-                                          //print("\n\n value dropdown = $value");
-                                          return new DropdownMenuItem<String>(
-                                            value: value,
-                                            child: new Text(value, style: TextStyle(fontSize: 13),),
-                                            );
-                                        }).toList(),
-                                        value: _selectedOrderStatus,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            _selectedOrderStatus = newValue;
-                                          });
-                                        },
-                                        hint: Text('Status', style: TextStyle(fontSize: 13),),
-                                        ),
-                                      )
-                                    ),
-                                flex: 2,
-                                ),
-
-
-
-                            ],
-                            ),
-                          Divider(color: Colors.black12, thickness: 3, height: 20,),
-                          Text('Total Orders: ${widget.orderModel.finalOrdersToDisplay.length.toString()}'),
-                          Divider(color: Colors.black12, thickness: 3, height: 20,),
-
-                          Column(
-                            children: _buildCustomerTiles(context, widget.orderModel.finalOrdersToDisplay, model),
-
+                                //
+                                //
+                                //
+                              ),
                             )
+                        ),
+                        flex: 7,
+                      ),
+                      Expanded (
+                        child: RaisedButton(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.calendar_today,
+                                  size:16,
+                                ),
+                                Text("  ${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}"),
+
+                              ],
+                            ),
+                            onPressed: () {
+                              DatePicker.showDatePicker(context,
+                                  theme: DatePickerTheme(
+                                    containerHeight: 210.0,
+                                  ),
+                                  showTitleActions: true,
+                                  minTime: DateTime(2000, 1, 1),
+                                  maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
+                                    print('confirm $date');
+                                    _date = '${date.year}-${date.month}-${date.day}';
 
 
-                        ],
+                                    print("Date = $_date");
+                                    model.filterOrders(model.finalSearchStringForFilter,
+                                        _date, model.finalPaymentMethodForFilter,
+                                        model.finalStatusForFilter, model.finalCreditForFilter);
+
+
+                                    setState(() {});
+                                  }, locale: LocaleType.en);
+
+                            },
+                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                         ),
+                        flex: 4,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child:Container(
+                          child: Icon(Icons.filter_list,
+                            size:15,
+                          ),
                         ),
+                        flex: 1,
+                      ),
+                      Expanded(
+                        child:Container(
+                          width:100,
+                          child: DropdownButton<String>(
+                            items: paymentModes.map((String value) {
+                              //print("\n\n value dropdown = $value");
+                              return new DropdownMenuItem<String>(
+                                value: value,
+                                child: new Text(value, style: TextStyle(fontSize: 13),),
+                              );
+                            }).toList(),
+                            value: _selectedPaymentMode,
+                            onChanged: (newValue) {
+                              model.filterOrders(model.finalSearchStringForFilter,
+                                  model.finalDateForFilter, newValue,
+                                  model.finalStatusForFilter, model.finalCreditForFilter);
+                              setState(() {
+                                _selectedPaymentMode = newValue;
+                              });
+                            },
+                            hint: Text('Payment Mode', style: TextStyle(fontSize: 13),),
+                          ),
+                        ),
+                        flex: 2,
+                      ),
+                      Expanded(
+                        child:Container(
+                            width:100,
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: DropdownButton<String>(
+                                items: <String>["Credit", "All"].map((String value) {
+                                  //print("\n\n value dropdown = $value");
+                                  return new DropdownMenuItem<String>(
+                                    value: value,
+                                    child: new Text(value, style: TextStyle(fontSize: 13),),
+                                  );
+                                }).toList(),
+                                value: _selectedCreditStatus,
+                                onChanged: (newValue) {
+                                  model.filterOrders(model.finalSearchStringForFilter,
+                                      model.finalDateForFilter, model.finalPaymentMethodForFilter,
+                                      model.finalStatusForFilter, (newValue=='credit') ? true : false);
+                                  setState(() {
+                                    _selectedCreditStatus = newValue;
+                                  });
+                                },
+                                hint: Text('All', style: TextStyle(fontSize: 13),),
+                              ),
+                            )
+                        ),
+                        flex: 2,
+                      ),
+                      Expanded (
+                        child: Container(
+                            width:100,
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: DropdownButton<String>(
+                                items: <String>["Completed", "Refunded", "Partially Refunded"].map((String value) {
+                                  //print("\n\n value dropdown = $value");
+                                  return new DropdownMenuItem<String>(
+                                    value: value,
+                                    child: new Text(value, style: TextStyle(fontSize: 13),),
+                                  );
+                                }).toList(),
+                                value: _selectedOrderStatus,
+                                onChanged: (newValue) {
+                                  model.filterOrders(model.finalSearchStringForFilter,
+                                      model.finalDateForFilter, model.finalPaymentMethodForFilter,
+                                      newValue, model.finalCreditForFilter);
+                                  setState(() {
+                                    _selectedOrderStatus = newValue;
+                                  });
+                                },
+                                hint: Text('Status', style: TextStyle(fontSize: 13),),
+                              ),
+                            )
+                        ),
+                        flex: 2,
+                      ),
+
+
+
+                    ],
+                  ),
+                  Divider(color: Colors.black12, thickness: 3, height: 20,),
+                  Text('Total Orders: ${model.finalOrdersToDisplay.length.toString()}'),
+                  Divider(color: Colors.black12, thickness: 3, height: 20,),
+
+                  Column(
+                    children: _buildCustomerTiles(context, model.finalOrdersToDisplay, model),
+
+                  )
+
+
+                ],
+              ),
+            ),
 
 
 
@@ -534,17 +541,17 @@ class _OrderTiles extends State<OrderTiles> {
             model.secondScreen?
             Align(
                 alignment: Alignment.topCenter,
-              child: OrderScreen2()
-                )
+                child: OrderScreen2()
+            )
                 :
-                new Container(),
+            new Container(),
             model.thirdScreen?
             Align(
                 alignment: Alignment.topCenter,
                 child: OrderScreen3()
-                )
+            )
                 :
-                new Container(),
+            new Container(),
 
           ],);
         }
@@ -555,13 +562,15 @@ class _OrderTiles extends State<OrderTiles> {
   }
 }
 
+class OrderScreen2 extends StatefulWidget {
+  _OrderScreen2 createState() => _OrderScreen2();
+}
 
 
 
+class _OrderScreen2 extends State<OrderScreen2> {
 
-class OrderScreen2 extends StatelessWidget {
-
-  List<Map<String, dynamic >> productList = [{
+  List<Map> productList = [{
     'name': 'product_name',
     'sp': '90',
     'mrp': '90',
@@ -577,7 +586,7 @@ class OrderScreen2 extends StatelessWidget {
     }
   ];
 
-  static List<Map<String, dynamic >> refundedItems = [{
+  static List<Map> refundedItems = [{
     'name': 'product_name',
     'sp': '90',
     'mrp': '90',
@@ -593,7 +602,7 @@ class OrderScreen2 extends StatelessWidget {
     }
   ];
 
-  static List<Map<String, dynamic >> refundedListDetails = [
+  static List<Map> refundedListDetails = [
     {
       'total_refunded_items' : 4,
       'refunded_amount' : 140,
@@ -620,20 +629,23 @@ class OrderScreen2 extends StatelessWidget {
     }
   ];
 
-  List<List<Map<String, dynamic >>> refundedList = [refundedItems,refundedItems, refundedItems];
+  List<List<Map>> refundedItemsList = [refundedItems,refundedItems, refundedItems];
 
 
-  List<Container> buildProductList(BuildContext context, List<Map<String, dynamic >> productList) {
+  List<Container> buildProductList(BuildContext context, List<Map> productList) {
     return List.generate(productList.length, (index){
+      print("\n\nproductList.length = ${productList.length}\n\n");
       return Container(
         child: OrderRow(product: productList[index]),
-        );
+      );
     }).toList();
   }
 
 
-  List<Container> buildRefund(BuildContext context, List<List<Map<String, dynamic >>> refundedList, List<Map<String, dynamic >> refundedListDetails) {
-    return List.generate(refundedList.length, (index){
+  List<Container> buildRefund(BuildContext context, List<List<Map>> refundedItemsList, List<Map> refundedListDetails) {
+    return List.generate(refundedItemsList.length, (index){
+      double refundAmountCredited = double.parse(refundedListDetails[index]['${DatabaseHelper.total_amount_refunded}'].toString()) -
+          double.parse(refundedListDetails[index]['${DatabaseHelper.paid_amount_total}'].toString());
       return Container(
         child: Column(
           children: <Widget>[
@@ -641,10 +653,10 @@ class OrderScreen2 extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20, 40, 20, 5),
               child: Row(
                 children: <Widget>[
-                  Text(refundedListDetails[index]['refunded_date']),
+                  Text('Refunded Date: ${refundedListDetails[index]['${DatabaseHelper.created_at}']}'),
                 ],
-                ),
               ),
+            ),
             Container(
                 height: 40,
                 color:
@@ -660,45 +672,45 @@ class OrderScreen2 extends StatelessWidget {
                           'Product',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                        flex: 3,
                         ),
+                        flex: 3,
+                      ),
                       Expanded(
                         child: Text(
                           'MRP',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                        flex: 3,
                         ),
+                        flex: 3,
+                      ),
                       Expanded(
                         child: Text(
                           'SP',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                        flex: 3,
                         ),
+                        flex: 3,
+                      ),
                       Expanded(
                         child: Text(
                           'QTY',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                        flex: 3,
                         ),
+                        flex: 3,
+                      ),
                       Expanded(
                         child: Text(
                           'Total',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.w500),
-                          ), flex: 3,
-                        ),
+                        ), flex: 3,
+                      ),
                     ],
-                    ),
-                  )
+                  ),
+                )
 
-                ),//list_heading
+            ),//list_heading
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -707,57 +719,57 @@ class OrderScreen2 extends StatelessWidget {
 
                   Container(
                     child: Column(
-                        children: buildProductList(context, refundedList[index])
-                        ),
+                        children: buildProductList(context, refundedItemsList[index])
                     ),
+                  ),
 
                   Row(
                     children: <Widget>[
                       Text('TOTAL REFUNDED ITEMS : '),
                       Spacer(),
-                      Text(refundedListDetails[index]['total_refunded_items'].toString()),
+                      Text(refundedListDetails[index]['${DatabaseHelper.total_quantity_refunded}'].toString()),
                     ],
-                    ),
+                  ),
                   Row(
                     children: <Widget>[
                       Text('REFUNDED AMOUNT : ',),
                       Spacer(),
-                      Text(refundedListDetails[index]['refunded_amount'].toString()),
+                      Text(refundedListDetails[index]['${DatabaseHelper.total_amount_refunded}'].toString()),
                     ],
-                    ),
+                  ),
 
 
                   Row(
                     children: <Widget>[
                       Text('PAYMENT MODE : '),
                       Spacer(),
-                      Text(refundedListDetails[index]['payment_mode'].toString()),
+                      Text(refundedListDetails[index]['${DatabaseHelper.payment_method}'].toString()),
                     ],
-                    ),
+                  ),
                   Row(
                     children: <Widget>[
                       Text('AMOUNT PAID: '),
                       Spacer(),
-                      Text(refundedListDetails[index]['amount_paid'].toString()),
+                      Text(refundedListDetails[index]['${DatabaseHelper.paid_amount_total}'].toString()),
                     ],
-                    ),
+                  ),
                   Row(
                     children: <Widget>[
                       Text('AMOUNT CREDITED:'),
                       Spacer(),
-                      Text(refundedListDetails[index]['amount_credited'].toString()),
+                      Text(refundAmountCredited.toString()),
                     ],
-                    ),
+                  ),
 
 
 
 
                 ],
-                ),
-              ),//All_products
+              ),
+            ),//All_products
           ],
-          ),
-        );
+        ),
+      );
     }).toList();
   }
 
@@ -771,264 +783,254 @@ class OrderScreen2 extends StatelessWidget {
     return ScopedModelDescendant<NewAppStateModel> (
 
         builder: (context, child, model)
-    {
-      return Container(
+        {
+          double creditAmount = (model.finalSelectedOrder['amount'].toString() == 'null') ? 0.0 : double.parse(model.finalSelectedOrder['amount'].toString());
+          double creditBalanceCustomer = (model.selectedCustomer[DatabaseHelper.credit_balance.toString()].toString() == 'null') ?
+          0.0 : double.parse(model.selectedCustomer[DatabaseHelper.credit_balance.toString()].toString());
+          return Container(
 
-        color: Colors.white,
+            color: Colors.white,
 //                width: 400,
 //                height:500,
-        child: ListView(
-          children: <Widget>[
+            child: ListView(
+              children: <Widget>[
 
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      IconButton(
-                        icon:Icon(Icons.arrow_back),
-                        onPressed: (){
-                          model.orderPageState(false, false);
-                        },
-                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          IconButton(
+                            icon:Icon(Icons.arrow_back),
+                            onPressed: (){
+                              model.orderPageState(false, false);
+                            },
+                          ),
 
-                      Text('Order : <Number>'),
-                    ],),
+                          Text('Order : ${model.finalSelectedOrder['invoice']}'),
+                        ],),
 
-                  Divider(color: Colors.black, thickness: 1, height: 10,),
+                      Divider(color: Colors.black, thickness: 1, height: 10,),
 
 
-                  Icon(Icons.account_circle),
-                  Text('Customer ABC : <Mobile>'),
-                  Text('Order Time : <Date>'),
-                  Text('Invoice Number : <Number>'),
-                ],
+                      Icon(Icons.account_circle),
+                      (model.selectedCustomer.containsKey('id')) ? Text('Customer: ${model.selectedCustomer['name']} (${model.selectedCustomer['phone_number']})') : Text("Customer Not Selected !"),
+                      Text('Order Time: ${model.finalSelectedOrder['created_at']}'),
+                      Text('Invoice Number: ${model.finalSelectedOrder['invoice']}'),
+                    ],
+                  ),
                 ),
-              ),
-            Container(
-                height: 40,
-                color:
+                Container(
+                    height: 40,
+                    color:
 //          Color(0xffe48181),
-                Color(0xff68d8c2),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
+                    Color(0xff68d8c2),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
 
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Product',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              'Product',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'MRP',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Text(
+                              'MRP',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'SP',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Text(
+                              'SP',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'QTY',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Text(
+                              'QTY',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'Total',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                          ), flex: 3,
-                        ),
-                    ],
-                    ),
-                  )
-
-                ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: Column(
-                        children: buildProductList(context, productList)
-                        ),
-                    ), //  ROWS OF THE PRODUCTS
-
-
-
-                  Row(
-                    children: <Widget>[
-                      Text('Discount : ',),
-                      Spacer(),
-                      Text('Rs, 78',),
-                    ],
-                    ),
-                  Row(
-                    children: <Widget>[
-                      Text('GST : '),
-                      Spacer(),
-                      Text('Rs, 78',),
-                    ],
-                    ),
-
-
-                  Divider(color: Colors.black12, thickness: 1, height: 10,),
-
-                  Row(
-                    children: <Widget>[
-                      Text('CREDIT : '),
-                      Spacer(),
-                      Text('Rs, 78',),
-                    ],
-                    ),
-                  Row(
-                    children: <Widget>[
-                      Text('AMOUNT PAID: '),
-                      Spacer(),
-                      Text('Rs, 78',),
-                    ],
-                    ),
-                  Row(
-                    children: <Widget>[
-                      Text('PAYMENT MODE: '),
-                      Spacer(),
-                      Text('CREDIT',),
-                    ],
-                    ),
-                  Divider(color: Colors.black12, thickness: 1, height: 10,),
-
-
-
-                ],
-                ),
-              ),
-
-            Container(
-              child: Column(
-                children:
-                  buildRefund(context, refundedList, refundedListDetails)
-              ),
-            ),//REFUNDED_CONTAINER
-            Divider(color: Colors.black12, thickness: 1, height: 10,),
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text('Total Credit of Customer ABC :',
-                             style: TextStyle(color: Colors.red),
-                           ),
-                      Spacer(),
-                      Text('Rs, 78',
-                             style: TextStyle(color: Colors.red),
-                           ),
-                    ],
-                    ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 5,
-                        child: RaisedButton(
-                          color: Color(0xff64b5f6),
-                          child: Text('PRINT RECEIPT '),
-                          onPressed: () {
-                            model.orderPageState(true, true);
-                          },
+                          Expanded(
+                            child: Text(
+                              'Total',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ), flex: 3,
                           ),
-                        ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(width: 60,),
-                        ),
-                      Expanded(
-                        flex: 5,
-                        child: RaisedButton(
-                          color: Color(0xff81c784),
-                          child: Text('PAY CREDIT '),
-                          onPressed: () {
-
-                            model.orderPageState(true, true);
-                          },
-                          ),
-                        )
-                    ],),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: RaisedButton(
-                          color: Color(0xffe48181),
-                          child: Text('REFUND '),
-                          onPressed: () {
-                            model.orderPageState(true, true);
-                          },
-                          ),
+                        ],
                       ),
+                    )
+
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                            children: buildProductList(context, model.readOnlyListOftemsSelectedOrder)
+                        ),
+                      ), //  ROWS OF THE PRODUCTS
+
+
+//
+//                      Row(
+//                        children: <Widget>[
+//                          Text('Discount : ',),
+//                          Spacer(),
+//                          Text('Rs, 78',),
+//                        ],
+//                      ),
+//                      Row(
+//                        children: <Widget>[
+//                          Text('GST : '),
+//                          Spacer(),
+//                          Text('Rs, 78',),
+//                        ],
+//                      ),
+
+
+                      Divider(color: Colors.black12, thickness: 1, height: 10,),
+
+                      Row(
+                        children: <Widget>[
+                          Text('CREDIT: '),
+                          Spacer(),
+                          Text('${creditAmount.toString()}',),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text('AMOUNT PAID: '),
+                          Spacer(),
+                          Text('Rs, ${model.finalSelectedOrder['paid_amount_total']}',),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text('PAYMENT MODE: '),
+                          Spacer(),
+                          Text('${model.finalSelectedOrder['payment_method']}',),
+                        ],
+                      ),
+                      Divider(color: Colors.black12, thickness: 1, height: 10,),
+
 
 
                     ],
-                  )
+                  ),
+                ),
 
-                ],
-              ),
-            )
+                Container(
+                  child: Column(
+                      children:
+                      buildRefund(context, model.finallistOfListOfRefundedOrderItems, model.finalRefundedOrders)
+                  ),
+                ),//REFUNDED_CONTAINER
+                Divider(color: Colors.black12, thickness: 1, height: 10,),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text('Total Credit of Customer ${model.selectedCustomer['name']} :',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          Spacer(),
+                          Text('Rs, ${creditBalanceCustomer.toString()}',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 5,
+                            child: RaisedButton(
+                              color: Color(0xff64b5f6),
+                              child: Text('PRINT RECEIPT '),
+                              onPressed: () {
+                                model.orderPageState(true, true);
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(width: 60,),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: RaisedButton(
+                              color: Color(0xff81c784),
+                              child: Text('PAY CREDIT '),
+                              onPressed: () {
+
+                                model.orderPageState(true, true);
+                              },
+                            ),
+                          )
+                        ],),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: RaisedButton(
+                              color: Color(0xffe48181),
+                              child: Text('REFUND '),
+                              onPressed: () {
+                                model.orderPageState(true, true);
+                              },
+                            ),
+                          ),
+
+
+                        ],
+                      )
+
+                    ],
+                  ),
+                )
 
 
 
 
-          ],
-          ),
-        );
-    });
+              ],
+            ),
+          );
+        });
   }
 }
 
 
+class OrderScreen3 extends StatefulWidget {
+  _OrderScreen3 createState() => _OrderScreen3();
+}
 
-class OrderScreen3 extends StatelessWidget {
-  final List<Map<String, dynamic >> productList = [{
-    'name': 'product_name',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '9',
-    'total' : '810',
-    'max_qty': '91'
-  },
-    {
-      'name': 'product_name2',
-      'sp': '90',
-      'mrp': '90',
-      'qty': '3',
-      'total' : '810',
-      'max_qty': '812'
-    }
-  ];
+class _OrderScreen3 extends State<OrderScreen3> {
 
 
-  List<Container> buildRows(BuildContext context, List<Map<String, dynamic >> productList) {
+
+  List<Container> buildProductList(BuildContext context, List<Map> productList) {
     return List.generate(productList.length, (index){
       return Container(
         child: OrderRowEditable(product: productList[index]),
-        );
+      );
     }).toList();
   }
 
@@ -1038,283 +1040,289 @@ class OrderScreen3 extends StatelessWidget {
     return ScopedModelDescendant<NewAppStateModel> (
 
         builder: (context, child, model)
-    {
-      return Container(
+        {
+          return Container(
 
-        color: Colors.white,
+            color: Colors.white,
 //                width: 400,
 //                height:500,
-        child:ListView(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child:ListView(
               children: <Widget>[
-                IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                  onPressed: (){
-                      model.orderPageState(true, false);
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: (){
+                        model.orderPageState(true, false);
+                      },
                     ),
-              ],),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(children: <Widget>[
-
-                    Text('Order : <Number>'),
                   ],),
-                  Divider(color: Colors.black12, thickness: 1, height: 10,),
-                  Row(children: <Widget>[
-                    Icon(Icons.account_circle),
-                    Text('Customer ABC : <Mobile>'),
-                  ],),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(children: <Widget>[
 
-                  Text('Order Time : <Date>'),
-                  Text('Invoice Number : <Number>'),
-                ],
+                        Text('Order : ${model.finalSelectedOrder['${DatabaseHelper.invoice}']}'),
+                      ],),
+                      Divider(color: Colors.black12, thickness: 1, height: 10,),
+                      (model.selectedCustomer.containsKey('id')) ? Row(children: <Widget>[
+                        Icon(Icons.account_circle),
+                        Text('Customer: ${model.selectedCustomer[DatabaseHelper.name]} (${model.selectedCustomer[DatabaseHelper.phone_number]})'),
+                      ],) : SizedBox(),
+
+                      Text('Order Time : ${model.finalSelectedOrder[DatabaseHelper.created_at]}'),
+                      Text('Invoice Number : ${model.finalSelectedOrder['${DatabaseHelper.invoice}']}'),
+                    ],
+                  ),
                 ),
-              ),
-            Container(
-                height: 40,
-                color:
+                Container(
+                    height: 40,
+                    color:
 //          Color(0xffe48181),
-                Color(0xff68d8c2),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
+                    Color(0xff68d8c2),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
 
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Product',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              'Product',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'MRP',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Text(
+                              'MRP',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'SP',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Text(
+                              'SP',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'QTY',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Text(
+                              'Refund QTY',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            flex: 3,
                           ),
-                        flex: 3,
-                        ),
-                      Expanded(
-                        child: Text(
-                          'Total',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                          ),flex: 3,
-                        ),
-                    ],
-                    ),
-                  )
+                          Expanded(
+                            child: Text(
+                              'Total',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),flex: 3,
+                          ),
+                        ],
+                      ),
+                    )
 
                 ),
 
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child:  Column(
-                children: <Widget>[
-                  Container(
-                    child: Column(
-                        children: buildRows(context, productList)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child:  Column(
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                            children: buildProductList(context, model.finalOrderItemsList)
                         ),
-                    ),//  ROWS OF THE PRODUCTS
+                      ),//  ROWS OF THE PRODUCTS
 
 
-                  Divider(color: Colors.black12, thickness: 1, height: 10,),
-                  Row(
-                    children: <Widget>[
-                      Text('Total Refund Items : ',),
-                      Spacer(),
-                      Text(' 78',),
-                    ],
-                    ),
-                  Row(
-                    children: <Widget>[
-                      Text('Refund Amount : '),
-                      Spacer(),
-                      Text('Rs, 78',),
-                    ],
-                    ),
-
-
-
-                  Divider(color: Colors.black12, thickness: 1, height: 10,),
-                  Text('Refund Payment Mode'),
-                  Row(
-                    children: <Widget>[
-                      Text('Total Credit of Customer ABC :',
-                             style: TextStyle(color: Colors.red),
-                           ),
-                      Spacer(),
-                      Text('Rs, 78',
-                             style: TextStyle(color: Colors.red),
-                           ),
-                    ],
-                    ),
-                  model.orderPagePayment == ''?
-                  Container(
-                    child: Column(children: <Widget>[
-
+                      Divider(color: Colors.black12, thickness: 1, height: 10,),
                       Row(
                         children: <Widget>[
-
-                          Text('Add To Credits'),
+                          Text('Total Refund Items : ',),
                           Spacer(),
-                          RaisedButton(
-                              child: Text('ADD CREDIT'),
-                              onPressed: () {
+                          Text(' ${model.tempTotalItemsToBeRefunded.toString()}',),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text('Refund Amount : '),
+                          Spacer(),
+                          Text('Rs, ${model.tempTotalAmountToBeRefunded}',),
+                        ],
+                      ),
 
-                                model.orderPageState(true, false);
-                              },
-                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+
+
+                      Divider(color: Colors.black12, thickness: 1, height: 10,),
+                      Text('Refund Payment Mode'),
+                      Row(
+                        children: <Widget>[
+                          Text('Total Credit of Customer ${model.selectedCustomer['name']} :',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          Spacer(),
+                          Text('Rs, ${model.selectedCustomer['${DatabaseHelper.credit_balance}']}',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                      model.orderPagePayment == ''?
+                      Container(
+                        child: Column(children: <Widget>[
+
+                          Row(
+                            children: <Widget>[
+
+                              Text('Add To Credits'),
+                              Spacer(),
+                              RaisedButton(
+                                  child: Text('ADD CREDIT'),
+                                  onPressed: () async {
+                                    await model.setRefundDetails("0", 'credit');
+                                    await model.submitRefundDetailsToDb('credit');
+                                    await model.orderPageState(true, false);
+
+                                  },
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                               ),
 
-                        ],
-                        ),
-                      Container(
-                          width: 20,
-                          height: 15
+                            ],
+                          ),
+                          Container(
+                              width: 20,
+                              height: 15
                           ),
 
-                      Row(
-                        children: <Widget>[
-                          RaisedButton(
-                              child: Text('CASH'),
-                              onPressed: () {
-                                model.setOrderPagePayment(mode: 'CASH');
-                              },
-                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                          Row(
+                            children: <Widget>[
+                              RaisedButton(
+                                  child: Text('CASH'),
+                                  onPressed: () {
+                                    model.setOrderPagePayment(mode: 'CASH');
+                                  },
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                               ),
-                          Spacer(),
-                          RaisedButton(
-                              child: Text('PAYTM'),
-                              onPressed: () {
-                                model.setOrderPagePayment(mode: 'PAYTM');
+                              Spacer(),
+                              RaisedButton(
+                                  child: Text('PAYTM'),
+                                  onPressed: () {
+                                    model.setOrderPagePayment(mode: 'PAYTM');
 
-                              },
-                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                                  },
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                               ),
-                          Spacer(),
-                          RaisedButton(
-                              child: Text('BHIM UPI'),
-                              onPressed: () {
-                                model.setOrderPagePayment(mode: 'BHIM UPI');
+                              Spacer(),
+                              RaisedButton(
+                                  child: Text('BHIM UPI'),
+                                  onPressed: () {
+                                    model.setOrderPagePayment(mode: 'BHIM UPI');
 
-                              },
-                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                                  },
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                               ),
-                          Spacer(),
-                          RaisedButton(
-                              child: Text('OTHER'),
-                              onPressed: () {
-                                model.setOrderPagePayment(mode: 'OTHER');
+                              Spacer(),
+                              RaisedButton(
+                                  child: Text('OTHER'),
+                                  onPressed: () {
+                                    model.setOrderPagePayment(mode: 'OTHER');
 
-                              },
-                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
+                                  },
+                                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
                               ),
 
-                        ],
-                        ),
-                    ],),
-                  )
-                  :
+                            ],
+                          ),
+                        ],),
+                      )
+                          :
                       new Container(),
 
-                 model.orderPagePayment != ''?
-                 Container(
-                   child: Column(children: <Widget>[
-                     Row(children: <Widget>[
-                       Text(model.orderPagePayment),
-                       Spacer(),
-                       SizedBox(
-                         width: 60,
-                         child: TextField(),
-                         ),
-                       Spacer(),
-                       IconButton(
-                         icon: Icon(Icons.clear),
-                         onPressed: (){
-                           model.setOrderPagePayment(mode:'');
-                         },
-                         )
-                     ],),
-                     Row(children: <Widget>[
-                       Text('Remaining Amount will be subtractd from Credits:')
-                     ],),
-                     Row(children: <Widget>[
-                       Text('1560', style: TextStyle(color: Colors.red),),
-                       Text('   -   '),
-                       Text('60',style: TextStyle(color: Colors.green),),
-                       Spacer(),
-                       Text('1480', style: TextStyle(color: Colors.red)),
-                     ],),
-                     Row(children: <Widget>[
-                       Container(
-                         width: 200,
-                         child: RaisedButton(
-                           color: Color(0xffe48181),
-                           child: Text('REFUND '),
-                           onPressed: () {
-                             model.orderPageState(true, true);
-                           },
-                           ),
-                         )
-                     ],)
-                   ],),
-                 )
-                     :new Container(),
-                ],
-                ),
-              )
+                      model.orderPagePayment != ''?
+                      Container(
+                        child: Column(children: <Widget>[
+                          Row(children: <Widget>[
+                            Text(model.orderPagePayment),
+                            Spacer(),
+                            SizedBox(
+                              width: 60,
+                              child: TextField(),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              icon: Icon(Icons.clear),
+                              onPressed: (){
+                                model.setOrderPagePayment(mode:'');
+                              },
+                            )
+                          ],),
+                          Row(children: <Widget>[
+                            Text('Remaining Amount will be subtractd from Credits:')
+                          ],),
+                          Row(children: <Widget>[
+                            Text('1560', style: TextStyle(color: Colors.red),),
+                            Text('   -   '),
+                            Text('60',style: TextStyle(color: Colors.green),),
+                            Spacer(),
+                            Text('1480', style: TextStyle(color: Colors.red)),
+                          ],),
+                          Row(children: <Widget>[
+                            Container(
+                              width: 200,
+                              child: RaisedButton(
+                                color: Color(0xffe48181),
+                                child: Text('REFUND '),
+                                onPressed: () {
+                                  model.orderPageState(true, true);
+                                },
+                              ),
+                            )
+                          ],)
+                        ],),
+                      )
+                          :new Container(),
+                    ],
+                  ),
+                )
 
-          ],
-          ),
-        );
-    });
+              ],
+            ),
+          );
+        });
   }
 }
 
 
-
-
-class OrderRow extends StatelessWidget {
+class OrderRow extends StatefulWidget {
   OrderRow({@required this.product});
-  final Map<String, dynamic > product;
+  final Map product;
+  _OrderRow createState() => _OrderRow();
+}
+
+class _OrderRow extends State<OrderRow> {
+
 
 
   @override
   Widget build(BuildContext context) {
     final formatter = NumberFormat.simpleCurrency(name: 'INR',
-                                                    decimalDigits: 2,
-                                                  //                                                      locale: Localizations.localeOf(context).toString()
-                                                  );
+      decimalDigits: 2,
+      //                                                      locale: Localizations.localeOf(context).toString()
+    );
 
 
     return ScopedModelDescendant<NewAppStateModel> (
         builder: (context, child, model) {
 
+          double itemTotalAmount = double.parse(widget.product['${DatabaseHelper.quantity}'].toString())*double.parse(widget.product['sp'].toString());
           return Container(
             padding: EdgeInsets.all(5),
             child: Column(
@@ -1323,277 +1331,263 @@ class OrderRow extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 5),
                   child: Row(
                     children: <Widget>[
-                      Text(product['name']),
+                      Text(widget.product['name']),
                     ],
-                    ),
                   ),
+                ),
                 Row(
 
                   children: [
                     Expanded(
                       child: const SizedBox(width: 80.0),
                       flex: 4,
-                      ),
+                    ),
                     Expanded(
-                      child: Text(product['mrp']),
+                      child: Text(widget.product['mrp'].toString()),
                       flex: 3,
-                      ),
+                    ),
                     Expanded(
-                      child: new Text(product['sp']),
+                      child: new Text(widget.product['sp'].toString()),
                       flex: 3,
-                      ),
+                    ),
                     Expanded(
                       flex: 3,
-                      child: Text(product['qty']),
-                      ),
+                      child: Text(widget.product['${DatabaseHelper.quantity}'].toString()),
+                    ),
                     Expanded(
                       flex: 2,
                       child:
 //                      Text('${formatter.format('??')}'),
-                      Text(product['total']),
-                      ),
+                      Text(itemTotalAmount.toString()),
+                    ),
 
                   ],
-                  ),
+                ),
                 Container(
                   height: 10,
-                  ),
+                ),
                 Divider(color: Color(0xff429585),thickness: 1)
 
               ],
-              ),
-            );
+            ),
+          );
         });
   }
 }
+
 class OrderRowEditable extends StatefulWidget {
   OrderRowEditable({@required this.product});
-  final Map<String, dynamic > product;
+  final Map product;
   _OrderRowEditable createState() => _OrderRowEditable();
 }
 class _OrderRowEditable extends State<OrderRowEditable> {
 
-
-  TextEditingController quantityController = new TextEditingController();
-  String text = "";
-  int maxLength = 900;
+  TextEditingController quantityController = TextEditingController(text: '0');
 
   @override
-
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 10, left: 10, right:10),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  widget.product['name'].toString(),
+    return ScopedModelDescendant<NewAppStateModel>(
+       builder : (context, child, model)
+       {
+         double totalRefundOFItem = double.parse(widget.product['sp'].toString())*double.parse(quantityController.text.toString());
+         return Container(
+           child: Column(
+             children: [
+               Padding(
+                 padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                 child: Row(
+                   children: <Widget>[
+                     Text(
+                       widget.product['name'].toString(),
 
-                  ),
-                Spacer(),
-                InkWell(
-                  child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.clear,
-                        size: 13.0,
-                        ),
-                      height: 25,width:40),
-
-
-                  onTap: () {
-
-                  },
-                  ),
+                     ),
+                     Spacer(),
+                     InkWell(
+                       child: Container(
+                           alignment: Alignment.centerRight,
+                           child: Icon(
+                             Icons.clear,
+                             size: 13.0,
+                           ),
+                           height: 25,width:40),
 
 
-              ],
-              ),
-            ),
-          Row(
-            key: ValueKey(widget.product['id'].toString()),
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
+                       onTap: () {
+
+                       },
+                     ),
 
 
-              const SizedBox(width: 30.0),
-              Expanded(
-                child: Container(
-
-                ),
-                flex: 2,
-                ),
-              Expanded(
-                child: TextFormField(
-
-                  autofocus: false,
-                  initialValue: widget.product['mrp'],
-                  keyboardType: TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: false,
-                    ),
-                  onChanged: (text){
-
-                  },
-
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '${widget.product['mrp'].toString()}'
-                      ),
-                  ),
-                flex: 3,
-                ),
-              Expanded(
-                child: new TextFormField(
-                  textAlign: TextAlign.center,
-                  autofocus: false,
-                  initialValue: widget.product['sp'],
-                  keyboardType: TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: false,
-                    ),
-                  onChanged: (text){
-
-                  },
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    ),
-                  ),
-                flex: 3,
-                ),
-              Expanded(
-                child: Center(
-                  child: Container(
-                    width: 60.0,
-
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: new TextField(
-                              keyboardType: TextInputType.number,
-                              controller: quantityController,
-                            inputFormatters: [
-                              new LengthLimitingTextInputFormatter(widget.product['max_qty'].toString().length),
-
-                            ],
-                              onChanged: (String newVal) {
-                                if (int.parse(newVal) < int.parse(widget.product['max_qty'])) {
-                                  print('orderScreen3 .... :::: quantity in limit .OK.. ');
-                                  quantityController.text = newVal;
-                                  widget.product['qty'] = newVal;
-                                  print(quantityController.text );
-                                }
-                                else {
-                                  quantityController.text = widget.product['max_qty'];
-//                                  quantityController.text = text;
-
-                                  Fluttertoast.showToast(
-                                      msg: "!! Maximum available quantity is ${widget.product['max_qty']} for the Product ",
-                                      toastLength: Toast.LENGTH_LONG,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIos: 1,
-                                      backgroundColor: Color(0xffe48181),
-                                      textColor: Colors.black,
-                                      fontSize: 16.0
-                                      );
-                                }
-                              },
-//                            decoration: InputDecoration(
-//                              errorText: (int.parse(quantityController.text) > 10)? "qty exceeded" : '',
-//                              ),
-
-                              ),
+                   ],
+                 ),
+               ),
+               Row(
+                 key: ValueKey(widget.product['id'].toString()),
+                 crossAxisAlignment: CrossAxisAlignment.end,
+                 children: [
 
 
-//                          TextFormField(
-//                            initialValue: '0',
-////                            controller: quantityController,
-//                            keyboardType: TextInputType.number,
-//
-//                            onChanged: (text){
-//
-//                            },
-//                            decoration: InputDecoration(
-//                                border: InputBorder.none,
-//                                hintText: '${product['quantity'].toString()}'),
-//                            ),
-                          ),
-                        Container(
-                          height: 48.0,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      width: 0.5,
-                                      ),
-                                    ),
-                                  ),
-                                child: InkWell(
-                                  child: Icon(
-                                    Icons.arrow_drop_up,
-                                    size: 22.0,
-                                    ),
-                                  onTap: () {
-                                    setState(() {
-                                      widget.product['qty'] = (int.parse(widget.product['qty'])+1).toString();
-                                      quantityController.text = (int.parse(widget.product['qty'])+1).toString();
-                                      print(quantityController.text );
-                                    });
+                   const SizedBox(width: 30.0),
+                   Expanded(
+                     child: Container(
 
-                                  },
-                                  ),
-                                ),
-                              InkWell(
-                                child: Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 22.0,
-                                  ),
-                                onTap: () {
+                     ),
+                     flex: 2,
+                   ),
+                   Expanded(
+                     child: TextFormField(
 
-                                },
-                                ),
-                            ],
-                            ),
-                          ),
-                      ],
-                      ),
-                    ),
-                  ),
-                flex: 4,
-                ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(right: 10),
-                  alignment: Alignment.centerRight,
-                  child: Column(children: <Widget>[
-                    Text(widget.product['total']),
-                    SizedBox(
-                      height: 17,
-                      ),
+                       autofocus: false,
+                       initialValue: widget.product['mrp'].toString(),
+                       keyboardType: TextInputType.numberWithOptions(
+                         decimal: true,
+                         signed: false,
+                       ),
+                       onChanged: (text){
 
-                  ],),
-                  ),
-                flex: 4,
-                ),
-            ],
-            ),
-          Divider(color: Color(0xff429585),thickness: 1,height: 4,)
+                       },
 
-        ],
-        ),
-      );
+                       decoration: InputDecoration(
+                           border: InputBorder.none,
+                           hintText: '${widget.product['mrp'].toString()}'
+                       ),
+                     ),
+                     flex: 3,
+                   ),
+                   Expanded(
+                     child: new TextFormField(
+                       textAlign: TextAlign.center,
+                       autofocus: false,
+                       initialValue: widget.product['sp'].toString(),
+                       keyboardType: TextInputType.numberWithOptions(
+                         decimal: true,
+                         signed: false,
+                       ),
+                       onChanged: (text){
+
+                       },
+                       decoration: InputDecoration(
+                         border: InputBorder.none,
+                       ),
+                     ),
+                     flex: 3,
+                   ),
+                   Expanded(
+                     child: Center(
+                       child: Container(
+                         width: 60.0,
+
+                         child: Row(
+                           children: <Widget>[
+                             Expanded(
+                               flex: 1,
+                               child: TextFormField(
+
+                                 controller: quantityController,
+//                                  focusNode: quantityFocusNode,
+                                 autofocus: false,
+                                 autovalidate: true,
+                                 validator: (value) {
+                                   print("\n\nwidget.product['quantity'] = ${widget.product['quantity']} :::: value = $value :::: widget.product = ${widget.product}"
+                                       " :::: quantityController.text = ${quantityController.text}\n\n");
+                                   
+                                   int maxQuantity = model.validateRefundQuantity(int.parse(widget.product['id'].toString()));
+                                   print("\n\nmaxQuantity = $maxQuantity\n\n");
+                                   if (maxQuantity < int.parse(value)) {
+                                     print("\n\nvalidation true\n\n");
+                                     return 'Please enter some text';
+                                   }
+                                   else{
+                                     print("\n\nvalidation false\n\n");
+                                     return null;
+                                   }
+
+                                 },
+
+//                                          initialValue: quantity.toString(),
+//                                  controller: quantityController,
+                                 keyboardType: TextInputType.number,
+
+                                 onChanged: (text) async {
+                                   setState(() {
+                                     quantityController.text = text;
+                                   });
+                                   await model.updateRefundDetailsOnUi(int.parse(text), int.parse(widget.product['id'].toString()));
+                                 },
+                                 decoration: InputDecoration(
+                                     border: InputBorder.none,
+                                     hintText: '${widget.product['quantity'].toString()}'
+                                 ),
+                               ),
+                             ),
+                             Container(
+                               height: 48.0,
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: <Widget>[
+                                   Container(
+                                     decoration: BoxDecoration(
+                                       border: Border(
+                                         bottom: BorderSide(
+                                           width: 0.5,
+                                         ),
+                                       ),
+                                     ),
+                                     child: InkWell(
+                                       child: Icon(
+                                         Icons.arrow_drop_up,
+                                         size: 22.0,
+                                       ),
+                                       onTap: () async {
+                                         setState(() {
+                                           quantityController.text = (int.parse(quantityController.text) + 1).toString();
+                                         });
+                                         await model.updateRefundDetailsOnUi(int.parse(quantityController.text), int.parse(widget.product['id'].toString()));
+                                       },
+                                     ),
+                                   ),
+                                   InkWell(
+                                     child: Icon(
+                                       Icons.arrow_drop_down,
+                                       size: 22.0,
+                                     ),
+                                     onTap: () async {setState(() {
+                                       quantityController.text = (int.parse(quantityController.text) - 1).toString();
+                                     });
+                                     await model.updateRefundDetailsOnUi(int.parse(quantityController.text), int.parse(widget.product['id'].toString()));
+                                     },
+                                   ),
+                                 ],
+                               ),
+                             ),
+                           ],
+                         ),
+                       ),
+                     ),
+                     flex: 4,
+                   ),
+                   Expanded(
+                     child: Container(
+                       padding: EdgeInsets.only(right: 10),
+                       alignment: Alignment.centerRight,
+                       child: Column(children: <Widget>[
+                         Text(totalRefundOFItem.toString()),
+                         SizedBox(
+                           height: 17,
+                         ),
+
+                       ],),
+                     ),
+                     flex: 4,
+                   ),
+                 ],
+               ),
+               Divider(color: Color(0xff429585),thickness: 1,height: 4,)
+
+             ],
+           ),
+         );
+   });
   }
 }
-
-
-
-
-
-

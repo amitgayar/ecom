@@ -3,15 +3,16 @@ import 'Database_Models.dart';
 class ProcessDataReceivedFromFromBackend {
   final List<categories> ProductCategoriesList;
   final List<products> productsList;
-  final List<requestStocks> stockRequestsList;
+  final List<requestStocksAndPackageDispatch> stockRequestsList;
+  final List<requestStocksAndPackageDispatch> packageDispatchList;
   final List<requestStockItems> stockRequestsProductsList;
   final List<Barcode> BarcodeList;
 
   ProcessDataReceivedFromFromBackend({this.productsList,
-    this.ProductCategoriesList,
-    this.stockRequestsList,
-    this.stockRequestsProductsList,
-    this.BarcodeList});
+                this.ProductCategoriesList,
+                this.stockRequestsList,
+                this.stockRequestsProductsList,
+                this.BarcodeList, this.packageDispatchList});
 
   factory ProcessDataReceivedFromFromBackend.fromJson(Map<String, dynamic> parsedJson){
 
@@ -20,12 +21,14 @@ class ProcessDataReceivedFromFromBackend {
     var list3 = parsedJson['requestStocks'] as List;
     var list4 = parsedJson['requestStockItems'] as List;
     var list5 = parsedJson['barcode'] as List;
+    var list6 = parsedJson['packageDispatch'] as List;
 
 
 
     List<categories> ProductCategoriesListParsedFromJson = list1.map((i) => categories.fromJson(i)).toList();
     List<products> productsListParsedFromJson = list2.map((i) => products.fromJson(i)).toList();
-    List<requestStocks> stockRequestsListParsedFromJson = list3.map((i) => requestStocks.fromJson(i)).toList();
+    List<requestStocksAndPackageDispatch> stockRequestsListParsedFromJson = list3.map((i) => requestStocksAndPackageDispatch.fromJson(i)).toList();
+    List<requestStocksAndPackageDispatch> packageDispatchListParsedFromJson = list6.map((i) => requestStocksAndPackageDispatch.fromJson(i)).toList();
     List<requestStockItems> stockRequestsProductsListParsedFromJson = list4.map((i) => requestStockItems.fromJson(i)).toList();
     List<Barcode> BarcodeListParsedFromJson = list5.map((i) => Barcode.fromJson(i)).toList();
 
@@ -35,9 +38,9 @@ class ProcessDataReceivedFromFromBackend {
         productsList: productsListParsedFromJson,
         stockRequestsList: stockRequestsListParsedFromJson,
         stockRequestsProductsList : stockRequestsProductsListParsedFromJson,
-        BarcodeList : BarcodeListParsedFromJson
-
-        );
+        BarcodeList : BarcodeListParsedFromJson,
+        packageDispatchList : packageDispatchListParsedFromJson
+    );
   }
 }
 
@@ -47,6 +50,7 @@ class ProcessDataReceivedFromFromBackend {
 class sendDataToBackend {
   var StockRequestList;
   var StockRequestsProductsList;
+  var packageDispatchList;
   var OrdersList;
   var OrderProductsList;
   var CustomerList;
@@ -56,7 +60,7 @@ class sendDataToBackend {
   var sync_data_list;
   var orderRefundList;
 
-  sendDataToBackend(this.StockRequestList, this.StockRequestsProductsList, this.OrdersList, this.OrderProductsList, this.CustomerList, this.CustomerCreditList, this.OrderRefundItemsList, this.orderRefundList, this.CustomProductsList, this.sync_data_list);
+  sendDataToBackend(this.packageDispatchList, this.StockRequestList, this.StockRequestsProductsList, this.OrdersList, this.OrderProductsList, this.CustomerList, this.CustomerCreditList, this.OrderRefundItemsList, this.orderRefundList, this.CustomProductsList, this.sync_data_list);
 
   sendDataToBackend.fromJson(Map<String, dynamic> json)
       : StockRequestList = json['requestStocks'],
@@ -68,7 +72,8 @@ class sendDataToBackend {
         OrderRefundItemsList = json['refund_items'],
         CustomProductsList = json['customProducts'],
         orderRefundList = json['refunds'],
-        sync_data_list = json['sync_data_list'];
+        sync_data_list = json['sync_data_list'],
+        packageDispatchList = json['packageDispatchList'];
 
 
   Map<String, dynamic> toJson() =>
@@ -83,13 +88,15 @@ class sendDataToBackend {
         'customProducts': CustomProductsList,
         'sync_data_list' : sync_data_list,
         'orderRefundList' : orderRefundList,
+        'packageDispatchList' : packageDispatchList,
       };
 }
 
 
 
 class ProcessDataSentToFromBackend {
-  final List<requestStocks> requestStocksList;
+  final List<requestStocksAndPackageDispatch> requestStocksList;
+  final List<requestStocksAndPackageDispatch> packageDispatchList;
   final List<requestStockItems> requestStockItemsList;
   final List<orderItems> orderItemsList;
   final List<Orders> ordersList;
@@ -107,7 +114,8 @@ class ProcessDataSentToFromBackend {
     this.creditLogsList,
     this.customerList,
     this.ordersList,
-    this.orderRefundsList
+    this.orderRefundsList,
+    this.packageDispatchList
   });
 
   factory ProcessDataSentToFromBackend.fromJson(Map<String, dynamic> parsedJson){
@@ -122,6 +130,7 @@ class ProcessDataSentToFromBackend {
     var list7 = parsedJson['customers'] as List;
     var list8 = parsedJson['requestStocks'] as List;
     var list9 = parsedJson['orderRefunds'] as List;
+    var list10 = parsedJson['packageDispatch'] as List;
 
 
 
@@ -135,7 +144,8 @@ class ProcessDataSentToFromBackend {
     List<refundItems> refundsItemsListParsedFromJson = list5.map((i) => refundItems.fromJson(i)).toList();
     List<customerCredit> customerCreditListParsedFromJson = list6.map((i) => customerCredit.fromJson(i)).toList();
     List<customer> customerListParsedFromJson = list7.map((i) => customer.fromJson(i)).toList();
-    List<requestStocks> requestStocksListParsedFromJson = list8.map((i) => requestStocks.fromJson(i)).toList();
+    List<requestStocksAndPackageDispatch> requestStocksListParsedFromJson = list8.map((i) => requestStocksAndPackageDispatch.fromJson(i)).toList();
+    List<requestStocksAndPackageDispatch> packageDispatchListParsedFromJson = list10.map((i) => requestStocksAndPackageDispatch.fromJson(i)).toList();
     List<refunds> refundsListParsedFromJson = list9.map((i) => refunds.fromJson(i)).toList();
 
 
@@ -148,8 +158,9 @@ class ProcessDataSentToFromBackend {
         creditLogsList:customerCreditListParsedFromJson,
         customerList:customerListParsedFromJson,
         ordersList:ordersListParsedFromJson,
-        orderRefundsList:refundsListParsedFromJson
+        orderRefundsList:refundsListParsedFromJson,
+        packageDispatchList : packageDispatchListParsedFromJson
 
-        );
+    );
   }
 }

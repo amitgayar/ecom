@@ -72,7 +72,10 @@ Future getSyncAPI() async {
   await insert_productCategories(updateDatabase.ProductCategoriesList);
 
   // insert data to stockRequests table
-  await insert_stockRequests(updateDatabase.stockRequestsList);
+  await insert_requestStocksAndPackageDispatch(updateDatabase.stockRequestsList, DatabaseHelper.stockRequestsTable);
+
+  // insert data to requestStocksAndPackageDispatch table
+  await insert_requestStocksAndPackageDispatch(updateDatabase.packageDispatchList, DatabaseHelper.packageDispatch);
 
   // insert data to stockRequestsProducts table
   await insert_stockRequestsProducts(updateDatabase.stockRequestsProductsList);
@@ -85,7 +88,10 @@ Future getSyncAPI() async {
   ProcessDataSentToFromBackend updateDatabase1 = new ProcessDataSentToFromBackend.fromJson(jsonResponse1);
 
   // insert data to insert_stockRequests table
-  await insert_stockRequests(updateDatabase1.requestStocksList);
+  await insert_requestStocksAndPackageDispatch(updateDatabase1.requestStocksList, DatabaseHelper.stockRequestsTable);
+
+  // insert data to requestStocksAndPackageDispatch table
+  await insert_requestStocksAndPackageDispatch(updateDatabase1.packageDispatchList, DatabaseHelper.packageDispatch);
 
   // insert data to insert_stockRequestsProducts table
   await insert_stockRequestsProducts(updateDatabase1.requestStockItemsList);
@@ -148,9 +154,10 @@ Future PostSyncAPI() async {
   List<Map<String, dynamic>> getOrderRefundList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.refundTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
   List<Map<String, dynamic>> getCustomProductsList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customProductsTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
   List<Map<String, dynamic>> getSyncDataList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.dataSyncTable} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
-  sendDataToBackend backendDataObject = new sendDataToBackend(getStockRequestList, getStockRequestsProductsList, getOrdersList, getOrderProductsList, getCustomerList, getCustomerCreditList, getOrderRefundList, getOrderRefundItemsList, getCustomProductsList, getSyncDataList);
+  List<Map<String, dynamic>> getPackageDispatchList = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.packageDispatch} WHERE ${DatabaseHelper.updated_at} >= '" + getLastSync + "'");
+  sendDataToBackend backendDataObject = new sendDataToBackend(getPackageDispatchList, getStockRequestList, getStockRequestsProductsList, getOrdersList, getOrderProductsList, getCustomerList, getCustomerCreditList, getOrderRefundItemsList, getOrderRefundList, getCustomProductsList, getSyncDataList);
   String backendData = jsonEncode(backendDataObject);
-  sendDataToBackend bhjbn = sendDataToBackend(getStockRequestList, getStockRequestsProductsList, getOrdersList, getOrderProductsList, getCustomerList, getCustomerCreditList, getOrderRefundItemsList, getOrderRefundList, getCustomProductsList, getSyncDataList);
+  //sendDataToBackend bhjbn = sendDataToBackend(getStockRequestList, getStockRequestsProductsList, getOrdersList, getOrderProductsList, getCustomerList, getCustomerCreditList, getOrderRefundItemsList, getOrderRefundList, getCustomProductsList, getSyncDataList);
   print(constants.syncPostAPIUrl);
   var syncPostResponse = await dbSyncPost(constants.syncPostAPIUrl, backendData);
   print("POST Response Received");

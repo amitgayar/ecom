@@ -262,8 +262,21 @@
       "parent_id": 8
     }
   ],
+  "packageDispatch": [{
+    "id": 2,
+    "created_at": "2019-12-13T12:50:11.843Z",
+    "updated_at": "2019-12-13T12:50:11.843Z",
+    "status": "packageDispatchrequested",
+    "total_amount": 500,
+    "delivered_at": "",
+    "accepted_at": "",
+    "temp_id": 1,
+    "total_quantity": 2,
+    "total_items" : 12
+  }
+  ],
   "requestStocks": [{
-    "id": 1,
+    "id": 2,
     "created_at": "2019-12-13T12:50:11.843Z",
     "updated_at": "2019-12-13T12:50:11.843Z",
     "status": "requested",
@@ -271,7 +284,8 @@
     "delivered_at": "",
     "accepted_at": "",
     "temp_id": 1,
-    "total_quantity": 2
+    "total_quantity": 2,
+    "total_items" : 212
   }
   ],
   "requestStockItems": [{
@@ -287,7 +301,8 @@
     "created_at": "2019-12-13T12:50:11.843Z",
     "updated_at": "2019-12-13T12:50:11.843Z",
     "note": "",
-    "product_price": 123
+    "product_price": 123,
+    "packageId" : 21
   }],
   "barcode": [{
     "id": 1,

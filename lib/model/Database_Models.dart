@@ -106,8 +106,10 @@ class Orders {
   String invoice;
   var created_at;
   var updated_at;
+  int total_quantity;
+  int total_items;
 
-  Orders(this.customer_id, this.cart_discount_total, this.cgst, this.sgst, this.cess, this.cart_total, this.is_receipt_printed, this.id, this.payment_method, this.paid_amount_total, this.status, this.invoice, this.created_at, this.updated_at);
+  Orders(this.total_items, this.total_quantity, this.customer_id, this.cart_discount_total, this.cgst, this.sgst, this.cess, this.cart_total, this.is_receipt_printed, this.id, this.payment_method, this.paid_amount_total, this.status, this.invoice, this.created_at, this.updated_at);
 
   Orders.fromJson(Map<String, dynamic> json)
       : customer_id = json['customer_id'],
@@ -123,7 +125,9 @@ class Orders {
         status = json['status'],
         invoice = json['invoice'],
         created_at = json['created_at'],
-        updated_at = json['updated_at'];
+        updated_at = json['updated_at'],
+        total_items = json['total_items'],
+        total_quantity = json['total_quantity'];
 
   Map<String, dynamic> toJson() =>
       {
@@ -141,6 +145,8 @@ class Orders {
         'invoice' : invoice,
         'created_at' : created_at,
         'updated_at' : updated_at,
+        'total_quantity' : total_quantity,
+        'total_items' : total_items,
       };
 }
 
@@ -318,7 +324,7 @@ class customer {
 
 
 // class for stockRequestsTable
-class requestStocks {
+class requestStocksAndPackageDispatch {
   String status;
   var delivered_at;
   var accepted_at;
@@ -328,10 +334,11 @@ class requestStocks {
   int id;
   int temp_id;
   int total_quantity;
+  int total_items;
 
-  requestStocks(this.total_quantity, this.temp_id, this.status, this.delivered_at, this.accepted_at, this.total_amount, this.created_at, this.updated_at, this.id);
+  requestStocksAndPackageDispatch(this.total_items, this.total_quantity, this.temp_id, this.status, this.delivered_at, this.accepted_at, this.total_amount, this.created_at, this.updated_at, this.id);
 
-  requestStocks.fromJson(Map<String, dynamic> json)
+  requestStocksAndPackageDispatch.fromJson(Map<String, dynamic> json)
       : status = json['status'],
         delivered_at = json['delivered_at'],
         accepted_at = json['accepted_at'],
@@ -340,7 +347,8 @@ class requestStocks {
         updated_at = json['updated_at'],
         id = json['id'],
         temp_id = json['temp_id'],
-        total_quantity = json['total_quantity'];
+        total_quantity = json['total_quantity'],
+        total_items = json['total_items'];
 
   Map<String, dynamic> toJson() =>
       {
@@ -353,6 +361,7 @@ class requestStocks {
         'id' : id,
         'temp_id' : temp_id,
         'total_quantity' : total_quantity,
+        'total_items' : total_items,
       };
 }
 
@@ -371,11 +380,11 @@ class requestStockItems {
   int delivered_qty;
   double product_price;
   String barcode;
-  bool is_custom_product;
   var created_at;
   var updated_at;
+  int packageId;
 
-  requestStockItems(this.stock_request_id, this.id, this.product_id, this.custom_product_id, this.requested_qty, this.accepted_qty, this.note, this.delivered_qty, this.product_price, this.barcode, this.is_custom_product, this.created_at, this.updated_at);
+  requestStockItems(this.packageId, this.stock_request_id, this.id, this.product_id, this.custom_product_id, this.requested_qty, this.accepted_qty, this.note, this.delivered_qty, this.product_price, this.barcode, this.created_at, this.updated_at);
 
   requestStockItems.fromJson(Map<String, dynamic> json)
       :stock_request_id = json['stock_request_id'],
@@ -388,9 +397,9 @@ class requestStockItems {
         delivered_qty = json['delivered_qty'],
         product_price = json['product_price'].toDouble(),
         barcode = json['barcode'],
-        is_custom_product = json['is_custom_product'],
         created_at = json['created_at'],
-        updated_at = json['updated_at'];
+        updated_at = json['updated_at'],
+        packageId = json['packageId'];
 
   Map<String, dynamic> toJson() =>
       {
@@ -404,9 +413,9 @@ class requestStockItems {
         'delivered_qty' : delivered_qty,
         'product_price' : product_price,
         'barcode' : barcode,
-        'is_custom_product' : is_custom_product,
         'created_at' : created_at,
         'updated_at' : updated_at,
+        'packageId' : packageId,
       };
 }
 
@@ -450,9 +459,10 @@ class customerCredit {
   var created_at;
   var updated_at;
   int id;
+  String payment_method;
 
 
-  customerCredit(this.customer_id, this.id, this.amount, this.order_id, this.created_at, this.updated_at);
+  customerCredit(this.customer_id, this.id, this.amount, this.order_id, this.created_at, this.updated_at, this.payment_method);
 
   customerCredit.fromJson(Map<String, dynamic> json)
       : order_id = json['order_id'],
@@ -460,7 +470,9 @@ class customerCredit {
         customer_id = json['customer_id'],
         created_at = json['created_at'],
         updated_at = json['updated_at'],
-        id = json['id'];
+        id = json['id'],
+        payment_method = json['payment_method'];
+
 
   Map<String, dynamic> toJson() =>
       {
@@ -470,6 +482,7 @@ class customerCredit {
         'created_at' : created_at,
         'updated_at' : updated_at,
         'id' : id,
+        'payment_method' : payment_method,
       };
 }
 

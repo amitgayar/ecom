@@ -4,6 +4,7 @@ import 'dart:ffi';
 //import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'queryForUI.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../Databases/Database.dart';
@@ -44,7 +45,7 @@ class NewAppStateModel extends Model {
   }
 
   bool _otherPaymentFlag = false;
-bool get otherPaymentFlag => _otherPaymentFlag;
+  bool get otherPaymentFlag => _otherPaymentFlag;
   bool _creditPaymentFlag = false;
   bool get creditPaymentFlag => _creditPaymentFlag;
   String _paymentMode = 'Payment Mode';
@@ -56,17 +57,17 @@ bool get otherPaymentFlag => _otherPaymentFlag;
     _creditModeFlag = value;
     _creditModeBy = mode;
     print('.......selected payment mode from UI is .........'+mode);
-  notifyListeners();
+    notifyListeners();
   }
 
   void cartState(String state, bool value){
 
-      if (state == 'CREDIT'){
-        _creditPaymentFlag = value;
-      }
-      else{{_otherPaymentFlag = value;}}
-      _paymentMode = state;
-      print('.......selected payment mode from UI is .........'+state);
+    if (state == 'CREDIT'){
+      _creditPaymentFlag = value;
+    }
+    else{{_otherPaymentFlag = value;}}
+    _paymentMode = state;
+    print('.......selected payment mode from UI is .........'+state);
     notifyListeners();
   }
 
@@ -80,7 +81,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   String _orderPagePayment = '';
   String get orderPagePayment => _orderPagePayment;
 
-  void orderPageState(value2, value3){
+  void orderPageState(value2, value3, {value4 = false}){
     _secondScreen = value2;
     _thirdScreen = value3;
     notifyListeners();
@@ -89,20 +90,6 @@ bool get otherPaymentFlag => _otherPaymentFlag;
     _orderPagePayment = mode;
     notifyListeners();
   }
-
-
-  bool _barSelection = false;
-  bool get barSelection => _barSelection;
-  bool _acceptStocks = false;
-  bool get acceptStocks => _acceptStocks;
-  bool _acceptRequestTile = false;
-  bool get acceptRequestTile => _acceptRequestTile;
-  bool _requestNewStocks = false;
-  bool get requestNewStocks => _requestNewStocks;
-  bool _requestSent = false;
-  bool get requestSent => _requestSent;
-
-
 
   //.....................................................inputs by gayar...........................................................................................................
 
@@ -252,8 +239,8 @@ bool get otherPaymentFlag => _otherPaymentFlag;
       _EditableproductsListForCart.clear();
       discountProvided = 0.0;
       subTotalValue = 0.0;
-      cartTotalValue = 0.0;
       cgstValue = 0.0;
+      cartTotalValue = 0.0;
       sgstValue = 0.0;
       cessValue = 0.0;
       includeTaxesValue = false;
@@ -427,21 +414,24 @@ bool get otherPaymentFlag => _otherPaymentFlag;
     notifyListeners();
   }
 
-  processBarcode1(RawKeyEvent key) {
+  bool flagToCheckBarcodeState = false;
+  processBarcode(RawKeyEvent key) {
+
+
     print("Event runtimeType is ${key.runtimeType}");
-    print('\n\n\ mkndkjfnd...............!!!!!!!');
-    print(key.data);
     print(key.logicalKey);
-    print( key.physicalKey);
+    print(key.physicalKey);
+    print(key.data);
     if(key.runtimeType.toString() == 'RawKeyDownEvent'){
       if (key.data.logicalKey.keyLabel != null) {
         tempBarcode = tempBarcode + key.data.keyLabel;
         barcode = tempBarcode;
         print("\n\n${barcode}");
-
+        flagToCheckBarcodeState = true;
 
       }
       else {
+        flagToCheckBarcodeState = false;
 
         tempBarcode = "";
         print("\n\nvalue of barcode = $barcode :::: keylable =${key.data.keyLabel}");
@@ -456,7 +446,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
       }
 
     }
-
+    print("\n\n flagToCheckBarcodeState in process barcode = ${flagToCheckBarcodeState}\n\n");
 
     notifyListeners();
   }
@@ -510,9 +500,8 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
 
   void analyzeCredit (double totalAmountPaid, String paymentMode, bool isCredit) {
-    print("\n\n analyzeCredit entered : totalAmountPaid = $totalAmountPaid : isCredit = $isCredit");
+    print("\n\n analyzeCredit entered");
     if (isCredit) {
-      print("\n\n analyzeCredit entered : totalAmountPaid = $totalAmountPaid : isCredit = $isCredit");
       tempTotalAmountPaid = totalAmountPaid;
       tempCredit = cartTotalValue - tempTotalAmountPaid;
     }
@@ -522,7 +511,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
     }
     tempPaymentMethod = paymentMode;
 
-    print("\n\ntempTotalAmountPaid = $tempTotalAmountPaid :::: tempCredit = $tempCredit");
+    print("\n\ntempTotalAmountPaid = $tempTotalAmountPaid :::: cartTotalValue = $cartTotalValue");
     notifyListeners();
   }
 
@@ -545,6 +534,30 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
 
 
+
+    // Adding order items to table
+    int totalOrderQuantity = 0;
+    List<Map<String, dynamic>> enterProductsToCart = [];
+
+    _EditableproductsListForCart.forEach((item) {
+      Map<String, dynamic> productItem = {};
+      item[DatabaseHelper.order_id] = invoiceNumber;
+      totalOrderQuantity = totalOrderQuantity + int.parse(item['quantity'].toString());
+
+      item.forEach((key, value){
+        print("$key::::$value");
+        productItem[key.toString()] = value;
+      });
+      enterProductsToCart.add(productItem);
+      print("\n\nproduct items to be inserted: $productItem\n\n");
+    });
+
+
+    List<orderItems> ordersListParsedFromCartItems = enterProductsToCart.map((i) => orderItems.fromJson(i)).toList();
+    await insert_Order_Products(ordersListParsedFromCartItems);
+
+
+
     //Adding Order to table
     Map<String, dynamic> rowOrder = {
       DatabaseHelper.invoice : invoiceNumber,
@@ -558,37 +571,15 @@ bool get otherPaymentFlag => _otherPaymentFlag;
       DatabaseHelper.is_receipt_printed : is_receipt_printed,
       DatabaseHelper.payment_method : tempPaymentMethod,
       DatabaseHelper.status : "completed",
-
+      DatabaseHelper.total_items : ordersListParsedFromCartItems.length,
+      DatabaseHelper.total_quantity : totalOrderQuantity,
       DatabaseHelper.updated_at : new DateTime.now().toString()
-
     };
 
     print('\n\n${DatabaseHelper.ordersTable} Order Row to be inserted: $rowOrder\n\n');
     var return_id = await dbHelper.insert(DatabaseHelper.ordersTable, rowOrder);
     print('${DatabaseHelper.ordersTable} inserted row id on order submission: $return_id');
 
-
-    // Adding order items to table
-    _EditableproductsListForCart.forEach((p) {
-      p[DatabaseHelper.order_id] = invoiceNumber;
-    }
-                                         );
-
-    List<Map<String, dynamic>> enterProductsToCart = [];
-
-    _EditableproductsListForCart.forEach((item) {
-      Map<String, dynamic> productItem = {};
-      item.forEach((key, value){
-        print("$key::::$value");
-        productItem[key.toString()] = value;
-      });
-      enterProductsToCart.add(productItem);
-      print("\n\nproduct items to be inserted: $productItem\n\n");
-    });
-
-
-    List<orderItems> ordersListParsedFromCartItems = enterProductsToCart.map((i) => orderItems.fromJson(i)).toList();
-    await insert_Order_Products(ordersListParsedFromCartItems);
 
     //Adding Credit to table
     print('\n\n${DatabaseHelper.customerCreditTable} check status of credit: $isCredit\n\n');
@@ -651,7 +642,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
         print("\n\n Updated product inventory : $p");
       }
     }
-                                );
+    );
 
 //    List<Map<String, dynamic>> allCategories = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null'");
 //    print(allCategories);
@@ -1105,8 +1096,19 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   double creditTemp = 0.0;
   double get finalRemainingCredit => creditTemp;
   double get totalCreditsFinal => totalCreditsTemp;
-  double totalCreditsTemp = 0;
+  double totalCreditsTemp = 0.0;
 
+
+  //Code to calculateCredit in Database Starts
+  calculateCredit (String amountPaid) {
+    print("\n\nEnter into updateCreditValue :::: selectedCustomer['credit_balance'] = ${selectedCustomer['credit_balance']} :::: amountPaid"
+        " = $amountPaid");
+    amountPaidTemp = double.parse(amountPaid);
+    creditTemp = double.parse(selectedCustomer['credit_balance']) - double.parse(amountPaid);
+    print("\n\n$creditTemp");
+    notifyListeners();
+  }
+  //Code to calculateCredit in Database Ends
 
 
   //Code to Search customer in Database Starts
@@ -1198,11 +1200,11 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   //Code to Search customer in Database Ends
 
   //Code to selectCustomer in Database Starts
-  Future<String> selectCustomer (int id, String source /* "cart" or "customer_section"*/) async {
+  Future<String> selectCustomerById (int id, String source /* "cart" or "customer_section"*/) async {
 
 
 
-    if (id <= 0){
+    if (id < 0){
       selectedCustomer = {};
       notifyListeners();
       print('customer removed');
@@ -1232,37 +1234,37 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   }
   //Code to selectCustomer in Database Ends
 
-
-
-
-
-
   //Code to selectCustomer in Database Ends
 
-  //Code to calculateCredit in Database Starts
-  calculateCredit (int id, String amountPaid) {
-    amountPaidTemp = double.parse(amountPaid);
-    Map customer = finalOrdersToDisplay.firstWhere((p) => p['id'] == id);
-    creditTemp = customer["credit_balance"] - amountPaidTemp;
-    notifyListeners();
-  }
-  //Code to calculateCredit in Database Ends
+
 
   //Code to updateCustomerDatabase in Database Starts
-  updateCustomerDatabase (int id) async {
-    Map customer = finalOrdersToDisplay.firstWhere((p) => p['id'] == id);
-    customer["credit_balance"] = finalRemainingCredit;
-    insertRow(id.toString(), customer, DatabaseHelper.customerTable,"=");
+  updateCustomerDatabase (String payment_method) async {
+
+    selectedCustomer["credit_balance"] = finalRemainingCredit;
+    print("\n\nEntered into updateCustomerDatabase :::: selectedCustomer to update = $selectedCustomer\n\n");
+
+    Map<String, dynamic> curtomerRowToUpdate = {};
+
+    selectedCustomer.forEach((key, value) {
+      curtomerRowToUpdate['$key'] = value;
+
+    });
+    insertRow(curtomerRowToUpdate['id'], curtomerRowToUpdate, DatabaseHelper.customerTable,"=");
 
     //Adding item to credit table
     Map<String, dynamic> row = {
-      DatabaseHelper.customer_id : id,
+      DatabaseHelper.customer_id : selectedCustomer['id'],
       DatabaseHelper.amount : (0-finalAmountPaid),
       DatabaseHelper.order_id : "not_required",
-      DatabaseHelper.updated_at : new DateTime.now().toString()
+      DatabaseHelper.updated_at : new DateTime.now().toString(),
+      DatabaseHelper.payment_method : payment_method
 
     };
+
     final return_id = await dbHelper.insert(DatabaseHelper.customerCreditTable, row);
+
+    print("\n\nExiting from updateCustomerDatabase :::: credit table to update = $row\n\n");
 
 
   }
@@ -1277,7 +1279,6 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   // Code to getCustomerById in Database Ends
 
   // Code to addNewCustomer in Database Starts
-
   addNewCustomer (String phoneNumber, String name, String source) async {
 
     Map<String, dynamic> row = {
@@ -1310,7 +1311,6 @@ bool get otherPaymentFlag => _otherPaymentFlag;
     _selectCustomerForCartFlag = false;
     notifyListeners();
   }
-
 // Code to addNewCustomer in Database Ends
 
 // Code to addNewCustomer in Database Ends
@@ -1362,8 +1362,8 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   String tempRefundedOrderPaymentMethod = "";
   String get finalRefundedOrderPaymentMethod => tempRefundedOrderPaymentMethod;
 
-  List<Map> tempRefundedOrderItems = [];
-  List<Map> get finaltempRefundedOrderItems => tempRefundedOrderItems;
+  List<List<Map>> listOfListOfRefundedOrderItems = [];
+  List<List<Map>> get finallistOfListOfRefundedOrderItems => listOfListOfRefundedOrderItems;
   List<Map> tempOrderItemsList = [];
   List<Map> get finalOrderItemsList => tempOrderItemsList;
   Map tempSelectedOrder = {};
@@ -1407,7 +1407,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
       retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
     }
     else {
-      String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} ORDER BY ${DatabaseHelper.updated_at} DESC";
+      String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice} = ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} ORDER BY ${DatabaseHelper.updated_at} DESC";
       retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
     }
 
@@ -1441,8 +1441,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
     print("entered into filterorders :::: $tempDateForFilter");
     String finalQuery, query1, query2, query3, query4, query5, query6, query7, query8, query9, query10, query11, query12;
 
-    query1 = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount}, "
-        "COUNT(${DatabaseHelper.orderProductsTable}.${DatabaseHelper.id}) as order_quantity";
+    query1 = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount}";
 
     query2 = ", ${DatabaseHelper.customerTable}.${DatabaseHelper.name}, ${DatabaseHelper.customerTable}.${DatabaseHelper.phone_number}";
 
@@ -1550,9 +1549,9 @@ bool get otherPaymentFlag => _otherPaymentFlag;
         orderTemp[key.toString()] = value;
       });
 
-      int indexOfRefundedItem = tempOrdersInDatabaseToDisplay.indexWhere((p) => p['id'] == item['id']);
-      print("\n\n orderTemp = $orderTemp :::: indexOfRefundedItem = $indexOfRefundedItem");
-      if (indexOfRefundedItem < 0) {
+      int index = tempOrdersInDatabaseToDisplay.indexWhere((p) => p['id'] == item['id']);
+      print("\n\n orderTemp = $orderTemp :::: index = $index");
+      if (index < 0) {
         tempOrdersInDatabaseToDisplay.add(orderTemp);
       }
 
@@ -1566,11 +1565,12 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   }
   //Code to filterOrders in Database Ends
 
-  //Code to selectOrder in Database Starts
+  //Code to selectOrder in Database Starts tempSelectedOrder, tempOrderItemsList, selectedCustomer, tempRefundedOrders, tempRefundedOrderItems
   selectOrder (int id) async {
     tempSelectedOrder = tempOrdersInDatabaseToDisplay.firstWhere((p) => p['id'] == id);
 
     if (_isNumeric(tempSelectedOrder['customer_id'].toString())) {
+      print("\n\ntempSelectedOrder = $tempSelectedOrder\n\n");
       await orderCustomer(tempSelectedOrder['customer_id']);
     }
     else {
@@ -1579,8 +1579,9 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
     await itemsOfSelectedOrder(tempSelectedOrder['invoice']);
     if (tempSelectedOrder['status'] != 'completed') {
-      await refundItemsOfSelectedOrder(tempSelectedOrder['invoice']);
       await refundListSelectedOrder(tempSelectedOrder['invoice']);
+      await refundItemsOfSelectedOrder(tempSelectedOrder['invoice']);
+
     }
 
     notifyListeners();
@@ -1590,8 +1591,8 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   //Code for getting data of refundListSelectedOrder starts
   refundListSelectedOrder(String invoice) async {
     List<Map> refundListFromDb =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.refundTable} WHERE "
-                                                               "${DatabaseHelper.order_id} = '$invoice'"
-                                                           );
+        "${DatabaseHelper.order_id} = '$invoice'"
+    );
 
 
     refundListFromDb.forEach((item) {
@@ -1620,20 +1621,23 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   }
   //Code for getting data of orderCustomer Ends
 
+  List<Map> readOnlyListOftemsSelectedOrder = [];
+  List<Map> get finalReadOnlyListOftemsSelectedOrder => readOnlyListOftemsSelectedOrder;
   //Code for getting data of itemsOfSelectedOrder starts
   itemsOfSelectedOrder(String invoice) async {
-    List<Map> itemsSelectedOrder =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.orderProductsTable} "
-                                                                 "WHERE ${DatabaseHelper.order_id} = '$invoice'");
+    readOnlyListOftemsSelectedOrder =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.orderProductsTable} "
+        "WHERE ${DatabaseHelper.order_id} = '$invoice'");
+    tempOrderItemsList =[];
 
-    itemsSelectedOrder.forEach((item) {
+    readOnlyListOftemsSelectedOrder.forEach((item) async {
       Map tempOrder = {};
       item.forEach((key, value) {
         tempOrder[key.toString()] = value;
       });
       print("\n\ntempOrder = $tempOrder");
       tempOrderItemsList.add(tempOrder);
-    });
 
+    });
     print("\n\ntempOrderItemsList = $tempOrderItemsList");
     notifyListeners();
   }
@@ -1642,47 +1646,82 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   //Code for getting data of refundItemsOfSelectedOrder starts
   refundItemsOfSelectedOrder(String invoice) async {
     List<Map> refundItemsFromDb =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.OrderRefundItemsTable} WHERE "
-                                                                "${DatabaseHelper.order_id} = '$invoice'"
-                                                            );
+        "${DatabaseHelper.order_id} = '$invoice'"
+    );
 
-
-    refundItemsFromDb.forEach((item) {
-      Map tempOrder = {};
-      item.forEach((key, value) {
-        tempOrder[key.toString()] = value;
+    listOfListOfRefundedOrderItems = [];
+    tempRefundedOrders.forEach((order) {
+      List<Map> ListOfRefundedOrderItems = [];
+      refundItemsFromDb.forEach((item) {
+        Map tempRefundedItem = {};
+        item.forEach((key, value) {
+          tempRefundedItem[key.toString()] = value;
+        });
+        print("\n\ntempOrder = $tempRefundedItem");
+        if (order['id'] == tempRefundedItem['${DatabaseHelper.refund_id}']){
+          ListOfRefundedOrderItems.add(tempRefundedItem);
+        }
       });
-      print("\n\ntempOrder = $tempOrder");
-      tempRefundedOrderItems.add(tempOrder);
+      listOfListOfRefundedOrderItems.add(ListOfRefundedOrderItems);
     });
+
 
     notifyListeners();
   }
   //Code for getting data of orderCustomer Ends
 
+  //Code for getting data of validateRefundQuantity starts
+  int validateRefundQuantity(int orderItemId) {
+    int orderedQuantity = int.parse(readOnlyListOftemsSelectedOrder.firstWhere((p) => p['id'].toString() == orderItemId.toString())['${DatabaseHelper.quantity}'].toString());
+    int refundedQuantity = 0;
+    listOfListOfRefundedOrderItems.forEach((item) {
+      int index = item.indexWhere((p) => p['${DatabaseHelper.orderItems_id}'].toString() == orderItemId.toString());
+      if(index>=0) {
+        refundedQuantity = refundedQuantity + item[index]['${DatabaseHelper.refund_qty}'];
+      }
+    });
+
+    int maxPossibleItems = orderedQuantity - refundedQuantity;
+    return maxPossibleItems;
+  }
+  //Code for getting data of validateRefundQuantity ends
+
   //Code for getting data of updateRefundDetailsOnUi starts
-  updateRefundDetailsOnUi(int refundQuantity, int id) async {
+  updateRefundDetailsOnUi(int refundQuantity, int id) {
+    print("\n\n Entered into updateRefundDetailsOnUi\n\n");
     tempTotalAmountToBeRefunded = 0.0;
     tempTotalItemsToBeRefunded = 0;
-    Map refundItemToBeUpdated = tempOrderItemsList.firstWhere((p) => p['id'] == id);
-    int indexOfRefundedItem = tempOrdersItemsToBeRefunded.indexWhere((p) => p['id'] == id);
+    print("\n\ntempOrderItemsList before = $tempOrderItemsList\n\n");
+
+    int indexRefundItemToBeUpdated = tempOrderItemsList.indexWhere((p) => p['id'].toString() == id.toString());
+
+    print("\n\ntempOrderItemsList after = $tempOrderItemsList\n\n");
+    int indexOfRefundedItem = tempOrdersItemsToBeRefunded.indexWhere((p) => p['id'].toString() == id.toString());
     if (indexOfRefundedItem<0){
-      refundItemToBeUpdated['quantity'] = refundQuantity;
-      tempOrdersItemsToBeRefunded.add(refundItemToBeUpdated);
+      Map refundItem = {};
+      refundItem = tempOrderItemsList[indexRefundItemToBeUpdated];
+
+      refundItem['${DatabaseHelper.refund_qty}'] = refundQuantity;
+      tempOrdersItemsToBeRefunded.add(refundItem);
     }
     else{
-      tempOrdersItemsToBeRefunded[indexOfRefundedItem]['quantity'] = refundQuantity;
+      print("\n\n item in itemto be refunded list\n\n");
+      tempOrdersItemsToBeRefunded[indexOfRefundedItem]['${DatabaseHelper.refund_qty}'] = refundQuantity;
     }
 
     tempOrdersItemsToBeRefunded.forEach((item){
-      tempTotalItemsToBeRefunded = tempTotalItemsToBeRefunded + item['quantity'];
-      tempTotalAmountToBeRefunded = tempTotalAmountToBeRefunded + item['quantity'];
+      tempTotalItemsToBeRefunded = tempTotalItemsToBeRefunded + item['${DatabaseHelper.refund_qty}'];
+      tempTotalAmountToBeRefunded = tempTotalAmountToBeRefunded + item['${DatabaseHelper.refund_qty}']*item['sp'];
 
     });
+    print("\n\n tempOrdersItemsToBeRefunded = $tempOrdersItemsToBeRefunded :::: tempTotalItemsToBeRefunded = $tempTotalItemsToBeRefunded"
+        " :::: tempTotalAmountToBeRefunded = $tempTotalAmountToBeRefunded\n\n");
+    print("\n\ntempOrderItemsList end = $tempOrderItemsList :::: readOnlyListOftemsSelectedOrder = $readOnlyListOftemsSelectedOrder\n\n");
 
     notifyListeners();
 
   }
-  //Code for getting data of updateRefundDetailsOnUi Ends
+//  Code for getting data of updateRefundDetailsOnUi Ends
 
   //Code for getting data of orderRefundDetails Starts
   orderRefundedDetails (List<Map> refundedOrders) {
@@ -1722,7 +1761,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
   //Code for getting data of submitRefundDetailsToDb Starts
   submitRefundDetailsToDb (String refundedPaymentMode) async {
-    selectedCustomer[DatabaseHelper.credit_balance] = selectedCustomer[DatabaseHelper.credit_balance] -
+    selectedCustomer[DatabaseHelper.credit_balance] = ((selectedCustomer.containsKey('id')) ? selectedCustomer[DatabaseHelper.credit_balance] : 0) -
         tempTotalAmountToBeRefunded + tempAmountRefundedToCustomer;
     selectedCustomer[DatabaseHelper.total_spent] = selectedCustomer[DatabaseHelper.credit_balance] + tempTotalAmountToBeRefunded;
     if (tempSelectedOrder[DatabaseHelper.cart_total] == tempTotalAmountToBeRefunded) {
@@ -1737,17 +1776,46 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
     selectedCustomer.remove(DatabaseHelper.created_at);
 
-    final id = await dbHelper.update(DatabaseHelper.customerTable, selectedCustomer, DatabaseHelper.id, selectedCustomer[DatabaseHelper.id]);
-    print('${DatabaseHelper.customerTable} update row id: $id');
+    Map<String, dynamic> row = {};
+    selectedCustomer.forEach((key, value){
+      row['$key'] = value;
+    });
+
+    final id = await dbHelper.update(DatabaseHelper.customerTable, row, DatabaseHelper.id, selectedCustomer[DatabaseHelper.id]);
+    print('\n\n${DatabaseHelper.customerTable} update row id: $id :::: selectedCustomer = $selectedCustomer\n\n');
 
     //Update Order Status
     tempSelectedOrder[DatabaseHelper.status] = ((tempSelectedOrder[DatabaseHelper.cart_total] == tempTotalAmountToBeRefunded)
         ? "refunded" : "partially_refunded");
-    final order_id = await dbHelper.update(DatabaseHelper.ordersTable, tempSelectedOrder, DatabaseHelper.id, tempSelectedOrder[DatabaseHelper.id]);
-    print('${DatabaseHelper.ordersTable} update row id: $order_id');
+
+    print("\n\ntempSelectedOrder = $tempSelectedOrder\n\n");
+
+    Map<String, dynamic> orderRow = {
+      DatabaseHelper.id : tempSelectedOrder['id'],
+      DatabaseHelper.customer_id : tempSelectedOrder['customer_id'],
+      DatabaseHelper.cart_discount_total : tempSelectedOrder['cart_discount_total'],
+      DatabaseHelper.cgst : tempSelectedOrder['cgst'],
+      DatabaseHelper.sgst : tempSelectedOrder['sgst'],
+      DatabaseHelper.cess : tempSelectedOrder['cess'],
+      DatabaseHelper.cart_total : tempSelectedOrder['cart_total'],
+      DatabaseHelper.is_receipt_printed : tempSelectedOrder['is_receipt_printed'],
+      DatabaseHelper.payment_method : tempSelectedOrder['payment_method'],
+      DatabaseHelper.paid_amount_total : tempSelectedOrder['paid_amount_total'],
+      DatabaseHelper.status : tempSelectedOrder['${DatabaseHelper.status}'],
+      DatabaseHelper.invoice : tempSelectedOrder['invoice'],
+      DatabaseHelper.total_items : tempSelectedOrder['total_items'],
+      DatabaseHelper.total_quantity : tempSelectedOrder['total_quantity'],
+      DatabaseHelper.updated_at : new DateTime.now().toString()
+
+    };
+
+    print("\n\norder row to be inserted = $orderRow\n\n");
+
+    final order_id = await dbHelper.update(DatabaseHelper.ordersTable, orderRow, DatabaseHelper.id, tempSelectedOrder[DatabaseHelper.id]);
+    print('\n\n${DatabaseHelper.ordersTable} update row id: $order_id :::: tempSelectedOrder = $tempSelectedOrder\n\n');
 
     //Insert refundedOrder
-    Map<String, dynamic> row = {
+    row = {
       DatabaseHelper.order_id : tempSelectedOrder[DatabaseHelper.invoice],
       DatabaseHelper.total_amount_refunded : tempTotalAmountToBeRefunded,
       DatabaseHelper.paid_amount_total : tempAmountRefundedToCustomer,
@@ -1758,15 +1826,15 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
     };
     final refundreturn_id = await dbHelper.insert(DatabaseHelper.refundTable, row);
-    print('${DatabaseHelper.refundTable} inserted row id: $refundreturn_id');
+    print('\n\n${DatabaseHelper.refundTable} inserted row id: $refundreturn_id :::: refundedOrder = $row\n\n');
 
     //Insert refundOrderItems
     tempOrdersItemsToBeRefunded.forEach((item) async {
 
       Map<String, dynamic> row = {
         DatabaseHelper.orderItems_id : item['id'],
-        DatabaseHelper.refund_qty : tempTotalItemsToBeRefunded,
-        DatabaseHelper.refunded_item_refund_amount : tempTotalAmountToBeRefunded,
+        DatabaseHelper.refund_qty : item['${DatabaseHelper.refund_qty}'],
+        DatabaseHelper.refunded_item_refund_amount : (double.parse(item['sp'].toString())*double.parse(item['${DatabaseHelper.refund_qty}'].toString())).toString(),
         DatabaseHelper.updated_at : new DateTime.now().toString(),
         DatabaseHelper.order_id : item[DatabaseHelper.order_id],
         DatabaseHelper.refund_id : refundreturn_id,
@@ -1775,7 +1843,7 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
 //    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.OrderRefundTable, id, DatabaseHelper.id,"=");
       final return_id = await dbHelper.insert(DatabaseHelper.OrderRefundItemsTable, row);
-      print('${DatabaseHelper.OrderRefundItemsTable} inserted row id: $return_id');
+      print('${DatabaseHelper.OrderRefundItemsTable} inserted row id: $return_id :::: refundedItem = $row\n\n');
 
     });
 
@@ -1794,27 +1862,18 @@ bool get otherPaymentFlag => _otherPaymentFlag;
 
   // code to clear All Data Starts
   clearAllData () {
-    tempOrdersInDatabaseToDisplay = [];
-    tempRefundedOrders = [];
-    tempRefundedOrderPaymentMethod = "";
-    tempRefundedOrderItems = [];
-    tempOrderItemsList = [];
-    tempSelectedOrder = {};
-    selectedCustomer = {};
     tempTotalRefundQuantity = 0;
     tempRefundTotalAmount = 0;
     tempRefundPaidTotalAmount = 0;
     tempAmountCredited = 0;
-    tempOrdersItemsToBeRefunded = [];
     tempTotalAmountToBeRefunded = 0.0;
     tempTotalItemsToBeRefunded = 0;
     tempAmountRefundedToCustomer = 0.0;
-    tempPaymentModeToCustomer = "";
-    selectedCustomer = {};
     notifyListeners();
   }
 // code to clear All Data Ends
 }
+
 
 
 
