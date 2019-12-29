@@ -91,6 +91,19 @@ bool get otherPaymentFlag => _otherPaymentFlag;
   }
 
 
+  bool _barSelection = false;
+  bool get barSelection => _barSelection;
+  bool _acceptStocks = false;
+  bool get acceptStocks => _acceptStocks;
+  bool _acceptRequestTile = false;
+  bool get acceptRequestTile => _acceptRequestTile;
+  bool _requestNewStocks = false;
+  bool get requestNewStocks => _requestNewStocks;
+  bool _requestSent = false;
+  bool get requestSent => _requestSent;
+
+
+
   //.....................................................inputs by gayar...........................................................................................................
 
 

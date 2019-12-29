@@ -10,8 +10,408 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6387bd4d-e3cc-4feb-b890-9f43a7651f7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/AppScreens/customer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/AppScreens/customer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/.filecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/app.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/kernel_snapshot.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/kernel_snapshot.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/kernel_snapshot.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/0eb103971129524a91ff94d8c07dee5a/kernel_snapshot.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/merge-state" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/q9REMMRaR0TCN3aHZH216++nzu8=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJniLibs/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJniLibs/merge-state" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJniLibs/zip-cache/q9REMMRaR0TCN3aHZH216++nzu8=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/file-input-save-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/file-input-save-data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/zip-cache/o5Tc8oE5Zz7vCJZ_7CQvSiH4BOg=" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/zip-cache/o5Tc8oE5Zz7vCJZ_7CQvSiH4BOg=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out/flutter_assets/kernel_blob.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/10.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/10.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/11.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/11.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/12.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/12.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/13.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/13.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/14.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/14.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/15.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/15.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/16.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/16.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/17.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/17.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/18.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/18.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/19.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/19.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/20.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/20.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/21.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/21.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/23.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/23.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/24.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/24.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/25.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/25.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/26.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/26.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/27.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/27.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/28.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/28.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/29.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/29.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/30.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/30.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/31.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/31.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/32.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/32.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/33.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/33.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/34.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/34.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/35.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/35.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/36.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/36.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/37.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/37.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/38.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/38.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/39.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/39.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/40.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/40.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/41.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/42.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/42.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/43.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/43.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/44.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/44.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/45.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/46.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/46.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/47.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/47.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/48.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/48.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/49.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/49.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/50.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/50.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/51.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/51.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/52.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/52.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/53.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/53.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/54.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/54.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/55.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/55.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/56.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/56.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/57.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/58.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/59.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/6.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/6.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/60.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/61.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/62.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/63.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/64.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/65.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/66.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/67.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/68.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/69.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/70.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/71.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/73.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/74.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/75.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/77.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/78.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/79.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/8.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/8.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/80.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/81.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/82.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/83.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/84.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/85.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/86.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/87.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/activity/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$anim.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$bool.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$interpolator.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/appcompat/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/arch/core/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/asynclayoutinflater/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/coordinatorlayout/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/core/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/cursoradapter/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/customview/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/documentfile/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/drawerlayout/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/fragment/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/interpolator/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreui/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/legacy/coreutils/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/lifecycle/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/lifecycle/livedata/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/lifecycle/livedata/core/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/lifecycle/viewmodel/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/loader/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/localbroadcastmanager/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/print/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/slidingpanelayout/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/swiperefreshlayout/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/vectordrawable/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/versionedparcelable/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/androidx/viewpager/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/BuildConfig.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$anim.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$bool.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$interpolator.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$mipmap.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/example/express_store/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$anim.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$bool.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$interpolator.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/ly/wifi/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/com/tekartik/sqflite/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/GeneratedPluginRegistrant.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/connectivity/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/pathprovider/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_macos/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/shared_preferences_web/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/flutter/plugins/sharedpreferences/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$attr.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$color.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$dimen.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$drawable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$id.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$integer.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$layout.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$string.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$style.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R$styleable.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/88/io/github/ponnamkarthik/toast/fluttertoast/R.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/89/com/example/express_store/MainActivity.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/9.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/9.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/92.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/__content__.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexBuilder/debug/__content__.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/dexMerger/debug/__content__.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/dexMerger/debug/__content__.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/mergeJavaRes/debug/0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/mergeJavaRes/debug/0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/mergeJavaRes/debug/__content__.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/mergeJavaRes/debug/__content__.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/mergeJniLibs/debug/0/lib/arm64-v8a/libflutter.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/transforms/mergeJniLibs/debug/__content__.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/transforms/mergeJniLibs/debug/__content__.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/build-history.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/last-build.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/app.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/app.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/app.apk.sha1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/AppScreens/orders.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/AppScreens/orders.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/AppScreens/requestStocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/AppScreens/requestStocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/app_state_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/app_state_model.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,24 +432,96 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/AppScreens/CartDescendant.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="1609" column="35" selection-start-line="1609" selection-start-column="35" selection-end-line="1609" selection-end-column="35" />
+            <state relative-caret-position="226">
+              <caret line="357" column="22" selection-start-line="357" selection-start-column="22" selection-end-line="357" selection-end-column="22" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#863#933#0" />
+                <element signature="e#1269#3614#0" />
                 <element signature="e#3671#5178#0" />
+                <element signature="e#5246#5831#0" />
+                <element signature="e#5875#6125#0" />
+                <element signature="e#6250#9391#0" />
                 <element signature="e#17742#18888#0" />
                 <element signature="e#18907#18960#0" />
                 <element signature="e#18974#20047#0" />
+                <element signature="e#44243#44350#0" />
                 <element signature="e#61333#61479#0" />
+                <element signature="e#61541#72341#0" />
                 <element signature="e#64420#72322#0" />
                 <element signature="e#69726#70731#0" />
                 <element signature="e#70776#71317#0" />
-                <element signature="e#72886#73399#0" />
+                <element signature="e#72351#72513#0" />
                 <element signature="e#73957#75989#0" />
                 <element signature="e#76033#78633#0" />
                 <element signature="e#78678#80488#0" />
                 <element signature="e#81045#81197#0" />
                 <element signature="e#81264#86127#0" />
+                <element signature="e#86679#86796#0" />
+                <element signature="e#86862#88375#0" />
+                <element signature="e#88438#89459#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/AppScreens/requestStocks.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="539" column="8" lean-forward="true" selection-start-line="539" selection-start-column="8" selection-end-line="539" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#1411#1513#1" />
+                <element signature="e#1519#1634#1" />
+                <element signature="e#1662#1752#1" />
+                <element signature="e#1765#1868#1" />
+                <element signature="e#1928#2018#1" />
+                <element signature="e#2022#2125#1" />
+                <element signature="e#1623#5317#0" />
+                <element signature="e#3294#4212#0" />
+                <element signature="e#4288#5206#0" />
+                <element signature="e#6023#7226#0" />
+                <element signature="e#6795#8835#0" />
+                <element signature="e#7309#8774#0" />
+                <element signature="e#8146#8227#0" />
+                <element signature="e#8199#10145#0" />
+                <element signature="e#8196#8381#0" />
+                <element signature="e#14886#14950#0" />
+                <element signature="e#14928#15009#0" />
+                <element signature="e#11682#12023#0" />
+                <element signature="e#8424#9514#0" />
+                <element signature="e#17099#17105#0" />
+                <element signature="e#17233#20357#0" />
+                <element signature="e#20415#21533#0" />
+                <element signature="e#21748#22261#0" />
+                <element signature="e#22308#24340#0" />
+                <element signature="e#24956#26977#0" />
+                <element signature="e#27029#28839#0" />
+                <element signature="e#27286#28837#0" />
+                <element signature="e#17105#18523#0" />
+                <element signature="e#10839#12752#0" />
+                <element signature="e#32433#36226#0" />
+                <element signature="e#36439#39954#0" />
+                <element signature="e#21770#23188#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/AppScreens/customer.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="377" column="23" selection-start-line="330" selection-start-column="4" selection-end-line="377" selection-end-column="23" />
+              <folding>
+                <element signature="e#1#40#0" expanded="true" />
+                <element signature="e#4956#5027#0" />
+                <element signature="e#5468#10802#0" />
+                <element signature="e#11449#13289#0" />
+                <element signature="e#13370#16034#0" />
+                <element signature="e#16112#20840#0" />
+                <element signature="e#24380#25984#0" />
               </folding>
             </state>
           </provider>
@@ -58,8 +530,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/home.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="203" column="58" selection-start-line="203" selection-start-column="49" selection-end-line="203" selection-end-column="66" />
+            <state relative-caret-position="116">
+              <caret line="207" column="33" lean-forward="true" selection-start-line="207" selection-start-column="16" selection-end-line="207" selection-end-column="33" />
               <folding>
                 <element signature="e#644#683#0" expanded="true" />
                 <element signature="e#1847#3241#0" />
@@ -70,22 +542,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/login.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
-              <folding>
-                <element signature="e#623#662#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/app.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-881">
-              <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+            <state relative-caret-position="905">
+              <caret line="89" column="38" selection-start-line="89" selection-start-column="38" selection-end-line="89" selection-end-column="38" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -96,8 +556,219 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/model/app_state_model.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
+            <state relative-caret-position="357">
+              <caret line="95" column="29" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
+              <folding>
+                <element signature="e#836#904#0" />
+                <element signature="e#1051#1116#0" />
+                <element signature="e#1371#1437#0" />
+                <element signature="e#1739#1889#0" />
+                <element signature="e#1933#2177#0" />
+                <element signature="e#1964#2009#0" />
+                <element signature="e#2020#2050#0" />
+                <element signature="e#2450#2561#0" />
+                <element signature="e#2585#2616#0" />
+                <element signature="e#4839#4844#0" />
+                <element signature="e#4849#4862#0" />
+                <element signature="e#4921#4926#0" />
+                <element signature="e#4931#4950#0" />
+                <element signature="e#5005#5010#0" />
+                <element signature="e#5015#5030#0" />
+                <element signature="e#5282#7585#0" />
+                <element signature="e#5742#6359#0" />
+                <element signature="e#5790#6082#0" />
+                <element signature="e#6094#6353#0" />
+                <element signature="e#6369#6420#0" />
+                <element signature="e#6581#6766#0" />
+                <element signature="e#6776#7398#0" />
+                <element signature="e#6912#7183#0" />
+                <element signature="e#7196#7392#0" />
+                <element signature="e#7058#7118#0" />
+                <element signature="e#7212#7248#0" />
+                <element signature="e#7736#9808#0" />
+                <element signature="e#8033#8429#0" />
+                <element signature="e#8476#8628#0" />
+                <element signature="e#8680#9510#0" />
+                <element signature="e#8775#9504#0" />
+                <element signature="e#8857#9067#0" />
+                <element signature="e#9081#9495#0" />
+                <element signature="e#9141#9192#0" />
+                <element signature="e#9438#9475#0" />
+                <element signature="e#9961#11694#0" />
+                <element signature="e#9717#9740#0" />
+                <element signature="e#10619#10716#0" />
+                <element signature="e#10757#10853#0" />
+                <element signature="e#10900#10999#0" />
+                <element signature="e#10633#10748#0" />
+                <element signature="e#11066#11068#0" />
+                <element signature="e#11773#14835#0" />
+                <element signature="e#12490#14160#0" />
+                <element signature="e#12202#12314#0" />
+                <element signature="e#14170#14589#0" />
+                <element signature="e#14862#15040#0" />
+                <element signature="e#14879#14941#0" />
+                <element signature="e#14950#15012#0" />
+                <element signature="e#15077#15876#0" />
+                <element signature="e#15317#15847#0" />
+                <element signature="e#15367#15497#0" />
+                <element signature="e#15509#15840#0" />
+                <element signature="e#15680#15784#0" />
+                <element signature="e#15798#15831#0" />
+                <element signature="e#15924#17876#0" />
+                <element signature="e#16523#17130#0" />
+                <element signature="e#16879#17123#0" />
+                <element signature="e#17189#17398#0" />
+                <element signature="e#17444#17642#0" />
+                <element signature="e#17652#17826#0" />
+                <element signature="e#17960#18533#0" />
+                <element signature="e#18081#18293#0" />
+                <element signature="e#18303#18377#0" />
+                <element signature="e#18164#18493#0" />
+                <element signature="e#18925#25524#0" />
+                <element signature="e#19214#19826#0" />
+                <element signature="e#20994#21458#0" />
+                <element signature="e#21035#21252#0" />
+                <element signature="e#21524#23176#0" />
+                <element signature="e#22280#22913#0" />
+                <element signature="e#22805#22807#0" />
+                <element signature="e#23458#23710#0" />
+                <element signature="e#23380#23555#0" />
+                <element signature="e#23998#24230#0" />
+                <element signature="e#23859#23960#0" />
+                <element signature="e#25153#25190#0" />
+                <element signature="e#25895#26095#0" />
+                <element signature="e#26263#26474#0" />
+                <element signature="e#26518#26547#0" />
+                <element signature="e#26593#26624#0" />
+                <element signature="e#26674#26709#0" />
+                <element signature="e#26339#26418#0" />
+                <element signature="e#26905#27108#0" />
+                <element signature="e#26933#26967#0" />
+                <element signature="e#26976#27011#0" />
+                <element signature="e#27129#27206#0" />
+                <element signature="e#27248#27344#0" />
+                <element signature="e#26975#27001#0" />
+                <element signature="e#27446#27540#0" />
+                <element signature="e#27468#27495#0" />
+                <element signature="e#27171#27204#0" />
+                <element signature="e#27733#27800#0" />
+                <element signature="e#27930#29724#0" />
+                <element signature="e#28229#28956#0" />
+                <element signature="e#29352#29388#0" />
+                <element signature="e#29862#30397#0" />
+                <element signature="e#30226#30296#0" />
+                <element signature="e#30453#31007#0" />
+                <element signature="e#30847#30915#0" />
+                <element signature="e#31387#31411#0" />
+                <element signature="e#31786#32927#0" />
+                <element signature="e#31957#32250#0" />
+                <element signature="e#32260#32497#0" />
+                <element signature="e#32557#32612#0" />
+                <element signature="e#33094#34027#0" />
+                <element signature="e#33657#33716#0" />
+                <element signature="e#34180#36571#0" />
+                <element signature="e#34461#34787#0" />
+                <element signature="e#35436#35973#0" />
+                <element signature="e#35603#35744#0" />
+                <element signature="e#36201#36254#0" />
+                <element signature="e#36722#39113#0" />
+                <element signature="e#37003#37329#0" />
+                <element signature="e#37978#38515#0" />
+                <element signature="e#38145#38286#0" />
+                <element signature="e#39134#39564#0" />
+                <element signature="e#39194#39249#0" />
+                <element signature="e#40026#40041#0" />
+                <element signature="e#40437#44513#0" />
+                <element signature="e#40676#42316#0" />
+                <element signature="e#40713#41086#0" />
+                <element signature="e#41128#42310#0" />
+                <element signature="e#41168#41737#0" />
+                <element signature="e#41751#42301#0" />
+                <element signature="e#42326#43567#0" />
+                <element signature="e#42364#42602#0" />
+                <element signature="e#42644#43560#0" />
+                <element signature="e#42684#43120#0" />
+                <element signature="e#43134#43551#0" />
+                <element signature="e#43675#44239#0" />
+                <element signature="e#44149#44222#0" />
+                <element signature="e#44143#44185#0" />
+                <element signature="e#44288#44321#0" />
+                <element signature="e#44696#45409#0" />
+                <element signature="e#44723#44850#0" />
+                <element signature="e#44859#45401#0" />
+                <element signature="e#45170#45218#0" />
+                <element signature="e#45230#45394#0" />
+                <element signature="e#45039#45080#0" />
+                <element signature="e#45598#45809#0" />
+                <element signature="e#45439#45481#0" />
+                <element signature="e#45944#46524#0" />
+                <element signature="e#46221#46431#0" />
+                <element signature="e#46154#46203#0" />
+                <element signature="e#46657#46860#0" />
+                <element signature="e#46490#46533#0" />
+                <element signature="e#47022#48173#0" />
+                <element signature="e#47062#47511#0" />
+                <element signature="e#47802#47844#0" />
+                <element signature="e#48394#48624#0" />
+                <element signature="e#48668#48719#0" />
+                <element signature="e#50480#50553#0" />
+                <element signature="e#50928#53201#0" />
+                <element signature="e#51121#51823#0" />
+                <element signature="e#51870#52323#0" />
+                <element signature="e#52333#52712#0" />
+                <element signature="e#52831#52879#0" />
+                <element signature="e#52974#52988#0" />
+                <element signature="e#53415#58829#0" />
+                <element signature="e#55869#55976#0" />
+                <element signature="e#55986#56036#0" />
+                <element signature="e#56100#56146#0" />
+                <element signature="e#56268#56313#0" />
+                <element signature="e#56397#56449#0" />
+                <element signature="e#56576#56621#0" />
+                <element signature="e#56707#56759#0" />
+                <element signature="e#56899#56944#0" />
+                <element signature="e#57037#57089#0" />
+                <element signature="e#57200#57452#0" />
+                <element signature="e#57269#57318#0" />
+                <element signature="e#57390#57446#0" />
+                <element signature="e#57514#57766#0" />
+                <element signature="e#57583#57632#0" />
+                <element signature="e#57704#57760#0" />
+                <element signature="e#57833#57882#0" />
+                <element signature="e#57892#57938#0" />
+                <element signature="e#58570#58633#0" />
+                <element signature="e#58271#58353#0" />
+                <element signature="e#58459#58498#0" />
+                <element signature="e#58939#59503#0" />
+                <element signature="e#59101#59169#0" />
+                <element signature="e#59179#59215#0" />
+                <element signature="e#59331#59475#0" />
+                <element signature="e#59133#59171#0" />
+                <element signature="e#59648#60253#0" />
+                <element signature="e#59883#59928#0" />
+                <element signature="e#60377#60702#0" />
+                <element signature="e#60332#60377#0" />
+                <element signature="e#60848#61418#0" />
+                <element signature="e#61048#61100#0" />
+                <element signature="e#61583#62160#0" />
+                <element signature="e#61790#61835#0" />
+                <element signature="e#62324#63095#0" />
+                <element signature="e#62614#62741#0" />
+                <element signature="e#62750#62842#0" />
+                <element signature="e#62725#62780#0" />
+                <element signature="e#63260#64160#0" />
+                <element signature="e#63790#63840#0" />
+                <element signature="e#64339#64486#0" />
+                <element signature="e#64116#64164#0" />
+                <element signature="e#64654#68030#0" />
+                <element signature="e#65049#65161#0" />
+                <element signature="e#66507#66989#0" />
+                <element signature="e#67273#67664#0" />
+                <element signature="e#67660#67715#0" />
+                <element signature="e#68183#68383#0" />
+                <element signature="e#68013#68056#0" />
+                <element signature="e#68484#69082#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,18 +776,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/AppScreens/orders.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="618" column="4" lean-forward="true" selection-start-line="618" selection-start-column="4" selection-end-line="618" selection-end-column="4" />
+            <state relative-caret-position="221">
+              <caret line="1487" column="32" lean-forward="true" selection-start-line="1487" selection-start-column="32" selection-end-line="1487" selection-end-column="32" />
               <folding>
                 <element signature="e#0#58#0" expanded="true" />
                 <element signature="e#356#4445#0" />
-                <element signature="e#693#4278#0" />
                 <element signature="e#4617#4760#0" />
+                <element signature="e#4831#20783#0" />
                 <element signature="e#5278#10652#0" />
                 <element signature="e#11272#13007#0" />
                 <element signature="e#13048#15385#0" />
                 <element signature="e#18729#18859#0" />
                 <element signature="e#18952#19084#0" />
+                <element signature="e#22499#35467#0" />
                 <element signature="e#24132#24235#0" />
                 <element signature="e#24401#24646#0" />
                 <element signature="e#24669#27216#0" />
@@ -127,13 +799,10 @@
                 <element signature="e#31746#32094#0" />
                 <element signature="e#32111#33032#0" />
                 <element signature="e#33424#33531#0" />
-                <element signature="e#29786#39327#0" />
-                <element signature="e#29700#29802#1" />
-                <element signature="e#29808#29923#1" />
+                <element signature="e#34945#44334#0" />
                 <element signature="e#37546#37873#0" />
                 <element signature="e#37894#38588#0" />
                 <element signature="e#38611#40557#0" />
-                <element signature="e#40770#40855#0" />
                 <element signature="e#41004#41212#0" />
                 <element signature="e#41235#41440#0" />
                 <element signature="e#40898#41346#0" />
@@ -147,26 +816,18 @@
                 <element signature="e#37109#37432#0" />
                 <element signature="e#37455#37881#0" />
                 <element signature="e#46391#48304#0" />
-                <element signature="e#47939#47945#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/AppScreens/customer.dart">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/login.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="712" column="32" lean-forward="true" selection-start-line="712" selection-start-column="32" selection-end-line="712" selection-end-column="32" />
+            <state relative-caret-position="291">
+              <caret line="126" column="28" selection-start-line="123" selection-start-column="24" selection-end-line="126" selection-end-column="28" />
               <folding>
-                <element signature="e#1#40#0" expanded="true" />
-                <element signature="e#1082#4910#0" />
-                <element signature="e#4956#5027#0" />
-                <element signature="e#5468#10802#0" />
-                <element signature="e#11449#13289#0" />
-                <element signature="e#13370#16034#0" />
-                <element signature="e#16112#20840#0" />
-                <element signature="e#24380#25984#0" />
+                <element signature="e#623#662#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -183,13 +844,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rawke</find>
-      <find>keyboardListen</find>
-      <find>KeyboardListener</find>
-      <find>orderDetails</find>
-      <find>search</find>
-      <find>productde</find>
-      <find>shoppingcartrow</find>
       <find>dumm</find>
       <find>st.generate</find>
       <find>order page check</find>
@@ -210,9 +864,16 @@
       <find>paymentModes</find>
       <find>_selectedPaymentMode</find>
       <find>invoice</find>
+      <find>paytm</find>
+      <find>drawer</find>
+      <find>OrderRowEditable</find>
+      <find>request ne</find>
+      <find>textf</find>
       <find>dropdown</find>
       <find>tempListOfCategories</find>
-      <find>paytm</find>
+      <find>toast</find>
+      <find>newproduct</find>
+      <find>productgrid</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -227,7 +888,6 @@
         <option value="$PROJECT_DIR$/lib/AppScreens/drawer.dart" />
         <option value="$PROJECT_DIR$/lib/AppScreens/cartUIFunctionality.dart" />
         <option value="$PROJECT_DIR$/lib/requestStocks.dart" />
-        <option value="$PROJECT_DIR$/lib/AppScreens/requestStocks.dart" />
         <option value="$PROJECT_DIR$/android/gradle.properties" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/lib/Utilities/authentication.dart" />
@@ -248,12 +908,13 @@
         <option value="$PROJECT_DIR$/assets/PostRequestFormat.json" />
         <option value="$PROJECT_DIR$/lib/AppScreens/orderDetails.dart" />
         <option value="$PROJECT_DIR$/lib/AppScreens/orderSuper.dart" />
-        <option value="$PROJECT_DIR$/lib/home.dart" />
         <option value="$PROJECT_DIR$/lib/AppScreens/CartDescendant.dart" />
-        <option value="$PROJECT_DIR$/lib/model/app_state_model.dart" />
-        <option value="$PROJECT_DIR$/lib/app.dart" />
-        <option value="$PROJECT_DIR$/lib/AppScreens/orders.dart" />
         <option value="$PROJECT_DIR$/lib/AppScreens/customer.dart" />
+        <option value="$PROJECT_DIR$/lib/app.dart" />
+        <option value="$PROJECT_DIR$/lib/home.dart" />
+        <option value="$PROJECT_DIR$/lib/model/app_state_model.dart" />
+        <option value="$PROJECT_DIR$/lib/AppScreens/orders.dart" />
+        <option value="$PROJECT_DIR$/lib/AppScreens/requestStocks.dart" />
       </list>
     </option>
   </component>
@@ -376,16 +1037,16 @@
       <window_info id="Captures" order="7" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.329235" />
-      <window_info anchor="bottom" id="Dart Analysis" order="1" sideWeight="0.49611652" weight="0.45355192" />
+      <window_info anchor="bottom" id="Dart Analysis" order="1" sideWeight="0.49611652" weight="0.44672132" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Logcat" order="3" weight="0.329235" />
       <window_info anchor="bottom" id="Android Profiler" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49761224" weight="0.329235" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50344825" side_tool="true" weight="0.53688526" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5044335" side_tool="true" weight="0.3852459" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329235" />
       <window_info anchor="bottom" id="Flutter Performance" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.49655172" weight="0.4043716" />
+      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.49556652" weight="0.32650274" />
       <window_info anchor="bottom" id="Find" order="11" />
       <window_info anchor="bottom" id="Dependency Viewer" order="12" weight="0.329235" />
       <window_info anchor="right" id="Theme Preview" order="0" />
@@ -406,16 +1067,16 @@
       <window_info id="Captures" order="7" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.329235" />
-      <window_info anchor="bottom" id="Dart Analysis" order="1" sideWeight="0.49611652" weight="0.45355192" />
+      <window_info anchor="bottom" id="Dart Analysis" order="1" sideWeight="0.49611652" weight="0.44672132" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Logcat" order="3" weight="0.329235" />
       <window_info anchor="bottom" id="Android Profiler" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.49761224" weight="0.329235" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50344825" side_tool="true" weight="0.53688526" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5044335" side_tool="true" weight="0.3852459" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.329235" />
       <window_info anchor="bottom" id="Flutter Performance" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="10" sideWeight="0.49655172" visible="true" weight="0.4043716" />
+      <window_info active="true" anchor="bottom" id="Run" order="10" sideWeight="0.49556652" visible="true" weight="0.32650274" />
       <window_info anchor="bottom" id="Find" order="11" />
       <window_info anchor="bottom" id="Dependency Viewer" order="12" weight="0.329235" />
       <window_info anchor="right" id="Theme Preview" order="0" />
@@ -463,6 +1124,21 @@
           <url>file://$PROJECT_DIR$/lib/AppScreens/CartDescendant.dart</url>
           <line>85</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/app.dart</url>
+          <line>95</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/AppScreens/customer.dart</url>
+          <line>330</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/login.dart</url>
+          <line>125</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -696,13 +1372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/AppScreens/requestStocks.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/flutter/flutter/packages/flutter/lib/src/widgets/raw_keyboard_listener.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
@@ -731,40 +1400,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/login.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
-          <folding>
-            <element signature="e#623#662#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/AppScreens/CartDescendant.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="1609" column="35" selection-start-line="1609" selection-start-column="35" selection-end-line="1609" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <element signature="e#3671#5178#0" />
-            <element signature="e#17742#18888#0" />
-            <element signature="e#18907#18960#0" />
-            <element signature="e#18974#20047#0" />
-            <element signature="e#61333#61479#0" />
-            <element signature="e#64420#72322#0" />
-            <element signature="e#69726#70731#0" />
-            <element signature="e#70776#71317#0" />
-            <element signature="e#72886#73399#0" />
-            <element signature="e#73957#75989#0" />
-            <element signature="e#76033#78633#0" />
-            <element signature="e#78678#80488#0" />
-            <element signature="e#81045#81197#0" />
-            <element signature="e#81264#86127#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/AppScreens/orderSuper.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -775,30 +1410,294 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/flutter/flutter/bin/cache/pkg/sky_engine/lib/core/list.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="155" column="15" selection-start-line="155" selection-start-column="15" selection-end-line="155" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/AppScreens/customer.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="377" column="23" selection-start-line="330" selection-start-column="4" selection-end-line="377" selection-end-column="23" />
+          <folding>
+            <element signature="e#1#40#0" expanded="true" />
+            <element signature="e#4956#5027#0" />
+            <element signature="e#5468#10802#0" />
+            <element signature="e#11449#13289#0" />
+            <element signature="e#13370#16034#0" />
+            <element signature="e#16112#20840#0" />
+            <element signature="e#24380#25984#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/model/app_state_model.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="95" column="29" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
+          <folding>
+            <element signature="e#836#904#0" />
+            <element signature="e#1051#1116#0" />
+            <element signature="e#1371#1437#0" />
+            <element signature="e#1739#1889#0" />
+            <element signature="e#1933#2177#0" />
+            <element signature="e#1964#2009#0" />
+            <element signature="e#2020#2050#0" />
+            <element signature="e#2450#2561#0" />
+            <element signature="e#2585#2616#0" />
+            <element signature="e#4839#4844#0" />
+            <element signature="e#4849#4862#0" />
+            <element signature="e#4921#4926#0" />
+            <element signature="e#4931#4950#0" />
+            <element signature="e#5005#5010#0" />
+            <element signature="e#5015#5030#0" />
+            <element signature="e#5282#7585#0" />
+            <element signature="e#5742#6359#0" />
+            <element signature="e#5790#6082#0" />
+            <element signature="e#6094#6353#0" />
+            <element signature="e#6369#6420#0" />
+            <element signature="e#6581#6766#0" />
+            <element signature="e#6776#7398#0" />
+            <element signature="e#6912#7183#0" />
+            <element signature="e#7196#7392#0" />
+            <element signature="e#7058#7118#0" />
+            <element signature="e#7212#7248#0" />
+            <element signature="e#7736#9808#0" />
+            <element signature="e#8033#8429#0" />
+            <element signature="e#8476#8628#0" />
+            <element signature="e#8680#9510#0" />
+            <element signature="e#8775#9504#0" />
+            <element signature="e#8857#9067#0" />
+            <element signature="e#9081#9495#0" />
+            <element signature="e#9141#9192#0" />
+            <element signature="e#9438#9475#0" />
+            <element signature="e#9961#11694#0" />
+            <element signature="e#9717#9740#0" />
+            <element signature="e#10619#10716#0" />
+            <element signature="e#10757#10853#0" />
+            <element signature="e#10900#10999#0" />
+            <element signature="e#10633#10748#0" />
+            <element signature="e#11066#11068#0" />
+            <element signature="e#11773#14835#0" />
+            <element signature="e#12490#14160#0" />
+            <element signature="e#12202#12314#0" />
+            <element signature="e#14170#14589#0" />
+            <element signature="e#14862#15040#0" />
+            <element signature="e#14879#14941#0" />
+            <element signature="e#14950#15012#0" />
+            <element signature="e#15077#15876#0" />
+            <element signature="e#15317#15847#0" />
+            <element signature="e#15367#15497#0" />
+            <element signature="e#15509#15840#0" />
+            <element signature="e#15680#15784#0" />
+            <element signature="e#15798#15831#0" />
+            <element signature="e#15924#17876#0" />
+            <element signature="e#16523#17130#0" />
+            <element signature="e#16879#17123#0" />
+            <element signature="e#17189#17398#0" />
+            <element signature="e#17444#17642#0" />
+            <element signature="e#17652#17826#0" />
+            <element signature="e#17960#18533#0" />
+            <element signature="e#18081#18293#0" />
+            <element signature="e#18303#18377#0" />
+            <element signature="e#18164#18493#0" />
+            <element signature="e#18925#25524#0" />
+            <element signature="e#19214#19826#0" />
+            <element signature="e#20994#21458#0" />
+            <element signature="e#21035#21252#0" />
+            <element signature="e#21524#23176#0" />
+            <element signature="e#22280#22913#0" />
+            <element signature="e#22805#22807#0" />
+            <element signature="e#23458#23710#0" />
+            <element signature="e#23380#23555#0" />
+            <element signature="e#23998#24230#0" />
+            <element signature="e#23859#23960#0" />
+            <element signature="e#25153#25190#0" />
+            <element signature="e#25895#26095#0" />
+            <element signature="e#26263#26474#0" />
+            <element signature="e#26518#26547#0" />
+            <element signature="e#26593#26624#0" />
+            <element signature="e#26674#26709#0" />
+            <element signature="e#26339#26418#0" />
+            <element signature="e#26905#27108#0" />
+            <element signature="e#26933#26967#0" />
+            <element signature="e#26976#27011#0" />
+            <element signature="e#27129#27206#0" />
+            <element signature="e#27248#27344#0" />
+            <element signature="e#26975#27001#0" />
+            <element signature="e#27446#27540#0" />
+            <element signature="e#27468#27495#0" />
+            <element signature="e#27171#27204#0" />
+            <element signature="e#27733#27800#0" />
+            <element signature="e#27930#29724#0" />
+            <element signature="e#28229#28956#0" />
+            <element signature="e#29352#29388#0" />
+            <element signature="e#29862#30397#0" />
+            <element signature="e#30226#30296#0" />
+            <element signature="e#30453#31007#0" />
+            <element signature="e#30847#30915#0" />
+            <element signature="e#31387#31411#0" />
+            <element signature="e#31786#32927#0" />
+            <element signature="e#31957#32250#0" />
+            <element signature="e#32260#32497#0" />
+            <element signature="e#32557#32612#0" />
+            <element signature="e#33094#34027#0" />
+            <element signature="e#33657#33716#0" />
+            <element signature="e#34180#36571#0" />
+            <element signature="e#34461#34787#0" />
+            <element signature="e#35436#35973#0" />
+            <element signature="e#35603#35744#0" />
+            <element signature="e#36201#36254#0" />
+            <element signature="e#36722#39113#0" />
+            <element signature="e#37003#37329#0" />
+            <element signature="e#37978#38515#0" />
+            <element signature="e#38145#38286#0" />
+            <element signature="e#39134#39564#0" />
+            <element signature="e#39194#39249#0" />
+            <element signature="e#40026#40041#0" />
+            <element signature="e#40437#44513#0" />
+            <element signature="e#40676#42316#0" />
+            <element signature="e#40713#41086#0" />
+            <element signature="e#41128#42310#0" />
+            <element signature="e#41168#41737#0" />
+            <element signature="e#41751#42301#0" />
+            <element signature="e#42326#43567#0" />
+            <element signature="e#42364#42602#0" />
+            <element signature="e#42644#43560#0" />
+            <element signature="e#42684#43120#0" />
+            <element signature="e#43134#43551#0" />
+            <element signature="e#43675#44239#0" />
+            <element signature="e#44149#44222#0" />
+            <element signature="e#44143#44185#0" />
+            <element signature="e#44288#44321#0" />
+            <element signature="e#44696#45409#0" />
+            <element signature="e#44723#44850#0" />
+            <element signature="e#44859#45401#0" />
+            <element signature="e#45170#45218#0" />
+            <element signature="e#45230#45394#0" />
+            <element signature="e#45039#45080#0" />
+            <element signature="e#45598#45809#0" />
+            <element signature="e#45439#45481#0" />
+            <element signature="e#45944#46524#0" />
+            <element signature="e#46221#46431#0" />
+            <element signature="e#46154#46203#0" />
+            <element signature="e#46657#46860#0" />
+            <element signature="e#46490#46533#0" />
+            <element signature="e#47022#48173#0" />
+            <element signature="e#47062#47511#0" />
+            <element signature="e#47802#47844#0" />
+            <element signature="e#48394#48624#0" />
+            <element signature="e#48668#48719#0" />
+            <element signature="e#50480#50553#0" />
+            <element signature="e#50928#53201#0" />
+            <element signature="e#51121#51823#0" />
+            <element signature="e#51870#52323#0" />
+            <element signature="e#52333#52712#0" />
+            <element signature="e#52831#52879#0" />
+            <element signature="e#52974#52988#0" />
+            <element signature="e#53415#58829#0" />
+            <element signature="e#55869#55976#0" />
+            <element signature="e#55986#56036#0" />
+            <element signature="e#56100#56146#0" />
+            <element signature="e#56268#56313#0" />
+            <element signature="e#56397#56449#0" />
+            <element signature="e#56576#56621#0" />
+            <element signature="e#56707#56759#0" />
+            <element signature="e#56899#56944#0" />
+            <element signature="e#57037#57089#0" />
+            <element signature="e#57200#57452#0" />
+            <element signature="e#57269#57318#0" />
+            <element signature="e#57390#57446#0" />
+            <element signature="e#57514#57766#0" />
+            <element signature="e#57583#57632#0" />
+            <element signature="e#57704#57760#0" />
+            <element signature="e#57833#57882#0" />
+            <element signature="e#57892#57938#0" />
+            <element signature="e#58570#58633#0" />
+            <element signature="e#58271#58353#0" />
+            <element signature="e#58459#58498#0" />
+            <element signature="e#58939#59503#0" />
+            <element signature="e#59101#59169#0" />
+            <element signature="e#59179#59215#0" />
+            <element signature="e#59331#59475#0" />
+            <element signature="e#59133#59171#0" />
+            <element signature="e#59648#60253#0" />
+            <element signature="e#59883#59928#0" />
+            <element signature="e#60377#60702#0" />
+            <element signature="e#60332#60377#0" />
+            <element signature="e#60848#61418#0" />
+            <element signature="e#61048#61100#0" />
+            <element signature="e#61583#62160#0" />
+            <element signature="e#61790#61835#0" />
+            <element signature="e#62324#63095#0" />
+            <element signature="e#62614#62741#0" />
+            <element signature="e#62750#62842#0" />
+            <element signature="e#62725#62780#0" />
+            <element signature="e#63260#64160#0" />
+            <element signature="e#63790#63840#0" />
+            <element signature="e#64339#64486#0" />
+            <element signature="e#64116#64164#0" />
+            <element signature="e#64654#68030#0" />
+            <element signature="e#65049#65161#0" />
+            <element signature="e#66507#66989#0" />
+            <element signature="e#67273#67664#0" />
+            <element signature="e#67660#67715#0" />
+            <element signature="e#68183#68383#0" />
+            <element signature="e#68013#68056#0" />
+            <element signature="e#68484#69082#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/app.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-881">
-          <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+        <state relative-caret-position="905">
+          <caret line="89" column="38" selection-start-line="89" selection-start-column="38" selection-end-line="89" selection-end-column="38" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/login.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="126" column="28" selection-start-line="123" selection-start-column="24" selection-end-line="126" selection-end-column="28" />
+          <folding>
+            <element signature="e#623#662#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/home.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="207" column="33" lean-forward="true" selection-start-line="207" selection-start-column="16" selection-end-line="207" selection-end-column="33" />
+          <folding>
+            <element signature="e#644#683#0" expanded="true" />
+            <element signature="e#1847#3241#0" />
+            <element signature="e#5470#6268#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/AppScreens/orders.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="618" column="4" lean-forward="true" selection-start-line="618" selection-start-column="4" selection-end-line="618" selection-end-column="4" />
+        <state relative-caret-position="221">
+          <caret line="1487" column="32" lean-forward="true" selection-start-line="1487" selection-start-column="32" selection-end-line="1487" selection-end-column="32" />
           <folding>
             <element signature="e#0#58#0" expanded="true" />
             <element signature="e#356#4445#0" />
-            <element signature="e#693#4278#0" />
             <element signature="e#4617#4760#0" />
+            <element signature="e#4831#20783#0" />
             <element signature="e#5278#10652#0" />
             <element signature="e#11272#13007#0" />
             <element signature="e#13048#15385#0" />
             <element signature="e#18729#18859#0" />
             <element signature="e#18952#19084#0" />
+            <element signature="e#22499#35467#0" />
             <element signature="e#24132#24235#0" />
             <element signature="e#24401#24646#0" />
             <element signature="e#24669#27216#0" />
@@ -809,13 +1708,10 @@
             <element signature="e#31746#32094#0" />
             <element signature="e#32111#33032#0" />
             <element signature="e#33424#33531#0" />
-            <element signature="e#29786#39327#0" />
-            <element signature="e#29700#29802#1" />
-            <element signature="e#29808#29923#1" />
+            <element signature="e#34945#44334#0" />
             <element signature="e#37546#37873#0" />
             <element signature="e#37894#38588#0" />
             <element signature="e#38611#40557#0" />
-            <element signature="e#40770#40855#0" />
             <element signature="e#41004#41212#0" />
             <element signature="e#41235#41440#0" />
             <element signature="e#40898#41346#0" />
@@ -829,50 +1725,82 @@
             <element signature="e#37109#37432#0" />
             <element signature="e#37455#37881#0" />
             <element signature="e#46391#48304#0" />
-            <element signature="e#47939#47945#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/flutter/flutter/bin/cache/pkg/sky_engine/lib/core/list.dart">
+    <entry file="file://$PROJECT_DIR$/lib/AppScreens/CartDescendant.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="155" column="15" selection-start-line="155" selection-start-column="15" selection-end-line="155" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/model/app_state_model.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/home.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="203" column="58" selection-start-line="203" selection-start-column="49" selection-end-line="203" selection-end-column="66" />
+        <state relative-caret-position="226">
+          <caret line="357" column="22" selection-start-line="357" selection-start-column="22" selection-end-line="357" selection-end-column="22" />
           <folding>
-            <element signature="e#644#683#0" expanded="true" />
-            <element signature="e#1847#3241#0" />
-            <element signature="e#5470#6268#0" />
+            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#863#933#0" />
+            <element signature="e#1269#3614#0" />
+            <element signature="e#3671#5178#0" />
+            <element signature="e#5246#5831#0" />
+            <element signature="e#5875#6125#0" />
+            <element signature="e#6250#9391#0" />
+            <element signature="e#17742#18888#0" />
+            <element signature="e#18907#18960#0" />
+            <element signature="e#18974#20047#0" />
+            <element signature="e#44243#44350#0" />
+            <element signature="e#61333#61479#0" />
+            <element signature="e#61541#72341#0" />
+            <element signature="e#64420#72322#0" />
+            <element signature="e#69726#70731#0" />
+            <element signature="e#70776#71317#0" />
+            <element signature="e#72351#72513#0" />
+            <element signature="e#73957#75989#0" />
+            <element signature="e#76033#78633#0" />
+            <element signature="e#78678#80488#0" />
+            <element signature="e#81045#81197#0" />
+            <element signature="e#81264#86127#0" />
+            <element signature="e#86679#86796#0" />
+            <element signature="e#86862#88375#0" />
+            <element signature="e#88438#89459#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/AppScreens/customer.dart">
+    <entry file="file://$PROJECT_DIR$/lib/AppScreens/requestStocks.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="712" column="32" lean-forward="true" selection-start-line="712" selection-start-column="32" selection-end-line="712" selection-end-column="32" />
+        <state relative-caret-position="112">
+          <caret line="539" column="8" lean-forward="true" selection-start-line="539" selection-start-column="8" selection-end-line="539" selection-end-column="8" />
           <folding>
-            <element signature="e#1#40#0" expanded="true" />
-            <element signature="e#1082#4910#0" />
-            <element signature="e#4956#5027#0" />
-            <element signature="e#5468#10802#0" />
-            <element signature="e#11449#13289#0" />
-            <element signature="e#13370#16034#0" />
-            <element signature="e#16112#20840#0" />
-            <element signature="e#24380#25984#0" />
+            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#1411#1513#1" />
+            <element signature="e#1519#1634#1" />
+            <element signature="e#1662#1752#1" />
+            <element signature="e#1765#1868#1" />
+            <element signature="e#1928#2018#1" />
+            <element signature="e#2022#2125#1" />
+            <element signature="e#1623#5317#0" />
+            <element signature="e#3294#4212#0" />
+            <element signature="e#4288#5206#0" />
+            <element signature="e#6023#7226#0" />
+            <element signature="e#6795#8835#0" />
+            <element signature="e#7309#8774#0" />
+            <element signature="e#8146#8227#0" />
+            <element signature="e#8199#10145#0" />
+            <element signature="e#8196#8381#0" />
+            <element signature="e#14886#14950#0" />
+            <element signature="e#14928#15009#0" />
+            <element signature="e#11682#12023#0" />
+            <element signature="e#8424#9514#0" />
+            <element signature="e#17099#17105#0" />
+            <element signature="e#17233#20357#0" />
+            <element signature="e#20415#21533#0" />
+            <element signature="e#21748#22261#0" />
+            <element signature="e#22308#24340#0" />
+            <element signature="e#24956#26977#0" />
+            <element signature="e#27029#28839#0" />
+            <element signature="e#27286#28837#0" />
+            <element signature="e#17105#18523#0" />
+            <element signature="e#10839#12752#0" />
+            <element signature="e#32433#36226#0" />
+            <element signature="e#36439#39954#0" />
+            <element signature="e#21770#23188#0" />
           </folding>
         </state>
       </provider>

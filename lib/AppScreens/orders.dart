@@ -5,6 +5,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:express_store/Databases/Database.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../model/app_state_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/services.dart';
 
 
 NewAppStateModel orderModel = new NewAppStateModel();
@@ -1008,19 +1010,21 @@ class OrderScreen3 extends StatelessWidget {
     'sp': '90',
     'mrp': '90',
     'qty': '9',
-    'total' : '810'
+    'total' : '810',
+    'max_qty': '91'
   },
     {
       'name': 'product_name2',
       'sp': '90',
       'mrp': '90',
       'qty': '3',
-      'total' : '810'
+      'total' : '810',
+      'max_qty': '812'
     }
   ];
 
 
-  List<Container> v(BuildContext context, List<Map<String, dynamic >> productList) {
+  List<Container> buildRows(BuildContext context, List<Map<String, dynamic >> productList) {
     return List.generate(productList.length, (index){
       return Container(
         child: OrderRowEditable(product: productList[index]),
@@ -1133,7 +1137,7 @@ class OrderScreen3 extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     child: Column(
-                        children: v(context, productList)
+                        children: buildRows(context, productList)
                         ),
                     ),//  ROWS OF THE PRODUCTS
 
@@ -1362,11 +1366,20 @@ class OrderRow extends StatelessWidget {
         });
   }
 }
-
-class OrderRowEditable extends StatelessWidget {
+class OrderRowEditable extends StatefulWidget {
   OrderRowEditable({@required this.product});
   final Map<String, dynamic > product;
+  _OrderRowEditable createState() => _OrderRowEditable();
+}
+class _OrderRowEditable extends State<OrderRowEditable> {
+
+
+  TextEditingController quantityController = new TextEditingController();
+  String text = "";
+  int maxLength = 900;
+
   @override
+
   Widget build(BuildContext context) {
     return Container(
       child: Column(
@@ -1376,7 +1389,7 @@ class OrderRowEditable extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  product['name'].toString(),
+                  widget.product['name'].toString(),
 
                   ),
                 Spacer(),
@@ -1400,7 +1413,7 @@ class OrderRowEditable extends StatelessWidget {
               ),
             ),
           Row(
-            key: ValueKey(product['id'].toString()),
+            key: ValueKey(widget.product['id'].toString()),
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
 
@@ -1416,7 +1429,7 @@ class OrderRowEditable extends StatelessWidget {
                 child: TextFormField(
 
                   autofocus: false,
-                  initialValue: product['mrp'],
+                  initialValue: widget.product['mrp'],
                   keyboardType: TextInputType.numberWithOptions(
                     decimal: true,
                     signed: false,
@@ -1427,7 +1440,7 @@ class OrderRowEditable extends StatelessWidget {
 
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: '${product['mrp'].toString()}'
+                      hintText: '${widget.product['mrp'].toString()}'
                       ),
                   ),
                 flex: 3,
@@ -1436,7 +1449,7 @@ class OrderRowEditable extends StatelessWidget {
                 child: new TextFormField(
                   textAlign: TextAlign.center,
                   autofocus: false,
-                  initialValue: product['sp'],
+                  initialValue: widget.product['sp'],
                   keyboardType: TextInputType.numberWithOptions(
                     decimal: true,
                     signed: false,
@@ -1459,23 +1472,54 @@ class OrderRowEditable extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           flex: 1,
-                          child: TextFormField(
+                          child: new TextField(
+                              keyboardType: TextInputType.number,
+                              controller: quantityController,
+                            inputFormatters: [
+                              new LengthLimitingTextInputFormatter(widget.product['max_qty'].toString().length),
+
+                            ],
+                              onChanged: (String newVal) {
+                                if (int.parse(newVal) < int.parse(widget.product['max_qty'])) {
+                                  print('orderScreen3 .... :::: quantity in limit .OK.. ');
+                                  quantityController.text = newVal;
+                                  widget.product['qty'] = newVal;
+                                  print(quantityController.text );
+                                }
+                                else {
+                                  quantityController.text = widget.product['max_qty'];
+//                                  quantityController.text = text;
+
+                                  Fluttertoast.showToast(
+                                      msg: "!! Maximum available quantity is ${widget.product['max_qty']} for the Product ",
+                                      toastLength: Toast.LENGTH_LONG,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIos: 1,
+                                      backgroundColor: Color(0xffe48181),
+                                      textColor: Colors.black,
+                                      fontSize: 16.0
+                                      );
+                                }
+                              },
+//                            decoration: InputDecoration(
+//                              errorText: (int.parse(quantityController.text) > 10)? "qty exceeded" : '',
+//                              ),
+
+                              ),
 
 
-//                                  focusNode: quantityFocusNode,
-autofocus: false,
-//                                          initialValue: quantity.toString(),
-//                                  controller: quantityController,
-                            keyboardType: TextInputType.number,
-
-                            onChanged: (text){
-
-                            },
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: '${product['quantity'].toString()}'
-                                ),
-),
+//                          TextFormField(
+//                            initialValue: '0',
+////                            controller: quantityController,
+//                            keyboardType: TextInputType.number,
+//
+//                            onChanged: (text){
+//
+//                            },
+//                            decoration: InputDecoration(
+//                                border: InputBorder.none,
+//                                hintText: '${product['quantity'].toString()}'),
+//                            ),
                           ),
                         Container(
                           height: 48.0,
@@ -1497,6 +1541,11 @@ autofocus: false,
                                     size: 22.0,
                                     ),
                                   onTap: () {
+                                    setState(() {
+                                      widget.product['qty'] = (int.parse(widget.product['qty'])+1).toString();
+                                      quantityController.text = (int.parse(widget.product['qty'])+1).toString();
+                                      print(quantityController.text );
+                                    });
 
                                   },
                                   ),
@@ -1524,7 +1573,7 @@ autofocus: false,
                   padding: EdgeInsets.only(right: 10),
                   alignment: Alignment.centerRight,
                   child: Column(children: <Widget>[
-                    Text(product['total']),
+                    Text(widget.product['total']),
                     SizedBox(
                       height: 17,
                       ),

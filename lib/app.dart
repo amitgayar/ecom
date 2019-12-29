@@ -100,7 +100,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
         '/customers' : (context) => new Customer(),
 //        '/addCustomer': (context) => AddCustomer(),
         '/orders' : (context) => new OrderName(),
-        '/requestStocks' : (context) => new Container(),
+        '/requestStocks' : (context) => RequestStocks(),
 
       },
 
