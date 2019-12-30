@@ -91,6 +91,21 @@ class NewAppStateModel extends Model {
     notifyListeners();
   }
 
+  bool _customerSecondScreen = false;
+  bool _customerThirdScreen = false;
+
+  bool get customerSecondScreen => _customerSecondScreen;
+  bool get customerThirdScreen => _customerThirdScreen;
+
+
+
+  void setCustomerPageState(value2, value3){
+    _customerSecondScreen = value2;
+    _customerThirdScreen = value3;
+    notifyListeners();
+  }
+
+
   //.....................................................inputs by gayar...........................................................................................................
 
 
@@ -1003,13 +1018,10 @@ class NewAppStateModel extends Model {
     });
 
     Map<String, dynamic> row = {
-      DatabaseHelper.status : "request_sent",
-      DatabaseHelper.delivered_at : "",
-      DatabaseHelper.accepted_at : "",
-      DatabaseHelper.total_amount : "",
-      DatabaseHelper.temp_id : "",
+      DatabaseHelper.status : "request sent",
       DatabaseHelper.updated_at : new DateTime.now().toString(),
-      DatabaseHelper.total_quantity : total_quantity
+      DatabaseHelper.total_quantity : total_quantity,
+      DatabaseHelper.total_items : _EditableproductsListForCart.length
 
     };
 
@@ -1020,6 +1032,11 @@ class NewAppStateModel extends Model {
     stockRequestGeneratedID = return_id;
 
     tempGeneratedRequestStocksToDisplay = await dbHelper.raw_query("Select * from ${DatabaseHelper.stockRequestsTable} WHERE ${DatabaseHelper.id} = '$stockRequestGeneratedID'");
+    tempSelectedStock = {};
+    tempGeneratedRequestStocksToDisplay[0].forEach((key, value) {
+      tempSelectedStock['$key'] = value;
+    });
+
 
     //Add stockRequestsProductsTable
     _EditableproductsListForCart.forEach((item) async {
@@ -1043,8 +1060,9 @@ class NewAppStateModel extends Model {
       print('${DatabaseHelper.stockRequestsProductsTable} inserted row id: $return_id');
     });
 
-    tempGeneratedRequestStockItemsToDisplay = await dbHelper.raw_query("Select * from ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.stock_request_id} = '$stockRequestGeneratedID'");
+    await getStockRequestItemsFromDatabase(stockRequestGeneratedID, 'request', tempSelectedStock);
 
+    removeEditableItemFromCart({},"clear_cart");
     notifyListeners();
 
   }
@@ -1182,15 +1200,15 @@ class NewAppStateModel extends Model {
 
 
     tempSelectedStock[DatabaseHelper.status] = 'accepted';
+    tempSelectedStock[DatabaseHelper.total_amount] = totalStockRequestAmount;
+    tempSelectedStock[DatabaseHelper.total_quantity] = totalAcceptedQuantity;
+    tempSelectedStock[DatabaseHelper.total_items] = tempRequestStockItemsToDisplay.length;
     Map<String, dynamic> tempStockToUpdate = {};
 
     tempSelectedStock.forEach((key, value) {
       tempStockToUpdate['$key'] = value;
     });
     tempStockToUpdate['${DatabaseHelper.accepted_at}'] = new DateTime.now().toString();
-    tempStockToUpdate['${DatabaseHelper.total_amount}'] = totalStockRequestAmount;
-    tempStockToUpdate['${DatabaseHelper.total_quantity}'] = totalAcceptedQuantity;
-    tempStockToUpdate['${DatabaseHelper.total_items}'] = tempRequestStockItemsToDisplay.length;
 
     print("\n\n tempSelectedStock = $tempSelectedStock :::: tempStockToUpdate = $tempStockToUpdate\n\n");
 
@@ -1590,7 +1608,7 @@ class NewAppStateModel extends Model {
     tempPaymentMethodForFilter = paymentMethod;
     tempStatusForFilter = status;
     tempCreditForFilter = isCredit;
-    print("entered into filterorders :::: $tempDateForFilter");
+    print("entered into filterorders :::: isCredit = $isCredit");
     String finalQuery, query1, query2, query3, query4, query5, query6, query7, query8, query9, query10, query11, query12;
 
     query1 = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount}";
@@ -1609,7 +1627,7 @@ class NewAppStateModel extends Model {
 
     query6 = "UPPER(${DatabaseHelper.ordersTable}.${DatabaseHelper.status}) = UPPER('$status') ";
 
-    query7 = "${DatabaseHelper.ordersTable}.${DatabaseHelper.created_at} LIKE '%$date%' COLLATE utf8_general_ci ";
+    query7 = "${DatabaseHelper.ordersTable}.${DatabaseHelper.created_at} > '$date' ";
 
     query8 = "${DatabaseHelper.customerTable}.${DatabaseHelper.phone_number} LIKE '%$searchString%' COLLATE utf8_general_ci ";
 
@@ -1645,11 +1663,14 @@ class NewAppStateModel extends Model {
     }
 
     //Adding Where Clause for Status Filter
-    if (status != "" && finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+    if (status != "" && status != "all" && finalQuery.substring(finalQuery.length - 6) == "WHERE ") {
+
+      print("status in if = $status");
       finalQuery = finalQuery+query6;
     }
-    else if (status != "" && finalQuery.substring(finalQuery.length - 6) != "WHERE "){
+    else if (status != "" && status != "all" && finalQuery.substring(finalQuery.length - 6) != "WHERE "){
       finalQuery = finalQuery+"AND "+query6;
+      print("status in else = $status");
     }
 
     //Adding Where Clause for payment mode Filter
@@ -1942,6 +1963,7 @@ class NewAppStateModel extends Model {
 
   //Code for getting data of submitRefundDetailsToDb Starts
   submitRefundDetailsToDb (String refundedAmount, String refundedPaymentMode) async {
+    print("\n\n refundedAmount = $refundedAmount");
     tempAmountRefundedToCustomer = double.parse(refundedAmount);
     tempPaymentModeToCustomer = refundedPaymentMode;
     selectedCustomer[DatabaseHelper.credit_balance] = (!selectedCustomer.containsKey('id')) ? 0 : selectedCustomer[DatabaseHelper.credit_balance] -
@@ -1969,7 +1991,7 @@ class NewAppStateModel extends Model {
 
     //Update Order Status
     tempSelectedOrder[DatabaseHelper.status] = ((tempSelectedOrder[DatabaseHelper.cart_total] == tempTotalAmountToBeRefunded)
-        ? "refunded" : "partially_refunded");
+        ? "refunded" : "Partially Refunded");
 
     print("\n\ntempSelectedOrder = $tempSelectedOrder\n\n");
 

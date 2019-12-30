@@ -1,3 +1,4 @@
+import 'package:express_store/AppScreens/drawer_express_store.dart';
 import 'package:express_store/model/app_state_model.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -7,161 +8,62 @@ import '../model/app_state_model.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 
-//NewAppStateModel orderModel = new NewAppStateModel();
-//
-//
-//
-//
-//class OrderName extends StatefulWidget {
-//  @override
-//  _OrderName createState() => _OrderName();
-//}
-//
-//class _OrderName extends State<OrderName> {
-//
-//  @override
-//  Widget build(BuildContext context) {
-//
-//
-//
-//    orderModel.filterOrders("", "", "", "", false);
-//    return Scaffold(
-//      body: SafeArea(
-//
-//        child: ScopedModel<NewAppStateModel>(
-//          model: orderModel,
-//          child: OrderDescendant(),
-//          ),
-//        ),
-//      );
-//  }
-//
-//}
-//
-//
-//
-//
-//class OrderDescendant extends StatefulWidget {
-//  _OrderDescendant createState() => _OrderDescendant();
-//}
-//
-//class _OrderDescendant extends State<OrderDescendant> {
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    print('\n\n order page check     ...... ');
-//    return Scaffold(
-//        drawer: Drawer(
-//          child: ListView(
-//
-//            padding: EdgeInsets.zero,
-//            children: <Widget>[
-//              DrawerHeader(
-//                child: Container(
-////                color: Color(0xff429585),
-//child: Column(
-//  mainAxisAlignment: MainAxisAlignment.center,
-//  children: <Widget>[
-//    Expanded(
-//      child: Container(
-//        child: Image.asset('assets/images/logo.png',
-//                             width: 120.0,
-//                             height: 90.0,
-//                             fit: BoxFit.fitWidth,
-//                             color: Colors.black87,
-//                           ),
-//        ),
-//      flex: 2,),
-//    Expanded(
-//      child: Icon(Icons.account_circle,
-//                    size:30,
-//                  ),
-//      flex: 1,),
-//    Expanded(
-//      child: Text('Store Name\n(9876567800)',
-//                    style: TextStyle(color: Colors.black,
-//                                     //                                                  fontSize: 22.0
-//                                     ),
-//                  ),
-//      flex: 1,
-//      )
-//  ],
-//  ),
-//  alignment: Alignment.center,
-//),
-//                decoration: BoxDecoration(
-//                  color: Color(0xff429585),
-//                  ),
-//                ),
-//              ListTile(
-//                title : Text('HOME'),
-//                leading: Icon(Icons.add_shopping_cart),
-//                onTap: (
-//                    ){
-//                  Navigator.pushNamed(context, '/');
-//                },
-//                ),
-//              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-//              ListTile(
-//                title : Text('ORDERS'),
-//                leading: Icon(Icons.shopping_basket),
-//                onTap: (){
-//
-////                OrdersName();
-//                  print("\n\n ORDERS is clicked in menu bar\n\n");
-//                  Navigator.pushNamed(context, '/orders');
-//                },
-//                ),
-//              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-//              ListTile(
-//                title : Text('CUSTOMERS'),
-//                leading: Icon(Icons.account_box),
-//                onTap: (){
-//                  Navigator.pushNamed(context, '/customers');
-//                },
-//                ),
-//              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-//              ListTile(
-//                title : Text('REQUEST STOCKS'),
-//                leading: Icon(Icons.near_me),
-//                onTap: (){
-//                  Navigator.pushNamed(context, '/requestStocks');
-//                },
-//                ),
-//              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-//              Container(
-//                height: 225,
-//
-//                ),
-//              Divider(color:Color(0xff429585) , thickness: 2, height: 10,),
-//              Container(
-//                alignment: Alignment.topCenter,
-//                height: 240,
-////              color: Color(0xff429585),
-//                child: ListTile(
-//                  title : Text('LogOut'),
-//
-//                  leading: Icon(Icons.power_settings_new),
-//                  onTap: (){
-////                  getSyncAPI();
-//                    Navigator.pushNamed(context, '/login');
-//                  },
-//                  ),
-//                ),
-//            ],
-//            ),
-//          ),
-//
-//        appBar: AppBar(
-//          title: Text('Orders'),
-//          backgroundColor: Color(0xff429585),
-//          ),
-//        body: OrderTiles()
-//
-//        );
-//  }
-//}
-//
+NewAppStateModel orderModel = new NewAppStateModel();
+
+
+
+
+class OrderName extends StatefulWidget {
+  @override
+  _OrderName createState() => _OrderName();
+}
+
+class _OrderName extends State<OrderName> {
+
+  @override
+  Widget build(BuildContext context) {
+
+
+
+    orderModel.filterOrders("", "", "", "", false);
+    return Scaffold(
+      body: SafeArea(
+
+        child: ScopedModel<NewAppStateModel>(
+          model: orderModel,
+          child: OrderDescendant(),
+          ),
+        ),
+      );
+  }
+
+}
+
+
+
+
+class OrderDescendant extends StatefulWidget {
+  _OrderDescendant createState() => _OrderDescendant();
+}
+
+class _OrderDescendant extends State<OrderDescendant> {
+
+  @override
+  Widget build(BuildContext context) {
+    print('\n\n order page check     ...... ');
+    return Scaffold(
+        drawer: DrawerExpress(),
+
+        appBar: AppBar(
+          title: Text('Orders'),
+          backgroundColor: Color(0xff429585),
+          ),
+        body: OrderTiles()
+
+        );
+  }
+}
+
 
 
 
@@ -337,15 +239,19 @@ class _OrderTiles extends State<OrderTiles> {
   String _selectedOrderStatus;
   String _selectedCreditStatus;
 
+  String selectedDate = '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}';
 
   @override
   Widget build(BuildContext context) {
 
+
+
+
+
     return ScopedModelDescendant<NewAppStateModel> (
 
         builder: (context, child, model) {
-
-
+          print("\n\n selectedDate = $selectedDate");
           return Stack(children: <Widget>[
             Container(
               color: Colors.white,
@@ -389,30 +295,35 @@ class _OrderTiles extends State<OrderTiles> {
                                 Icon(Icons.calendar_today,
                                        size:16,
                                      ),
-                                Text("  ${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}"),
+                                Text(selectedDate),
 
                               ],
                               ),
-                            onPressed: () {
-                              DatePicker.showDatePicker(context,
-                                                            theme: DatePickerTheme(
-                                                              containerHeight: 210.0,
-                                                              ),
-                                                            showTitleActions: true,
-                                                            minTime: DateTime(2000, 1, 1),
-                                                            maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
-                                    print('confirm $date');
-                                    _date = '${date.year}-${date.month}-${date.day}';
+                            onPressed: () async {
+
+                              DateTime selectDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2018),
+                                lastDate: DateTime(2030),
+                                builder: (BuildContext context, Widget child) {
+                                  return Theme(
+                                    data: ThemeData.light(),
+                                    child: child,
+                                    );
+                                },
+                                );
+
+                              setState(() {
+                                selectedDate = '${selectDate.year}-${selectDate.month}-${selectDate.day}';
+                              });
 
 
-                                    print("Date = $_date");
-                                    model.filterOrders(model.finalSearchStringForFilter,
-                                                           _date, model.finalPaymentMethodForFilter,
-                                                           model.finalStatusForFilter, model.finalCreditForFilter);
+                              print("\n\n selectedDate = $selectedDate");
 
-
-                                    setState(() {});
-                                  }, locale: LocaleType.en);
+                              model.filterOrders(model.finalSearchStringForFilter,
+                                                     selectedDate, model.finalPaymentMethodForFilter,
+                                                     model.finalStatusForFilter, model.finalCreditForFilter);
 
                             },
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(19.0))
@@ -473,7 +384,7 @@ class _OrderTiles extends State<OrderTiles> {
                                 onChanged: (newValue) {
                                   model.filterOrders(model.finalSearchStringForFilter,
                                                          model.finalDateForFilter, model.finalPaymentMethodForFilter,
-                                                         model.finalStatusForFilter, (newValue=='credit') ? true : false);
+                                                         model.finalStatusForFilter, (newValue=='Credit') ? true : false);
                                   setState(() {
                                     _selectedCreditStatus = newValue;
                                   });
@@ -490,7 +401,7 @@ class _OrderTiles extends State<OrderTiles> {
                             child: Padding(
                               padding: EdgeInsets.all(10),
                               child: DropdownButton<String>(
-                                items: <String>["Completed", "Refunded", "Partially Refunded"].map((String value) {
+                                items: <String>["Completed", "Refunded", "Partially Refunded", 'all'].map((String value) {
                                   //print("\n\n value dropdown = $value");
                                   return new DropdownMenuItem<String>(
                                     value: value,
@@ -830,7 +741,16 @@ class _OrderScreen2 extends State<OrderScreen2> {
 
 
                       Icon(Icons.account_circle),
-                      (model.selectedCustomer.containsKey('id')) ? Text('Customer: ${model.selectedCustomer['name']} (${model.selectedCustomer['phone_number']})') : Text("Customer Not Selected !"),
+                      (model.selectedCustomer.containsKey('id'))
+                          ?
+                          InkWell(
+                            child: Text('Customer: ${model.selectedCustomer['name']} (${model.selectedCustomer['phone_number']})'),
+                            onTap: (){
+                              model.setCustomerPageState(true, false);
+                              Navigator.popAndPushNamed(context, '/customers');
+                            },
+                          )
+                          : Text("Customer Not Selected !"),
                       Text('Order Time: ${model.finalSelectedOrder['created_at']}'),
                       Text('Invoice Number: ${model.finalSelectedOrder['invoice']}'),
                     ],
@@ -1088,10 +1008,18 @@ class _OrderScreen3 extends State<OrderScreen3> {
                         Text('Order : ${model.finalSelectedOrder['${DatabaseHelper.invoice}']}'),
                       ],),
                       Divider(color: Colors.black12, thickness: 1, height: 10,),
-                      (model.selectedCustomer.containsKey('id')) ? Row(children: <Widget>[
-                        Icon(Icons.account_circle),
-                        Text('Customer: ${model.selectedCustomer[DatabaseHelper.name]} (${model.selectedCustomer[DatabaseHelper.phone_number]})'),
-                      ],) : SizedBox(),
+                      (model.selectedCustomer.containsKey('id')) ?
+                          InkWell(
+                            child: Row(children: <Widget>[
+                              Icon(Icons.account_circle),
+                              Text('Customer: ${model.selectedCustomer[DatabaseHelper.name]} (${model.selectedCustomer[DatabaseHelper.phone_number]})'),
+                            ],),
+                            onTap: (){
+                              model.setCustomerPageState(true, true);
+                              Navigator.popAndPushNamed(context, '/customers');
+                            },
+                          )
+                          : Text('Customer Not Available'),
 
                       Text('Order Time : ${model.finalSelectedOrder[DatabaseHelper.created_at]}'),
                       Text('Invoice Number : ${model.finalSelectedOrder['${DatabaseHelper.invoice}']}'),
@@ -1207,7 +1135,8 @@ class _OrderScreen3 extends State<OrderScreen3> {
                               RaisedButton(
                                   child: Text('ADD CREDIT'),
                                   onPressed: () async {
-                                    await model.submitRefundDetailsToDb('credit', '0');
+                                    await model.submitRefundDetailsToDb('0', 'credit');
+                                    await model.refundListSelectedOrder(model.tempSelectedOrder['invoice']);
                                     await model.orderPageState(true, false);
 
                                   },
@@ -1316,7 +1245,8 @@ class _OrderScreen3 extends State<OrderScreen3> {
                                 child: Text('REFUND '),
                                 onPressed: () async {
                                   await model.submitRefundDetailsToDb(amountPaidController.text, model.orderPagePayment);
-                                  model.orderPageState(true, true);
+                                  await model.refundListSelectedOrder(model.tempSelectedOrder['invoice']);
+                                  await model.orderPageState(true, false);
                                 },
                                 ),
                               )
@@ -1626,3 +1556,14 @@ class _OrderRowEditable extends State<OrderRowEditable> {
         });
   }
 }
+
+
+
+
+
+
+
+
+
+
+

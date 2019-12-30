@@ -1880,22 +1880,14 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                         onChanged: (text){
                           print("\n\n Entered into on change MRP\n\n");
                           if (!hasMrpOnChangeAnalysisDone) {
-                            print("\n\n mrpController after hasMrpOnChangeAnalysisDone = ${spController.hashCode} :::: spController = ${spController.value}");
                             hasMrpOnChangeAnalysisDone = true;
-
                             Future.delayed(const Duration(milliseconds: 45), () async{
                               //Future.delayed(const Duration(milliseconds: 70), (){
-
-                              print("\n\n flagToCheckBarcodeState after 1 ms = ${model.flagToCheckBarcodeState}\n\n");
 //                              print("\n\n oldSpValue = ${oldSpValue}\n\n");
                               if (model.flagToCheckBarcodeState) {
-                                mrpController.text = product['sp'].toString();
-                                print("\n\n mrpController inside if = ${mrpController.hashCode} :::: mrpController = ${mrpController.value}");
-                                print("\n\n\nChecking product in widget = $product\n\n\n");
+                                mrpController.text = product['mrp'].toString();
                               }
                               else {
-                                print("\n\n mrpController inside else = ${mrpController.hashCode} :::: mrpController = ${mrpController.value}");
-                                print("\n\n\nChecking product in widget = $product\n\n\n");
                                 await model.changeProductValue(text, product, 'mrp');
                               }
 //                              print("\n\n spController = ${spController.value}\n\n");
@@ -1923,22 +1915,15 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
 
                           print("\n\n Entered into on change SP\n\n");
                           if (!hasSpOnChangeAnalysisDone) {
-                            print("\n\n spController after hasSpOnChangeAnalysisDone = ${spController.hashCode} :::: spController = ${spController.value}");
                             hasSpOnChangeAnalysisDone = true;
-
                             Future.delayed(const Duration(milliseconds: 45), () async{
                               //Future.delayed(const Duration(milliseconds: 70), (){
 
-                              print("\n\n flagToCheckBarcodeState after 1 ms = ${model.flagToCheckBarcodeState}\n\n");
 //                              print("\n\n oldSpValue = ${oldSpValue}\n\n");
                               if (model.flagToCheckBarcodeState) {
                                 spController.text = product['sp'].toString();
-                                print("\n\n spController inside if = ${spController.hashCode} :::: spController = ${spController.value}");
-                                print("\n\n\nChecking product in widget = $product\n\n\n");
                               }
                               else {
-                                print("\n\n spController inside else = ${spController.hashCode} :::: spController = ${spController.value}");
-                                print("\n\n\nChecking product in widget = $product\n\n\n");
                                 await model.changeProductValue(text, product, 'sp');
                                 await model.calculateCartTotalValue(model.Discount.toString());
                               }
@@ -1974,31 +1959,26 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
                                     decimal: true,
                                     signed: false,
                                     ),
-                                  onChanged: (text){print("\n\n Entered into on change Quantity\n\n");
-                                  if (!hasQuantityOnChangeAnalysisDone) {
-                                    print("\n\n quantityController after hasMrpOnChangeAnalysisDone = ${spController.hashCode} :::: quantityController = ${quantityController.value}");
-                                    hasQuantityOnChangeAnalysisDone = true;
+                                  onChanged: (text){
+                                    print("\n\n Entered into on change Quantity\n\n");
+                                    if (!hasQuantityOnChangeAnalysisDone) {
+                                      hasQuantityOnChangeAnalysisDone = true;
 
-                                    Future.delayed(const Duration(milliseconds: 45), () async{
-                                      //Future.delayed(const Duration(milliseconds: 70), (){
+                                      Future.delayed(const Duration(milliseconds: 45), () async{
+                                        //Future.delayed(const Duration(milliseconds: 70), (){
 
-                                      print("\n\n flagToCheckBarcodeState after 1 ms = ${model.flagToCheckBarcodeState}\n\n");
 //                              print("\n\n oldSpValue = ${oldSpValue}\n\n");
-                                      if (model.flagToCheckBarcodeState) {
-                                        quantityController.text = product['sp'].toString();
-                                        print("\n\n quantityController inside if = ${quantityController.hashCode} :::: quantityController = ${quantityController.value}");
-                                        print("\n\n\nChecking product in widget = $product\n\n\n");
-                                      }
-                                      else {
-                                        print("\n\n mrpController inside else = ${quantityController.hashCode} :::: mrpController = ${quantityController.value}");
-                                        print("\n\n\nChecking product in widget = $product\n\n\n");
-                                        await model.changeProductValue(text, product, 'quantity');
-                                        await model.calculateCartTotalValue(model.Discount.toString());
-                                      }
+                                        if (model.flagToCheckBarcodeState) {
+                                          quantityController.text = product['quantity'].toString();
+                                        }
+                                        else {
+                                          await model.changeProductValue(text, product, 'quantity');
+                                          await model.calculateCartTotalValue(model.Discount.toString());
+                                        }
 //                              print("\n\n spController = ${spController.value}\n\n");
-                                      hasQuantityOnChangeAnalysisDone = false;
-                                    });
-                                  }
+                                        hasQuantityOnChangeAnalysisDone = false;
+                                      });
+                                    }
 
                                   },
                                   decoration: InputDecoration(

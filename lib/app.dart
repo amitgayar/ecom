@@ -1,4 +1,3 @@
-import 'package:express_store/AppScreens/customer_plus_order.dart';
 import 'package:flutter/material.dart';
 import 'testBarcodeScanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +9,7 @@ import 'services/syncData.dart';
 import 'AppScreens/customer.dart';
 import 'AppScreens/orders.dart';
 import 'AppScreens/requestStocks.dart';
+import 'AppScreens/customer_plus_order.dart';
 
 class DefaultWidget {
   final Widget defaultWidget;
@@ -34,6 +34,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
   var _connectionStatus = 'Unknown';
   Connectivity connectivity;
   StreamSubscription<ConnectivityResult> subscription;
+  String initialRouteValue = "";
 
   @override
   void initState() {
@@ -62,7 +63,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
           }
         });
 
-
+    setInitialRoute();
 
     _controller = AnimationController(
       vsync: this,
@@ -84,22 +85,32 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
   AnimationController _controller;
 
 
+  setInitialRoute() async {
+    SharedPreferences cronFrequency = await SharedPreferences.getInstance();
+    if (cronFrequency.getString("authentication_token") != null){
+      print("\n\nauthentication_token in app.dart = ${cronFrequency.getString("authentication_token")}");
+      initialRouteValue = '/';
+    }
+    else {
+      print("\n\nauthentication_token in app.dart = ${cronFrequency.getString("authentication_token")}");
+      initialRouteValue = '/login';
+    }
+  }
 
 
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       title: 'ExpStore',
-//      navigatorKey: navigatorKey,
-      initialRoute: '/login',
+      navigatorKey: navigatorKey,
+      initialRoute: initialRouteValue,
 //      onGenerateRoute: _getRoute,
       routes: {
         '/login': (context) => LoginPage(),
         '/': (context) => HomePage(),
         '/cart': (context) => new Container(),
-        '/customers' : (context) => new CustomerPlusOrder(page:'Customers'),
+        '/customers' : (context) => new CustomerPlusOrder(page:'customers'),
         '/customers/screen2' : (context) => new CustomerScreen2(),
 //        '/customers/screen3' : (context) => new CustomerScreen3(),
 //        '/addCustomer': (context) => AddCustomer(),

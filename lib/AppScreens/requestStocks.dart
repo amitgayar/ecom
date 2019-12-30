@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import '../model/queryForUI.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:express_store/Databases/Database.dart';
+import 'drawer_express_store.dart';
 
 
 NewAppStateModel requestStocksModel = new NewAppStateModel();
@@ -46,104 +47,7 @@ class RequestStocksMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-          child: ListView(
-
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Container(
-//                color: Color(0xff429585),
-child: Column(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: <Widget>[
-    Expanded(
-      child: Container(
-        child: Image.asset('assets/images/logo.png',
-                             width: 120.0,
-                             height: 90.0,
-                             fit: BoxFit.fitWidth,
-                             color: Colors.black87,
-                           ),
-        ),
-      flex: 2,),
-    Expanded(
-      child: Icon(Icons.account_circle,
-                    size:30,
-                  ),
-      flex: 1,),
-    Expanded(
-      child: Text('Store Name\n(9876567800)',
-                    style: TextStyle(color: Colors.black,
-                                     //                                                  fontSize: 22.0
-                                     ),
-                  ),
-      flex: 1,
-      )
-  ],
-  ),
-  alignment: Alignment.center,
-),
-                decoration: BoxDecoration(
-                  color: Color(0xff429585),
-                  ),
-                ),
-              ListTile(
-                title : Text('HOME'),
-                leading: Icon(Icons.add_shopping_cart),
-                onTap: (
-                    ){
-                  Navigator.pushNamed(context, '/');
-                },
-                ),
-              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-              ListTile(
-                title : Text('ORDERS'),
-                leading: Icon(Icons.shopping_basket),
-                onTap: (){
-
-                  Navigator.pushNamed(context, '/orders');
-                },
-                ),
-              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-              ListTile(
-                title : Text('CUSTOMERS'),
-                leading: Icon(Icons.account_box),
-                onTap: (){
-                  Navigator.pushNamed(context, '/customers');
-                },
-                ),
-              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-              ListTile(
-                title : Text('REQUEST STOCKS'),
-                leading: Icon(Icons.near_me),
-                onTap: (){
-                  Navigator.pushNamed(context, '/requestStocks');
-                },
-                ),
-              Divider(color:Color(0xff429585) , thickness: 2, height: 20,),
-              Container(
-                height: 225,
-
-                ),
-              Divider(color:Color(0xff429585) , thickness: 2, height: 10,),
-              Container(
-                alignment: Alignment.topCenter,
-                height: 240,
-//              color: Color(0xff429585),
-                child: ListTile(
-                  title : Text('LogOut'),
-
-                  leading: Icon(Icons.power_settings_new),
-                  onTap: (){
-//                  getSyncAPI();
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  ),
-                ),
-            ],
-            ),
-          ),
+        drawer: DrawerExpress(),
 
         appBar: AppBar(
           title: Text('Request Stocks'),
@@ -318,6 +222,9 @@ class _RequestStocksDescendant extends State<RequestStocksDescendant> {
 
   List<Container> buildFirstScreenTiles(BuildContext context, List<Map> requestList, String type, NewAppStateModel model) {
     return List.generate(requestList.length, (index){
+      print(requestList[index]);
+      double amount  = (requestList[index]['${DatabaseHelper.total_amount}'].toString() == 'null') ? 0.0
+          : double.parse(requestList[index]['${DatabaseHelper.total_amount}'].toString());
       return Container(
         child: ListTile(
           onTap: () async {
@@ -367,7 +274,7 @@ class _RequestStocksDescendant extends State<RequestStocksDescendant> {
                     ),
                   Spacer(),
                   Expanded(
-                    child: Text('Total Amount : ${formatter.format(requestList[index]['${DatabaseHelper.total_amount}'])}'),
+                    child: Text('Total Amount : ${formatter.format(amount)}'),
                     flex: 2,
                     )
 
@@ -819,8 +726,8 @@ class _RequestStocksDescendant extends State<RequestStocksDescendant> {
 
                             ),
                         Container(
-                          child: shoppingCartRowSection
-                          ),
+                            child: shoppingCartRowSection
+                            ),
                       ],
                       ),
                     Align(
@@ -830,7 +737,8 @@ class _RequestStocksDescendant extends State<RequestStocksDescendant> {
                         child:  RaisedButton(
                           color: Colors.greenAccent,
                           child: Text('Request Stocks'),
-                          onPressed: (){
+                          onPressed: () async {
+                            await model.saveStockRequestToDatabase();
                             setState(() {
                               requestSent = true;
                             });
@@ -908,7 +816,8 @@ class _RequestStocksDescendant extends State<RequestStocksDescendant> {
                                     onPressed: () async {
                                       await model.cancelStockRequest(model.finalSelectedStock['id']);
                                       setState(() {
-                                        requestSent = false;
+                                        requestSent = true;
+                                        acceptStocks = false;
                                         requestNewStocks = false;
                                       });
                                     },
@@ -1142,7 +1051,7 @@ class _NewShoppingCartRow extends State<NewShoppingCartRow> {
 
           TextEditingController quantityController = TextEditingController(text: '${quantity.toString()}');
           final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
-         bool hasQuantityOnChangeAnalysisDone = false;
+          bool hasQuantityOnChangeAnalysisDone = false;
 
 
           return Container(
@@ -2109,7 +2018,7 @@ class ProductCard extends StatelessWidget {
             final discount = (model.Discount == null) ? 0.0 : model.Discount;
 //          addProductToCart(model, product);
             model.addEditableProductToCart(product);
-            model.calculateCartTotalValue(discount.toString());
+//            model.calculateCartTotalValue(discount.toString());
 
 
             Fluttertoast.showToast(
@@ -2529,7 +2438,9 @@ class StockRowSentPage extends StatelessWidget {
 
                     Expanded(
                       flex: 3,
-                      child: Text(product['delivered_qty'].toString(),
+                      child: Text((model.tempSelectedStock[DatabaseHelper.status] == 'delivered') ? product['delivered_qty'].toString() :
+                                  (model.tempSelectedStock[DatabaseHelper.status] == 'accepted') ? product['${DatabaseHelper.accepted_qty}'].toString() :
+                                  product['${DatabaseHelper.requested_qty}'].toString(),
                                     textAlign: TextAlign.end,),
                       ),
 

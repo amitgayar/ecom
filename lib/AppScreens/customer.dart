@@ -167,12 +167,11 @@ class SelectCustomer extends StatefulWidget {
 
 class _SelectCustomer extends State<SelectCustomer> {
 
-  String selectedType = 'customer';
+  String selectedType = 'customers';
   String selectedHistory = 'credit';
   String selectedCustomer = '';
   int selectedCustomerID = 0 ;
-  bool isCustomerSelected = false;
-  bool payButtonClicked = false;
+
   bool successMessage = false;
 
   String paymentMode  = '';
@@ -198,7 +197,7 @@ class _SelectCustomer extends State<SelectCustomer> {
 
         builder: (context, child, model) {
 
-          model.queryCustomerInDatabase('all', "");
+//          model.queryCustomerInDatabase('all', "");
           final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
           List<Container> _buildCustomerTiles(BuildContext context) {
@@ -206,10 +205,10 @@ class _SelectCustomer extends State<SelectCustomer> {
             List<Map> customerList = model.tempCustomersInDatabaseToDisplay;
 
             if (customerList == null || customerList.isEmpty) {
-              print('build tiles : $customerList');
+//              print('build tiles : $customerList');
               return const <Container>[];
             }
-            print('build tiles : ' + customerList.toString());
+            print('\n\n_buildCustomerTiles : ' + customerList.toString());
             return List.generate(customerList.length, (index) {
               double credit = (double.parse(customerList[index]['credit_balance'].toString()) >= 0)
                   ? double.parse(customerList[index]['credit_balance'].toString()) : -1*double.parse(customerList[index]['credit_balance'].toString());
@@ -226,18 +225,7 @@ class _SelectCustomer extends State<SelectCustomer> {
 //                  : new Container(),
                   onTap: ()  async {
                     await model.selectCustomerById(int.parse(customerList[index]['id'].toString()), "customer_section");
-                    setState(() {
-
-//                     int id = int.parse(customerList[index]['id'].toString());
-//                     await model.selectCustomer(id, "cart");
-//                     var selectedCustomer = await model.selectedCustomer;
-//                     pageState(customer: 'amit');
-//                    Navigator.pushNamed(context, '/customers/screen2');
-                      isCustomerSelected = true;
-
-                    });
-
-
+                    await model.setCustomerPageState(true, false);
                   },
                   ),
                 );
@@ -482,356 +470,8 @@ child: FlatButton(
         ),
       )
 ),
-              isCustomerSelected?
-              Container(
-                  alignment: Alignment.center,
-                  height: 5000,
-                  width: 5000,
-                  color: Colors.white,
-                  child: ListView(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.arrow_back),
-                            onPressed: (){
-                              setState(() {
-                              isCustomerSelected = false;
-//                            Navigator.pop(context);
-//                                widget.screenFlag = false;
-                              });
-                            },
-                            ),
-                          Text('Customer Name: ${model.selectedCustomer['name']}'),
-                        ],
-                        ),
-                      Divider(thickness: 2,color: Colors.blueGrey,),
-                      Row(
-                        children: <Widget>[
-                          Text('Phone Number: '),
-                          Spacer(),
-                          Text('${model.selectedCustomer['phone_number']}'),
-
-                        ],
-                        ),
-                      Row(children: <Widget>[
-                        Text('Pending Credits: Rs. ${model.selectedCustomer['credit_balance']}'),
-                        Spacer(),
-                        RaisedButton(
-                          child: Text('PAY'),
-                          color: Colors.green,
-                          onPressed: (){
-                            model.calculateCredit('0.0');
-                            setState(() {
-                              payButtonClicked = true;
-                              _paidAmountController.text = '0.0';
-                              paymentMode = "";
-
-                            });
-                          },
-                          )
-
-                      ],
-                          ),
-                      Divider(thickness: 1, height: 5,color: Colors.blueGrey,),
-                      Row(
-                        children: <Widget>[
-                          Text('Total Spent: Rs. ${model.selectedCustomer['total_spent']}'),
-                          Spacer(),
-                          Text('Avg Spent : Rs. ${model.selectedCustomer['average_spent']}'),
-
-                        ],
-                        ),
-                      Row(
-                        children: <Widget>[
-                          Text('Total Discount : Rs. ${model.selectedCustomer['total_discount']}'),
-                          Spacer(),
-                          Text('Discount/Order : Rs. ${model.selectedCustomer['avg_discount_perorder']}'),
-
-                        ],
-                        ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-//                  color: Color(0xff429585),
-child: FlatButton(
-    child: Text('Credit History'),
-    color: selectedHistory == 'credit'
-        ?
-    Colors.greenAccent
-        :
-    Colors.white,
-    onPressed:() async{
-
-      await model.getOrdersFromDatabase(int.parse(model.selectedCustomer['id']), "customer_credit_history");
-      setState(() {
-        selectedHistory = 'credit';
-      });
-
-    }
-    ),
-),
-                            flex: 1,
-                            ),
-                          Expanded(
-                            child: FlatButton(
-                                child: Text('Order History'),
-                                color: selectedHistory == 'order'
-                                    ?
-                                Colors.greenAccent
-                                    :
-                                Colors.white,
-                                onPressed:() async{
-                                  await model.getOrdersFromDatabase(int.parse(model.selectedCustomer['id']), "all_orders_of_customer");
-                                  setState(() {
-                                    selectedHistory = 'order';
-                                  });
-
-                                }
-                                ),
-                            flex: 1,
-                            ),
-                        ],
-                        ),
-                      Row(
-                        children: <Widget>[
-                          selectedHistory == 'credit'?
-                          Text('Total Orders On Credit: ${model.finalOrdersToDisplay.length}'):
-                          Text('Totol Orders: ${model.finalOrdersToDisplay.length}'),
-
-                        ],
-                        ),
-                      Divider(thickness: 2, color: Colors.blueGrey, height: 10,),
-                      Column(
-                        children: _buildOrderTiles(context, model.finalOrdersToDisplay),
-
-                        )
-                    ],
-                    )
-
-                  ):
-              new Container(),//Selected Customer data
-
-              payButtonClicked?
-              Container(
-                  alignment: Alignment.center,
-                  height: 5000,
-                  width: 5000,
-                  color: Colors.white,
-                  child: ListView(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.arrow_back),
-                            onPressed: (){
-                              setState(() {
-                                payButtonClicked = false;
-                              });
-                            },
-                            ),
-                          Text('Customer Name: ${model.selectedCustomer['name']}'),
-                        ],
-                        ),
-                      Divider(thickness: 2,color: Colors.blueGrey,),
-                      Row(
-                        children: <Widget>[
-                          Text('Phone Number: '),
-                          Spacer(),
-                          Text('${model.selectedCustomer['phone_number']}'),
-
-                        ],
-                        ),
-                      Row(children: <Widget>[
-                        Text('Pending Credits: Rs. ${model.selectedCustomer['credit_balance']}'),
-
-
-                      ],
-                          ),
-                      Divider(thickness: 1, height: 5,color: Colors.blueGrey,),
-                      Row(
-                        children: <Widget>[
-                          Expanded (
-                            child: Text('Paid Amount:'),
-                            flex: 2,
-                            ),
-                          Expanded (
-                            child: Container(
-                              child: TextField(
-                                controller: _paidAmountController,
-//
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                  signed: false,
-                                  ),
-                                onChanged: (text) {
-                                  model.calculateCredit(text);
-                                },
-                                ),
-                              width: 60,
-                              ),
-                            flex: 2,
-                            )
-
-                        ],
-                        ),
-                      Row(
-                        children: <Widget>[
-                          Text('Payment Mode'),
-                        ],
-                        ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: RaisedButton(
-                              color: paymentMode == 'PAYTM'? Color(0xff81c784) : Colors.white70,
-                              child: Text('PAYTM'),
-                              onPressed: (){
-                                setState(() {
-                                  paymentMode = 'PAYTM';
-                                });
-                              },// Need a payment mode in a variable to call a function
-                              ),
-                            flex: 1,
-                            ),
-                          Container(
-                            width: 50,
-                            ),
-                          Expanded(
-                            child: RaisedButton(
-                              color: paymentMode == 'CASH'? Color(0xff81c784) : Colors.white70,
-                              child: Text('CASH'), // Need a payment mode in a variable to call a function
-                              onPressed: (){
-                                setState(() {
-                                  paymentMode = 'CASH';
-                                });
-                              },),
-                            flex: 1,
-                            ),
-
-
-
-                        ],
-                        ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: RaisedButton(
-                              color: paymentMode == 'BHIM UPI'? Color(0xff81c784) : Colors.white70,
-                              child: Text('BHIM UPI'), // Need a payment mode in a variable to call a function
-                              onPressed: (){
-                                setState(() {
-                                  paymentMode = 'BHIM UPI';
-                                });
-                              },
-                              ),
-                            flex: 1,
-                            ),
-                          Container(
-                            width: 50,
-                            ),
-                          Expanded(
-                            child: RaisedButton(
-                              color: paymentMode == 'OTHER'? Color(0xff81c784) : Colors.white70,
-                              child: Text('OTHER'), // Need a payment mode in a variable to call a function
-                              onPressed: (){
-                                setState(() {
-                                  paymentMode = 'OTHER';
-                                });
-                              },
-                              ),
-                            flex: 1,
-                            ),
-
-
-                        ],
-                        ),
-                      Row(
-                        children: <Widget>[
-
-                          Text('Remaining Credits : ${model.finalRemainingCredit}'), // I will update this after getting above data
-
-                        ],
-                        ),
-                      RaisedButton(
-                        child: Text('Pay Credits'),
-                        onPressed: () async {
-                          if (paymentMode != ''){
-                            setState(() {
-                              payButtonClicked = false;
-                              successMessage = true;
-                            });
-                            await model.calculateCredit(_paidAmountController.text);
-                            await model.updateCustomerDatabase(paymentMode.toLowerCase());
-                          }
-                          else{
-                            Fluttertoast.showToast(
-                                msg: "!!  Select any Payment Mode",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIos: 1,
-                                backgroundColor: Colors.black87,
-                                textColor: Colors.white,
-                                fontSize: 16.0
-                                );
-                          }
-
-
-                        },
-                        )
-                    ],
-                    )
-
-                  )
-                  :
-
-              successMessage?
-              Align(
-                child: Stack(
-                  children: <Widget>[
-                    Opacity(
-                        opacity: .8,
-                        child: InkWell(
-                          onTap: (){
-                            setState(() {
-
-                              paymentMode = '';
-                              payButtonClicked = false;
-                              successMessage = false;
-                            });
-                          },
-                          child: Container(
-                            height: 5000,
-                            width: 3000,
-                            color: Colors.black,
-                            ),
-                          )
-                        ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Card(
-                        child: Container(
-                          alignment: Alignment.bottomCenter,
-                          padding: EdgeInsets.all(15),
-                          height: 170,
-                          width: 1000,
-                          child: Column(children: <Widget>[
-                            Icon(Icons.attach_money),
-                            Spacer(),
-                            Text('Successfully Deducted Rs ${model.finalAmountPaid} from Credit !'),
-                            Spacer(),
-                            Text('Remaining Credit : Rs. ${model.finalRemainingCredit}',
-                                   style: TextStyle(color: Colors.red),)
-                          ],),
-                          ),
-                        ),
-
-                      )
-                  ],
-                  ),
-                alignment: Alignment.center,
-                )
+              model.customerSecondScreen?
+              CustomerScreen2()
                   :
               new Container()
             ],
@@ -846,8 +486,7 @@ child: FlatButton(
 }
 
 class CustomerScreen2 extends StatefulWidget{
-  CustomerScreen2({this.screenFlag});
-  bool screenFlag;
+
   _CustomerScreen2 createState() => _CustomerScreen2();
 }
 
@@ -857,8 +496,6 @@ class _CustomerScreen2 extends State<CustomerScreen2>{
   String selectedHistory = 'credit';
   String selectedCustomer = '';
   int selectedCustomerID = 0 ;
-  bool isCustomerSelected = false;
-  bool payButtonClicked = false;
   bool successMessage = false;
 
   String paymentMode  = '';
@@ -1009,6 +646,8 @@ class _CustomerScreen2 extends State<CustomerScreen2>{
               onTap: () async {
 
                 model.selectOrder(orderList[index]['id']);
+                Navigator.popAndPushNamed(context, '/orders');
+
 //            model.setSelectCustomerForCartFlag(false);
               },
               ),
@@ -1016,7 +655,7 @@ class _CustomerScreen2 extends State<CustomerScreen2>{
         }).toList() ;
       }
 
-      return widget.screenFlag?
+      return
 
       Stack(
         children: <Widget>[
@@ -1032,10 +671,10 @@ class _CustomerScreen2 extends State<CustomerScreen2>{
                       IconButton(
                         icon: Icon(Icons.arrow_back),
                         onPressed: (){
+                          model.setCustomerPageState(false, false);
                           setState(() {
 //                              isCustomerSelected = false;
-//                            Navigator.pop(context);
-                          widget.screenFlag = false;
+
                           });
                         },
                         ),
@@ -1059,8 +698,8 @@ class _CustomerScreen2 extends State<CustomerScreen2>{
                       color: Colors.green,
                       onPressed: (){
                         model.calculateCredit('0.0');
+                        model.setCustomerPageState(true, true);
                         setState(() {
-                          payButtonClicked = true;
                           _paidAmountController.text = '0.0';
                           paymentMode = "";
 
@@ -1149,7 +788,7 @@ child: FlatButton(
 
               ), //Selected Customer data
 
-          payButtonClicked?
+          model.customerThirdScreen?
           Container(
               alignment: Alignment.center,
               height: 5000,
@@ -1162,9 +801,8 @@ child: FlatButton(
                       IconButton(
                         icon: Icon(Icons.arrow_back),
                         onPressed: (){
-                          setState(() {
-                            payButtonClicked = false;
-                          });
+                          model.setCustomerPageState(true, false);
+
                         },
                         ),
                       Text('Customer Name: ${model.selectedCustomer['name']}'),
@@ -1294,8 +932,9 @@ child: FlatButton(
                     child: Text('Pay Credits'),
                     onPressed: () async {
                       if (paymentMode != ''){
+                        model.setCustomerPageState(true, true);
+                        Navigator.popAndPushNamed(context, '/orders');
                         setState(() {
-                          payButtonClicked = false;
                           successMessage = true;
                         });
                         await model.calculateCredit(_paidAmountController.text);
@@ -1330,12 +969,14 @@ child: FlatButton(
                     opacity: .8,
                     child: InkWell(
                       onTap: (){
+
                         setState(() {
 
                           paymentMode = '';
-                          payButtonClicked = false;
+
                           successMessage = false;
                         });
+                        model.setCustomerPageState(true, false);
                       },
                       child: Container(
                         height: 5000,
@@ -1371,9 +1012,8 @@ child: FlatButton(
               :
           new Container(),
         ],
-        )
-          :
-          new Container();
+        );
+
     }
     )
       );
