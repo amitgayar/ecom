@@ -642,16 +642,18 @@ class NewAppStateModel extends Model {
         print("\n\n Updated product inventory : $p");
       }
     }
-    );
-
-//    List<Map<String, dynamic>> allCategories = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null'");
-//    print(allCategories);
+                                );
 
     if (storeProductsInCart.length > 0) {
       print("storeProductsInCart = ${storeProductsInCart}");
       List<products> productsListParsedFromCart = storeProductsInCart.map((i) => products.fromJson(i)).toList();
       insert_products(productsListParsedFromCart);
     }
+
+//    List<Map<String, dynamic>> allCategories = await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.productCategoriesTable} WHERE ${DatabaseHelper.parent_id} = 'null'");
+//    print(allCategories);
+
+
 
 //    List<Map<String, dynamic>> allOrders = await dbHelper.queryAllRows(DatabaseHelper.ordersTable);
 //    List<Map<String, dynamic>> allItems = await dbHelper.queryAllRows(DatabaseHelper.orderProductsTable);
@@ -825,7 +827,7 @@ class NewAppStateModel extends Model {
     String query = "SELECT * FROM ${DatabaseHelper.productCategoriesTable} ORDER BY "
         "${DatabaseHelper.name}";
     retrievedCategories = await dbHelper.raw_query(query);
-    print("\n\nretrievedStocks = $retrievedCategories");
+    print("\n\nretrievedCategories = $retrievedCategories");
 
     retrievedCategories.forEach((item) {
       if (!tempListOfCategories.contains(item)){
@@ -847,7 +849,7 @@ class NewAppStateModel extends Model {
     String query = "SELECT ${DatabaseHelper.brand} FROM ${DatabaseHelper.productsTable} ORDER BY "
         "${DatabaseHelper.brand}";
     retrievedBrands = await dbHelper.raw_query(query);
-    print("\n\nretrievedStocks = $retrievedBrands");
+    print("\n\nretrievedBrands = $retrievedBrands");
 
 
     retrievedBrands.forEach((item) {
@@ -880,6 +882,12 @@ class NewAppStateModel extends Model {
   List<Map> tempGeneratedRequestStockItemsToDisplay = [];
   List<Map> get finalGeneratedRequestStockItemsToDisplay => tempGeneratedRequestStockItemsToDisplay;
 
+  Map tempSelectedStock = {};
+  Map get finalSelectedStock => tempSelectedStock;
+  double totalStockRequestAmount = 0.0;
+  double get finalTotalStockRequestAmount => totalStockRequestAmount;
+
+
   //Code to getStockRequestsFromDatabase in Database Starts
   getStockRequestsFromDatabase(String status /*"delivered" or "all"*/) async {
     print("\n\nEnter Into getStockRequestsFromDatabase");
@@ -887,15 +895,14 @@ class NewAppStateModel extends Model {
     tempRequestStocksToDisplay = [];
     List<Map> retrievedStocks = [];
     if (status == "delivered") {
-      String query = "SELECT * FROM ${DatabaseHelper.stockRequestsTable} WHERE ${DatabaseHelper.status} = '$status' "
-          "ORDER BY ${DatabaseHelper.updated_at} DESC";
+      String query = "SELECT * FROM ${DatabaseHelper.packageDispatch} ORDER BY ${DatabaseHelper.updated_at} DESC";
       retrievedStocks = await dbHelper.raw_query(query);
-      print("\n\nretrievedStocks = $retrievedStocks");
+      print("\n\nretrievedDeliveredStocks = $retrievedStocks");
     }
     else {
       String query = "SELECT * FROM ${DatabaseHelper.stockRequestsTable} ORDER BY ${DatabaseHelper.updated_at} DESC";
       retrievedStocks = await dbHelper.raw_query(query);
-      print("\n\nretrievedStocks = $retrievedStocks");
+      print("\n\nretrievedAllStocks = $retrievedStocks");
     }
 
     retrievedStocks.forEach((item) {
@@ -903,8 +910,12 @@ class NewAppStateModel extends Model {
       item.forEach((key, value) {
         stockTemp[key.toString()] = value;
       });
+      int index = tempRequestStocksToDisplay.indexWhere((p) => p['id'] == stockTemp['id']);
       print("\n\n orderTemp = $stockTemp");
-      tempRequestStocksToDisplay.add(stockTemp);
+      if (index < 0) {
+        tempRequestStocksToDisplay.add(stockTemp);
+      }
+
     });
 
     print("\n\ntempOrdersInDatabaseToDisplay = $tempRequestStocksToDisplay");
@@ -916,13 +927,40 @@ class NewAppStateModel extends Model {
   //Code to getStockRequestsFromDatabase in Database Ends
 
   //Code to getStockRequestItemsFromDatabase in Database Starts
-  getStockRequestItemsFromDatabase(int id) async {
+  getStockRequestItemsFromDatabase(int id, String tableName, Map selectedOrder) async {
     print("\n\nEnter Into getStockRequestItemsFromDatabase");
 
+    tempSelectedStock = selectedOrder;
     tempRequestStockItemsToDisplay = [];
     List<Map> retrievedStockItems = [];
-    String query = "SELECT * FROM ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.stock_request_id} = '$id' "
-        "ORDER BY ${DatabaseHelper.updated_at} DESC";
+
+    String query = '';
+
+    if (tableName == 'dispatch') {
+      query = "SELECT ${DatabaseHelper.stockRequestsProductsTable}.*, ${DatabaseHelper.productsTable}.${DatabaseHelper.name} as storeProductName"
+          ", ${DatabaseHelper.customProductsTable}.${DatabaseHelper.name} as customProductName"
+          " FROM ${DatabaseHelper.stockRequestsProductsTable} "
+          "LEFT OUTER JOIN ${DatabaseHelper.productsTable} ON "
+          "${DatabaseHelper.productsTable}.${DatabaseHelper.id} = ${DatabaseHelper.stockRequestsProductsTable}.${DatabaseHelper.product_id} "
+          "LEFT OUTER JOIN ${DatabaseHelper.customProductsTable} ON ${DatabaseHelper.customProductsTable}.${DatabaseHelper.id} = "
+          "${DatabaseHelper.stockRequestsProductsTable}.${DatabaseHelper.custom_product_id} "
+          "WHERE ${DatabaseHelper.stockRequestsProductsTable}.${DatabaseHelper.packageId} = '$id' "
+          "ORDER BY ${DatabaseHelper.updated_at} DESC";
+    }
+    else {
+      query = "SELECT ${DatabaseHelper.stockRequestsProductsTable}.*, ${DatabaseHelper.productsTable}.${DatabaseHelper.name} as storeProductName"
+          ", ${DatabaseHelper.customProductsTable}.${DatabaseHelper.name} as customProductName"
+          " FROM ${DatabaseHelper.stockRequestsProductsTable} "
+          "LEFT OUTER JOIN ${DatabaseHelper.productsTable} ON "
+          "${DatabaseHelper.productsTable}.${DatabaseHelper.id} = ${DatabaseHelper.stockRequestsProductsTable}.${DatabaseHelper.product_id} "
+          "LEFT OUTER JOIN ${DatabaseHelper.customProductsTable} ON ${DatabaseHelper.customProductsTable}.${DatabaseHelper.id} = "
+          "${DatabaseHelper.stockRequestsProductsTable}.${DatabaseHelper.custom_product_id} "
+          "WHERE ${DatabaseHelper.stockRequestsProductsTable}.${DatabaseHelper.stock_request_id} = '$id' "
+          "ORDER BY ${DatabaseHelper.updated_at} DESC";
+    }
+
+
+    print("\n\nquery= $query");
     retrievedStockItems = await dbHelper.raw_query(query);
     print("\n\nretrievedStockItems = $retrievedStockItems");
 
@@ -931,8 +969,19 @@ class NewAppStateModel extends Model {
       item.forEach((key, value) {
         stockItemTemp[key.toString()] = value;
       });
+      stockItemTemp['${DatabaseHelper.accepted_qty}'] = stockItemTemp['${DatabaseHelper.delivered_qty}'];
       print("\n\n stockItemTemp = $stockItemTemp");
-      tempRequestStockItemsToDisplay.add(stockItemTemp);
+      int index = tempRequestStockItemsToDisplay.indexWhere((p) => p['id'] == stockItemTemp['id']);
+      if (index < 0) {
+        tempRequestStockItemsToDisplay.add(stockItemTemp);
+      }
+    });
+
+    totalStockRequestAmount = 0.0;
+    tempRequestStockItemsToDisplay.forEach((item){
+      print("\n\ntotalStockRequestAmount = $totalStockRequestAmount :::: accepted_qty = ${item['${DatabaseHelper.accepted_qty}']}"
+                " :::: product_price = ${item['${DatabaseHelper.product_price}']}");
+      totalStockRequestAmount = totalStockRequestAmount + int.parse(item['${DatabaseHelper.accepted_qty}'].toString())*double.parse(item['${DatabaseHelper.product_price}'].toString());
     });
 
     print("\n\ntempRequestStockItemsToDisplay = $tempRequestStockItemsToDisplay");
@@ -1057,16 +1106,108 @@ class NewAppStateModel extends Model {
     notifyListeners();
 
   }
-
-
-  columnstable () async {
-    String queryRequest = "SELECT sql FROM sqlite_master "
-        "WHERE tbl_name = '${DatabaseHelper.OrderRefundItemsTable}' AND type = 'table'";
-//        "WHERE TABLE_NAME = '${DatabaseHelper.OrderRefundItemsTable}' ORDER BY ORDINAL_POSITION";
-    List<Map<String, dynamic>> OrderRefundItemsTable = await dbHelper.raw_query(queryRequest);
-    print("\n\ncolumns of OrderRefundItemsTable = $OrderRefundItemsTable");
-  }
   //Code to updateStockRequestToDatabase in Database Ends
+
+  //Code to cancelStockRequest in Database Starts
+  cancelStockRequest(int id) async {
+    print("\n\nEnter Into cancelStockRequest :::: id = id");
+
+    tempSelectedStock[DatabaseHelper.status] = 'canceled';
+//    String query = "UPDATE ${DatabaseHelper.stockRequestsTable} SET ${DatabaseHelper.status} = 'canceled', ${DatabaseHelper.updated_at} = "
+//        "'${new DateTime.now().toString()}' WHERE ${DatabaseHelper.id} = '$id'";
+    Map<String, dynamic> tempStockToUpdate = {};
+
+    tempSelectedStock.forEach((key, value) {
+      tempStockToUpdate['$key'] = value;
+    });
+
+    await dbHelper.update(DatabaseHelper.stockRequestsTable, tempStockToUpdate, DatabaseHelper.id, tempSelectedStock['id']);
+
+//    await dbHelper.raw_query(query);
+
+    String query2 = "SELECT * FROM ${DatabaseHelper.stockRequestsTable} WHERE ${DatabaseHelper.id} = '$id'";
+
+    List<Map> updatedItem = await dbHelper.raw_query(query2);
+    print("\n\n updatedItem = $updatedItem\n\n");
+
+    notifyListeners();
+
+  }
+  //Code to cancelStockRequest in Database Ends
+
+  //Code to acceptStockQuantitySetter in Database Starts
+  acceptStockQuantitySetter(int id, int updatedQuantity) async {
+    print("\n\nEnter Into cancelStockRequest :::: id = id");
+    int index = tempRequestStockItemsToDisplay.indexWhere((p) => p['id'].toString() == '$id');
+    tempRequestStockItemsToDisplay[index]['${DatabaseHelper.accepted_qty}'] = updatedQuantity;
+    print("\n\n tempRequestStockItemsToDisplay = ${tempRequestStockItemsToDisplay[index]}\n\n");
+
+    totalStockRequestAmount = 0.0;
+    tempRequestStockItemsToDisplay.forEach((item){
+      print("\n\ntotalStockRequestAmount = $totalStockRequestAmount :::: accepted_qty = ${item['${DatabaseHelper.accepted_qty}']}"
+                " :::: product_price = ${item['${DatabaseHelper.product_price}']}");
+      totalStockRequestAmount = totalStockRequestAmount + int.parse(item['${DatabaseHelper.accepted_qty}'].toString())*double.parse(item['${DatabaseHelper.product_price}'].toString());
+    });
+
+    notifyListeners();
+
+  }
+  //Code to acceptStockQuantitySetter in Database Ends
+
+  //Code to updateDatabaseOnAcceptStock in Database Starts
+  updateDatabaseOnAcceptStock() async {
+    print("\n\nEnter Into updateDatabaseOnAcceptStock");
+
+
+    int totalAcceptedQuantity = 0;
+    List<Map<String, dynamic>> RequestStockItemsToBeUpdate =[];
+    tempRequestStockItemsToDisplay.forEach((item) async {
+      Map<String, dynamic> tempStockToUpdate = {};
+      totalAcceptedQuantity = totalAcceptedQuantity + item['${DatabaseHelper.accepted_qty}'];
+      item.forEach((key, value) {
+        tempStockToUpdate['$key'] = value;
+      });
+    });
+
+    List<requestStockItems> stockRequestsProductsListParsedFromJson = RequestStockItemsToBeUpdate.map((i) => requestStockItems.fromJson(i)).toList();
+
+    await insert_stockRequestsProducts(stockRequestsProductsListParsedFromJson);
+
+
+    String query2 = "SELECT * FROM ${DatabaseHelper.stockRequestsProductsTable} WHERE ${DatabaseHelper.packageId} = '${tempSelectedStock['id']}'";
+
+    List<Map> updatedStockItems = await dbHelper.raw_query(query2);
+    print("\n\n updatedItem = $updatedStockItems :::: item to be updated = : $insert_stockRequestsProducts\n\n");
+
+
+
+    tempSelectedStock[DatabaseHelper.status] = 'accepted';
+    Map<String, dynamic> tempStockToUpdate = {};
+
+    tempSelectedStock.forEach((key, value) {
+      tempStockToUpdate['$key'] = value;
+    });
+    tempStockToUpdate['${DatabaseHelper.accepted_at}'] = new DateTime.now().toString();
+    tempStockToUpdate['${DatabaseHelper.total_amount}'] = totalStockRequestAmount;
+    tempStockToUpdate['${DatabaseHelper.total_quantity}'] = totalAcceptedQuantity;
+    tempStockToUpdate['${DatabaseHelper.total_items}'] = tempRequestStockItemsToDisplay.length;
+
+    print("\n\n tempSelectedStock = $tempSelectedStock :::: tempStockToUpdate = $tempStockToUpdate\n\n");
+
+    await dbHelper.update(DatabaseHelper.packageDispatch, tempStockToUpdate, DatabaseHelper.id, tempSelectedStock['id']);
+
+//    await dbHelper.raw_query(query);
+
+    query2 = "SELECT * FROM ${DatabaseHelper.packageDispatch} WHERE ${DatabaseHelper.id} = '${tempSelectedStock['id']}'";
+
+    List<Map> updatedItem = await dbHelper.raw_query(query2);
+    print("\n\n updatedItem = $updatedItem\n\n");
+
+
+    notifyListeners();
+
+  }
+  //Code to updateDatabaseOnAcceptStock in Database Ends
 
 
 
@@ -1102,7 +1243,7 @@ class NewAppStateModel extends Model {
   //Code to calculateCredit in Database Starts
   calculateCredit (String amountPaid) {
     print("\n\nEnter into updateCreditValue :::: selectedCustomer['credit_balance'] = ${selectedCustomer['credit_balance']} :::: amountPaid"
-        " = $amountPaid");
+              " = $amountPaid");
     amountPaidTemp = double.parse(amountPaid);
     creditTemp = double.parse(selectedCustomer['credit_balance']) - double.parse(amountPaid);
     print("\n\n$creditTemp");
@@ -1263,9 +1404,13 @@ class NewAppStateModel extends Model {
     };
 
     final return_id = await dbHelper.insert(DatabaseHelper.customerCreditTable, row);
+    amountPaidTemp = 0.0;
+    payment_method = "";
+    creditTemp = 0.0;
 
-    print("\n\nExiting from updateCustomerDatabase :::: credit table to update = $row\n\n");
+    print("\n\nExiting from updateCustomerDatabase :::: credit table to update = $row :::: selectedCustomer =$selectedCustomer :::: finalAmountPaid = $finalAmountPaid\n\n");
 
+    notifyListeners();
 
   }
   //Code to updateCustomerDatabase in Database Ends
@@ -1400,15 +1545,22 @@ class NewAppStateModel extends Model {
     if (type == "customer_credit_history") {
       String searchingOrderHistory = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.amount FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' AND ${DatabaseHelper.ordersTable}.${DatabaseHelper.payment_method} = 'credit' ORDER BY ${DatabaseHelper.updated_at} DESC";
       retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
-      print("\n\nQuery = $searchingOrderHistory :::: retrievedOrders = $retrievedOrders\n\n");
+      print("\n\n customer_credit_history :::: Query = $searchingOrderHistory :::: retrievedOrders = $retrievedOrders\n\n");
     }
     else if (type == "all_orders_of_customer"){
-      String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice}=${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} = '$id' ORDER BY ${DatabaseHelper.updated_at} DESC";
+      String searchingOrderHistory = "SELECT ${DatabaseHelper.ordersTable}.*, ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.amount} "
+          "FROM ${DatabaseHelper.ordersTable} "
+          "LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice} = "
+          "${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} WHERE ${DatabaseHelper.ordersTable}.${DatabaseHelper.customer_id} "
+          "= '$id' ORDER BY ${DatabaseHelper.updated_at} DESC";
+
       retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
+      print("\n\n all_orders_of_customer :::: Query = $searchingOrderHistory :::: retrievedOrders = $retrievedOrders\n\n");
     }
     else {
       String searchingOrderHistory = "SELECT * FROM ${DatabaseHelper.ordersTable} LEFT JOIN ${DatabaseHelper.customerCreditTable} ON ${DatabaseHelper.ordersTable}.${DatabaseHelper.invoice} = ${DatabaseHelper.customerCreditTable}.${DatabaseHelper.order_id} ORDER BY ${DatabaseHelper.updated_at} DESC";
       retrievedOrders = await dbHelper.raw_query(searchingOrderHistory);
+      print("\n\n all_orders :::: Query = $searchingOrderHistory :::: retrievedOrders = $retrievedOrders\n\n");
     }
 
     retrievedOrders.forEach((item) {
@@ -1568,6 +1720,10 @@ class NewAppStateModel extends Model {
   //Code to selectOrder in Database Starts tempSelectedOrder, tempOrderItemsList, selectedCustomer, tempRefundedOrders, tempRefundedOrderItems
   selectOrder (int id) async {
     tempSelectedOrder = tempOrdersInDatabaseToDisplay.firstWhere((p) => p['id'] == id);
+    listOfListOfRefundedOrderItems = [];
+    tempRefundedOrders = [];
+
+    print("\n\ntempSelectedOrder = $tempSelectedOrder\n");
 
     if (_isNumeric(tempSelectedOrder['customer_id'].toString())) {
       print("\n\ntempSelectedOrder = $tempSelectedOrder\n\n");
@@ -1580,7 +1736,6 @@ class NewAppStateModel extends Model {
     await itemsOfSelectedOrder(tempSelectedOrder['invoice']);
     if (tempSelectedOrder['status'] != 'completed') {
       await refundListSelectedOrder(tempSelectedOrder['invoice']);
-      await refundItemsOfSelectedOrder(tempSelectedOrder['invoice']);
 
     }
 
@@ -1588,45 +1743,35 @@ class NewAppStateModel extends Model {
   }
   //Code to selectOrder in Database Ends
 
-  //Code for getting data of refundListSelectedOrder starts
-  refundListSelectedOrder(String invoice) async {
-    List<Map> refundListFromDb =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.refundTable} WHERE "
-        "${DatabaseHelper.order_id} = '$invoice'"
-    );
 
-
-    refundListFromDb.forEach((item) {
-      Map tempOrder = {};
-      item.forEach((key, value) {
-        tempOrder[key.toString()] = value;
-      });
-      print("\n\ntempOrder = $tempOrder");
-      tempRefundedOrders.add(tempOrder);
-    });
-
-    orderRefundedDetails(tempRefundedOrders);
-    notifyListeners();
-  }
-  //Code for getting data of orderCustomer Ends
 
   //Code for getting data of orderCustomer starts
   orderCustomer(int id) async {
+    print("\n\nEntered into order customer");
     List<Map> customer =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.customerTable} WHERE ${DatabaseHelper.id} = '$id'");
     Map tempCustomer = {};
-    customer[0].forEach((key, value) {
-      tempCustomer[key.toString()] = value;
-    });
-    selectedCustomer = tempCustomer;
+    print("\n\n orderCustomer = $orderCustomer");
+    if(customer.length>0) {
+      customer[0].forEach((key, value) {
+        tempCustomer[key.toString()] = value;
+      });
+      selectedCustomer = tempCustomer;
+    }
+    else{
+      selectedCustomer = {};
+    }
+
     notifyListeners();
   }
   //Code for getting data of orderCustomer Ends
 
   List<Map> readOnlyListOftemsSelectedOrder = [];
   List<Map> get finalReadOnlyListOftemsSelectedOrder => readOnlyListOftemsSelectedOrder;
+
   //Code for getting data of itemsOfSelectedOrder starts
   itemsOfSelectedOrder(String invoice) async {
     readOnlyListOftemsSelectedOrder =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.orderProductsTable} "
-        "WHERE ${DatabaseHelper.order_id} = '$invoice'");
+                                                                    "WHERE ${DatabaseHelper.order_id} = '$invoice'");
     tempOrderItemsList =[];
 
     readOnlyListOftemsSelectedOrder.forEach((item) async {
@@ -1643,32 +1788,79 @@ class NewAppStateModel extends Model {
   }
   //Code for getting data of itemsOfSelectedOrder Ends
 
-  //Code for getting data of refundItemsOfSelectedOrder starts
-  refundItemsOfSelectedOrder(String invoice) async {
-    List<Map> refundItemsFromDb =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.OrderRefundItemsTable} WHERE "
-        "${DatabaseHelper.order_id} = '$invoice'"
-    );
+  //Code for getting data of refundListSelectedOrder starts
+  Future refundListSelectedOrder(String invoice) async {
+    print("\n\nEntered into refundListSelectedOrder\n\n");
+    List<Map> refundListFromDb =  await dbHelper.raw_query("SELECT * FROM ${DatabaseHelper.refundTable} WHERE "
+                                                               "${DatabaseHelper.order_id} = '$invoice'"
+                                                           );
 
-    listOfListOfRefundedOrderItems = [];
-    tempRefundedOrders.forEach((order) {
-      List<Map> ListOfRefundedOrderItems = [];
-      refundItemsFromDb.forEach((item) {
-        Map tempRefundedItem = {};
-        item.forEach((key, value) {
-          tempRefundedItem[key.toString()] = value;
-        });
-        print("\n\ntempOrder = $tempRefundedItem");
-        if (order['id'] == tempRefundedItem['${DatabaseHelper.refund_id}']){
-          ListOfRefundedOrderItems.add(tempRefundedItem);
+    print("\n\n refundListFromDb = $refundListFromDb\n\n");
+
+    String query = "SELECT * FROM ${DatabaseHelper.OrderRefundItemsTable} WHERE "
+        "${DatabaseHelper.order_id} = '$invoice'";
+    List<Map> refundItemsFromDb =  await dbHelper.raw_query(query);
+
+    print("\n\n refundItemsFromDb = $refundItemsFromDb :::: query = $query\n\n");
+
+    refundListFromDb.forEach((item) {
+      Map tempOrder = {};
+      item.forEach((key, value) {
+        tempOrder[key.toString()] = value;
+      });
+      print("\n\ntempRefundedOrder = $tempOrder");
+//      int index = tempRefundedOrders.indexWhere((p) => p['${DatabaseHelper.id}'].toString() == tempOrder['id'].toString());
+      int index= -1;
+      if (index <0 ){
+        tempRefundedOrders.add(tempOrder);
+      }
+
+      List<Map> tempRefundITems = [];
+      refundItemsFromDb.forEach((refundItem) {
+        if (refundItem['${DatabaseHelper.refund_id}'] == item['id']) {
+          Map refundITemMap = {};
+          refundItem.forEach((key, value) {
+            refundITemMap['$key'] = value;
+          });
+
+          int index = tempOrderItemsList.indexWhere((p) => p['${DatabaseHelper.id}'].toString() == refundItem['${DatabaseHelper.orderItems_id}'].toString());
+          refundITemMap['name'] = tempOrderItemsList[index]['name'];
+          refundITemMap['mrp'] = tempOrderItemsList[index]['mrp'];
+          refundITemMap['sp'] = tempOrderItemsList[index]['sp'];
+          refundITemMap['${DatabaseHelper.quantity}'] = refundITemMap['${DatabaseHelper.refund_qty}'];
+
+          print("\n\nrefundITemMap = $refundITemMap\n\n");
+          tempRefundITems.add(refundITemMap);
         }
       });
-      listOfListOfRefundedOrderItems.add(ListOfRefundedOrderItems);
+      listOfListOfRefundedOrderItems.add(tempRefundITems);
+
+
+
     });
 
 
+
+
+
+
+    print("\n\n listOfListOfRefundedOrderItems = $listOfListOfRefundedOrderItems\n\n");
+    print("\n\n listOfListOfRefundedOrderItems length  = ${listOfListOfRefundedOrderItems.length}\n\n");
+
+    print("\n\n tempRefundedOrders = $tempRefundedOrders\n\n");
+    print("\n\n tempRefundedOrders length = ${tempRefundedOrders.length}\n\n");
+    await orderRefundedDetails(tempRefundedOrders);
+
+
+    print("\n\n Exited from refundListSelectedOrder\n\n");
     notifyListeners();
   }
   //Code for getting data of orderCustomer Ends
+
+  clearRefundItemList(){
+    tempOrdersItemsToBeRefunded = [];
+    notifyListeners();
+  }
 
   //Code for getting data of validateRefundQuantity starts
   int validateRefundQuantity(int orderItemId) {
@@ -1683,6 +1875,7 @@ class NewAppStateModel extends Model {
 
     int maxPossibleItems = orderedQuantity - refundedQuantity;
     return maxPossibleItems;
+    notifyListeners();
   }
   //Code for getting data of validateRefundQuantity ends
 
@@ -1702,6 +1895,8 @@ class NewAppStateModel extends Model {
       refundItem = tempOrderItemsList[indexRefundItemToBeUpdated];
 
       refundItem['${DatabaseHelper.refund_qty}'] = refundQuantity;
+      refundItem['${DatabaseHelper.custom_product_id}'] = tempOrderItemsList[indexRefundItemToBeUpdated]['${DatabaseHelper.custom_product_id}'];
+      refundItem['${DatabaseHelper.product_id}'] = tempOrderItemsList[indexRefundItemToBeUpdated]['${DatabaseHelper.product_id}'];
       tempOrdersItemsToBeRefunded.add(refundItem);
     }
     else{
@@ -1715,7 +1910,7 @@ class NewAppStateModel extends Model {
 
     });
     print("\n\n tempOrdersItemsToBeRefunded = $tempOrdersItemsToBeRefunded :::: tempTotalItemsToBeRefunded = $tempTotalItemsToBeRefunded"
-        " :::: tempTotalAmountToBeRefunded = $tempTotalAmountToBeRefunded\n\n");
+              " :::: tempTotalAmountToBeRefunded = $tempTotalAmountToBeRefunded\n\n");
     print("\n\ntempOrderItemsList end = $tempOrderItemsList :::: readOnlyListOftemsSelectedOrder = $readOnlyListOftemsSelectedOrder\n\n");
 
     notifyListeners();
@@ -1732,17 +1927,11 @@ class NewAppStateModel extends Model {
     List paymentMethod = [];
 
     refundedOrders.forEach((item){
-      tempTotalRefundQuantity = tempTotalRefundQuantity + item[DatabaseHelper.total_quantity_refunded];
-      tempRefundTotalAmount = tempRefundTotalAmount + item[DatabaseHelper.total_amount_refunded];
-      tempRefundPaidTotalAmount = tempRefundPaidTotalAmount + item[DatabaseHelper.paid_amount_total];
-      paymentMethod.add(item[DatabaseHelper.payment_method]);
+      tempTotalRefundQuantity = tempTotalRefundQuantity + int.parse(item[DatabaseHelper.total_quantity_refunded].toString());
+      tempRefundTotalAmount = tempRefundTotalAmount + double.parse(item[DatabaseHelper.total_amount_refunded].toString());
     });
 
-    paymentMethod = paymentMethod.toSet().toList();
 
-    paymentMethod.forEach((item){
-      tempRefundedOrderPaymentMethod = tempRefundedOrderPaymentMethod.toString() + " " + tempRefundedOrderPaymentMethod.toString();
-    });
 
     tempAmountCredited = tempRefundTotalAmount - tempRefundPaidTotalAmount;
 
@@ -1750,18 +1939,12 @@ class NewAppStateModel extends Model {
   }
   //Code for getting data of orderRefundDetails Ends
 
-  //Code for getting data of setRefundDetails Starts
-  setRefundDetails (String refundedAmount, String refundedPaymentMode) {
-    tempAmountRefundedToCustomer = double.parse(refundedAmount);
-    tempPaymentModeToCustomer = refundedPaymentMode;
-
-    notifyListeners();
-  }
-  //Code for getting data of setRefundDetails Ends
 
   //Code for getting data of submitRefundDetailsToDb Starts
-  submitRefundDetailsToDb (String refundedPaymentMode) async {
-    selectedCustomer[DatabaseHelper.credit_balance] = ((selectedCustomer.containsKey('id')) ? selectedCustomer[DatabaseHelper.credit_balance] : 0) -
+  submitRefundDetailsToDb (String refundedAmount, String refundedPaymentMode) async {
+    tempAmountRefundedToCustomer = double.parse(refundedAmount);
+    tempPaymentModeToCustomer = refundedPaymentMode;
+    selectedCustomer[DatabaseHelper.credit_balance] = (!selectedCustomer.containsKey('id')) ? 0 : selectedCustomer[DatabaseHelper.credit_balance] -
         tempTotalAmountToBeRefunded + tempAmountRefundedToCustomer;
     selectedCustomer[DatabaseHelper.total_spent] = selectedCustomer[DatabaseHelper.credit_balance] + tempTotalAmountToBeRefunded;
     if (tempSelectedOrder[DatabaseHelper.cart_total] == tempTotalAmountToBeRefunded) {
@@ -1831,21 +2014,26 @@ class NewAppStateModel extends Model {
     //Insert refundOrderItems
     tempOrdersItemsToBeRefunded.forEach((item) async {
 
-      Map<String, dynamic> row = {
-        DatabaseHelper.orderItems_id : item['id'],
-        DatabaseHelper.refund_qty : item['${DatabaseHelper.refund_qty}'],
-        DatabaseHelper.refunded_item_refund_amount : (double.parse(item['sp'].toString())*double.parse(item['${DatabaseHelper.refund_qty}'].toString())).toString(),
-        DatabaseHelper.updated_at : new DateTime.now().toString(),
-        DatabaseHelper.order_id : item[DatabaseHelper.order_id],
-        DatabaseHelper.refund_id : refundreturn_id,
+      if (int.parse(item['${DatabaseHelper.refund_qty}'].toString()) > 0) {
+        Map<String, dynamic> row = {
+          DatabaseHelper.orderItems_id : item['id'],
+          DatabaseHelper.refund_qty : item['${DatabaseHelper.refund_qty}'],
+          DatabaseHelper.refunded_item_refund_amount : (double.parse(item['sp'].toString())*double.parse(item['${DatabaseHelper.refund_qty}'].toString())).toString(),
+          DatabaseHelper.updated_at : new DateTime.now().toString(),
+          DatabaseHelper.order_id : item[DatabaseHelper.order_id],
+          DatabaseHelper.refund_id : refundreturn_id,
 
-      };
+        };
 
 //    List<Map<String, dynamic>> listOfItems = await dbHelper.queryRow(DatabaseHelper.OrderRefundTable, id, DatabaseHelper.id,"=");
-      final return_id = await dbHelper.insert(DatabaseHelper.OrderRefundItemsTable, row);
-      print('${DatabaseHelper.OrderRefundItemsTable} inserted row id: $return_id :::: refundedItem = $row\n\n');
+        final return_id = await dbHelper.insert(DatabaseHelper.OrderRefundItemsTable, row);
+        print('${DatabaseHelper.OrderRefundItemsTable} inserted row id: $return_id :::: refundedItem = $row\n\n');
+      }
+
+
 
     });
+
 
 
     clearAllData();
@@ -1873,7 +2061,6 @@ class NewAppStateModel extends Model {
   }
 // code to clear All Data Ends
 }
-
 
 
 

@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:express_store/model/app_state_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/services.dart';
-//import '../model/app_state_model.dart';
 import '../model/queryForUI.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:express_store/Databases/Database.dart';
 
 
 NewAppStateModel requestStocksModel = new NewAppStateModel();
@@ -23,9 +21,12 @@ class RequestStocks extends StatefulWidget {
 
 class _RequestStocks extends State<RequestStocks> {
 
+
+
   @override
   Widget build(BuildContext context) {
 
+    requestStocksModel.getStockRequestsFromDatabase('delivered');
     return Scaffold(
       body: SafeArea(
 
@@ -169,280 +170,290 @@ class _RequestStocksDescendant extends State<RequestStocksDescendant> {
 
 //class RequestStocksDescendant extends StatelessWidget {
 
-bool barSelection = false;
-bool acceptStocks = false;
-bool acceptRequestTile = false;
-bool requestHistoryTile = false;
-bool requestNewStocks = false;
-bool requestSent = false;
+  bool barSelection = false;
+  bool acceptStocks = false;
+  bool acceptRequestTile = false;
+  bool requestHistoryTile = false;
+  bool requestNewStocks = false;
+  bool requestSent = false;
 
-final List<Map<String, dynamic >> productList = [{
-  'name': 'product_name',
-  'sp': '30',
-  'mrp': '90',
-  'qty': '9',
-  'total' : '810'
-},
-  {
-    'name': 'product_name2',
-    'sp': '90',
+  final List<Map> productList = [{
+    'name': 'product_name',
+    'sp': '30',
     'mrp': '90',
-    'qty': '3',
+    'qty': '9',
     'total' : '810'
-  }
-];
+  },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    }
+  ];
 
-final List<Map<String, dynamic >> productListSentPage = [{
-  'name': 'product_name',
-  'sp': '30',
-  'mrp': '90',
-  'qty': '9',
-  'total' : '810'
-},
-  {
-    'name': 'product_name2',
-    'sp': '90',
+  final List<Map> productListSentPage = [{
+    'name': 'product_name',
+    'sp': '30',
     'mrp': '90',
-    'qty': '3',
+    'qty': '9',
     'total' : '810'
   },
-  {
-    'name': 'product_name2',
-    'sp': '90',
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    },
+  ];
+  final List<Map> productListRequestNewStockPage = [{
+    'name': 'product_name',
+    'sp': '30',
     'mrp': '90',
-    'qty': '3',
+    'qty': '9',
     'total' : '810'
   },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  },
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  }
-];
-final List<Map<String, dynamic >> productListRequestNewStockPage = [{
-  'name': 'product_name',
-  'sp': '30',
-  'mrp': '90',
-  'qty': '9',
-  'total' : '810'
-},
-  {
-    'name': 'product_name2',
-    'sp': '90',
-    'mrp': '90',
-    'qty': '3',
-    'total' : '810'
-  }
-];
+    {
+      'name': 'product_name2',
+      'sp': '90',
+      'mrp': '90',
+      'qty': '3',
+      'total' : '810'
+    }
+  ];
 
-final List<Map<String, dynamic >> acceptRequestList = [
-  {
-    'request_time' : '12:1:2019 12:03',
-    'status' : 'Delivered',
-    'no_of_items' : 3,
-    'total_amount' : 259
-  },
-  {
-    'request_time' : '12:3:2019 02:03',
-    'status' : 'Delivered',
-    'no_of_items' : 30,
-    'total_amount' : 2590
-  },
+  final List<Map> acceptRequestList = [
+    {
+      'request_time' : '12:1:2019 12:03',
+      'status' : 'Delivered',
+      'no_of_items' : 3,
+      'total_amount' : 259
+    },
+    {
+      'request_time' : '12:3:2019 02:03',
+      'status' : 'Delivered',
+      'no_of_items' : 30,
+      'total_amount' : 2590
+    },
 
-];
+  ];
 
-final List<Map<String, dynamic >> requestHistoryList = [
-  {
-    'request_time' : '12:1:2019 12:03',
-    'status' : 'Delivered',
-    'no_of_items' : 3,
-    'total_amount' : 259
-  },
-  {
-    'request_time' : '12:3:2019 02:03',
-    'status' : 'In-Transit',
-    'no_of_items' : 30,
-    'total_amount' : 2590
-  },
+  final List<Map> requestHistoryList = [
+    {
+      'request_time' : '12:1:2019 12:03',
+      'status' : 'Delivered',
+      'no_of_items' : 3,
+      'total_amount' : 259
+    },
+    {
+      'request_time' : '12:3:2019 02:03',
+      'status' : 'In-Transit',
+      'no_of_items' : 30,
+      'total_amount' : 2590
+    },
 
-];
+  ];
 
 
-final formatter = NumberFormat.simpleCurrency(name: 'INR', decimalDigits: 0,);
+  final formatter = NumberFormat.simpleCurrency(name: 'INR', decimalDigits: 0,);
 
 
-List<Container> buildFirstScreenTiles(BuildContext context, List<Map<String, dynamic >> requestList, String type) {
-  return List.generate(productList.length, (index){
-    return Container(
-      child: ListTile(
-        onTap: (){
-          setState(() {
-            if (type == 'accept'){acceptRequestTile = true;}
-            else{requestSent = true;}
+  List<Container> buildFirstScreenTiles(BuildContext context, List<Map> requestList, String type, NewAppStateModel model) {
+    return List.generate(requestList.length, (index){
+      return Container(
+        child: ListTile(
+          onTap: () async {
 
-          });
-        },
-        title: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text('Request Time : ${requestList[index]['request_time']}'),
-                Spacer(),
-                Text('Status : ${requestList[index]['status']}',
-                     style: TextStyle(color: Color(0xff81c784)),
-                     ),
+            setState(() {
+              if (type == 'accept'){acceptRequestTile = true;}
+              else{requestSent = true;}
 
-              ],
-              ),
+              if(requestList[index]['${DatabaseHelper.status}'] == 'accepted') {
+                acceptStocks = true;
+              }
+              else{
+                acceptStocks = false;
+              }
+            });
+            if (acceptRequestTile) {
+              await model.getStockRequestItemsFromDatabase(int.parse(requestList[index]['id'].toString()), 'dispatch', requestList[index]);
+            }
+            else {
+              await model.getStockRequestItemsFromDatabase(int.parse(requestList[index]['id'].toString()), 'request', requestList[index]);
+            }
+          },
+          title: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text('Request Time : ${requestList[index]['${DatabaseHelper.created_at}']}'),
+                    flex: 2,
+                    ),
+                  Spacer(),
+                  Expanded (
+                    child: Text('Status : ${requestList[index]['${DatabaseHelper.status}']}',
+                                  style: TextStyle(color: Color(0xff81c784)),
+                                ),
+                    flex: 2,
+                    ),
 
-            Row(
-              children: <Widget>[
-                Text('${requestList[index]['no_of_items']} items'),
-                Spacer(),
-                Text('Total Amount :'),
-                Text(' ${formatter.format(requestList[index]['total_amount'])}',
-                       style: TextStyle(color: Colors.blueGrey),
-                     )
-              ],
+                ],
+                ),
 
-              ),
-            Divider(color: Colors.black12,thickness: 1,height: 30,),
-          ],
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text('${requestList[index]['${DatabaseHelper.total_items}']} items'),
+                    flex: 2,
+                    ),
+                  Spacer(),
+                  Expanded(
+                    child: Text('Total Amount : ${formatter.format(requestList[index]['${DatabaseHelper.total_amount}'])}'),
+                    flex: 2,
+                    )
+
+                ],
+
+                ),
+              Divider(color: Colors.black12,thickness: 1,height: 30,),
+            ],
+            ),
           ),
-        ),
-      );
-  }).toList();
-}
+        );
+    }).toList();
+  }
 
 
-List<Container> buildRows(BuildContext context, List<Map<String, dynamic >> productList) {
-  return List.generate(productList.length, (index){
-    return Container(
-      child: StockRow(product: productList[index]),
-      );
-  }).toList();
-}
+  List<Container> buildRows(BuildContext context, List<Map> productList) {
+    return List.generate(productList.length, (index){
+      return Container(
+        child: StockRow(product: productList[index]),
+        );
+    }).toList();
+  }
 
-List<Container> buildEditableRows(BuildContext context, List<Map<String, dynamic >> productList) {
-  return List.generate(productList.length, (index){
-    return Container(
-      child: StockRowEditable(product: productList[index]),
-      );
-  }).toList();
-}
+  List<Container> buildEditableRows(BuildContext context, List<Map> productList) {
+    return List.generate(productList.length, (index){
+      return Container(
+        child: StockRowEditable(product: productList[index]),
+        );
+    }).toList();
+  }
 
-List<Container> buildRowsSentPage(BuildContext context, List<Map<String, dynamic >> productList) {
-  return List.generate(productList.length, (index){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: StockRowSentPage(product: productList[index]),
-      );
-  }).toList();
-}
+  List<Container> buildRowsSentPage(BuildContext context, List<Map> productList) {
+    return List.generate(productList.length, (index){
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: StockRowSentPage(product: productList[index]),
+        );
+    }).toList();
+  }
 
-List<Container> buildRowsNewStockPage(BuildContext context, List<Map<String, dynamic >> productList) {
-  return List.generate(productList.length, (index){
-    return Container(
-      child: StockRowNewStockEditable(product: productList[index]),
-      );
-  }).toList();
-}
+  List<Container> buildRowsNewStockPage(BuildContext context, List<Map> productList) {
+    return List.generate(productList.length, (index){
+      return Container(
+        child: StockRowNewStockEditable(product: productList[index]),
+        );
+    }).toList();
+  }
+
+  List<Widget> _createShoppingCartRows(NewAppStateModel model) {
+//    return model.productsInCart.keys
+//        .map(
+//            (id) => NewShoppingCartRow(id: id)
+//            ).toList();
+
+
+    List<NewShoppingCartRow> newCartListtype2 = [];
+    if (model.editableListOfProductsInCart.length > 0) {
+      for (var i = 0; i < model.editableListOfProductsInCart.length; i++) {
+        newCartListtype2.add(NewShoppingCartRow(id: model.editableListOfProductsInCart[i]['id']));
+      }
+    }
+
+
+    //print("Checking what is returned from _createShoppingCartRows : ${newCartListtype2[0].id}");
+    return newCartListtype2;
+
+
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
+
+    Widget shoppingCartRowSection = Container(
+      color: Colors.white,
+      child: ScopedModelDescendant<NewAppStateModel>(
+        builder: (context, child, model) {
+          return Column (
+            children: _createShoppingCartRows(model),
+            );
+        },
+        ),
+      );
+
     return ScopedModelDescendant<NewAppStateModel> (
         builder: (context, child, model) {
 
@@ -455,7 +466,7 @@ List<Container> buildRowsNewStockPage(BuildContext context, List<Map<String, dyn
                   children: <Widget>[
 
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
+                        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
                         child: RaisedButton(
                           color: Color(0xff81c784),
                           child: Text('Request New Stocks'),
@@ -470,30 +481,32 @@ List<Container> buildRowsNewStockPage(BuildContext context, List<Map<String, dyn
                     Divider(color: Colors.black12,thickness: 1,),
                     Row(
                       children: <Widget>[
-                       Expanded(
-                         flex: 1,
-                         child:  RaisedButton(
-                           color: !barSelection?Color(0xff64b5f6):Colors.white70,
-                           child: Text('Accept Request'),
-                           onPressed: (){
-                             setState(() {
-                               barSelection = false;
-                             });
-                           },
-                           ),
-                       ),
+                        Expanded(
+                          flex: 1,
+                          child:  RaisedButton(
+                            color: !barSelection?Color(0xff64b5f6):Colors.white70,
+                            child: Text('Accept Request'),
+                            onPressed: () async {
+                              await model.getStockRequestsFromDatabase('delivered');
+                              setState(() {
+                                barSelection = false;
+                              });
+                            },
+                            ),
+                          ),
                         Expanded(
                           flex: 1,
                           child: RaisedButton(
                             color: barSelection?Color(0xff64b5f6):Colors.white70,
                             child: Text('Request History'),
-                            onPressed: (){
+                            onPressed: () async {
+                              await model.getStockRequestsFromDatabase('all');
                               setState(() {
                                 barSelection = true;
                               });
                             },
                             ),
-                        ),
+                          ),
 
                       ],
                       ),
@@ -501,133 +514,134 @@ List<Container> buildRowsNewStockPage(BuildContext context, List<Map<String, dyn
                     Divider(color: Colors.black12,thickness: 1,),
                     !barSelection?
                     Column(
-                      children:  buildFirstScreenTiles(context, acceptRequestList, 'accept')
+                      children:  buildFirstScreenTiles(context, model.tempRequestStocksToDisplay, 'accept', model)
                       ,
-                    )
+                      )
                         :
                     Column(
-                      children:  buildFirstScreenTiles(context, requestHistoryList, 'history'),
-                    ),
+                      children:  buildFirstScreenTiles(context, model.tempRequestStocksToDisplay, 'history', model),
+                      ),
 
 
                   ],
                   ),
-              ),
+                ),
               acceptRequestTile?
               Align(
                   alignment: Alignment.topCenter,
                   child: Stack(
                     children: <Widget>[
                       Container(
-                        color: Colors.white,
-                        child: Stack(
-                          children: <Widget>[
-                            ListView(
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: IconButton(
-                                        icon: Icon(Icons.arrow_back_ios),
-                                        onPressed: (){
-                                          setState(() {
-                                            acceptRequestTile = false;
-                                          });
-                                        },
-                                        ),
-                                      ),
-
-                                    Expanded(
-                                      flex: 20,
-                                      child: Text('Accept Stocks',
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(fontSize: 20)
-                                                  ),
-                                      ),
-//
-                                  ],
-                                  ),
-
-                                Container(
-                                    height: 40,
-                                    color:
-//          Color(0xffe48181),
-                                    Color(0xff68d8c2),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
-                                      child: Row(
-
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Text(
-                                              'Product',
-//                                          textAlign: TextAlign.center,
-                                              style: TextStyle(fontWeight: FontWeight.w500),
-                                              ),
-                                            flex: 5,
-                                            ),
-                                          Expanded(
-                                            child: Text(
-                                              'Quantity',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(fontWeight: FontWeight.w500),
-                                              ),
-                                            flex: 3,
-                                            ),
-                                          Expanded(
-                                            child: Text(
-                                              'Unit Price',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(fontWeight: FontWeight.w500),
-                                              ),
-                                            flex: 3,
-                                            ),
-
-                                        ],
-                                        ),
-                                      )
-
-                                    ),
-
-                                Column(
-                                    children:
-                                    buildEditableRows(context, productList)
-
-                                    ),
-
-                              ],
-
-                              ),
-                            Align(alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    alignment: Alignment.bottomCenter,
-                                    height: 160,
-                                    color: Colors.white,
-                                    padding: EdgeInsets.all(10),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        Divider(color: Colors.black,thickness: 1,height: 30,),
-                                        Text('Total Amount : ${formatter.format(540)}',
-                                               style: TextStyle(fontSize: 20),
-                                             ),
-                                        RaisedButton(
-                                          color: Color(0xff81c784),
-                                          child: Text('Accept Stocks'),
+                          color: Colors.white,
+                          child: Stack(
+                            children: <Widget>[
+                              ListView(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 1,
+                                        child: IconButton(
+                                          icon: Icon(Icons.arrow_back_ios),
                                           onPressed: (){
                                             setState(() {
-                                              acceptStocks = true;
+                                              acceptRequestTile = false;
                                             });
                                           },
-                                          )
-                                      ],
-                                      ),
+                                          ),
+                                        ),
+
+                                      Expanded(
+                                        flex: 20,
+                                        child: Text('Accept Stocks',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(fontSize: 20)
+                                                    ),
+                                        ),
+//
+                                    ],
                                     ),
-                                  )
-                          ],
-                        )
-                        ),
+
+                                  Container(
+                                      height: 40,
+                                      color:
+//          Color(0xffe48181),
+                                      Color(0xff68d8c2),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Text(
+                                                'Product',
+//                                          textAlign: TextAlign.center,
+                                                style: TextStyle(fontWeight: FontWeight.w500),
+                                                ),
+                                              flex: 5,
+                                              ),
+                                            Expanded(
+                                              child: Text(
+                                                'Quantity',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(fontWeight: FontWeight.w500),
+                                                ),
+                                              flex: 3,
+                                              ),
+                                            Expanded(
+                                              child: Text(
+                                                'Unit Price',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(fontWeight: FontWeight.w500),
+                                                ),
+                                              flex: 3,
+                                              ),
+
+                                          ],
+                                          ),
+                                        )
+
+                                      ),
+
+                                  Column(
+                                      children:
+                                      buildEditableRows(context, model.finalRequestStockItemsToDisplay)
+
+                                      ),
+
+                                ],
+
+                                ),
+                              Align(alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        alignment: Alignment.bottomCenter,
+                                        height: 160,
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(10),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            Divider(color: Colors.black,thickness: 1,height: 30,),
+                                            Text('Total Amount : ${formatter.format(model.finalTotalStockRequestAmount)}',
+                                                   style: TextStyle(fontSize: 20),
+                                                 ),
+                                            RaisedButton(
+                                              color: Color(0xff81c784),
+                                              child: Text('Accept Stocks'),
+                                              onPressed: () async {
+                                                await model.updateDatabaseOnAcceptStock();
+                                                setState(() {
+                                                  acceptStocks = true;
+                                                });
+                                              },
+                                              )
+                                          ],
+                                          ),
+                                        ),
+                                    )
+                            ],
+                            )
+                          ),
 
                       acceptStocks?
                       Align(
@@ -635,125 +649,126 @@ List<Container> buildRowsNewStockPage(BuildContext context, List<Map<String, dyn
                         child: Container(
                           color: Colors.white,
                           child: Container(
-                            child: Stack(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          flex: 1,
-                                          child: IconButton(
-                                            icon: Icon(Icons.arrow_back_ios),
-                                            onPressed: (){
-                                              setState(() {
-                                                acceptStocks = false;
-                                      acceptRequestTile = false;
-                                              });
-                                            },
+                              child: Stack(
+                                children: <Widget>[
+                                  Column(
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: IconButton(
+                                              icon: Icon(Icons.arrow_back_ios),
+                                              onPressed: (){
+                                                setState(() {
+                                                  acceptStocks = false;
+                                                  acceptRequestTile = false;
+                                                });
+                                              },
+                                              ),
                                             ),
-                                          ),
-                                        Expanded(
-                                          flex: 20,
-                                          child: Text('Stocks Accepted',
-                                                        textAlign: TextAlign.center,
-                                                        style: TextStyle(color: Colors.green,
-                                                                             fontWeight: FontWeight.bold,fontSize: 20),
-                                                      ),
-                                          ),
+                                          Expanded(
+                                            flex: 20,
+                                            child: Text('Stocks Accepted',
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(color: Colors.green,
+                                                                               fontWeight: FontWeight.bold,fontSize: 20),
+                                                        ),
+                                            ),
 
-                                      ],
-                                      ),
-                                    Text('Stocks Added to your inventory!',
-                                           textAlign: TextAlign.center,
-                                           style: TextStyle(color: Colors.green,
-                                                                fontSize: 15),
-                                         ),
-                                    Divider(height: 40,color: Colors.white,),
-                                    Container(
-                                        height: 40,
-                                        color:
+                                        ],
+                                        ),
+                                      Text('Stocks Added to your inventory!',
+                                             textAlign: TextAlign.center,
+                                             style: TextStyle(color: Colors.green,
+                                                                  fontSize: 15),
+                                           ),
+                                      Divider(height: 40,color: Colors.white,),
+                                      Container(
+                                          height: 40,
+                                          color:
 //          Color(0xffe48181),
-                                        Color(0xff68d8c2),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10),
-                                          child: Row(
+                                          Color(0xff68d8c2),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 10),
+                                            child: Row(
 
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: Text(
-                                                  'Product',
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Text(
+                                                    'Product',
 //                                          textAlign: TextAlign.center,
-                                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                                    ),
+                                                  flex: 5,
                                                   ),
-                                                flex: 5,
-                                                ),
-                                              Expanded(
-                                                child: Text(
-                                                  'Quantity',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                                Expanded(
+                                                  child: Text(
+                                                    'Quantity',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                                    ),
+                                                  flex: 3,
                                                   ),
-                                                flex: 3,
-                                                ),
-                                              Expanded(
-                                                child: Text(
-                                                  'Unit Price',
-                                                  textAlign: TextAlign.end,
-                                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                                Expanded(
+                                                  child: Text(
+                                                    'Unit Price',
+                                                    textAlign: TextAlign.end,
+                                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                                    ),
+                                                  flex: 3,
                                                   ),
-                                                flex: 3,
-                                                ),
 
-                                            ],
-                                            ),
-                                          )
+                                              ],
+                                              ),
+                                            )
 
-                                        ),
+                                          ),
 
 
-                                    Column(
-                                        children:
-                                        buildRows(context, productList)
+                                      Column(
+                                          children:
+                                          buildRows(context, model.tempRequestStockItemsToDisplay)
 
-                                        ),
+                                          ),
 
 
-                                  ],
-                                  ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-                                    height: 180,
-                                    color: Colors.white,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Divider(color: Colors.green,thickness: 2,),
-                                        Row(
+                                    ],
+                                    ),
+                                  Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                                        height: 180,
+                                        color: Colors.white,
+                                        child: Column(
                                           mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            Text("Total : ${formatter.format(45747)}",textAlign: TextAlign.end,
-                                                 style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold,
-                                                                  color: Colors.green),
+                                            Divider(color: Colors.green,thickness: 2,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: <Widget>[
+                                                Text("Total : ${formatter.format(double.parse('${model.finalSelectedStock
+                                                ['${DatabaseHelper.total_amount}']}'))}",textAlign: TextAlign.end,
+                                                       style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold,
+                                                                            color: Colors.green),
+                                                     ),
+                                              ],
+                                              ),
+                                            Text("Order Time : ${model.finalSelectedStock['${DatabaseHelper.created_at}']}",
+                                                   style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),
+                                                 ),
+                                            Text("Accepted Time : ${model.finalSelectedStock['${DatabaseHelper.accepted_at}']}",
+                                                   style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
                                                  ),
                                           ],
-                                        ),
-                                        Text("Order Time : 12:4:2018 4:00 pm",
-                                                 style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,),
-                                             ),
-                                        Text("Accepted Time : 12:4:2018 4:00 pm",
-                                               style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                                             ),
-                                      ],
-                                      ),
-                                  )
+                                          ),
+                                        )
+                                      )
+                                ],
                                 )
-                              ],
-                            )
-                            ),
+                              ),
 
                           ),
                         )
@@ -767,140 +782,143 @@ List<Container> buildRowsNewStockPage(BuildContext context, List<Map<String, dyn
 
               requestNewStocks?
               Container(
-                color:Colors.white,
-                child: Stack(children: <Widget>[
-                  ListView(
-                    children: <Widget>[
-                      QuickLinks(),
-                      Container(
-                          height: 40,
-                          color:
+                  color:Colors.white,
+                  child: Stack(children: <Widget>[
+                    ListView(
+                      children: <Widget>[
+                        QuickLinks(),
+                        Container(
+                            height: 40,
+                            color:
 //          Color(0xffe48181),
-                          Color(0xff68d8c2),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    'Product',
-                                    style: TextStyle(fontWeight: FontWeight.w500),
+                            Color(0xff68d8c2),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      'Product',
+                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                      ),
+                                    flex: 6,
                                     ),
-                                  flex: 6,
-                                  ),
-                                Expanded(
-                                  child: Text(
-                                    'QTY',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  Expanded(
+                                    child: Text(
+                                      'QTY',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                      ),
+                                    flex: 3,
                                     ),
-                                  flex: 3,
-                                  ),
 
-                              ],
-                              ),
-                            )
+                                ],
+                                ),
+                              )
 
-                          ),
-                      Container(
-                        child: Column(
-                            children:  buildRowsNewStockPage(context, productListRequestNewStockPage)
                             ),
+                        Container(
+                          child: shoppingCartRowSection
+                          ),
+                      ],
+                      ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 70, vertical: 40),
+                        child:  RaisedButton(
+                          color: Colors.greenAccent,
+                          child: Text('Request Stocks'),
+                          onPressed: (){
+                            setState(() {
+                              requestSent = true;
+                            });
+                          },
+                          ),
                         ),
-                    ],
-                    ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 70, vertical: 40),
-                      child:  RaisedButton(
-                        color: Colors.greenAccent,
-                        child: Text('Request Stocks'),
-                        onPressed: (){
-                          setState(() {
-                            requestSent = true;
-                          });
-                        },
-                        ),
-                    ),
+                      )
+                  ])
                   )
-                ])
-                )
                   :
               new Container(),
               requestSent?
               Container(
-                color: Colors.white,
-                child: Stack(
-                  children: <Widget>[
-                    ListView(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                icon: Icon(Icons.arrow_back),
-                                onPressed: (){
-                                  setState(() {
-                                    requestSent = false;
-                                    requestNewStocks = false;
-                                  });
-                                },
+                  color: Colors.white,
+                  child: Stack(
+                    children: <Widget>[
+                      ListView(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: IconButton(
+                                  icon: Icon(Icons.arrow_back),
+                                  onPressed: (){
+                                    model.getStockRequestsFromDatabase('delivered');
+                                    setState(() {
+                                      barSelection = false;
+                                      requestSent = false;
+                                      requestNewStocks = false;
+                                    });
+                                  },
+                                  ),
+
                                 ),
+                              Expanded(
+                                flex: 20,
+                                child: Text('Request Stocks',textAlign: TextAlign.center,
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                ),
+                            ],
+                            ),
+                          Divider(color: Colors.black,),
+                          Container(
+                            height: 20,
+                            ),
+                          Text('Request ${model.tempSelectedStock['${DatabaseHelper.status}']}',
+                                 textAlign: TextAlign.center,
+                                 style: TextStyle(color: Colors.green,fontSize: 17, fontWeight: FontWeight.bold),
+                               ),
+                          Container(
+                            height: 20,
+                            ),
+                          Text('${model.tempSelectedStock['${DatabaseHelper.status}']} at ${model.tempSelectedStock['${DatabaseHelper.updated_at}']}',
+                                 textAlign: TextAlign.center,
+                                 style: TextStyle(fontSize: 16),
+                               ),
+                          Container(
+                            height: 30,
+                            ),
+                          Column(
+                            children: buildRowsSentPage(context, model.tempRequestStockItemsToDisplay),
+                            ),
 
-                              ),
-                            Expanded(
-                              flex: 20,
-                              child: Text('Request Stocks',textAlign: TextAlign.center,
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                              ),
-                          ],
-                          ),
-                        Divider(color: Colors.black,),
-                        Container(
-                          height: 20,
-                          ),
-                        Text('Request Sent',
-                               textAlign: TextAlign.center,
-                               style: TextStyle(color: Colors.green,fontSize: 17, fontWeight: FontWeight.bold),
-                             ),
-                        Container(
-                          height: 20,
-                          ),
-                        Text('11:1:2019 7:00 pm',
-                               textAlign: TextAlign.center,
-                               style: TextStyle(fontSize: 16),
-                             ),
-                        Container(
-                          height: 30,
-                          ),
-                        Column(
-                          children: buildRowsSentPage(context, productListSentPage),
-                          ),
-
-                      ],
-                      ),
-                    Align(alignment: Alignment.bottomCenter,
-                          child: Container(
-                            padding: EdgeInsets.all(40),
-                            child: RaisedButton(
-                              child: Text('Cancel Request'),
-                              color: Color(0xffe48181),
-                              onPressed: (){
-                                setState(() {
-                                  requestSent = false;
-                                  requestNewStocks = false;
-                                });
-                              },
-                              ),
-                          )
+                        ],
+                        ),
+                      Align(alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  padding: EdgeInsets.all(40),
+                                  child: (model.tempSelectedStock['${DatabaseHelper.status}'].toString() != 'canceled') ?
+                                  RaisedButton(
+                                    child: Text('Cancel Request'),
+                                    color: Color(0xffe48181),
+                                    onPressed: () async {
+                                      await model.cancelStockRequest(model.finalSelectedStock['id']);
+                                      setState(() {
+                                        requestSent = false;
+                                        requestNewStocks = false;
+                                      });
+                                    },
+                                    ) :
+                                  Text(""),
+                                  )
                             )
-                  ],
-                )
-                )
+                    ],
+                    )
+                  )
                   :
               model.currentDisplayCustomProductPage
                   ?
@@ -916,7 +934,7 @@ List<Container> buildRowsNewStockPage(BuildContext context, List<Map<String, dyn
             ],
             );
         }
-    );
+        );
 
 
 
@@ -937,7 +955,7 @@ class Item {
 List<Item> generateItems(int numberOfItems) {
   return List.generate(numberOfItems, (int index) {
     return Item(
-);
+    );
   });
 }
 List<Item> _data = generateItems(1);
@@ -1081,14 +1099,193 @@ child:Column(
         }).toList(),
         );
     }
-  return ScopedModelDescendant<NewAppStateModel>(
-      builder: (context, child, model)
-      {
-        return Container(
-          child: _buildPanel(model),
-        );
+    return ScopedModelDescendant<NewAppStateModel>(
+        builder: (context, child, model)
+        {
+          return Container(
+            child: _buildPanel(model),
+            );
 
-      });
+        });
+  }
+}
+
+
+final Map productDummy = {"id": 1, "name": "custom dal"};
+
+class NewShoppingCartRow extends StatefulWidget {
+  NewShoppingCartRow({@required this.id}
+      );
+  final String id;
+  @override
+  _NewShoppingCartRow createState() => _NewShoppingCartRow();
+}
+
+class _NewShoppingCartRow extends State<NewShoppingCartRow> {
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    final formatter = NumberFormat.simpleCurrency(name: 'INR',decimalDigits: 2,);
+    final localTheme = Theme.of(context);
+
+
+    return ScopedModelDescendant<NewAppStateModel> (
+        builder: (context, child, model) {
+
+          final Map product =  model.getProductById(widget.id);
+          final int quantity =  (model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'].runtimeType.toString() == 'String') ?
+          double.parse(model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'].toString())
+              :
+          model.editableListOfProductsInCart[model.editableListOfProductsInCart.indexWhere((p) => p['id'] == widget.id)]['quantity'];
+
+          TextEditingController quantityController = TextEditingController(text: '${quantity.toString()}');
+          final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
+         bool hasQuantityOnChangeAnalysisDone = false;
+
+
+          return Container(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10, left: 10, right:10),
+                  child: Row(
+                    children: <Widget>[
+                      Text(product['name'].toString(),),
+                      Spacer(),
+                      InkWell(
+                        child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.clear,
+                              size: 13.0,
+                              ),
+                            height: 25,width:40),
+
+
+                        onTap: () async {
+                          await model.removeEditableItemFromCart(product,  'remove_row');
+                        },
+                        ),
+
+
+                    ],
+                    ),
+                  ),
+                Row(
+                  key: ValueKey(product['id'].toString()),
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+
+
+                    const SizedBox(width: 30.0),
+                    Expanded(
+                      child: Container(
+
+                      ),
+                      flex: 2,
+                      ),
+
+                    Expanded(
+                      child: Center(
+                        child: Container(
+                          width: 60.0,
+
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: TextFormField(
+                                  textAlign: TextAlign.center,
+                                  autofocus: false,
+                                  controller: quantityController,
+                                  inputFormatters: [_amountValidator],
+                                  keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true,
+                                    signed: false,
+                                    ),
+                                  onChanged: (text){print("\n\n Entered into on change Quantity\n\n");
+                                  if (!hasQuantityOnChangeAnalysisDone) {
+                                    hasQuantityOnChangeAnalysisDone = true;
+
+                                    Future.delayed(const Duration(milliseconds: 45), () async{
+                                      //Future.delayed(const Duration(milliseconds: 70), (){
+
+                                      print("\n\n flagToCheckBarcodeState after 1 ms = ${model.flagToCheckBarcodeState}\n\n");
+//                              print("\n\n oldSpValue = ${oldSpValue}\n\n");
+                                      if (model.flagToCheckBarcodeState) {
+                                        quantityController.text = product['quantity'].toString();
+                                        print("\n\n quantityController inside if = ${quantityController.hashCode} :::: quantityController = ${quantityController.value}");
+                                        print("\n\n\nChecking product in widget = $product\n\n\n");
+                                      }
+                                      else {
+                                        print("\n\n mrpController inside else = ${quantityController.hashCode} :::: mrpController = ${quantityController.value}");
+                                        print("\n\n\nChecking product in widget = $product\n\n\n");
+                                      }
+//                              print("\n\n spController = ${spController.value}\n\n");
+                                      hasQuantityOnChangeAnalysisDone = false;
+                                    });
+                                  }
+
+                                  },
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: '${product['quantity'].toString()}'
+                                      ),
+                                  ),
+                                ),
+                              Container(
+                                height: 48.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            width: 0.5,
+                                            ),
+                                          ),
+                                        ),
+                                      child: InkWell(
+                                        child: Icon(
+                                          Icons.arrow_drop_up,
+                                          size: 22.0,
+                                          ),
+                                        onTap: () async {
+                                          await model.addEditableProductToCart(product);
+                                        },
+                                        ),
+                                      ),
+                                    InkWell(
+                                      child: Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 22.0,
+                                        ),
+                                      onTap: () async {
+                                        await model.removeEditableItemFromCart(product, "reduce_quantity");
+                                      },
+                                      ),
+                                  ],
+                                  ),
+                                ),
+                            ],
+                            ),
+                          ),
+                        ),
+                      flex: 4,
+                      ),
+
+                  ],
+                  ),
+                Divider(color: Color(0xff429585),thickness: 1,height: 4,)
+
+              ],
+              ),
+            );
+        });
   }
 }
 
@@ -1911,8 +2108,8 @@ class ProductCard extends StatelessWidget {
           onTap: () {
             final discount = (model.Discount == null) ? 0.0 : model.Discount;
 //          addProductToCart(model, product);
-//            model.addEditableProductToCart(product);
-//            model.calculateCartTotalValue(discount.toString());
+            model.addEditableProductToCart(product);
+            model.calculateCartTotalValue(discount.toString());
 
 
             Fluttertoast.showToast(
@@ -2018,7 +2215,7 @@ class CategoryCard extends StatelessWidget {
 
 class StockRow extends StatelessWidget {
   StockRow({@required this.product});
-  final Map<String, dynamic > product;
+  final Map product;
 
 
   @override
@@ -2042,17 +2239,18 @@ class StockRow extends StatelessWidget {
 
                     children: [
                       Expanded(
-                        child: Text(product['name']),
+                        child: Text(((product['storeProductName'].toString() == 'null') ?
+                        product['customProductName'].toString(): product['storeProductName'].toString())),
                         flex: 6,
                         ),
 
                       Expanded(
                         flex: 3,
-                        child: Text(product['qty'],
+                        child: Text(product['${DatabaseHelper.accepted_qty}'].toString(),
                                       textAlign: TextAlign.center,),
                         ),
                       Expanded(
-                        child: new Text(formatter.format(int.parse(product['sp'])),
+                        child: new Text(formatter.format(double.parse(product['${DatabaseHelper.product_price}'].toString())),
                                           textAlign: TextAlign.end,
                                         ),
                         flex: 3,
@@ -2064,21 +2262,23 @@ class StockRow extends StatelessWidget {
                   ),
                 Divider(color: Color(0xff81c784), thickness: 1,)
               ],
-            ),
-          );
+              ),
+            );
         });
   }
 }
 
+
+
 class StockRowEditable extends StatelessWidget {
   StockRowEditable({@required this.product});
-  final Map<String, dynamic > product;
-  @override
+  final Map product;
 
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<NewAppStateModel> (
         builder: (context, child, model) {
+          TextEditingController quantityController = TextEditingController(text: '${int.parse(product['${DatabaseHelper.accepted_qty}'].toString())}');
           return Container(
             padding: EdgeInsets.all(10),
             child: Column(
@@ -2090,7 +2290,8 @@ class StockRowEditable extends StatelessWidget {
                   children: [
 
                     Expanded(
-                      child: Text(product['name']),
+                      child: Text((product['storeProductName'].toString() == 'null') ?
+                                  product['customProductName'].toString(): product['storeProductName'].toString()),
                       flex: 6,
                       ),
 
@@ -2109,15 +2310,15 @@ class StockRowEditable extends StatelessWidget {
 //                                  focusNode: quantityFocusNode,
 autofocus: false,
 //                                          initialValue: quantity.toString(),
-//                                  controller: quantityController,
+                                  controller: quantityController,
                                   keyboardType: TextInputType.number,
 
-                                  onChanged: (text){
-
+                                  onChanged: (text) async {
+                                    await model.acceptStockQuantitySetter(product['id'], int.parse(quantityController.text));
                                   },
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: '${product['qty'].toString()}'
+                                      hintText: '${product['${DatabaseHelper.delivered_qty}'].toString()}'
                                       ),
 ),
                                 ),
@@ -2140,8 +2341,8 @@ autofocus: false,
                                           Icons.arrow_drop_up,
                                           size: 22.0,
                                           ),
-                                        onTap: () {
-
+                                        onTap: () async {
+                                          await model.acceptStockQuantitySetter(product['id'], int.parse(quantityController.text) + 1);
                                         },
                                         ),
                                       ),
@@ -2150,9 +2351,10 @@ autofocus: false,
                                         Icons.arrow_drop_down,
                                         size: 22.0,
                                         ),
-                                      onTap: () {
-
+                                      onTap: () async {
+                                        await model.acceptStockQuantitySetter(product['id'], int.parse(quantityController.text) - 1);
                                       },
+
                                       ),
                                   ],
                                   ),
@@ -2164,8 +2366,8 @@ autofocus: false,
                       flex: 4,
                       ),
                     Expanded(
-                      child: new Text('${formatter.format(int.parse(product['sp']))}',
-                                      textAlign: TextAlign.end,
+                      child: new Text('${formatter.format(double.parse(product['${DatabaseHelper.product_price}'].toString()))}',
+                                        textAlign: TextAlign.end,
                                       ),
                       flex: 3,
                       ),
@@ -2185,122 +2387,122 @@ autofocus: false,
 
 class StockRowNewStockEditable extends StatelessWidget {
   StockRowNewStockEditable({@required this.product});
-  final Map<String, dynamic > product;
+  final Map product;
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<NewAppStateModel> (
-      builder: (context, child, model) {
-        return Container(
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: Column(
-                  children: [
+        builder: (context, child, model) {
+          return Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Column(
+                    children: [
 
-                    Row(
+                      Row(
 
-                      key: ValueKey(product['id'].toString()),
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                        key: ValueKey(product['id'].toString()),
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
 
 
 
-                        Expanded(
-                          child: Text(product['name']),
-                          flex: 6,
-                          ),
+                          Expanded(
+                            child: Text(product['name']),
+                            flex: 6,
+                            ),
 
-                        Expanded(
-                          child: Center(
-                            child: Container(
-                              width: 60.0,
+                          Expanded(
+                            child: Center(
+                              child: Container(
+                                width: 60.0,
 
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 1,
-                                    child: TextFormField(
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 1,
+                                      child: TextFormField(
 
 
 //                                  focusNode: quantityFocusNode,
 autofocus: false,
 //                                          initialValue: quantity.toString(),
 //                                  controller: quantityController,
-                                      keyboardType: TextInputType.number,
+                                        keyboardType: TextInputType.number,
 
-                                      onChanged: (text){
+                                        onChanged: (text){
 
-                                      },
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '${product['qty'].toString()}'
-                                          ),
+                                        },
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: '${product['qty'].toString()}'
+                                            ),
 ),
-                                    ),
-                                  Container(
-                                    height: 48.0,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                width: 0.5,
+                                      ),
+                                    Container(
+                                      height: 48.0,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  width: 0.5,
+                                                  ),
                                                 ),
                                               ),
+                                            child: InkWell(
+                                              child: Icon(
+                                                Icons.arrow_drop_up,
+                                                size: 22.0,
+                                                ),
+                                              onTap: () {
+
+                                              },
+                                              ),
                                             ),
-                                          child: InkWell(
+                                          InkWell(
                                             child: Icon(
-                                              Icons.arrow_drop_up,
+                                              Icons.arrow_drop_down,
                                               size: 22.0,
                                               ),
                                             onTap: () {
 
                                             },
                                             ),
-                                          ),
-                                        InkWell(
-                                          child: Icon(
-                                            Icons.arrow_drop_down,
-                                            size: 22.0,
-                                            ),
-                                          onTap: () {
-
-                                          },
-                                          ),
-                                      ],
+                                        ],
+                                        ),
                                       ),
-                                    ),
-                                ],
+                                  ],
+                                  ),
                                 ),
                               ),
+                            flex: 4,
                             ),
-                          flex: 4,
-                          ),
 
-                      ],
-                      ),
+                        ],
+                        ),
 
 
-                  ],
+                    ],
+                    ),
                   ),
-                ),
-              Divider(color: Color(0xff429585),thickness: 1,height: 1,)
-            ],
-          ),
+                Divider(color: Color(0xff429585),thickness: 1,height: 1,)
+              ],
+              ),
+            );
+        }
         );
-      }
-      );
   }
 }
 
 
 class StockRowSentPage extends StatelessWidget {
   StockRowSentPage({@required this.product});
-  final Map<String, dynamic > product;
+  final Map product;
 
 
   @override
@@ -2320,13 +2522,15 @@ class StockRowSentPage extends StatelessWidget {
 
                   children: [
                     Expanded(
-                      child: Text(product['name']),
+                      child: Text((product['storeProductName'].toString() == 'null') ?
+                                  product['customProductName'] : product['storeProductName']),
                       flex: 9,
                       ),
 
                     Expanded(
                       flex: 3,
-                      child: Text(product['qty'],textAlign: TextAlign.end,),
+                      child: Text(product['delivered_qty'].toString(),
+                                    textAlign: TextAlign.end,),
                       ),
 
                   ],

@@ -41,7 +41,7 @@ dependencies:
   wifi: ^0.1.5
   datetime_picker_formfield: ^0.4.3
   flutter_datetime_picker: 1.2.5
-
+  get_it: ^1.0.3
 
 dev_dependencies:
   flutter_test:

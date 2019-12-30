@@ -9,6 +9,7 @@ import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home.dart';
 import 'dart:ui' as ui;
+import 'service_locator.dart';
 
 
 
@@ -51,6 +52,7 @@ void main() async {
 
 
 
+  setupLocator();
 
   runApp(
       ExpressStoreApp(

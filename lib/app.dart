@@ -1,3 +1,4 @@
+import 'package:express_store/AppScreens/customer_plus_order.dart';
 import 'package:flutter/material.dart';
 import 'testBarcodeScanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -89,6 +90,7 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       title: 'ExpStore',
 //      navigatorKey: navigatorKey,
       initialRoute: '/login',
@@ -97,10 +99,13 @@ class _ExpressStoreAppState extends State<ExpressStoreApp>
         '/login': (context) => LoginPage(),
         '/': (context) => HomePage(),
         '/cart': (context) => new Container(),
-        '/customers' : (context) => new Customer(),
+        '/customers' : (context) => new CustomerPlusOrder(page:'Customers'),
+        '/customers/screen2' : (context) => new CustomerScreen2(),
+//        '/customers/screen3' : (context) => new CustomerScreen3(),
 //        '/addCustomer': (context) => AddCustomer(),
-        '/orders' : (context) => new OrderName(),
+        '/orders' : (context) => new CustomerPlusOrder(page:'Orders'),
         '/requestStocks' : (context) => RequestStocks(),
+        '/addCustomItem' : (context) => CustomItem(),
 
       },
 
