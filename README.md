@@ -57,7 +57,7 @@ The [app.dart](lib/app.dart) contains :
       - [Credit Mode](lib/AppScreens/carts/credit_payment_modes.dart)
         ```
         - contains Amount Paid by the customer, the rest if any is added to the his credits
-        - this mode is selectable only when a customer is chosen for the cart
+        - this mode is selectable only when any customer is chosen for the cart
         - also contains PRINT Action Button
         ```
       - [Other Modes](lib/AppScreens/carts/other_payment_modes.dart) 
