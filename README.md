@@ -3,7 +3,7 @@ This Project is a Flutter Application of MPos System for **Express Stores**
 ## The project contains the following :
 ### UI Sections : 
 - Home 
-###### Associated Files : [lib/AppScreens/carts/*](lib/AppScreens/carts/) ,  [home.dart](lib/home.dart)
+###### Associated Files : [carts/*](lib/) ,  [home.dart](lib/home.dart)
 - Request Stocks
 ###### Associated Files : lib/AppScreens/request_stocks/*
 - Customers
