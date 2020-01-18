@@ -34,7 +34,7 @@ The [app.dart](lib/app.dart) contains :
 
 ### UI Sections : 
 - Home 
-  ###### Associated Files : [lib/AppScreens/carts/](lib/AppScreens/carts/) **and** [home.dart](lib/home.dart)
+  ###### Associated Files : [lib/AppScreens/carts/*](lib/AppScreens/carts/) **and** [home.dart](lib/home.dart)
   The Home Section is divided into 4 sections : 
   - [Tabs](lib/home.dart)
   
@@ -58,30 +58,77 @@ The [app.dart](lib/app.dart) contains :
         ```
         - contains Amount Paid by the customer, the rest if any is added to the his credits
         - this mode is selectable only when any customer is chosen for the cart
-        - also contains PRINT Action Button
+        - PRINT Action Button
         ```
       - [Other Modes](lib/AppScreens/carts/other_payment_modes.dart) 
         ```
         - PAYTM, BHIMUPI, CASH, DEBIT/CREDIT CARD, OTHER 
-        - also contains PRINT Action Button
+        - PRINT Action Button
         ```
       
 - Request Stocks
-  ###### Associated Files : [lib/AppScreens/request_stocks/](lib/AppScreens/request_stocks/)
+  ###### Associated Files : [lib/AppScreens/request_stocks/*](lib/AppScreens/request_stocks/)
   Consists of 4 sections : 
   - The Main Screen 1
   - Request New Stocks Screen => Request Sent Screen
   - Accept Stocks Screen => Accepted Stocks Screen
   - Request History
+  ```
+               ------> Request New Stocks Screen-------> Request Sent Screen
+                                                       
+  Main Screen  ----------------------------------------> Request Sent Screen
+
+               --------> Accept Stocks Screen ---------> Accepted Stocks Screen
+  ```
 - Customers
-  ###### Associated Files : [lib/AppScreens/customers/](lib/AppScreens/customers/)
+  ###### Associated Files : [lib/AppScreens/customers/*](lib/AppScreens/customers/)
   Consists of 3 Screens : 
-  - 
+  - [Screen 1](lib/AppScreens/customers/customers_screen1.dart)
+  
+    contains 
+    - list of customers displayed under 2 Tabs - customers and customers on credit
+    - search field 
+  - [Screen 2](lib/AppScreens/customers/customers_screen2.dart)
+  
+    contains 
+    - Selected Customer's details and his/her orders displayed under 2 Tabs - Order History and Credit History
+  - [Screen 3](lib/AppScreens/customers/customers_screen3.dart)
+  
+    contains
+    - Selected Customer's details and Pay
+    - 
 - Orders
-  ###### Associated Files : [lib/AppScreens/orders/](lib/AppScreens/orders/)
-- Sales Report
-  ###### Associated Files : [lib/AppScreens/sales_report/](lib/AppScreens/sales_report/)
-- Login/Logout
+  ###### Associated Files : [lib/AppScreens/orders/*](lib/AppScreens/orders/)
+  Consists of 3 Screens : 
+   - [Screen 1](lib/AppScreens/customers/orders_screen1.dart)
+  
+     contains 
+    - list of orders with filters - credit, date, payment mode, status
+    - search field 
+  - [Screen 2](lib/AppScreens/customers/orders_screen2.dart)
+  
+    contains 
+    - Selected Orders's details with Refund action navigating the user to go the Order Screen 3
+  - [Screen 3](lib/AppScreens/customers/orders_screen3.dart)
+  
+    contains
+    - Editable Rows to enter quantity to return
+    - Payment modes selection for refund
+    - TextField to enter Amount Paid on refund
+  ###### Associated Files : [lib/AppScreens/sales_report/*](lib/AppScreens/sales_report/)
+  Consists of [Single Screen](lib/AppScreens/sales_report/) with a pop up Stack to set date and time filters
+- Login
   ###### Associated Files : [lib/loginES.dart](lib/loginES.dart)
+  Consists of :
+  - Logo
+  - TextFields to enter mobile number and associated password
+  - LOGIN Action Button
+- Drawer
+  ###### Associated Files : [lib/AppScreens/drawer_express_store.dart](lib/AppScreens/drawer_express_store.dart)
+  Consists of :
+  - Logo
+  - Store Details
+  - Sections Button to navigate to all sections
+  - Logout
 ### Backend Functionalities : 
 
