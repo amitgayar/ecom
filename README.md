@@ -34,7 +34,7 @@ The [app.dart](lib/app.dart) contains :
 
 ### UI Sections : 
 - Home 
-  ###### Associated Files : [lib/AppScreens/carts/](lib/AppScreens/carts/) ,  [home.dart](lib/home.dart)
+  ###### Associated Files : [lib/AppScreens/carts/](lib/AppScreens/carts/) **and** [home.dart](lib/home.dart)
   The Home Section is divided into 4 sections : 
   - [Tabs](lib/home.dart)
   
@@ -68,8 +68,15 @@ The [app.dart](lib/app.dart) contains :
       
 - Request Stocks
   ###### Associated Files : [lib/AppScreens/request_stocks/](lib/AppScreens/request_stocks/)
+  Consists of 4 sections : 
+  - The Main Screen 1
+  - Request New Stocks Screen => Request Sent Screen
+  - Accept Stocks Screen => Accepted Stocks Screen
+  - Request History
 - Customers
   ###### Associated Files : [lib/AppScreens/customers/](lib/AppScreens/customers/)
+  Consists of 3 Screens : 
+  - 
 - Orders
   ###### Associated Files : [lib/AppScreens/orders/](lib/AppScreens/orders/)
 - Sales Report
