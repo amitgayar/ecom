@@ -1,6 +1,8 @@
 This Project is a Flutter Application of MPos System for **Express Stores**
 
 ## The project contains the following :
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Famitgayar%2Fecom.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Famitgayar%2Fecom?ref=badge_shield)
+
 
 ### main.dart
 The [main.dart](lib/main.dart) runs the app while - 
@@ -132,3 +134,7 @@ The [app.dart](lib/app.dart) contains :
   - Logout
 ### Backend Functionalities : 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Famitgayar%2Fecom.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Famitgayar%2Fecom?ref=badge_large)
